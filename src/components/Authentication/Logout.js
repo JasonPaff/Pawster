@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import * as actionCreators from '../store/action_creators/actionCreators'
+import * as actionCreators from '../../store/action_creators/actionCreators'
 
 function Logout(props) {
 

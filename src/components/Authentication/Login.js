@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import handleLoginUser from '../../services/authentication/login'
+import HandleLoginUser from '../../services/authentication/login'
 
 function Login() {
 
@@ -26,8 +26,8 @@ function Login() {
                 <h1>Login</h1>
                 <input type="text" placeholder="Username" name="username" onChange={handleTextChange}/>
                 <input type="password" placeholder="Password" name="password" onChange={handleTextChange}/>
-                <button onClick={handleLoginUser(user)}>Login</button>
-                <button className="guestBtn" onClick={handleLoginUser(user)}>Guest Login</button>
+                <button onClick={HandleLoginUser(user)}>Login</button>
+                <button className="guestBtn" onClick={HandleLoginUser(user)}>Guest Login</button>
             </div>
         </div>
 
