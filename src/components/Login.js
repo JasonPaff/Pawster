@@ -61,7 +61,6 @@ function Login(props) {
                 <button className="guestBtn" onClick={handleLoginUser}>Guest Login</button>
             </div>
         </div>
-
     )
 }
 
