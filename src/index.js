@@ -27,7 +27,6 @@ const store = createStore(rootReducer, composeEnhancers(
 const token = localStorage.getItem('jsonwebtoken')
 store.dispatch({type: 'LOGIN', payload: token})
 
-
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
