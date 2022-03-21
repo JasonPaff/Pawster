@@ -1,5 +1,6 @@
 ﻿const {createModule, gql} = require('graphql-modules');
 const {User} = require('../../mongodb/models');
+const {hashPassword} = require("../../utils/password_utils");
 
 module.exports.userModule = createModule({
     id: 'user_module',
@@ -7,14 +8,13 @@ module.exports.userModule = createModule({
     typeDefs: [
         gql`
             type Query {
-                getUserById(id: ID!) : User!
-                getUserByEmail(email: String!): User!
+                getUser(email: String!): UserResponse
             }
 
             type Mutation {
-                createUser(user: UserInput) : User
+                createUser(user: UserInput) : UserResponse
             }
-            
+
             type User {
                 id: ID!
                 email: String!
@@ -22,6 +22,12 @@ module.exports.userModule = createModule({
                 dateCreated: Date!
             }
             
+            type UserResponse {
+                success: Boolean
+                message: String
+                user: User
+            }
+
             input UserInput {
                 email: String!
                 password: String!
@@ -30,18 +36,31 @@ module.exports.userModule = createModule({
     ],
     resolvers: {
         Query: {
-            getUserByEmail: async (parent, {email}, context, info) => {
-                return {id: 0, email: 'fake@fake.com', password: 'fake'}
-            },
-            getUserById: async (parent, {id}, context, info) => {
-                return {id: 0, email: 'fake@fake.com', password: 'fake'}
+            getUser: async (parent, {email}, context, info) => {
+                const user = await User.findOne({
+                    email: email
+                });
+
+                return {
+                    success: true,
+                    message: `${email} user data found`,
+                    user: user
+                }
             }
         },
         Mutation: {
             createUser: async (parent, {user}, context, info) => {
+                // hash password before saving
+                user.password = await hashPassword(user.password);
+
                 const newUser = new User(user);
                 await newUser.save();
-                return newUser;
+
+                return {
+                    success: true,
+                    message: `new user created`,
+                    user: newUser
+                };
             }
         }
     }
