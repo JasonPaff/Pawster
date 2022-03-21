@@ -1,3 +1,4 @@
+import Map from "./parts/Map";
 import "./styles/tailwind.output.css";
 
 function App() {
@@ -5,6 +6,7 @@ function App() {
     <div className="flex justify-center">
       <h1>pets</h1>
       <h2>test</h2>
+      <Map />
     </div>
   );
 }
