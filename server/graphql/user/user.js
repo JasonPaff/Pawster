@@ -1,5 +1,6 @@
 ﻿const {createModule, gql} = require('graphql-modules');
 const {User} = require('../../mongodb/models');
+const {hashPassword} = require("../../utils/password_utils");
 
 module.exports.userModule = createModule({
     id: 'user_module',
@@ -39,6 +40,8 @@ module.exports.userModule = createModule({
         },
         Mutation: {
             createUser: async (parent, {user}, context, info) => {
+                // hash password before saving
+                user.password = hashPassword(user.password);
                 const newUser = new User(user);
                 await newUser.save();
                 return newUser;
