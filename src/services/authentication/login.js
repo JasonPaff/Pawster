@@ -2,9 +2,11 @@ import { connect } from 'react-redux'
 import {useNavigate} from 'react-router-dom'
 import * as actionCreators from '../../store/action_creators/actionCreators'
 
-const navigate = useNavigate()
 
-const handleLoginUser = (user) => {
+function HandleLoginUser(user, props) {
+
+    const navigate = useNavigate()
+
     fetch('#', {
         method: 'POST', 
         headers: {
@@ -38,4 +40,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(handleLoginUser)
+export default connect(null, mapDispatchToProps)(HandleLoginUser)

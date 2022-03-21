@@ -9,6 +9,9 @@ import thunk from 'redux-thunk'
 import App from './App';
 import Map from './parts/Map';
 import BaseLayout from './BaseLayout';
+import Landing from './pages/Landing';
+import Login from './components/Authentication/Login'
+import Logout from './components/Authentication/Logout'
 
 // Importing Reducers
 import authenticationReducer from './store/reducers/authentication'
@@ -33,8 +36,11 @@ ReactDOM.render(
       <BrowserRouter>
         <BaseLayout>
           <Routes>
-            <Route path="/" element={<App />}></Route>
+            <Route path="/" element={<Landing />}></Route>
             <Route path="/map" element={<Map />}></Route>
+            <Route path="/search" element={<App />}></Route>
+            <Route path="/login" element={<Login />} />
+            <Route path="/logout" element={<Logout />} />
           </Routes>
         </BaseLayout>
       </BrowserRouter>
