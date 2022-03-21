@@ -1,7 +1,7 @@
 ﻿const {createModule, gql} = require('graphql-modules');
 
 module.exports.userModule = createModule({
-    id: 'user-module',
+    id: 'user_module',
     dirname: __dirname,
     typeDefs: [
         gql`
@@ -19,10 +19,10 @@ module.exports.userModule = createModule({
     resolvers: {
         Query: {
             getUserByEmail: async (parent, {email}) => {
-
+                return { id: 0, email: 'fake@fake.com', password:'fake'}
             },
             getUserById: async (parent, {id}) => {
-
+                return { id: 0, email: 'fake@fake.com', password:'fake'}
             }
         }
     }
