@@ -1,5 +1,4 @@
 ﻿const {createModule, gql} = require('graphql-modules');
-const {User, Address} = require('../../mongodb/models');
 const {hashPassword, comparePasswordHashes} = require("../../utils/password_utils");
 const {findUser, doesUserExist, updateUser, createUser, deleteUser} = require("../../utils/database/user_utils");
 const {authenticate, createToken} = require("../../utils/auth_utils");
