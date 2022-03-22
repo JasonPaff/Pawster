@@ -26,10 +26,10 @@ module.exports.userModule = createModule({
             }
 
             type User {
-                id: ID!
-                email: String!
-                password: String!
-                dateCreated: Date!
+                id: ID
+                email: String
+                password: String
+                dateCreated: Date
             }
 
             type UserLoginResponse {
@@ -50,7 +50,7 @@ module.exports.userModule = createModule({
         Query: {
             getUser: async (parent, {email}, context) => {
                 const authenticated = await authenticate(context);
-                if (!authenticated) return jwtError;
+                if (!authenticated) return jwtError();
 
                 const user = await findUser(email);
                 if (!user) return userNotFoundError(email);
@@ -62,7 +62,7 @@ module.exports.userModule = createModule({
                 if (!user) return userNotFoundError(email);
 
                 const validPassword = await comparePasswordHashes(password, user.password);
-                if (!validPassword) return invalidUsernamePasswordError;
+                if (!validPassword) return invalidUsernamePasswordError();
 
                 const token = await createToken(email);
 
@@ -83,7 +83,7 @@ module.exports.userModule = createModule({
             },
             updateUserPassword: async(parent, {email, password, newPassword}, context) => {
                 const authenticated = await authenticate(context);
-                if (!authenticated) return jwtError;
+                if (!authenticated) return jwtError();
 
                 const user = await findUser(email);
                 if (!user) return userNotFoundError(email);
@@ -98,7 +98,7 @@ module.exports.userModule = createModule({
             },
             updateUserEmail: async (parent, {email, newEmail}, context) => {
                 const authenticated = await authenticate(context);
-                if (!authenticated) return jwtError;
+                if (!authenticated) return jwtError();
 
                 const user = await findUser(email);
                 if (!user) return userNotFoundError(email);
@@ -113,7 +113,7 @@ module.exports.userModule = createModule({
             },
             deleteUser: async (parent, {email}, context) => {
                 const authenticated = await authenticate(context);
-                if (!authenticated) return jwtError;
+                if (!authenticated) return jwtError();
 
                 const user = await findUser(email);
                 if (!user) return userNotFoundError(email);

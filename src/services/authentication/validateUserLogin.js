@@ -1,8 +1,9 @@
 import {gql} from "@apollo/client";
 import {apiRoute} from "../../utils/apiRoute";
+import getGqlString from "../../utils/graphql_utils";
 
 export default async function validateUserLogin(email, password) {
-    const query = gql`query Query($email: String!, $password: String!) {
+    let query = gql`query Query($email: String!, $password: String!) {
         validateUserLogin(email: $email, password: $password) {
             success
             message
@@ -12,6 +13,7 @@ export default async function validateUserLogin(email, password) {
             }
         }
     }`
+    query = getGqlString(query);
 
     const headers = {
         method: 'POST',

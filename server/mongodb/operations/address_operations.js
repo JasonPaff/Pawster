@@ -34,7 +34,6 @@ module.exports.updateAddress = async (id, address) => {
 
 module.exports.deleteAddress = async (email) => {
     await Address.findOneAndRemove({
-            email: email
-        }
-    );
+        email: email
+    });
 };
