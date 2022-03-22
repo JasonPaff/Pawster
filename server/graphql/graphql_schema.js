@@ -1,7 +1,7 @@
 const { createApplication } = require('graphql-modules');
-const { userModule } = require('./user/user');
-const {addressModule} = require("./address/address");
-const {dateModule} = require("./date/date");
+const { userModule } = require('./modules/user_module');
+const {addressModule} = require("./modules/address_module");
+const {dateModule} = require("./modules/date_module");
 
 module.exports.graphql_schema = createApplication({
     modules: [userModule, addressModule, dateModule]

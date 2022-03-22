@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {useNavigate} from "react-router-dom";
-import validateLogin from "../../services/authentication/login";
+import validateUserLogin from "../../services/authentication/validateUserLogin";
 
 export default function Login() {
     const [password, setPassword] = useState('');
@@ -11,14 +11,14 @@ export default function Login() {
         // check for email or password
         if (password.length <= 0 || email.length <= 0) return;
 
-        const response = await validateLogin(email, password);
+        const response = await validateUserLogin(email, password);
 
-        if (response.data.validateLogin.success) {
+        if (response.data.validateUserLogin.success) {
             navigate('/');
         } else {
-            alert(response.data.validateLogin.message);
+            alert(response.data.validateUserLogin.message);
         }
-    };
+    }
 
     return (
         <div>

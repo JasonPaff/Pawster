@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import createUser from "../../services/authentication/register";
+import createUser from "../../services/user/createUser";
 
 export default function Register() {
     const [password, setPassword] = useState('');
@@ -16,7 +16,7 @@ export default function Register() {
         } else {
             alert(response.data.createUser.message);
         }
-    };
+    }
 
     return (
         <div>

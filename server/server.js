@@ -27,12 +27,12 @@ app.get('/', (req, res) =>
 {res.sendFile(path.resolve(__dirname, 'build', 'index.html'))});
 
 // apollo graphql server
-const {graphql_schema} = require("./graphql/schema");
+const {graphql_schema} = require("./graphql/graphql_schema");
 const server = new ApolloServer({
     schema: graphql_schema,
     context: async({ req, connection}) => {
         if (connection) { return { } }
-        if (req) { return { } }
+        if (req) { return { req } }
     }
 });
 
@@ -45,4 +45,5 @@ const startUp = async () => {
 startUp().catch(console.error);
 
 // start apollo http server (query, mutation)
-httpServer.listen({port: process.env.Port}, () => { console.log(`Apollo Server on http://localhost:4000/graphql`)});
+httpServer.listen({port: process.env.Port}, () =>
+    { console.log(`Apollo Server on http://localhost:4000/graphql`)});

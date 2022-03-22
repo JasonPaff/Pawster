@@ -1,10 +1,17 @@
+﻿import {gql} from "@apollo/client";
 import {apiRoute} from "../../utils/apiRoute";
 
-export default async function createUser(email, password) {
-    const query = `mutation Mutation($user: UserInput) {
-        createUser(user: $user) {
+export default async function updateUserEmail(email, newEmail) {
+    const query = gql`mutation Mutation($email: String!, $newEmail: String!) {
+        updateUserEmail(email: $email, newEmail: $newEmail) {
             success
             message
+            user {
+                dateCreated
+                password
+                email
+                id
+            }
         }
     }`
 
@@ -13,19 +20,17 @@ export default async function createUser(email, password) {
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
+            Authorization: localStorage.getItem('token')
         },
         body: JSON.stringify({
             query,
             variables: {
                 email,
-                password
+                newEmail
             }
         })
     };
 
-    // TODO: add returned jwt to local storage when implemented on server
-    //localStorage.setItem('jsonwebtoken', token)
-    //localStorage.setItem('email', email)
     const request = await fetch(`${apiRoute}/graphql`, headers);
     return await request.json();
 };
