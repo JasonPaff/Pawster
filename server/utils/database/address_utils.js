@@ -1,15 +1,15 @@
 ﻿const {Address} = require("../../mongodb/models");
 
 // find an address
-module.exports.findAddress = async function findAddress(email) {
+module.exports.findAddress = async function findAddress(id) {
     return Address.findOne({
-        email: email
+        userId: id
     });
 }
 
 // check for the existence of an address
-module.exports.doesAddressExist = async function doesAddressExist(email) {
+module.exports.doesAddressExist = async function doesAddressExist(id) {
     return Address.exists({
-        email: email
+        userId: id
     });
 }
