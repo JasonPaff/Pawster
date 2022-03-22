@@ -1,4 +1,3 @@
-
 import "./styles/tailwind.output.css";
 import {Routes, Route} from 'react-router-dom';
 
@@ -9,7 +8,6 @@ import Landing from './pages/Landing';
 import Login from './components/Authentication/Login'
 import Logout from './components/Authentication/Logout'
 import Search from "./pages/Search";
-
 
 function App() {
   return (
