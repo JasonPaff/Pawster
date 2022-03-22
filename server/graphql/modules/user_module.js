@@ -4,10 +4,9 @@ const {findUser, doesUserExist, updateUser, createUser, deleteUser} = require(".
 const {authenticate, createToken} = require("../../utils/auth_utils");
 const {jwtError} = require("../api_responses/auth/auth_error");
 const {userNotFoundError, invalidUsernamePasswordError, invalidPasswordError, userAlreadyExistsError} = require("../api_responses/user/user_error");
-const {userFoundSuccess, loginSuccess, createUserSuccess,
-       passwordUpdatedSuccess, emailUpdatedSuccess, accountDeleteSuccess
-      } = require("../api_responses/user/user_success");
+const {userFoundSuccess, createUserSuccess, passwordUpdatedSuccess, emailUpdatedSuccess, accountDeleteSuccess } = require("../api_responses/user/user_success");
 const {deleteAddress} = require("../../mongodb/operations/address_operations");
+const {loginSuccess} = require("../api_responses/auth/auth_success");
 
 module.exports.userModule = createModule({
     id: 'user_module',
