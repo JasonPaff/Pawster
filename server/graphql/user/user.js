@@ -2,6 +2,7 @@
 const {User, Address} = require('../../mongodb/models');
 const {hashPassword, comparePasswordHashes} = require("../../utils/password_utils");
 const {findUser, doesUserExist} = require("../../utils/database/user_utils");
+const {authenticate, createToken} = require("../../utils/auth_utils");
 
 module.exports.userModule = createModule({
     id: 'user_module',
@@ -10,11 +11,11 @@ module.exports.userModule = createModule({
         gql`
             type Query {
                 getUser(email: String!): UserResponse
-                validateLogin(email: String!, password: String!) : UserResponse
+                validateLogin(email: String!, password: String!) : UserLoginResponse
             }
 
             type Mutation {
-                createUser(email: String!, password: String!) : UserResponse
+                createUser(email: String!, password: String!) : UserLoginResponse
                 updateUserEmail(email: String!, newEmail: String!) : UserResponse
                 updateUserPassword(email: String!, password: String!, newPassword: String!) : UserResponse
                 deleteUser(email: String!) : UserResponse
@@ -27,6 +28,13 @@ module.exports.userModule = createModule({
                 dateCreated: Date!
             }
 
+            type UserLoginResponse {
+                success: Boolean
+                message: String
+                user: User
+                token: String
+            }
+            
             type UserResponse {
                 success: Boolean
                 message: String
@@ -36,7 +44,17 @@ module.exports.userModule = createModule({
     ],
     resolvers: {
         Query: {
-            getUser: async (parent, {email}) => {
+            getUser: async (parent, {email}, context) => {
+                // authenticate request
+                const authenticated = await authenticate(context);
+                if (!authenticated) {
+                    return {
+                        success: false,
+                        message: `invalid or missing jwt`,
+                        user: null
+                    };
+                }
+
                 // find the user
                 const user = await findUser(email);
                 if (!user) {
@@ -70,14 +88,18 @@ module.exports.userModule = createModule({
                     return {
                         success: false,
                         message: `incorrect username/password`,
-                        address: null
+                        user: null
                     };
                 }
+
+                // create token
+                const token = await createToken(email);
 
                 return {
                     success: true,
                     message: `login successful for ${email}`,
-                    user: user
+                    user: user,
+                    token: token
                 };
             }
         },
@@ -95,23 +117,38 @@ module.exports.userModule = createModule({
                 // hash password
                 user.password = await hashPassword(user.password);
 
+                // save user to database
                 const newUser = new User(user);
                 await newUser.save();
+
+                // create token
+                const token = await createToken(user.email);
 
                 return {
                     success: true,
                     message: `new user created`,
-                    user: newUser
+                    user: newUser,
+                    token: token
                 };
             },
-            updateUserPassword: async(parent, {email, password, newPassword}) => {
+            updateUserPassword: async(parent, {email, password, newPassword}, context) => {
+                // authenticate request
+                const authenticated = await authenticate(context);
+                if (!authenticated) {
+                    return {
+                        success: false,
+                        message: `invalid or missing jwt`,
+                        user: null
+                    };
+                }
+
                 // find the user
                 const user = await findUser(email);
                 if (!user) {
                     return {
                         success: false,
                         message: `no user account for ${email} found`,
-                        address: null
+                        user: null
                     };
                 }
 
@@ -121,7 +158,7 @@ module.exports.userModule = createModule({
                     return {
                         success: false,
                         message: `password did not match saved password for ${email}`,
-                        address: null
+                        user: null
                     };
                 }
 
@@ -140,14 +177,24 @@ module.exports.userModule = createModule({
                     user: user
                 };
             },
-            updateUserEmail: async (parent, {email, newEmail}) => {
+            updateUserEmail: async (parent, {email, newEmail}, context) => {
+                // authenticate request
+                const authenticated = await authenticate(context);
+                if (!authenticated) {
+                    return {
+                        success: false,
+                        message: `invalid or missing jwt`,
+                        user: null
+                    };
+                }
+
                 // find the user
                 const user = await findUser(email);
                 if (!user) {
                     return {
                         success: false,
                         message: `no user account for ${email} found`,
-                        address: null
+                        user: null
                     };
                 }
 
@@ -176,14 +223,24 @@ module.exports.userModule = createModule({
                     user: user
                 };
             },
-            deleteUser: async (parent, {email}) => {
+            deleteUser: async (parent, {email}, context) => {
+                // authenticate request
+                const authenticated = await authenticate(context);
+                if (!authenticated) {
+                    return {
+                        success: false,
+                        message: `invalid or missing jwt`,
+                        user: null
+                    };
+                }
+
                 // find the user
                 const user = await findUser(email);
                 if (!user) {
                     return {
                         success: false,
                         message: `no user account for ${email} found`,
-                        address: null
+                        user: null
                     };
                 }
 

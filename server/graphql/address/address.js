@@ -2,6 +2,7 @@
 const {Address} = require("../../mongodb/models");
 const {findAddress, doesAddressExist} = require("../../utils/database/address_utils");
 const {findUser} = require("../../utils/database/user_utils");
+const {authenticate} = require("../../utils/auth_utils");
 
 module.exports.addressModule = createModule({
     id: 'address_module',
@@ -39,7 +40,17 @@ module.exports.addressModule = createModule({
     ],
     resolvers: {
         Query: {
-            getAddress: async (parent, {email}) => {
+            getAddress: async (parent, {email}, context) => {
+                // authenticate request
+                const authenticated = await authenticate(context);
+                if (!authenticated) {
+                    return {
+                        success: false,
+                        message: `invalid or missing jwt`,
+                        user: null
+                    };
+                }
+
                 // try to find the user
                 const user = await findUser(email);
 
@@ -73,7 +84,17 @@ module.exports.addressModule = createModule({
             },
         },
         Mutation: {
-            createAddress: async (parent, {email, address}) => {
+            createAddress: async (parent, {email, address}, context) => {
+                // authenticate request
+                const authenticated = await authenticate(context);
+                if (!authenticated) {
+                    return {
+                        success: false,
+                        message: `invalid or missing jwt`,
+                        user: null
+                    };
+                }
+
                 // find matching user.
                 const user = await findUser(email);
                 if (!user) {
@@ -105,7 +126,17 @@ module.exports.addressModule = createModule({
                     address: newAddress
                 };
             },
-            updateAddress: async (parent, {email, address}) => {
+            updateAddress: async (parent, {email, address}, context) => {
+                // authenticate request
+                const authenticated = await authenticate(context);
+                if (!authenticated) {
+                    return {
+                        success: false,
+                        message: `invalid or missing jwt`,
+                        user: null
+                    };
+                }
+
                 // find matching user.
                 const user = await findUser(email);
                 if (!user) {
@@ -146,7 +177,17 @@ module.exports.addressModule = createModule({
                     address: existingAddress
                 };
             },
-            deleteAddress: async (parent, {email}) => {
+            deleteAddress: async (parent, {email}, context) => {
+                // authenticate request
+                const authenticated = await authenticate(context);
+                if (!authenticated) {
+                    return {
+                        success: false,
+                        message: `invalid or missing jwt`,
+                        user: null
+                    };
+                }
+
                 // find an address
                 const existingAddress = await findAddress(email);
 
