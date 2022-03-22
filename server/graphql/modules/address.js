@@ -1,6 +1,6 @@
 ﻿const {createModule, gql} = require('graphql-modules');
-const {findAddress, doesAddressExist, createAddress, updateAddress, deleteAddress} = require("../../utils/database/address_utils");
-const {findUser} = require("../../utils/database/user_utils");
+const {findAddress, doesAddressExist, createAddress, updateAddress, deleteAddress} = require("../../mongodb/operations/address_operations");
+const {findUser} = require("../../mongodb/operations/user_operations");
 const {authenticate} = require("../../utils/auth_utils");
 const {userNotFoundError} = require("../api_responses/user/user_error");
 const {jwtError} = require("../api_responses/auth/auth_error");

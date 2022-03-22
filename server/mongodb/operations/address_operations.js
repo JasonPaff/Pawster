@@ -1,4 +1,4 @@
-﻿const {Address} = require("../../mongodb/models");
+﻿const {Address} = require("../models");
 
 module.exports.findAddress = async (id) => {
     return Address.findOne({

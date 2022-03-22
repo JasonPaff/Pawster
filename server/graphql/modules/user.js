@@ -1,13 +1,13 @@
 ﻿const {createModule, gql} = require('graphql-modules');
 const {hashPassword, comparePasswordHashes} = require("../../utils/password_utils");
-const {findUser, doesUserExist, updateUser, createUser, deleteUser} = require("../../utils/database/user_utils");
+const {findUser, doesUserExist, updateUser, createUser, deleteUser} = require("../../mongodb/operations/user_operations");
 const {authenticate, createToken} = require("../../utils/auth_utils");
 const {jwtError} = require("../api_responses/auth/auth_error");
 const {userNotFoundError, invalidUsernamePasswordError, invalidPassword, userAlreadyExists} = require("../api_responses/user/user_error");
 const {userFoundSuccess, loginSuccess, createUserSuccess,
        passwordUpdatedSuccess, emailUpdatedSuccess, accountDeleteSuccess
       } = require("../api_responses/user/user_success");
-const {deleteAddress} = require("../../utils/database/address_utils");
+const {deleteAddress} = require("../../mongodb/operations/address_operations");
 
 module.exports.userModule = createModule({
     id: 'user_module',
