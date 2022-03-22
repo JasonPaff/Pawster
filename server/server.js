@@ -27,7 +27,7 @@ app.get('/', (req, res) =>
 {res.sendFile(path.resolve(__dirname, 'build', 'index.html'))});
 
 // apollo graphql server
-const {graphql_schema} = require("./graphql/schema");
+const {graphql_schema} = require("./graphql/graphql_schema");
 const server = new ApolloServer({
     schema: graphql_schema,
     context: async({ req, connection}) => {

@@ -1,4 +1,4 @@
-﻿const {User} = require("../models");
+﻿const {User} = require("../schemas/user_schema");
 
 module.exports.findUser = async (email) => {
     return User.findOne({
@@ -12,9 +12,9 @@ module.exports.doesUserExist = async (email) => {
     });
 };
 
-module.exports.updateUser = async (user, email) => {
+module.exports.updateUser = async (user) => {
     await User.findOneAndUpdate({
-            email: email
+            email: user.email
         }, user
     );
 };
@@ -24,7 +24,7 @@ module.exports.createUser = async (email, password) => {
         email: email,
         password: password
     }
-    const newUser = new User(user);
+    const newUser = await new User(user);
     await newUser.save();
     return newUser;
 };

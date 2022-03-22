@@ -44,86 +44,61 @@ module.exports.addressModule = createModule({
     resolvers: {
         Query: {
             getAddress: async (parent, {email}, context) => {
-                // authenticate request
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError;
 
-                // try to find the user
                 const user = await findUser(email);
-                if (!user) userNotFoundError(email);
+                if (!user) return userNotFoundError(email);
 
-                // check for address
                 const address = await findAddress(user._id);
-
-                // no address found
                 if (!address) return missingAddressError(email);
 
-                // address found
                 return addressFoundSuccess(email, address);
             },
         },
         Mutation: {
             createAddress: async (parent, {email, address}, context) => {
-                // authenticate request
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError;
 
-                // find matching user.
                 const user = await findUser(email);
-                if (!user) userNotFoundError(email);
+                if (!user) return userNotFoundError(email);
 
-                // try to find an existing address for the user
                 const hasAddress = await doesAddressExist(user._id);
                 if (hasAddress) return existingAddressError(email);
 
-                // save address to the database
                 const newAddress = await createAddress(user._id, address)
 
-                // address creation successful
                 return addressCreatedSuccess(email, newAddress);
             },
-            updateAddress: async (parent, {email, address}, context) => {
-                // authenticate request
+            updateAddress: async (parent, {email, address: newAddress}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError;
 
-                // find matching user.
                 const user = await findUser(email);
-                if (!user) userNotFoundError(email);
+                if (!user) return userNotFoundError(email);
 
-                // try to fine an address
-                const existingAddress = await findAddress(user._id);
+                const address = await findAddress(user._id);
+                if (!address) return missingAddressError(email);
 
-                // no address found
-                if (!existingAddress) return missingAddressError(email);
+                address.street = newAddress.street ? newAddress.street : address.street;
+                address.city = newAddress.city ? newAddress.city : address.city;
+                address.state = newAddress.state ? newAddress.state : address.state;
+                address.zipcode = newAddress.zipcode ? newAddress.zipcode : address.zipcode;
 
-                // build new address
-                existingAddress.street = address.street ? address.street : existingAddress.street;
-                existingAddress.city = address.city ? address.city : existingAddress.city;
-                existingAddress.state = address.state ? address.state : existingAddress.state;
-                existingAddress.zipcode = address.zipcode ? address.zipcode : existingAddress.zipcode;
-
-                // update address in database
                 await updateAddress(user._id, address);
 
-                // update address successful
-                return addressUpdatedSuccess(email, existingAddress);
+                return addressUpdatedSuccess(email, address);
             },
             deleteAddress: async (parent, {email}, context) => {
-                // authenticate request
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError;
 
-                // find an address
                 const existingAddress = await findAddress(email);
-
-                // no address found
                 if (!existingAddress) return missingAddressError(email);
 
-                // delete address
                 await deleteAddress(email);
 
-                // address deletion successful
                 return deleteAddressSuccess(email, existingAddress);
             }
         }
