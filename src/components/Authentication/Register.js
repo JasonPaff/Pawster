@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import {useNavigate} from 'react-router-dom'
 import createAccount from "../../services/authentication/register";
 
-function Register() {
+export default function Register() {
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
     const navigate = useNavigate()
@@ -35,7 +35,5 @@ function Register() {
                 <button onClick={() => handleCreateAccount()}>Create Account</button>
             </div>
         </div>
-    )
-}
-
-export default Register
+    );
+};
