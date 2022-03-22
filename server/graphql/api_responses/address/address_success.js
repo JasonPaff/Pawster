@@ -28,4 +28,4 @@ module.exports.deleteAddressSuccess = (email, address) => {
         message: `address for ${email} deleted`,
         address: address
     };
-}
+};
