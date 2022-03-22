@@ -1,43 +1,34 @@
-import { connect } from 'react-redux'
-import {useNavigate} from 'react-router-dom'
-import * as actionCreators from '../../store/action_creators/actionCreators'
+import {apiRoute} from "../../utils/apiRoute";
 
-
-function HandleLoginUser(user, props) {
-
-    const navigate = useNavigate()
-
-    fetch('#', {
-        method: 'POST', 
-        headers: {
-            'Content-Type': 'application/json'
-        }, 
-        body: JSON.stringify(user) 
-    }).then(response => response.json())
-    .then(result => {
-        if(result.success) {
-            // saving userId, token, and username to localStorage
-            const token = result.token
-            const userId = result.user_id
-            localStorage.setItem('jsonwebtoken', token)
-            localStorage.setItem('userId', userId)
-            // Get username from local state
-            localStorage.setItem('username', user.username)
-            props.onLogin(token)
-            navigate("/")
-
-        } else {
-            // display error message
-            console.log("Authentication Failed")
+export default async function validateLogin(email, password) {
+    const query = `query Query($email: String!, $password: String!) {
+        validateLogin(email: $email, password: $password) {
+            success
+            message
+            user {
+                email
+            }
         }
+    }`
 
-    })
+    const headers = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+            query,
+            variables: {
+                email,
+                password
+            }
+        })
+    };
+
+    // TODO: add returned jwt to local storage when implemented on server
+    //localStorage.setItem('jsonwebtoken', token)
+    //localStorage.setItem('email', email)
+    const request = await fetch(`${apiRoute}/graphql`, headers);
+    return await request.json();
 }
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        onLogin: (token) => dispatch(actionCreators.login(token))
-    }
-}
-
-export default connect(null, mapDispatchToProps)(HandleLoginUser)

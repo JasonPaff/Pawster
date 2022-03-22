@@ -10,8 +10,7 @@ function Logout(props) {
     useEffect(() => {
         // remove the login data from local storage
         localStorage.removeItem('jsonwebtoken')
-        localStorage.removeItem('username')
-        localStorage.removeItem('userId')
+        localStorage.removeItem('email')
 
         // update global state 
         // isAuthenticated = false 

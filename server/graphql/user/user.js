@@ -9,14 +9,15 @@ module.exports.userModule = createModule({
     typeDefs: [
         gql`
             type Query {
-                getUser(email: String!): UserResponse!
+                getUser(email: String!): UserResponse
+                validateLogin(email: String!, password: String!) : UserResponse
             }
 
             type Mutation {
-                createUser(user: UserInput) : UserResponse
-                updateUserEmail(email: String, newEmail: String) : UserResponse
-                updateUserPassword(email: String, password: String, newPassword: String) : UserResponse
-                deleteUser(email: String) : UserResponse
+                createUser(email: String!, password: String!) : UserResponse
+                updateUserEmail(email: String!, newEmail: String!) : UserResponse
+                updateUserPassword(email: String!, password: String!, newPassword: String!) : UserResponse
+                deleteUser(email: String!) : UserResponse
             }
 
             type User {
@@ -31,24 +32,19 @@ module.exports.userModule = createModule({
                 message: String
                 user: User
             }
-
-            input UserInput {
-                email: String!
-                password: String!
-            }
         `
     ],
     resolvers: {
         Query: {
             getUser: async (parent, {email}) => {
+                // find the user
                 const user = await findUser(email);
-
                 if (!user) {
                     return {
                         success: false,
                         message: `no user found for ${email}`,
                         user: null
-                    }
+                    };
                 }
 
                 return {
@@ -56,6 +52,33 @@ module.exports.userModule = createModule({
                     message: `${email} user data found`,
                     user: user
                 }
+            },
+            validateLogin: async (parent, {email, password}) => {
+                // find the user
+                const user = await findUser(email);
+                if (!user) {
+                    return {
+                        success: false,
+                        message: `incorrect username/password`,
+                        user: null
+                    };
+                }
+
+                // confirm valid password
+                const validPassword = await comparePasswordHashes(password, user.password);
+                if (!validPassword) {
+                    return {
+                        success: false,
+                        message: `incorrect username/password`,
+                        address: null
+                    };
+                }
+
+                return {
+                    success: true,
+                    message: `login successful for ${email}`,
+                    user: user
+                };
             }
         },
         Mutation: {
@@ -115,7 +138,7 @@ module.exports.userModule = createModule({
                     success: true,
                     message: `password updated for ${email}`,
                     user: user
-                }
+                };
             },
             updateUserEmail: async (parent, {email, newEmail}) => {
                 // find the user
@@ -151,7 +174,7 @@ module.exports.userModule = createModule({
                     success: true,
                     message: `email address updated from ${email} to ${newEmail}`,
                     user: user
-                }
+                };
             },
             deleteUser: async (parent, {email}) => {
                 // find the user
@@ -180,7 +203,7 @@ module.exports.userModule = createModule({
                     success: true,
                     message: `user account for ${email} deleted`,
                     user: user
-                }
+                };
             }
         }
     }

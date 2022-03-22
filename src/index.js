@@ -36,9 +36,9 @@ ReactDOM.render(
       <BrowserRouter>
         <BaseLayout>
           <Routes>
-            <Route path="/" element={<Landing />}></Route>
-            <Route path="/map" element={<Map />}></Route>
-            <Route path="/search" element={<App />}></Route>
+            <Route path="/" element={<Landing />}/>
+            <Route path="/map" element={<Map />}/>
+            <Route path="/search" element={<App/>}/>
             <Route path="/login" element={<Login />} />
             <Route path="/logout" element={<Logout />} />
           </Routes>
