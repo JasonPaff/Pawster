@@ -1,8 +1,9 @@
 ﻿import {gql} from "@apollo/client";
 import {apiRoute} from "../../utils/apiRoute";
+import getGqlString from "../../utils/graphql_utils";
 
 export default async function deleteAddress(email) {
-    const query = gql`mutation Mutation($email: String!) {
+    let query = gql`mutation Mutation($email: String!) {
         deleteAddress(email: $email) {
             success
             message
@@ -14,6 +15,7 @@ export default async function deleteAddress(email) {
             }
         }
     }`
+    query = getGqlString(query);
 
     const headers = {
         method: 'POST',

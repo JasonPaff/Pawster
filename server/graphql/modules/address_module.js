@@ -21,17 +21,17 @@ module.exports.addressModule = createModule({
                 deleteAddress(email: String!) : AddressResponse
             },
             type Address {
-                street: String!
-                city: String!
-                state: String!
-                zipcode: Int!
+                street: String
+                city: String
+                state: String
+                zipcode: Int
             }
 
             input AddressInput {
-                street: String!
-                city: String!
-                state: String!
-                zipcode: Int!
+                street: String
+                city: String
+                state: String
+                zipcode: Int
             }
 
             type AddressResponse {
@@ -45,7 +45,7 @@ module.exports.addressModule = createModule({
         Query: {
             getAddress: async (parent, {email}, context) => {
                 const authenticated = await authenticate(context);
-                if (!authenticated) return jwtError;
+                if (!authenticated) return jwtError();
 
                 const user = await findUser(email);
                 if (!user) return userNotFoundError(email);
@@ -59,7 +59,7 @@ module.exports.addressModule = createModule({
         Mutation: {
             createAddress: async (parent, {email, address}, context) => {
                 const authenticated = await authenticate(context);
-                if (!authenticated) return jwtError;
+                if (!authenticated) return jwtError();
 
                 const user = await findUser(email);
                 if (!user) return userNotFoundError(email);
@@ -71,9 +71,9 @@ module.exports.addressModule = createModule({
 
                 return addressCreatedSuccess(email, newAddress);
             },
-            updateAddress: async (parent, {email, address: newAddress}, context) => {
+            updateAddress: async (parent, {email, address: updatedAddress}, context) => {
                 const authenticated = await authenticate(context);
-                if (!authenticated) return jwtError;
+                if (!authenticated) return jwtError();
 
                 const user = await findUser(email);
                 if (!user) return userNotFoundError(email);
@@ -81,10 +81,10 @@ module.exports.addressModule = createModule({
                 const address = await findAddress(user._id);
                 if (!address) return missingAddressError(email);
 
-                address.street = newAddress.street ? newAddress.street : address.street;
-                address.city = newAddress.city ? newAddress.city : address.city;
-                address.state = newAddress.state ? newAddress.state : address.state;
-                address.zipcode = newAddress.zipcode ? newAddress.zipcode : address.zipcode;
+                address.street = updatedAddress.street ? updatedAddress.street : address.street;
+                address.city = updatedAddress.city ? updatedAddress.city : address.city;
+                address.state = updatedAddress.state ? updatedAddress.state : address.state;
+                address.zipcode = updatedAddress.zipcode ? updatedAddress.zipcode : address.zipcode;
 
                 await updateAddress(user._id, address);
 
@@ -92,7 +92,7 @@ module.exports.addressModule = createModule({
             },
             deleteAddress: async (parent, {email}, context) => {
                 const authenticated = await authenticate(context);
-                if (!authenticated) return jwtError;
+                if (!authenticated) return jwtError();
 
                 const existingAddress = await findAddress(email);
                 if (!existingAddress) return missingAddressError(email);

@@ -1,8 +1,9 @@
 ﻿import {apiRoute} from "../../utils/apiRoute";
 import {gql} from "@apollo/client";
+import getGqlString from "../../utils/graphql_utils";
 
 export default async function createAddress(email, address) {
-    const query = gql`mutation Mutation($email: String!, $address: AddressInput!) {
+    let query = gql`mutation Mutation($email: String!, $address: AddressInput!) {
         createAddress(email: $email, address: $address) {
             success
             message
@@ -14,6 +15,7 @@ export default async function createAddress(email, address) {
             }
         }
     }`
+    query = getGqlString(query);
 
     const headers = {
         method: 'POST',

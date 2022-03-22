@@ -1,8 +1,9 @@
 ﻿import {gql} from "@apollo/client";
 import {apiRoute} from "../../utils/apiRoute";
+import getGqlString from "../../utils/graphql_utils";
 
 export default async function updateUserEmail(email, newEmail) {
-    const query = gql`mutation Mutation($email: String!, $newEmail: String!) {
+    let query = gql`mutation Mutation($email: String!, $newEmail: String!) {
         updateUserEmail(email: $email, newEmail: $newEmail) {
             success
             message
@@ -14,6 +15,7 @@ export default async function updateUserEmail(email, newEmail) {
             }
         }
     }`
+    query = getGqlString(query);
 
     const headers = {
         method: 'POST',
