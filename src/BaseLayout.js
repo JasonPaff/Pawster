@@ -1,14 +1,10 @@
-import NavBar from "./parts/NavBar"
+import NavBar from "./parts/NavBar";
 
-function BaseLayout(props) {
+export default function BaseLayout(props) {
     return (
         <div>
             <NavBar />
             {props.children}
         </div>
-    )
-
-}
-
-
-export default BaseLayout
+    );
+};

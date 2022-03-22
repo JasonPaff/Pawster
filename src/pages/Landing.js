@@ -1,11 +1,7 @@
-import "../styles/tailwind.output.css";
-
-function Landing() {
+export default function Landing() {
   return (
     <div className="flex justify-center">
       <h1>Landing Page</h1>
     </div>
   );
-}
-
-export default Landing;
+};
