@@ -3,6 +3,10 @@ const {Address} = require("../../mongodb/models");
 const {findAddress, doesAddressExist} = require("../../utils/database/address_utils");
 const {findUser} = require("../../utils/database/user_utils");
 const {authenticate} = require("../../utils/auth_utils");
+const {userNotFoundError} = require("../api_responses/user/user_error");
+const {jwtError} = require("../api_responses/auth/auth_error");
+const {missingAddressError, existingAddressError} = require("../api_responses/address/address_error");
+const {addressFoundSuccess, addressUpdatedSuccess, addressCreatedSuccess, deleteAddressSuccess} = require("../api_responses/address/address_success");
 
 module.exports.addressModule = createModule({
     id: 'address_module',
@@ -43,121 +47,58 @@ module.exports.addressModule = createModule({
             getAddress: async (parent, {email}, context) => {
                 // authenticate request
                 const authenticated = await authenticate(context);
-                if (!authenticated) {
-                    return {
-                        success: false,
-                        message: `invalid or missing jwt`,
-                        user: null
-                    };
-                }
+                if (!authenticated) return jwtError;
 
                 // try to find the user
                 const user = await findUser(email);
-
-                // no user found
-                if (!user) {
-                    return {
-                        success: false,
-                        message: `no user account for ${email} found`,
-                        address: null
-                    };
-                }
+                if (!user) userNotFoundError(email);
 
                 // check for address
                 const address = findAddress(user._id);
 
                 // no address found
-                if (!address) {
-                    return {
-                        success: false,
-                        message: `no address for ${email} found`,
-                        address: null
-                    };
-                }
+                if (!address) return missingAddressError(email);
 
                 // address found
-                return {
-                    success: true,
-                    message: `address for ${email} found`,
-                    address: address
-                };
+                return addressFoundSuccess(email, address);
             },
         },
         Mutation: {
             createAddress: async (parent, {email, address}, context) => {
                 // authenticate request
                 const authenticated = await authenticate(context);
-                if (!authenticated) {
-                    return {
-                        success: false,
-                        message: `invalid or missing jwt`,
-                        user: null
-                    };
-                }
+                if (!authenticated) return jwtError;
 
                 // find matching user.
                 const user = await findUser(email);
-                if (!user) {
-                    return {
-                        success: false,
-                        message: `no user account for ${email} found`,
-                        address: null
-                    };
-                }
+                if (!user) userNotFoundError(email);
 
                 // try to find an existing address for the user
                 const hasAddress = await doesAddressExist(user._id);
-                if (hasAddress) {
-                    return {
-                        success: false,
-                        message: `address for ${email} already exists, try updating instead`,
-                        address: null
-                    };
-                }
+                if (hasAddress) return existingAddressError(email);
 
                 // save address
                 address.userId = user._id;
                 const newAddress = new Address(address);
                 await newAddress.save();
 
-                return {
-                    success: true,
-                    message: `new address for ${email} created`,
-                    address: newAddress
-                };
+                // address creation successful
+                return addressCreatedSuccess(email, newAddress);
             },
             updateAddress: async (parent, {email, address}, context) => {
                 // authenticate request
                 const authenticated = await authenticate(context);
-                if (!authenticated) {
-                    return {
-                        success: false,
-                        message: `invalid or missing jwt`,
-                        user: null
-                    };
-                }
+                if (!authenticated) return jwtError;
 
                 // find matching user.
                 const user = await findUser(email);
-                if (!user) {
-                    return {
-                        success: false,
-                        message: `no user account for ${email} found`,
-                        address: null
-                    };
-                }
+                if (!user) userNotFoundError(email);
 
                 // try to fine an address
                 const existingAddress = await findAddress(user._id);
 
                 // no address found
-                if (!existingAddress) {
-                    return {
-                        success: false,
-                        message: `no address for ${email} found`,
-                        address: null
-                    };
-                }
+                if (!existingAddress) return missingAddressError(email);
 
                 // build new address
                 existingAddress.street = address.street ? address.street : existingAddress.street;
@@ -171,34 +112,19 @@ module.exports.addressModule = createModule({
                     }, existingAddress
                 );
 
-                return {
-                    success: true,
-                    message: `address for ${email} updated`,
-                    address: existingAddress
-                };
+                // update address successful
+                return addressUpdatedSuccess(email, existingAddress);
             },
             deleteAddress: async (parent, {email}, context) => {
                 // authenticate request
                 const authenticated = await authenticate(context);
-                if (!authenticated) {
-                    return {
-                        success: false,
-                        message: `invalid or missing jwt`,
-                        user: null
-                    };
-                }
+                if (!authenticated) return jwtError;
 
                 // find an address
                 const existingAddress = await findAddress(email);
 
                 // no address found
-                if (!existingAddress) {
-                    return {
-                        success: false,
-                        message: `no address for ${email} found`,
-                        address: null
-                    };
-                }
+                if (!existingAddress) return missingAddressError(email);
 
                 // delete address
                 await Address.findOneAndRemove({
@@ -206,11 +132,8 @@ module.exports.addressModule = createModule({
                     }
                 );
 
-                return {
-                    success: true,
-                    message: `address for ${email} deleted`,
-                    address: existingAddress
-                };
+                // address deletion successful
+                return deleteAddressSuccess(email, existingAddress);
             }
         }
     }

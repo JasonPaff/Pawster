@@ -3,6 +3,11 @@ const {User, Address} = require('../../mongodb/models');
 const {hashPassword, comparePasswordHashes} = require("../../utils/password_utils");
 const {findUser, doesUserExist} = require("../../utils/database/user_utils");
 const {authenticate, createToken} = require("../../utils/auth_utils");
+const {jwtError} = require("../api_responses/auth/auth_error");
+const {userNotFoundError, invalidUsernamePasswordError, invalidPassword, userAlreadyExists} = require("../api_responses/user/user_error");
+const {userFoundSuccess, loginSuccess, createUserSuccess,
+       passwordUpdatedSuccess, emailUpdatedSuccess, accountDeleteSuccess
+      } = require("../api_responses/user/user_success");
 
 module.exports.userModule = createModule({
     id: 'user_module',
@@ -47,72 +52,36 @@ module.exports.userModule = createModule({
             getUser: async (parent, {email}, context) => {
                 // authenticate request
                 const authenticated = await authenticate(context);
-                if (!authenticated) {
-                    return {
-                        success: false,
-                        message: `invalid or missing jwt`,
-                        user: null
-                    };
-                }
+                if (!authenticated) return jwtError;
 
                 // find the user
                 const user = await findUser(email);
-                if (!user) {
-                    return {
-                        success: false,
-                        message: `no user found for ${email}`,
-                        user: null
-                    };
-                }
+                if (!user) userNotFoundError(email);
 
-                return {
-                    success: true,
-                    message: `${email} user data found`,
-                    user: user
-                }
+                // user found
+                return userFoundSuccess(user, email);
             },
             validateLogin: async (parent, {email, password}) => {
                 // find the user
                 const user = await findUser(email);
-                if (!user) {
-                    return {
-                        success: false,
-                        message: `incorrect username/password`,
-                        user: null
-                    };
-                }
+                if (!user) userNotFoundError(email);
 
                 // confirm valid password
                 const validPassword = await comparePasswordHashes(password, user.password);
-                if (!validPassword) {
-                    return {
-                        success: false,
-                        message: `incorrect username/password`,
-                        user: null
-                    };
-                }
+                if (!validPassword) return invalidUsernamePasswordError;
 
                 // create token
                 const token = await createToken(email);
 
-                return {
-                    success: true,
-                    message: `login successful for ${email}`,
-                    user: user,
-                    token: token
-                };
+                // login successful
+                return loginSuccess(user, email, token);
             }
         },
         Mutation: {
             createUser: async (parent, {user}) => {
+                // check for existing user with the email
                 const alreadyExists = await doesUserExist(user.email);
-                if (alreadyExists) {
-                    return {
-                        success: false,
-                        message: 'account with that email already exists',
-                        user: null
-                    };
-                }
+                if (alreadyExists) return userAlreadyExists(user.email);
 
                 // hash password
                 user.password = await hashPassword(user.password);
@@ -124,43 +93,21 @@ module.exports.userModule = createModule({
                 // create token
                 const token = await createToken(user.email);
 
-                return {
-                    success: true,
-                    message: `new user created`,
-                    user: newUser,
-                    token: token
-                };
+                // create user successful
+                return createUserSuccess(newUser, token);
             },
             updateUserPassword: async(parent, {email, password, newPassword}, context) => {
                 // authenticate request
                 const authenticated = await authenticate(context);
-                if (!authenticated) {
-                    return {
-                        success: false,
-                        message: `invalid or missing jwt`,
-                        user: null
-                    };
-                }
+                if (!authenticated) return jwtError;
 
                 // find the user
                 const user = await findUser(email);
-                if (!user) {
-                    return {
-                        success: false,
-                        message: `no user account for ${email} found`,
-                        user: null
-                    };
-                }
+                if (!user) userNotFoundError(email);
 
                 // confirm valid password
                 const validPassword = await comparePasswordHashes(password, user.password);
-                if (!validPassword) {
-                    return {
-                        success: false,
-                        message: `password did not match saved password for ${email}`,
-                        user: null
-                    };
-                }
+                if (!validPassword) return invalidPassword(email);
 
                 // update hashed password
                 user.password = await hashPassword(newPassword);
@@ -171,42 +118,21 @@ module.exports.userModule = createModule({
                     }, user
                 );
 
-                return {
-                    success: true,
-                    message: `password updated for ${email}`,
-                    user: user
-                };
+                // password update successful
+                return passwordUpdatedSuccess(user, email);
             },
             updateUserEmail: async (parent, {email, newEmail}, context) => {
                 // authenticate request
                 const authenticated = await authenticate(context);
-                if (!authenticated) {
-                    return {
-                        success: false,
-                        message: `invalid or missing jwt`,
-                        user: null
-                    };
-                }
+                if (!authenticated) return jwtError;
 
                 // find the user
                 const user = await findUser(email);
-                if (!user) {
-                    return {
-                        success: false,
-                        message: `no user account for ${email} found`,
-                        user: null
-                    };
-                }
+                if (!user) userNotFoundError(email);
 
                 // check for new email already in use
                 const existingUser = await doesUserExist(newEmail);
-                if (existingUser) {
-                    return {
-                        success: false,
-                        message: `account with email ${newEmail} already exists`,
-                        user: null
-                    };
-                }
+                if (existingUser) return userAlreadyExists(newEmail);
 
                 // update email
                 user.email = newEmail;
@@ -217,32 +143,17 @@ module.exports.userModule = createModule({
                     }, user
                 );
 
-                return {
-                    success: true,
-                    message: `email address updated from ${email} to ${newEmail}`,
-                    user: user
-                };
+                // email update successful
+                return emailUpdatedSuccess(user, email, newEmail);
             },
             deleteUser: async (parent, {email}, context) => {
                 // authenticate request
                 const authenticated = await authenticate(context);
-                if (!authenticated) {
-                    return {
-                        success: false,
-                        message: `invalid or missing jwt`,
-                        user: null
-                    };
-                }
+                if (!authenticated) return jwtError;
 
                 // find the user
                 const user = await findUser(email);
-                if (!user) {
-                    return {
-                        success: false,
-                        message: `no user account for ${email} found`,
-                        user: null
-                    };
-                }
+                if (!user) userNotFoundError(email);
 
                 // delete user
                 await User.findOneAndRemove({
@@ -256,11 +167,8 @@ module.exports.userModule = createModule({
 
                 // Todo: add more deletes as database table get built
 
-                return {
-                    success: true,
-                    message: `user account for ${email} deleted`,
-                    user: user
-                };
+                // account deletion successful
+                return accountDeleteSuccess(user, email);
             }
         }
     }
