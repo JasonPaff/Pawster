@@ -1,4 +1,4 @@
-﻿const {User} = require("../../mongodb/models");
+﻿const {User} = require("../models");
 
 module.exports.findUser = async (email) => {
     return User.findOne({
@@ -29,4 +29,4 @@ module.exports.deleteUser = async (email) => {
     await User.findOneAndRemove({
         email: email
     });
-}
+};
