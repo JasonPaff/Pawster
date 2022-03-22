@@ -1,11 +1,11 @@
-import React, {useState} from 'react'
-import {useNavigate} from 'react-router-dom'
+import React, {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 import createUser from "../../services/authentication/register";
 
 export default function Register() {
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     async function handleCreateAccount() {
         // TODO: validation of password strength and empty fields
@@ -16,7 +16,7 @@ export default function Register() {
         } else {
             alert(response.data.createUser.message);
         }
-    }
+    };
 
     return (
         <div>
