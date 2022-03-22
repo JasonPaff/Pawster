@@ -39,9 +39,21 @@ module.exports.addressModule = createModule({
     ],
     resolvers: {
         Query: {
-            getAddress: async (parent, {email}, context, info) => {
-                // try to fine an address
-                const address = await findAddress(email);
+            getAddress: async (parent, {email}) => {
+                // try to find the user
+                const user = await findUser(email);
+
+                // no user found
+                if (!user) {
+                    return {
+                        success: false,
+                        message: `no user account for ${email} found`,
+                        address: null
+                    };
+                }
+
+                // check for address
+                const address = findAddress(user._id);
 
                 // no address found
                 if (!address) {
@@ -61,19 +73,19 @@ module.exports.addressModule = createModule({
             },
         },
         Mutation: {
-            createAddress: async (parent, {email, address}, context, info) => {
+            createAddress: async (parent, {email, address}) => {
                 // find matching user.
                 const user = await findUser(email);
                 if (!user) {
                     return {
                         success: false,
-                        message: `no user for ${email} found`,
+                        message: `no user account for ${email} found`,
                         address: null
                     };
                 }
 
                 // try to find an existing address for the user
-                const hasAddress = await doesAddressExist(email);
+                const hasAddress = await doesAddressExist(user._id);
                 if (hasAddress) {
                     return {
                         success: false,
@@ -84,19 +96,28 @@ module.exports.addressModule = createModule({
 
                 // save address
                 address.userId = user._id;
-                address.email = email;
                 const newAddress = new Address(address);
                 await newAddress.save();
 
                 return {
                     success: true,
-                    message: `address for ${email} created`,
+                    message: `new address for ${email} created`,
                     address: newAddress
                 };
             },
-            updateAddress: async (parent, {email, address}, context, info) => {
+            updateAddress: async (parent, {email, address}) => {
+                // find matching user.
+                const user = await findUser(email);
+                if (!user) {
+                    return {
+                        success: false,
+                        message: `no user account for ${email} found`,
+                        address: null
+                    };
+                }
+
                 // try to fine an address
-                const existingAddress = await findAddress(email);
+                const existingAddress = await findAddress(user._id);
 
                 // no address found
                 if (!existingAddress) {
@@ -108,7 +129,6 @@ module.exports.addressModule = createModule({
                 }
 
                 // build new address
-                existingAddress.email = email;
                 existingAddress.street = address.street ? address.street : existingAddress.street;
                 existingAddress.city = address.city ? address.city : existingAddress.city;
                 existingAddress.state = address.state ? address.state : existingAddress.state;
@@ -116,7 +136,7 @@ module.exports.addressModule = createModule({
 
                 // update address
                 await Address.findOneAndUpdate({
-                        email: email
+                        id: user._id
                     }, existingAddress
                 );
 
@@ -126,8 +146,8 @@ module.exports.addressModule = createModule({
                     address: existingAddress
                 };
             },
-            deleteAddress: async (parent, {email}, context, info) => {
-                // try to fine an address
+            deleteAddress: async (parent, {email}) => {
+                // find an address
                 const existingAddress = await findAddress(email);
 
                 // no address found

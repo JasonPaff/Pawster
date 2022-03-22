@@ -1,7 +1,7 @@
 ﻿const bcrypt = require("bcrypt");
 
-module.exports.comparePasswordHashes = async function comparePasswordHashes(newPassword, oldPasswordHash) {
-    return bcrypt.compare(newPassword, oldPasswordHash);
+module.exports.comparePasswordHashes = async function comparePasswordHashes(password, passwordHash) {
+    return bcrypt.compare(password, passwordHash);
 }
 
 module.exports.hashPassword = async function hashPassword(password) {
