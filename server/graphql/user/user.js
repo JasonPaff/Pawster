@@ -1,13 +1,14 @@
 ﻿const {createModule, gql} = require('graphql-modules');
 const {User, Address} = require('../../mongodb/models');
 const {hashPassword, comparePasswordHashes} = require("../../utils/password_utils");
-const {findUser, doesUserExist} = require("../../utils/database/user_utils");
+const {findUser, doesUserExist, updateUser, createUser, deleteUser} = require("../../utils/database/user_utils");
 const {authenticate, createToken} = require("../../utils/auth_utils");
 const {jwtError} = require("../api_responses/auth/auth_error");
 const {userNotFoundError, invalidUsernamePasswordError, invalidPassword, userAlreadyExists} = require("../api_responses/user/user_error");
 const {userFoundSuccess, loginSuccess, createUserSuccess,
        passwordUpdatedSuccess, emailUpdatedSuccess, accountDeleteSuccess
       } = require("../api_responses/user/user_success");
+const {deleteAddress} = require("../../utils/database/address_utils");
 
 module.exports.userModule = createModule({
     id: 'user_module',
@@ -87,13 +88,12 @@ module.exports.userModule = createModule({
                 user.password = await hashPassword(user.password);
 
                 // save user to database
-                const newUser = new User(user);
-                await newUser.save();
+                const newUser = await createUser(user);
 
                 // create token
                 const token = await createToken(user.email);
 
-                // create user successful
+                // user creation successful
                 return createUserSuccess(newUser, token);
             },
             updateUserPassword: async(parent, {email, password, newPassword}, context) => {
@@ -112,11 +112,8 @@ module.exports.userModule = createModule({
                 // update hashed password
                 user.password = await hashPassword(newPassword);
 
-                // save update
-                await User.findOneAndUpdate({
-                        email: email
-                    }, user
-                );
+                // update user in database
+                await updateUser(user, email);
 
                 // password update successful
                 return passwordUpdatedSuccess(user, email);
@@ -137,11 +134,8 @@ module.exports.userModule = createModule({
                 // update email
                 user.email = newEmail;
 
-                // save update
-                await User.findOneAndUpdate({
-                        email: email
-                    }, user
-                );
+                // update user in database
+                await updateUser(user, email);
 
                 // email update successful
                 return emailUpdatedSuccess(user, email, newEmail);
@@ -156,14 +150,10 @@ module.exports.userModule = createModule({
                 if (!user) userNotFoundError(email);
 
                 // delete user
-                await User.findOneAndRemove({
-                    email: email
-                });
+                await deleteUser(email);
 
                 // remove any addresses for the user
-                await Address.findOneAndRemove({
-                   userId: user._id
-                });
+                await deleteAddress(user._id);
 
                 // Todo: add more deletes as database table get built
 

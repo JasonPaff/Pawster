@@ -22,7 +22,7 @@ module.exports.createUserSuccess = (user, token) => {
         user: user,
         token: token
     };
-};;
+};
 
 module.exports.passwordUpdatedSuccess = (user, email) => {
     return {

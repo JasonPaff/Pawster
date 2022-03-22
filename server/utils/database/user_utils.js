@@ -1,15 +1,32 @@
 ﻿const {User} = require("../../mongodb/models");
 
-// find a user
-module.exports.findUser = async function findUser(email) {
+module.exports.findUser = async (email) => {
     return User.findOne({
         email: email
     });
 };
 
-// check for the existence of a user
-module.exports.doesUserExist = async function doesUserExist(email) {
+module.exports.doesUserExist = async (email) => {
     return User.exists({
+        email: email
+    });
+};
+
+module.exports.updateUser = async (user, email) => {
+    await User.findOneAndUpdate({
+            email: email
+        }, user
+    );
+};
+
+module.exports.createUser = async (user) => {
+    const newUser = new User(user);
+    await newUser.save();
+    return newUser;
+};
+
+module.exports.deleteUser = async (email) => {
+    await User.findOneAndRemove({
         email: email
     });
 }

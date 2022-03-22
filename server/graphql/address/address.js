@@ -1,6 +1,6 @@
 ﻿const {createModule, gql} = require('graphql-modules');
 const {Address} = require("../../mongodb/models");
-const {findAddress, doesAddressExist} = require("../../utils/database/address_utils");
+const {findAddress, doesAddressExist, createAddress, updateAddress, deleteAddress} = require("../../utils/database/address_utils");
 const {findUser} = require("../../utils/database/user_utils");
 const {authenticate} = require("../../utils/auth_utils");
 const {userNotFoundError} = require("../api_responses/user/user_error");
@@ -77,10 +77,8 @@ module.exports.addressModule = createModule({
                 const hasAddress = await doesAddressExist(user._id);
                 if (hasAddress) return existingAddressError(email);
 
-                // save address
-                address.userId = user._id;
-                const newAddress = new Address(address);
-                await newAddress.save();
+                // save address to database
+                const newAddress = await createAddress(user._id, address)
 
                 // address creation successful
                 return addressCreatedSuccess(email, newAddress);
@@ -106,11 +104,8 @@ module.exports.addressModule = createModule({
                 existingAddress.state = address.state ? address.state : existingAddress.state;
                 existingAddress.zipcode = address.zipcode ? address.zipcode : existingAddress.zipcode;
 
-                // update address
-                await Address.findOneAndUpdate({
-                        id: user._id
-                    }, existingAddress
-                );
+                // update address in database
+                await updateAddress(user._id, address);
 
                 // update address successful
                 return addressUpdatedSuccess(email, existingAddress);
@@ -127,10 +122,7 @@ module.exports.addressModule = createModule({
                 if (!existingAddress) return missingAddressError(email);
 
                 // delete address
-                await Address.findOneAndRemove({
-                        email: email
-                    }
-                );
+                await deleteAddress(email);
 
                 // address deletion successful
                 return deleteAddressSuccess(email, existingAddress);
