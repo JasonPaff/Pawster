@@ -18,7 +18,7 @@ export default function Login() {
         } else {
             alert(response.data.validateLogin.message);
         }
-    };
+    }
 
     return (
         <div>

@@ -16,7 +16,7 @@ export default function Register() {
         } else {
             alert(response.data.createUser.message);
         }
-    };
+    }
 
     return (
         <div>

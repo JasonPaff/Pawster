@@ -2,6 +2,8 @@
 const {User, Address} = require('../../mongodb/models');
 const {hashPassword, comparePasswordHashes} = require("../../utils/password_utils");
 const {findUser, doesUserExist} = require("../../utils/database/user_utils");
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 module.exports.userModule = createModule({
     id: 'user_module',
@@ -10,11 +12,11 @@ module.exports.userModule = createModule({
         gql`
             type Query {
                 getUser(email: String!): UserResponse
-                validateLogin(email: String!, password: String!) : UserResponse
+                validateLogin(email: String!, password: String!) : UserLoginResponse
             }
 
             type Mutation {
-                createUser(email: String!, password: String!) : UserResponse
+                createUser(email: String!, password: String!) : UserLoginResponse
                 updateUserEmail(email: String!, newEmail: String!) : UserResponse
                 updateUserPassword(email: String!, password: String!, newPassword: String!) : UserResponse
                 deleteUser(email: String!) : UserResponse
@@ -27,6 +29,13 @@ module.exports.userModule = createModule({
                 dateCreated: Date!
             }
 
+            type UserLoginResponse {
+                success: Boolean
+                message: String
+                user: User
+                token: String
+            }
+            
             type UserResponse {
                 success: Boolean
                 message: String
@@ -70,14 +79,18 @@ module.exports.userModule = createModule({
                     return {
                         success: false,
                         message: `incorrect username/password`,
-                        address: null
+                        user: null
                     };
                 }
+
+                // create token
+                const token = jwt.sign({email: email}, process.ENV.JWT_KEY);
 
                 return {
                     success: true,
                     message: `login successful for ${email}`,
-                    user: user
+                    user: user,
+                    token: token
                 };
             }
         },
@@ -95,13 +108,18 @@ module.exports.userModule = createModule({
                 // hash password
                 user.password = await hashPassword(user.password);
 
+                // save user to database
                 const newUser = new User(user);
                 await newUser.save();
+
+                // create token
+                const token = jwt.sign({email: user.email}, process.ENV.JWT_KEY);
 
                 return {
                     success: true,
                     message: `new user created`,
-                    user: newUser
+                    user: newUser,
+                    token: token
                 };
             },
             updateUserPassword: async(parent, {email, password, newPassword}) => {
@@ -111,7 +129,7 @@ module.exports.userModule = createModule({
                     return {
                         success: false,
                         message: `no user account for ${email} found`,
-                        address: null
+                        user: null
                     };
                 }
 
@@ -121,7 +139,7 @@ module.exports.userModule = createModule({
                     return {
                         success: false,
                         message: `password did not match saved password for ${email}`,
-                        address: null
+                        user: null
                     };
                 }
 
@@ -147,7 +165,7 @@ module.exports.userModule = createModule({
                     return {
                         success: false,
                         message: `no user account for ${email} found`,
-                        address: null
+                        user: null
                     };
                 }
 
@@ -183,7 +201,7 @@ module.exports.userModule = createModule({
                     return {
                         success: false,
                         message: `no user account for ${email} found`,
-                        address: null
+                        user: null
                     };
                 }
 
