@@ -3,7 +3,7 @@ const {User, Address} = require('../../mongodb/models');
 const {hashPassword, comparePasswordHashes} = require("../../utils/password_utils");
 const {findUser, doesUserExist} = require("../../utils/database/user_utils");
 const jwt = require('jsonwebtoken');
-require('dotenv').config();
+const {authenticate, createToken} = require("../../utils/auth_utils");
 
 module.exports.userModule = createModule({
     id: 'user_module',
@@ -45,7 +45,17 @@ module.exports.userModule = createModule({
     ],
     resolvers: {
         Query: {
-            getUser: async (parent, {email}) => {
+            getUser: async (parent, {email}, context) => {
+                // authenticate request
+                const authenticated = await authenticate(context);
+                if (!authenticated) {
+                    return {
+                        success: false,
+                        message: `invalid or missing jwt`,
+                        user: null
+                    };
+                }
+
                 // find the user
                 const user = await findUser(email);
                 if (!user) {
@@ -84,7 +94,7 @@ module.exports.userModule = createModule({
                 }
 
                 // create token
-                const token = jwt.sign({email: email}, process.ENV.JWT_KEY);
+                const token = await createToken(email);
 
                 return {
                     success: true,
@@ -113,7 +123,7 @@ module.exports.userModule = createModule({
                 await newUser.save();
 
                 // create token
-                const token = jwt.sign({email: user.email}, process.ENV.JWT_KEY);
+                const token = await createToken(user.email);
 
                 return {
                     success: true,
@@ -122,7 +132,17 @@ module.exports.userModule = createModule({
                     token: token
                 };
             },
-            updateUserPassword: async(parent, {email, password, newPassword}) => {
+            updateUserPassword: async(parent, {email, password, newPassword}, context) => {
+                // authenticate request
+                const authenticated = await authenticate(context);
+                if (!authenticated) {
+                    return {
+                        success: false,
+                        message: `invalid or missing jwt`,
+                        user: null
+                    };
+                }
+
                 // find the user
                 const user = await findUser(email);
                 if (!user) {
@@ -158,7 +178,17 @@ module.exports.userModule = createModule({
                     user: user
                 };
             },
-            updateUserEmail: async (parent, {email, newEmail}) => {
+            updateUserEmail: async (parent, {email, newEmail}, context) => {
+                // authenticate request
+                const authenticated = await authenticate(context);
+                if (!authenticated) {
+                    return {
+                        success: false,
+                        message: `invalid or missing jwt`,
+                        user: null
+                    };
+                }
+
                 // find the user
                 const user = await findUser(email);
                 if (!user) {
@@ -194,7 +224,17 @@ module.exports.userModule = createModule({
                     user: user
                 };
             },
-            deleteUser: async (parent, {email}) => {
+            deleteUser: async (parent, {email}, context) => {
+                // authenticate request
+                const authenticated = await authenticate(context);
+                if (!authenticated) {
+                    return {
+                        success: false,
+                        message: `invalid or missing jwt`,
+                        user: null
+                    };
+                }
+
                 // find the user
                 const user = await findUser(email);
                 if (!user) {

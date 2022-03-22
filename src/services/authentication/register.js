@@ -5,6 +5,10 @@ export default async function createUser(email, password) {
         createUser(user: $user) {
             success
             message
+            token
+            user {
+                email
+            }
         }
     }`
 
@@ -23,9 +27,11 @@ export default async function createUser(email, password) {
         })
     };
 
-    // TODO: add returned jwt to local storage when implemented on server
-    //localStorage.setItem('jsonwebtoken', token)
-    //localStorage.setItem('email', email)
     const request = await fetch(`${apiRoute}/graphql`, headers);
-    return await request.json();
+    const response = await request.json();
+
+    localStorage.setItem('jsonwebtoken', response.data.validateLogin.token)
+    localStorage.setItem('email', response.data.validateLogin.user.email)
+
+    return response;
 };

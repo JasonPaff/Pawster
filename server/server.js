@@ -32,7 +32,7 @@ const server = new ApolloServer({
     schema: graphql_schema,
     context: async({ req, connection}) => {
         if (connection) { return { } }
-        if (req) { return { } }
+        if (req) { return { req } }
     }
 });
 
