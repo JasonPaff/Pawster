@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import createUser from "../../services/authentication/register";
+import createUser from "../../services/authentication/createUser";
 
 export default function Register() {
     const [password, setPassword] = useState('');

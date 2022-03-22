@@ -1,4 +1,4 @@
-﻿const {Address} = require("../models");
+﻿const {Address} = require("../schemas/address_schema");
 
 module.exports.findAddress = async (id) => {
     return Address.findOne({

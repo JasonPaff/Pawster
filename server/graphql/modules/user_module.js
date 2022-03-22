@@ -3,7 +3,7 @@ const {hashPassword, comparePasswordHashes} = require("../../utils/password_util
 const {findUser, doesUserExist, updateUser, createUser, deleteUser} = require("../../mongodb/operations/user_operations");
 const {authenticate, createToken} = require("../../utils/auth_utils");
 const {jwtError} = require("../api_responses/auth/auth_error");
-const {userNotFoundError, invalidUsernamePasswordError, invalidPassword, userAlreadyExists} = require("../api_responses/user/user_error");
+const {userNotFoundError, invalidUsernamePasswordError, invalidPasswordError, userAlreadyExistsError} = require("../api_responses/user/user_error");
 const {userFoundSuccess, loginSuccess, createUserSuccess,
        passwordUpdatedSuccess, emailUpdatedSuccess, accountDeleteSuccess
       } = require("../api_responses/user/user_success");
@@ -16,7 +16,7 @@ module.exports.userModule = createModule({
         gql`
             type Query {
                 getUser(email: String!): UserResponse
-                validateLogin(email: String!, password: String!) : UserLoginResponse
+                validateUserLogin(email: String!, password: String!) : UserLoginResponse
             }
 
             type Mutation {
@@ -50,113 +50,79 @@ module.exports.userModule = createModule({
     resolvers: {
         Query: {
             getUser: async (parent, {email}, context) => {
-                // authenticate request
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError;
 
-                // find the user
                 const user = await findUser(email);
-                if (!user) userNotFoundError(email);
+                if (!user) return userNotFoundError(email);
 
-                // user found
                 return userFoundSuccess(user, email);
             },
-            validateLogin: async (parent, {email, password}) => {
-                // find the user
+            validateUserLogin: async (parent, {email, password}) => {
                 const user = await findUser(email);
-                if (!user) userNotFoundError(email);
+                if (!user) return userNotFoundError(email);
 
-                // confirm valid password
                 const validPassword = await comparePasswordHashes(password, user.password);
                 if (!validPassword) return invalidUsernamePasswordError;
 
-                // create token
                 const token = await createToken(email);
 
-                // login successful
                 return loginSuccess(user, email, token);
             }
         },
         Mutation: {
             createUser: async (parent, {email, password}) => {
-                // check for existing user with the email
                 const alreadyExists = await doesUserExist(email);
-                if (alreadyExists) return userAlreadyExists(email);
+                if (alreadyExists) return userAlreadyExistsError(email);
 
-                // hash password
                 password = await hashPassword(password);
 
-                // save user to database
                 const newUser = await createUser(email, password);
-
-                // create token
                 const token = await createToken(email);
 
-                // user creation successful
                 return createUserSuccess(newUser, token);
             },
             updateUserPassword: async(parent, {email, password, newPassword}, context) => {
-                // authenticate request
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError;
 
-                // find the user
                 const user = await findUser(email);
-                if (!user) userNotFoundError(email);
+                if (!user) return userNotFoundError(email);
 
-                // confirm valid password
                 const validPassword = await comparePasswordHashes(password, user.password);
-                if (!validPassword) return invalidPassword(email);
+                if (!validPassword) return invalidPasswordError(email);
 
-                // update hashed password
                 user.password = await hashPassword(newPassword);
+                await updateUser(user);
 
-                // update user in database
-                await updateUser(user, email);
-
-                // password update successful
                 return passwordUpdatedSuccess(user, email);
             },
             updateUserEmail: async (parent, {email, newEmail}, context) => {
-                // authenticate request
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError;
 
-                // find the user
                 const user = await findUser(email);
-                if (!user) userNotFoundError(email);
+                if (!user) return userNotFoundError(email);
 
-                // check for new email already in use
                 const existingUser = await doesUserExist(newEmail);
-                if (existingUser) return userAlreadyExists(newEmail);
+                if (existingUser) return userAlreadyExistsError(newEmail);
 
-                // update email
                 user.email = newEmail;
+                await updateUser(user);
 
-                // update user in database
-                await updateUser(user, email);
-
-                // email update successful
                 return emailUpdatedSuccess(user, email, newEmail);
             },
             deleteUser: async (parent, {email}, context) => {
-                // authenticate request
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError;
 
-                // find the user
                 const user = await findUser(email);
-                if (!user) userNotFoundError(email);
-
-                // delete user
-                await deleteUser(email);
-
-                // remove any addresses for the user
-                await deleteAddress(user._id);
+                if (!user) return userNotFoundError(email);
 
                 // Todo: add more deletes as database table get built
+                await deleteUser(email);
+                await deleteAddress(user._id);
 
-                // account deletion successful
                 return accountDeleteSuccess(user, email);
             }
         }
