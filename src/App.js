@@ -1,5 +1,4 @@
 import Map from "./parts/Map";
-import "./styles/tailwind.output.css";
 
 function App() {
   return (
