@@ -32,6 +32,7 @@ module.exports.petModule = createModule({
                 description: String
                 energyLevel: String
                 feedingSchedule: String
+                id: ID
                 isFixed: Boolean
                 isHouseBroken: Boolean
                 isFriendlyToChildren: Boolean
@@ -92,10 +93,13 @@ module.exports.petModule = createModule({
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
 
-                const pets = await findPets(email);
-                if (!pets) return petsNotFoundError(email);
+                const user = await findUser(email);
+                if (!user) return userNotFoundError(email);
 
-                return petsFoundSuccess(pets);
+                const pets = await findPets(user._id);
+                if (!pets || pets.length === 0) return petsNotFoundError(email);
+
+                return petsFoundSuccess(email, pets);
             }
         },
         Mutation: {
