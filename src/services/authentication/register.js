@@ -30,8 +30,10 @@ export default async function createUser(email, password) {
     const request = await fetch(`${apiRoute}/graphql`, headers);
     const response = await request.json();
 
-    localStorage.setItem('jsonwebtoken', response.data.validateLogin.token)
-    localStorage.setItem('email', response.data.validateLogin.user.email)
+    if (response.data.validateLogin.success) {
+        localStorage.setItem('jsonwebtoken', response.data.validateLogin.token);
+        localStorage.setItem('email', response.data.validateLogin.user.email);
+    }
 
     return response;
 };
