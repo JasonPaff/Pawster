@@ -5,13 +5,7 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
 
-// Importing Components
 import App from './App';
-import Map from './parts/Map';
-import BaseLayout from './BaseLayout';
-import Landing from './pages/Landing';
-import Login from './components/Authentication/Login'
-import Logout from './components/Authentication/Logout'
 
 // Importing Reducers
 import authenticationReducer from './store/reducers/authentication'
@@ -32,19 +26,11 @@ store.dispatch({type: 'LOGIN', payload: token})
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
       <BrowserRouter>
-        <BaseLayout>
-          <Routes>
-            <Route path="/" element={<Landing />}/>
-            <Route path="/map" element={<Map />}/>
-            <Route path="/search" element={<App/>}/>
-            <Route path="/login" element={<Login />} />
-            <Route path="/logout" element={<Logout />} />
-          </Routes>
-        </BaseLayout>
+        <Provider store={store}>
+          <App />
+        </Provider>
       </BrowserRouter>
-    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

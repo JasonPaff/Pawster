@@ -3,10 +3,15 @@ import "../styles/tailwind.output.css";
 
 function NavBar() {
   return (
-    <div className="flex justify-center">
-      <h1>Nav Bar</h1>
-      <NavLink to="/login">Login</NavLink>
-      <NavLink to="/logout">Logout</NavLink>
+    <div class="flex justify-between">
+      <div><h1>Logo goes here</h1></div>
+
+      <div>Something Goes Here</div>
+
+      <div class="flex">
+        <div><NavLink to="/login">Login</NavLink></div>
+        <div><NavLink to="/logout">Logout</NavLink></div>           
+      </div>
     </div>
   );
 }
