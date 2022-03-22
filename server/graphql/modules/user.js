@@ -78,19 +78,19 @@ module.exports.userModule = createModule({
             }
         },
         Mutation: {
-            createUser: async (parent, {user}) => {
+            createUser: async (parent, {email, password}) => {
                 // check for existing user with the email
-                const alreadyExists = await doesUserExist(user.email);
-                if (alreadyExists) return userAlreadyExists(user.email);
+                const alreadyExists = await doesUserExist(email);
+                if (alreadyExists) return userAlreadyExists(email);
 
                 // hash password
-                user.password = await hashPassword(user.password);
+                password = await hashPassword(password);
 
                 // save user to database
-                const newUser = await createUser(user);
+                const newUser = await createUser(email, password);
 
                 // create token
-                const token = await createToken(user.email);
+                const token = await createToken(email);
 
                 // user creation successful
                 return createUserSuccess(newUser, token);

@@ -1,8 +1,9 @@
 import {apiRoute} from "../../utils/apiRoute";
+import {gql} from "@apollo/client";
 
 export default async function createUser(email, password) {
-    const query = `mutation Mutation($user: UserInput) {
-        createUser(user: $user) {
+    const query = gql`mutation Mutation($email: String!, $password: String!) {
+        createUser(email: $email, password: $password) {
             success
             message
             token

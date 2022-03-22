@@ -19,7 +19,11 @@ module.exports.updateUser = async (user, email) => {
     );
 };
 
-module.exports.createUser = async (user) => {
+module.exports.createUser = async (email, password) => {
+    const user = {
+        email: email,
+        password: password
+    }
     const newUser = new User(user);
     await newUser.save();
     return newUser;

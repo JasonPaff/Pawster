@@ -20,7 +20,7 @@ module.exports.deleteAddress = async (id) => {
 
 module.exports.createAddress = async (id, address) => {
     address.userId = id;
-    const newAddress = new Address(address);
+    const newAddress = await new Address(address);
     await newAddress.save();
     return newAddress;
 };
