@@ -1,38 +1,38 @@
-import React, { useState, useEffect } from 'react'
-import HandleLoginUser from '../../services/authentication/login'
+import React, {useState} from 'react'
+import {useNavigate} from "react-router-dom";
+import validateLogin from "../../services/authentication/login";
 
-function Login() {
+export default function Login() {
+    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('');
+    const navigate = useNavigate()
 
-    const [user, setUser] = useState({})
+    async function handleAccountLogin() {
+        // check for email or password
+        if (password.length <= 0 || email.length <= 0) return;
 
-    useEffect(() => {
-        setUser({
-            username:"guest",
-            password:"password"
-        })
-    }, [])
+        const response = await validateLogin(email, password);
 
-    const handleTextChange = (e) => {
-        setUser({
-            ...user,
-            [e.target.name]: e.target.value
-        })
+        if (response.data.validateLogin.success) {
+            navigate('/');
+        } else {
+            alert(response.data.validateLogin.message);
+        }
     }
 
-
     return (
-        <div className="registerContainer">
-            <div className="registerInput">
-                <h1>Login</h1>
-                <input type="text" placeholder="Username" name="username" onChange={handleTextChange}/>
-                <input type="password" placeholder="Password" name="password" onChange={handleTextChange}/>
-                <button onClick={HandleLoginUser(user)}>Login</button>
-                <button className="guestBtn" onClick={HandleLoginUser(user)}>Guest Login</button>
-            </div>
+        <div>
+            <h1>Login</h1>
+            <input type="text"
+                   placeholder="Email"
+                   onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+                type="password"
+                placeholder="Password"
+                onChange={(e) => setPassword(e.target.value)}
+            />
+            <button onClick={handleAccountLogin}>Login</button>
         </div>
-
-    )
+    );
 }
-
-
-export default Login
