@@ -1,6 +1,9 @@
 ﻿const jwt = require('jsonwebtoken');
 
 module.exports.authenticate = async function authenticate(context) {
+    // disabled auth for now, remove to enable
+    return true
+
     // get authorization header
     const token = await context.req.headers['authorization'];
 
