@@ -2,27 +2,14 @@
 
 module.exports.authenticate = async function authenticate(context) {
     // get authorization header
-    const auth_header = await context.req.headers['authorization'];
-
-    console.log("header: " + auth_header);
+    const token = await context.req.headers['authorization'];
 
     // no token attached
-    if (!auth_header) return false;
-
-    // parse token
-    const token = auth_header.split('.')[1]
-
-    console.log("token: " + token);
+    if (!token) return false;
 
     // verify token
-    try {
-        const {email} = await jwt.verify(token, process.env.JWT_KEY, null, null);
-        console.log("email: " + email);
-    }
-    catch (err) {
-        console.log("error: " + err.message);
-        return false
-    }
+    try { await jwt.verify(token, process.env.JWT_KEY, null, null); }
+    catch (err) { return false }
 
     return true;
 }

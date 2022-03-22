@@ -2,7 +2,6 @@
 const {User, Address} = require('../../mongodb/models');
 const {hashPassword, comparePasswordHashes} = require("../../utils/password_utils");
 const {findUser, doesUserExist} = require("../../utils/database/user_utils");
-const jwt = require('jsonwebtoken');
 const {authenticate, createToken} = require("../../utils/auth_utils");
 
 module.exports.userModule = createModule({
