@@ -5,7 +5,7 @@ import validateLogin from "../../services/authentication/login";
 export default function Login() {
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     async function handleAccountLogin() {
         // check for email or password
@@ -18,7 +18,7 @@ export default function Login() {
         } else {
             alert(response.data.validateLogin.message);
         }
-    }
+    };
 
     return (
         <div>
@@ -35,4 +35,4 @@ export default function Login() {
             <button onClick={handleAccountLogin}>Login</button>
         </div>
     );
-}
+};

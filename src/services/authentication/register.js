@@ -28,4 +28,4 @@ export default async function createUser(email, password) {
     //localStorage.setItem('email', email)
     const request = await fetch(`${apiRoute}/graphql`, headers);
     return await request.json();
-}
+};
