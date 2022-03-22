@@ -53,7 +53,7 @@ module.exports.addressModule = createModule({
                 if (!user) userNotFoundError(email);
 
                 // check for address
-                const address = findAddress(user._id);
+                const address = await findAddress(user._id);
 
                 // no address found
                 if (!address) return missingAddressError(email);
@@ -76,7 +76,7 @@ module.exports.addressModule = createModule({
                 const hasAddress = await doesAddressExist(user._id);
                 if (hasAddress) return existingAddressError(email);
 
-                // save address to database
+                // save address to the database
                 const newAddress = await createAddress(user._id, address)
 
                 // address creation successful

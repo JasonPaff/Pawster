@@ -1,7 +1,8 @@
+import {gql} from "@apollo/client";
 import {apiRoute} from "../../utils/apiRoute";
 
 export default async function validateLogin(email, password) {
-    const query = `query Query($email: String!, $password: String!) {
+    const query = gql`query Query($email: String!, $password: String!) {
         validateLogin(email: $email, password: $password) {
             success
             message
@@ -21,8 +22,8 @@ export default async function validateLogin(email, password) {
         body: JSON.stringify({
             query,
             variables: {
-                email,
-                password
+                password,
+                email
             }
         })
     };
