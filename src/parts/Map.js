@@ -2,8 +2,6 @@ import React, { useMemo, useCallback, useRef, useState } from 'react'
 import { GoogleMap, InfoWindow, Marker, useLoadScript } from '@react-google-maps/api'
 import '../styles/Map.css'
 
-
-
 function Map(props) {
     
     const mapRef = useRef()

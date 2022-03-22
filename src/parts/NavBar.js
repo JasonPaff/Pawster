@@ -1,7 +1,6 @@
 import { NavLink } from "react-router-dom";
-import "../styles/tailwind.output.css";
 
-function NavBar() {
+export default function NavBar() {
   return (
     <div class="flex justify-between">
       <div><h1>Logo goes here</h1></div>
@@ -14,6 +13,4 @@ function NavBar() {
       </div>
     </div>
   );
-}
-
-export default NavBar;
+};
