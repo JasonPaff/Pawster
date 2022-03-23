@@ -2,14 +2,15 @@
 import {gql} from "@apollo/client";
 import getGqlString from "../../utils/graphql_utils";
 
-export default async function updatePetPhoto(photoId, petPhoto) {
-    let query = gql`mutation Mutation($photoId: ID!, $petPhoto: PetPhotoInput!) {
-        updatePetPhoto(photoId: $photoId, petPhoto: $petPhoto) {
+export default async function getUserPhotos(userId) {
+    let query = gql`query Query($userId: ID!) {
+        getUserPhotos(userId: $userId) {
             success
             message
-            photo {
-                petId
+            photos {
+                userId
                 photo
+                isProfilePhoto
             }
         }
     }`
@@ -25,8 +26,7 @@ export default async function updatePetPhoto(photoId, petPhoto) {
         body: JSON.stringify({
             query,
             variables: {
-                photoId,
-                petPhoto
+                userId
             }
         })
     };

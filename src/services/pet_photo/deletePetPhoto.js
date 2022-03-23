@@ -10,6 +10,7 @@ export default async function deletePetPhoto(photoId) {
             photo {
                 petId
                 photo
+                isProfilePhoto
             }
         }
     }`
