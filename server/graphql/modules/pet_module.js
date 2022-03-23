@@ -14,7 +14,7 @@ module.exports.petModule = createModule({
         gql`
             extend type Query {
                 getPet(id: ID!) : PetResponse
-                getPets(email: String!) : PetResponse
+                getPets(email: String!) : PetsResponse
             }
             
             extend type Mutation {
@@ -76,7 +76,13 @@ module.exports.petModule = createModule({
             type PetResponse {
                 success: Boolean
                 message: String
-                pet: [Pet]
+                pet: Pet
+            }
+            
+            type PetsResponse {
+                success: Boolean
+                message: String
+                pets: [Pet]
             }
         `
     ],
