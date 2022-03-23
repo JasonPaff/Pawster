@@ -43,7 +43,7 @@ module.exports.petModule = createModule({
                 name: String
                 pottySchedule: String
                 type: String
-                userId: String!
+                userId: String
                 vetDetails: String
                 weight: Int
             }

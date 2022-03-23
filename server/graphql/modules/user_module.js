@@ -4,7 +4,7 @@ const {findUser, doesUserExist, updateUser, createUser, deleteUser} = require(".
 const {authenticate, createToken} = require("../../utils/auth_utils");
 const {jwtError} = require("../api_responses/auth/auth_error");
 const {userNotFoundError, invalidUsernamePasswordError, invalidPasswordError, userAlreadyExistsError} = require("../api_responses/user/user_error");
-const {userFoundSuccess, createUserSuccess, passwordUpdatedSuccess, emailUpdatedSuccess, accountDeleteSuccess } = require("../api_responses/user/user_success");
+const {userFoundSuccess, createUserSuccess, passwordUpdatedSuccess, emailUpdatedSuccess, accountDeletedSuccess} = require("../api_responses/user/user_success");
 const {deleteAddress} = require("../../mongodb/operations/address_operations");
 const {loginSuccess} = require("../api_responses/auth/auth_success");
 
@@ -20,8 +20,8 @@ module.exports.userModule = createModule({
 
             type Mutation {
                 createUser(email: String!, password: String!) : UserLoginResponse
-                updateUserEmail(email: String!, newEmail: String!) : UserResponse
                 updateUserPassword(email: String!, password: String!, newPassword: String!) : UserResponse
+                updateUserEmail(email: String!, newEmail: String!) : UserResponse
                 deleteUser(email: String!) : UserResponse
             }
 
@@ -66,17 +66,17 @@ module.exports.userModule = createModule({
 
                 const token = await createToken(email);
 
-                return loginSuccess(user, email, token);
+                return loginSuccess(user, token);
             }
         },
         Mutation: {
             createUser: async (parent, {email, password}) => {
-                const alreadyExists = await doesUserExist(email);
-                if (alreadyExists) return userAlreadyExistsError(email);
+                const userAlreadyExists = await doesUserExist(email);
+                if (userAlreadyExists) return userAlreadyExistsError(email);
 
-                password = await hashPassword(password);
+                const hashedPassword = await hashPassword(password);
 
-                const newUser = await createUser(email, password);
+                const newUser = await createUser(email, hashedPassword);
                 const token = await createToken(email);
 
                 return createUserSuccess(newUser, token);
@@ -122,7 +122,7 @@ module.exports.userModule = createModule({
                 await deleteUser(email);
                 await deleteAddress(user._id);
 
-                return accountDeleteSuccess(user, email);
+                return accountDeletedSuccess(user, email);
             }
         }
     }
