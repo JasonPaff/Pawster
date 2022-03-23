@@ -4,7 +4,7 @@ export default function NavBar() {
   return (
     <div className="flex justify-between">
       <div>
-        <h1 className="font-logo text-red-700 text-7xl ml-2">Petsy</h1>
+        <h1>Logo goes here</h1>
       </div>
 
       <div>Something Goes Here</div>

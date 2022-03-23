@@ -13,14 +13,14 @@ module.exports.petModule = createModule({
     typeDefs: [
         gql`
             extend type Query {
-                getPet(id: ID!) : PetResponse
-                getPets(email: String!) : PetResponse
+                getPet(petId: ID!) : PetResponse
+                getPets(email: String!) : PetsResponse
             }
             
             extend type Mutation {
                 createPet(email: String!, pet: PetInput!) : PetResponse
-                updatePet(id: ID!, pet: PetInput!) : PetResponse
-                deletePet(id: ID!) : PetResponse
+                updatePet(petId: ID!, updatedPet: PetInput!) : PetResponse
+                deletePet(petId: ID!) : PetResponse
             }            
             
             type Pet {
@@ -37,6 +37,7 @@ module.exports.petModule = createModule({
                 isHouseBroken: Boolean
                 isFriendlyToChildren: Boolean
                 isFriendlyToOtherDogs: Boolean
+                isFriendlyToOtherCats: Boolean
                 isMicroChipped: Boolean
                 medication: String
                 medicationInstructions: String
@@ -45,7 +46,7 @@ module.exports.petModule = createModule({
                 type: String
                 userId: String
                 vetDetails: String
-                weight: Int
+                weight: Float
             }
             
             input PetInput {
@@ -61,6 +62,7 @@ module.exports.petModule = createModule({
                 isHouseBroken: Boolean
                 isFriendlyToChildren: Boolean
                 isFriendlyToOtherDogs: Boolean
+                isFriendlyToOtherCats: Boolean
                 isMicroChipped: Boolean
                 medication: String
                 medicationInstructions: String
@@ -68,24 +70,30 @@ module.exports.petModule = createModule({
                 pottySchedule: String
                 type: String
                 vetDetails: String
-                weight: Int
+                weight: Float
             }
             
             type PetResponse {
                 success: Boolean
                 message: String
-                pet: [Pet]
+                pet: Pet
+            }
+            
+            type PetsResponse {
+                success: Boolean
+                message: String
+                pets: [Pet]
             }
         `
     ],
     resolvers: {
         Query: {
-            getPet: async (parent, {id}, context) => {
+            getPet: async (parent, {petId}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
 
-                const pet = await findPet(id);
-                if (!pet) return petNotFoundError(id);
+                const pet = await findPet(petId);
+                if (!pet) return petNotFoundError(petId);
 
                 return petFoundSuccess(pet);
             },
@@ -114,12 +122,12 @@ module.exports.petModule = createModule({
 
                 return petCreatedSuccess(newPet);
             },
-            updatePet: async (parent, {id, updatedPet}, context) => {
+            updatePet: async (parent, {petId, updatedPet}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
 
-                const pet = await findPet(id);
-                if (!pet) return petNotFoundError(id);
+                const pet = await findPet(petId);
+                if (!pet) return petNotFoundError(petId);
 
                 pet.additionalInfo = updatedPet.additionalInfo ? updatedPet.additionalInfo : pet.additionalInfo;
                 pet.ageMonth = updatedPet.ageMonth ? updatedPet.ageMonth : pet.ageMonth;
@@ -132,7 +140,8 @@ module.exports.petModule = createModule({
                 pet.isFixed = updatedPet.isFixed ? updatedPet.isFixed : pet.isFixed;
                 pet.isHouseBroken = updatedPet.isHouseBroken ? updatedPet.isHouseBroken : pet.isHouseBroken;
                 pet.isFriendlyToChildren = updatedPet.isFriendlyToChildren ? updatedPet.isFriendlyToChildren : pet.isFriendlyToChildren;
-                pet.isFriendlyToOtherAnimals = updatedPet.isFriendlyToOtherAnimals ? updatedPet.isFriendlyToOtherAnimals : pet.isFriendlyToOtherAnimals;
+                pet.isFriendlyToOtherDogs = updatedPet.isFriendlyToOtherDogs ? updatedPet.isFriendlyToOtherDogs : pet.isFriendlyToOtherDogs;
+                pet.isFriendlyToOtherCats = updatedPet.isFriendlyToOtherCats ? updatedPet.isFriendlyToOtherCats : pet.isFriendlyToOtherCats;
                 pet.isMicroChipped = updatedPet.isMicroChipped ? updatedPet.isMicroChipped : pet.isMicroChipped;
                 pet.medication = updatedPet.medication ? updatedPet.medication : pet.medication;
                 pet.medicationInstructions = updatedPet.medicationInstructions ? updatedPet.medicationInstructions : pet.medicationInstructions;
@@ -143,20 +152,20 @@ module.exports.petModule = createModule({
                 pet.vetDetails = updatedPet.vetDetails ? updatedPet.vetDetails : pet.vetDetails;
                 pet.weight = updatedPet.weight ? updatedPet.weight : pet.weight;
 
-                await updatePet(id, updatedPet);
+                await updatePet(petId, updatedPet);
 
-                return petUpdatedSuccess(id, updatedPet);
+                return petUpdatedSuccess(petId, pet);
             },
-            deletePet: async (parent, {id}, context) => {
+            deletePet: async (parent, {petId}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
 
-                const pet = await findPet(id);
-                if (!pet) return petNotFoundError(id);
+                const pet = await findPet(petId);
+                if (!pet) return petNotFoundError(petId);
 
-                await deletePet(id);
+                await deletePet(petId);
 
-                return petDeletedSuccess(id, pet);
+                return petDeletedSuccess(petId, pet);
             }
         }
     }
