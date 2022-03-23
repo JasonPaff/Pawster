@@ -1,11 +1,11 @@
 ﻿const mongoose = require('mongoose');
 
 const address_schema = new mongoose.Schema({
-    userId: String,
-    street: String,
-    city: String,
-    state: String,
-    zipcode: Number
+    userId: {type: String, required: true},
+    street: {type: String, default: ' '},
+    city: {type: String, default: ' '},
+    state: {type: String, default: ' '},
+    zipcode: {type: String, default: ' '},
 });
 
 module.exports.Address = mongoose.model('Address', address_schema);
