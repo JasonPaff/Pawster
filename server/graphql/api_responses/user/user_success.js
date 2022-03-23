@@ -31,7 +31,7 @@ module.exports.emailUpdatedSuccess = (user, email, newEmail) => {
     };
 };
 
-module.exports.accountDeleteSuccess = (user, email) => {
+module.exports.accountDeletedSuccess = (user, email) => {
     return {
         success: true,
         message: `user account for ${email} deleted`,
