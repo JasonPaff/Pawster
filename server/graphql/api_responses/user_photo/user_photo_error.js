@@ -13,3 +13,11 @@ module.exports.userPhotosNotFoundError = (id) => {
         photo: null
     };
 };
+
+module.exports.userProfilePhotoNotFoundError = (id) => {
+    return {
+        success: false,
+        message: `profile photo for id ${id} not found`,
+        photo: null
+    };
+};

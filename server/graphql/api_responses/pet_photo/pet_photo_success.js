@@ -14,10 +14,26 @@ module.exports.petPhotosFoundSuccess = (id, photos) => {
     };
 };
 
-module.exports.petPhotoCreatedSuccess = (photo) => {
+module.exports.petProfilePhotoFoundSuccess = (id, photo) => {
     return {
         success: true,
-        message: `photo created`,
+        message: `profile photo for id ${id} found`,
+        photo: photo
+    };
+};
+
+module.exports.petPhotoAddedSuccess = (photo) => {
+    return {
+        success: true,
+        message: `photo added`,
+        photo: photo
+    };
+};
+
+module.exports.petProfilePhotoUpdatedSuccess = (petId, photo) => {
+    return {
+        success: true,
+        message: `profile photo updated for ${petId}`,
         photo: photo
     };
 };

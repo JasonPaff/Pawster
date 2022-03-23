@@ -11,6 +11,7 @@ function Logout(props) {
         // remove the login data from local storage
         localStorage.removeItem('jsonwebtoken');
         localStorage.removeItem('email');
+        localStorage.removeItem('userId');
 
         // update global state 
         // isAuthenticated = false 
