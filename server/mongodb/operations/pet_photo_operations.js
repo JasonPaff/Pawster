@@ -15,6 +15,14 @@ module.exports.findPhotos = async (petId) => {
     });
 };
 
+module.exports.findProfilePhoto = async (petId) => {
+    if (!isValidObjectId(petId)) return false;
+    return Pet_Photo.findOne({
+        petId: petId,
+        isProfilePhoto: true
+    })
+}
+
 module.exports.createPhoto = async (photo) => {
     if (!isValidObjectId(photo.petId)) return false;
     const newPhoto = await new Pet_Photo(photo);

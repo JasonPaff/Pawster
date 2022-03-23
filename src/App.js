@@ -1,4 +1,3 @@
-import "./styles/tailwind.output.css";
 import {Routes, Route} from 'react-router-dom';
 
 // Importing Components
