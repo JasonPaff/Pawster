@@ -2,12 +2,16 @@ import React, { useMemo, useCallback, useRef, useState } from 'react'
 import { GoogleMap, InfoWindow, Marker, useLoadScript } from '@react-google-maps/api'
 import '../styles/Map.css'
 
-function Map(props) {
+function Map() {
+
+    const [pinMarkers, setPinMarkers] = useState([])
     
     const mapRef = useRef()
     const onLoad = useCallback(map => (mapRef.current = map), [])
 
     const API_KEY = process.env.REACT_APP_GOOGLE_API
+
+    const google = window.google
 
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: API_KEY
@@ -15,14 +19,58 @@ function Map(props) {
 
     if (!isLoaded) return <div>Loading...</div>
       
-
     // const options = useMemo(() => ({
     //     disableDefaultUI: false,
     //     clickableIcons: true
     // }), [])
 
 
+    var address=["new york", "las vegas", "san francisco", "chicago"];
 
+
+
+    var geocoder=new google.maps.Geocoder();
+
+    const buildMarkers = (callback) => {
+        const markers = []
+        for (var i = 0; i < address.length; i++) {
+            (function(i) {
+    
+            // Use geocoder to grab latlong for user inputed address
+            geocoder.geocode({'address': address[i]}, function(results, status) {
+                if (status === google.maps.GeocoderStatus.OK) {
+                    // Redefine map center location
+                    // if (i == 1){map.setCenter(results[0].geometry.location); }
+        
+                    // Create dynamic markers on map as per the address array
+                    const markerComponent = <Marker 
+                    position={{lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng()}} 
+                    icon={{
+                        url: "https://raw.githubusercontent.com/Concept211/Google-Maps-Markers/master/images/marker_blue"+(i+1)+".png", 
+                        scaledSize: new window.google.maps.Size(28,43),
+                        origin: new window.google.maps.Point(0, 0),
+                        anchor: new window.google.maps.Point(15, 15)
+                        }}/>
+                    markers.push(markerComponent)
+                    if (markers.length === address.length) {
+                        callback(markers)
+                    }      
+                }
+                });
+            })(i);
+        }
+    }
+
+    buildMarkers((markers)=>{setPinMarkers(markers)})
+
+    console.log(pinMarkers)
+
+    // geocoder.geocode({'address': "1200 Francis St, Atlanta"}, function(results, status) {
+    //     console.log(results[0].geometry.location.lat())
+    //     console.log(results[0].geometry.location.lng())
+
+    // })
+    
     return (
         <div>
             <GoogleMap
@@ -32,6 +80,9 @@ function Map(props) {
             // options={options}
             onLoad={onLoad}
             >
+                
+                {pinMarkers}
+
                 {/* {props.listings.map((listing) => (
                     <Marker 
                     key={listing.id} 
