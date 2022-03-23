@@ -73,17 +73,10 @@ function Map() {
 
     buildMarkers((markers)=>{setPinMarkers(markers)})
 
-    console.log(pinMarkers)
-
-    // geocoder.geocode({'address': "1200 Francis St, Atlanta"}, function(results, status) {
-    //     console.log(results[0].geometry.location.lat())
-    //     console.log(results[0].geometry.location.lng())
-
-    // })
 
     function MapSearch({ panTo }) {
         const {ready, value, suggestions: {status, data}, setValue, clearSuggestions
-    } = usePlacesAutocomplete({
+        } = usePlacesAutocomplete({
             requestOptions: {
                 location: {lat: () => 33.7490, lng: () => -84.5610312},
                 radius: 200 * 1000,
