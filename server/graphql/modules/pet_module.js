@@ -13,14 +13,14 @@ module.exports.petModule = createModule({
     typeDefs: [
         gql`
             extend type Query {
-                getPet(id: ID!) : PetResponse
+                getPet(petId: ID!) : PetResponse
                 getPets(email: String!) : PetsResponse
             }
             
             extend type Mutation {
                 createPet(email: String!, pet: PetInput!) : PetResponse
-                updatePet(id: ID!, updatedPet: PetInput!) : PetResponse
-                deletePet(id: ID!) : PetResponse
+                updatePet(petId: ID!, updatedPet: PetInput!) : PetResponse
+                deletePet(petId: ID!) : PetResponse
             }            
             
             type Pet {
@@ -88,12 +88,12 @@ module.exports.petModule = createModule({
     ],
     resolvers: {
         Query: {
-            getPet: async (parent, {id}, context) => {
+            getPet: async (parent, {petId}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
 
-                const pet = await findPet(id);
-                if (!pet) return petNotFoundError(id);
+                const pet = await findPet(petId);
+                if (!pet) return petNotFoundError(petId);
 
                 return petFoundSuccess(pet);
             },
@@ -122,12 +122,12 @@ module.exports.petModule = createModule({
 
                 return petCreatedSuccess(newPet);
             },
-            updatePet: async (parent, {id, updatedPet}, context) => {
+            updatePet: async (parent, {petId, updatedPet}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
 
-                const pet = await findPet(id);
-                if (!pet) return petNotFoundError(id);
+                const pet = await findPet(petId);
+                if (!pet) return petNotFoundError(petId);
 
                 pet.additionalInfo = updatedPet.additionalInfo ? updatedPet.additionalInfo : pet.additionalInfo;
                 pet.ageMonth = updatedPet.ageMonth ? updatedPet.ageMonth : pet.ageMonth;
@@ -152,20 +152,20 @@ module.exports.petModule = createModule({
                 pet.vetDetails = updatedPet.vetDetails ? updatedPet.vetDetails : pet.vetDetails;
                 pet.weight = updatedPet.weight ? updatedPet.weight : pet.weight;
 
-                await updatePet(id, updatedPet);
+                await updatePet(petId, updatedPet);
 
-                return petUpdatedSuccess(id, pet);
+                return petUpdatedSuccess(petId, pet);
             },
-            deletePet: async (parent, {id}, context) => {
+            deletePet: async (parent, {petId}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
 
-                const pet = await findPet(id);
-                if (!pet) return petNotFoundError(id);
+                const pet = await findPet(petId);
+                if (!pet) return petNotFoundError(petId);
 
-                await deletePet(id);
+                await deletePet(petId);
 
-                return petDeletedSuccess(id, pet);
+                return petDeletedSuccess(petId, pet);
             }
         }
     }

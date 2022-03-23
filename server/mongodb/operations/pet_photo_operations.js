@@ -1,10 +1,10 @@
 ﻿const {Pet_Photo} = require("../schemas/pet_photo_schema");
 const {isValidObjectId} = require("../../utils/database_utils");
 
-module.exports.findPhoto = async (id) => {
-    if (!isValidObjectId(id)) return false;
+module.exports.findPhoto = async (photoId) => {
+    if (!isValidObjectId(photoId)) return false;
     return Pet_Photo.findOne({
-        _id: id
+        _id: photoId
     });
 };
 
@@ -14,6 +14,14 @@ module.exports.findPhotos = async (petId) => {
         petId: petId
     });
 };
+
+module.exports.findProfilePhoto = async (petId) => {
+    if (!isValidObjectId(petId)) return false;
+    return Pet_Photo.findOne({
+        petId: petId,
+        isProfilePhoto: true
+    })
+}
 
 module.exports.createPhoto = async (photo) => {
     if (!isValidObjectId(photo.petId)) return false;
@@ -29,10 +37,10 @@ module.exports.updatePhoto = async (updatedPhoto) => {
     }, updatedPhoto);
 }
 
-module.exports.deletePhoto = async (id) => {
-    if (!isValidObjectId(id)) return false;
+module.exports.deletePhoto = async (photoId) => {
+    if (!isValidObjectId(photoId)) return false;
     await Pet_Photo.findOneAndRemove({
-        _id: id
+        _id: photoId
     });
 }
 

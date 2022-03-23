@@ -15,14 +15,14 @@ module.exports.petPhotoModule = createModule({
     typeDefs: [
         gql`
             extend type Query {
-                getPetPhoto(id: ID!) : PetPhotoResponse
+                getPetPhoto(photoId: ID!) : PetPhotoResponse
                 getPetPhotos(petId: ID!) : PetPhotosResponse 
             },
             
             extend type Mutation {
                 createPetPhoto(petPhoto: PetPhotoInput!) : PetPhotoResponse
-                updatePetPhoto(petId: ID!, updatedPhoto: String!) : PetPhotoResponse
-                deletePetPhoto(id: ID!) : PetPhotoResponse
+                updatePetPhoto(photoId: ID!, petPhoto: PetPhotoInput!) : PetPhotoResponse
+                deletePetPhoto(photoId: ID!) : PetPhotoResponse
                 deleteAllPetPhotos(petId: ID!) : PetPhotosResponse
             }
             
@@ -51,14 +51,14 @@ module.exports.petPhotoModule = createModule({
     ],
     resolvers: {
         Query : {
-            getPetPhoto: async (parent, {id}, context) => {
+            getPetPhoto: async (parent, {photoId}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
 
-                const petPhoto = await findPhoto(id);
-                if (!petPhoto) return petPhotoNotFoundError(id);
+                const petPhoto = await findPhoto(photoId);
+                if (!petPhoto) return petPhotoNotFoundError(photoId);
 
-                return petPhotoFoundSuccess(id);
+                return petPhotoFoundSuccess(photoId);
             },
             getPetPhotos: async (parent, {petId}, context) => {
                 const authenticated = await authenticate(context);
@@ -82,28 +82,28 @@ module.exports.petPhotoModule = createModule({
 
                 return petPhotoCreatedSuccess(newPhoto);
             },
-            updatePetPhoto: async (parent, {id, updatedPhoto}, context) => {
+            updatePetPhoto: async (parent, {petPhoto}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
 
-                const photo = await findPhoto(id);
-                if (!photo) return petPhotoNotFoundError(id);
+                const photo = await findPhoto(petPhoto.id);
+                if (!photo) return petPhotoNotFoundError(petPhoto.id);
 
                 photo.photo = updatePhoto;
-                const newPhoto = await updatePhoto(id, updatedPhoto);
+                const newPhoto = await updatePhoto(petPhoto);
 
                 return petPhotoCreatedSuccess(newPhoto);
             },
-            deletePetPhoto: async (parent, {id}, context) => {
+            deletePetPhoto: async (parent, {photoId}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
 
-                const photo = await findPhoto(id);
-                if (!photo) return petPhotoNotFoundError(id);
+                const photo = await findPhoto(photoId);
+                if (!photo) return petPhotoNotFoundError(photoId);
 
-                await deletePhoto(id);
+                await deletePhoto(photoId);
 
-                return petPhotoDeletedSuccess(id, photo);
+                return petPhotoDeletedSuccess(photoId, photo);
             },
             deleteAllPetPhotos: async (parent, {petId}, context) => {
                 const authenticated = await authenticate(context);

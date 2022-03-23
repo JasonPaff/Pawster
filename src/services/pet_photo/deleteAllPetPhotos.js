@@ -2,35 +2,14 @@
 import {gql} from "@apollo/client";
 import getGqlString from "../../utils/graphql_utils";
 
-export default async function deletePet(petId) {
+export default async function deleteAllPetPhotos(petId) {
     let query = gql`mutation Mutation($petId: ID!) {
-        deletePet(petId: $petId) {
+        deleteAllPetPhotos(petId: $petId) {
             success
             message
-            pet {
-                id
-                userId
-                name
-                additionalInfo
-                ageMonth
-                ageYear
-                breed
-                canBeLeftAlone
-                description
-                energyLevel
-                feedingSchedule
-                isFixed
-                isHouseBroken
-                isFriendlyToChildren
-                isFriendlyToOtherCats
-                isFriendlyToOtherDogs
-                isMicroChipped
-                medication
-                medicationInstructions
-                pottySchedule
-                type
-                vetDetails
-                weight
+            photos {
+                petId
+                photo
             }
         }
     }`
