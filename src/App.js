@@ -1,7 +1,6 @@
 import {Routes, Route} from 'react-router-dom';
 
 // Importing Components
-import Map from './parts/Map';
 import BaseLayout from './BaseLayout';
 import Landing from './pages/Landing';
 import Login from './components/Authentication/Login'
@@ -14,7 +13,6 @@ function App() {
       <BaseLayout>
         <Routes>
           <Route path="/" element={<Landing />}/>
-          <Route path="/map" element={<Map />}/>
           <Route path="/search" element={<Search />}/>
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
