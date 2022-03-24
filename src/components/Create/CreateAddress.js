@@ -2,8 +2,6 @@ import React, { useState } from 'react'
 import createAddress from '../../services/address/createAddress'
 import { useNavigate } from 'react-router-dom'
 
-
-
 const fetchedEmail = localStorage.getItem("email")
 
 function CreateAddress() {
