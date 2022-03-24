@@ -8,13 +8,15 @@ export default async function updateBoarding(userId, updatedBoarding) {
             success
             message
             boarding {
-                additionalPetRate
-                bathingGroomingRate
-                dropOffRate
+                additionalCatRate
+                additionalDogRate
+                baseRate
+                catRate
+                dailyRate
+                extendedCareRate
                 holidayRate
-                hourlyRate
                 id
-                pickupRate
+                pickUpDropOffRate
                 userId
             }
         }

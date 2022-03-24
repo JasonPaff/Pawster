@@ -1,9 +1,9 @@
-import {apiRoute} from "../../utils/apiRoute";
-import {gql} from "@apollo/client";
+import { apiRoute } from "../../utils/apiRoute";
+import { gql } from "@apollo/client";
 import getGqlString from "../../utils/graphql_utils";
 
 export default async function createUser(user) {
-    let query = gql`mutation Mutation($user: UserInput!) {
+  let query = gql`mutation Mutation($user: UserInput!) {
         createUser(user: $user) {
             success
             message
@@ -17,31 +17,33 @@ export default async function createUser(user) {
                 dateCreated
             }
         }
-    }`
-    query = getGqlString(query);
-
-    const headers = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-        },
-        body: JSON.stringify({
-            query,
-            variables: {
-                user
-            }
-        })
-    };
-
-    const request = await fetch(`${apiRoute}/graphql`, headers);
-    const response = await request.json();
-
-    if (response.data.createUser.success) {
-        localStorage.setItem('jsonwebtoken', response.data.createUser.token);
-        localStorage.setItem('email', response.data.createUser.user.email);
-        localStorage.setItem('userId', response.data.createUser.user.id);
+      }
     }
+  `;
+  query = getGqlString(query);
 
-    return response;
-};
+  const headers = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify({
+      query,
+      variables: {
+        user,
+      },
+    }),
+  };
+
+  const request = await fetch(`${apiRoute}/graphql`, headers);
+  const response = await request.json();
+
+  if (response.data.createUser.success) {
+    localStorage.setItem("token", response.data.createUser.token);
+    localStorage.setItem("email", response.data.createUser.user.email);
+    localStorage.setItem("userId", response.data.createUser.user.id);
+  }
+
+  return response;
+}

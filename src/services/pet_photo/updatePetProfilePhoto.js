@@ -10,6 +10,7 @@ export default async function updatePetProfilePhoto(petId, photoId) {
             photo {
                 petId
                 photo
+                photoType
                 isProfilePhoto
             }
         }
