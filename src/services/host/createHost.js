@@ -45,6 +45,7 @@ export default async function createHost(userId, host) {
         body: JSON.stringify({
             query,
             variables: {
+                userId,
                 host
             }
         })
