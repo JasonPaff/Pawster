@@ -10,6 +10,7 @@ export default async function getUserProfilePhoto(userId) {
             photo {
                 userId
                 photo
+                photoType
                 isProfilePhoto
             }
         }
