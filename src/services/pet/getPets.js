@@ -2,9 +2,9 @@
 import {gql} from "@apollo/client";
 import getGqlString from "../../utils/graphql_utils";
 
-export default async function getPets(email) {
-    let query = gql`query Query($email: String!) {
-        getPets(email: $email) {
+export default async function getPets(userId) {
+    let query = gql`query Query($userId: ID!) {
+        getPets(userId: $userId) {
             success
             message
             pets {
@@ -46,7 +46,7 @@ export default async function getPets(email) {
         body: JSON.stringify({
             query,
             variables: {
-                email
+                userId
             }
         })
     };

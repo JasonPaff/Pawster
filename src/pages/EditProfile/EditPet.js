@@ -1,7 +1,7 @@
 function EditPet() {
   return (
     <div className="flex justify-center">
-      <h1>Edit Pet Infomation Page</h1>
+      <h1>Edit Pet Information Page</h1>
     </div>
   );
 }

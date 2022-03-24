@@ -1,19 +1,21 @@
-﻿import {gql} from "@apollo/client";
-import {apiRoute} from "../../utils/apiRoute";
+﻿import {apiRoute} from "../../utils/apiRoute";
+import {gql} from "@apollo/client";
 import getGqlString from "../../utils/graphql_utils";
 
-export default async function updateUserEmail(userId, email, newEmail) {
-    let query = gql`mutation Mutation($userId: ID!, $email: String!, $newEmail: String!) {
-        updateUserEmail(userId : $userId, email: $email, newEmail: $newEmail) {
+export default async function updateBoarding(userId, updatedBoarding) {
+    let query = gql`mutation Mutation($userId: ID!, $updatedBoarding: BoardingInput!) {
+        updateBoarding(userId: $userId, updatedBoarding: $updatedBoarding) {
             success
             message
-            user {
+            boarding {
+                additionalPetRate
+                bathingGroomingRate
+                dropOffRate
+                holidayRate
+                hourlyRate
                 id
-                email
-                password
-                firstName
-                lastName
-                dateCreated
+                pickupRate
+                userId
             }
         }
     }`
@@ -30,8 +32,7 @@ export default async function updateUserEmail(userId, email, newEmail) {
             query,
             variables: {
                 userId,
-                email,
-                newEmail
+                updatedBoarding
             }
         })
     };

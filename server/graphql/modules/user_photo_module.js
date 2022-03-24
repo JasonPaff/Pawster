@@ -4,23 +4,8 @@ const {jwtError} = require("../api_responses/auth/auth_error");
 const {findUser} = require("../../mongodb/operations/user_operations");
 const {userNotFoundError} = require("../api_responses/user/user_error");
 const {userPhotoNotFoundError, userProfilePhotoNotFoundError} = require("../api_responses/user_photo/user_photo_error");
-const {
-    findUserPhoto,
-    findUserPhotos,
-    findUserProfilePhoto,
-    updateUserProfilePhoto,
-    deleteUserPhoto,
-    deleteAllUserPhotos, addUserPhoto
-} = require("../../mongodb/operations/user_photo_operations");
-const {
-    userPhotosFoundSuccess,
-    userProfilePhotoFoundSuccess,
-    userPhotoFoundSuccess,
-    userPhotoAddedSuccess,
-    userProfilePhotoUpdatedSuccess,
-    userPhotoDeletedSuccess,
-    userPhotosDeletedSuccess
-} = require("../api_responses/user_photo/user_photo_success");
+const {findUserPhoto, findUserPhotos, findUserProfilePhoto, updateUserProfilePhoto, deleteUserPhoto, deleteAllUserPhotos, addUserPhoto} = require("../../mongodb/operations/user_photo_operations");
+const {userPhotosFoundSuccess, userProfilePhotoFoundSuccess, userPhotoFoundSuccess, userPhotoAddedSuccess, userProfilePhotoUpdatedSuccess, userPhotoDeletedSuccess, userPhotosDeletedSuccess} = require("../api_responses/user_photo/user_photo_success");
 
 module.exports.userPhotoModule = createModule({
     id: 'user_photo_module',

@@ -4,8 +4,6 @@ import updateAddress from '../../services/address/updateAddress'
 import getAddress from '../../services/address/getAddress'
 import { useNavigate } from 'react-router-dom'
 
-
-
 const fetchedEmail = localStorage.getItem("email")
 
 function CreateAddress() {

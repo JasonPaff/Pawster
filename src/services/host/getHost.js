@@ -2,16 +2,34 @@
 import {gql} from "@apollo/client";
 import getGqlString from "../../utils/graphql_utils";
 
-export default async function getAddress(userId) {
+export default async function getHost(userId) {
     let query = gql`query Query($userId: ID!) {
-        getAddress(userId: $userId) {
+        getHost(userId: $userId) {
             success
             message
-            address {
-                city
-                state
-                street
-                zipcode
+            host {
+                cancellationPolicy
+                canHostMultiplePets
+                canHostUnspayedFemales
+                daysAvailable
+                doesBoarding
+                doesHouseSitting
+                doesDropInVisits
+                doesDayCare
+                doesDogWalking
+                experience
+                hasChildren
+                hasOtherPets
+                id
+                isHomeFullTime
+                isSmoking
+                range
+                schedule
+                sizeCanHost
+                totalCanHost
+                typeOfHome
+                typeOfYard
+                userId
             }
         }
     }`
