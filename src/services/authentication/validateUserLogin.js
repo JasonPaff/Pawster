@@ -9,12 +9,8 @@ export default async function validateUserLogin(email, password) {
             message
             token
             user {
-                id
                 email
-                password
-                firstName
-                lastName
-                dateCreated
+                
             }
         }
     }`
@@ -39,11 +35,11 @@ export default async function validateUserLogin(email, password) {
     const response = await request.json();
 
     if (response.data.validateUserLogin.success) {
-        // console.log(response.data.validateUserLogin.user._id)
+        console.log(response.data.validateUserLogin)
         // TODO: response.data.validateUserLogin.user._id is undefined in the localStorage, was originally user.id (also undefined)
         localStorage.setItem('jsonwebtoken', response.data.validateUserLogin.token);
         localStorage.setItem('email', response.data.validateUserLogin.user.email);
-        localStorage.setItem('userId', response.data.validateUserLogin.user._id);
+        localStorage.setItem('userId', response.data.validateUserLogin.user.id);
     }
 
     return response;
