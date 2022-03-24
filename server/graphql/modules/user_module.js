@@ -7,6 +7,8 @@ const {userNotFoundError, invalidUsernamePasswordError, invalidPasswordError, us
 const {userFoundSuccess, createUserSuccess, passwordUpdatedSuccess, emailUpdatedSuccess, accountDeletedSuccess} = require("../api_responses/user/user_success");
 const {deleteAddress} = require("../../mongodb/operations/address_operations");
 const {loginSuccess} = require("../api_responses/auth/auth_success");
+const {deletePets} = require("../../mongodb/operations/pet_operations");
+const {deleteAllUserPhotos} = require("../../mongodb/operations/user_photo_operations");
 
 module.exports.userModule = createModule({
     id: 'user_module',
@@ -121,6 +123,8 @@ module.exports.userModule = createModule({
                 // Todo: add more deletes as database table get built
                 await deleteUser(email);
                 await deleteAddress(user._id);
+                await deletePets(user._id);
+                await deleteAllUserPhotos(user._id);
 
                 return accountDeletedSuccess(user, email);
             }

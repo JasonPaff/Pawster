@@ -1,7 +1,6 @@
 import DisplayHosts from "../components/DisplayHosts";
 import FilterOptions from "../components/FilterOptions";
 import Map from "../parts/Map";
-import "../styles/tailwind.output.css";
 
 function Search() {
   return (

@@ -1,5 +1,3 @@
-import "../styles/tailwind.output.css";
-
 function EditHost() {
   return (
     <div className="flex justify-center">

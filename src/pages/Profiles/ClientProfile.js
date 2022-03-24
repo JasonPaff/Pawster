@@ -1,4 +1,3 @@
-import "../styles/tailwind.output.css";
 
 function ClientProfile() {
   return (

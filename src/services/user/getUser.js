@@ -2,7 +2,7 @@
 import {apiRoute} from "../../utils/apiRoute";
 import getGqlString from "../../utils/graphql_utils";
 
-export default async function getUser(email, test) {
+export default async function getUser(email) {
     let query = gql`query Query($email: String!) {
         getUser(email: $email) {
             success

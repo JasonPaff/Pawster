@@ -13,3 +13,11 @@ module.exports.petPhotosNotFoundError = (id) => {
         photo: null
     };
 };
+
+module.exports.petProfilePhotoNotFoundError = (id) => {
+    return {
+        success: false,
+        message: `profile photo for id ${id} not found`,
+        photo: null
+    };
+};

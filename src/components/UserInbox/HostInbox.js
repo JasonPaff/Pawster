@@ -1,5 +1,3 @@
-import "../styles/tailwind.output.css";
-
 function HostInbox() {
   return (
     <div className="flex justify-center">

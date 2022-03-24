@@ -7,8 +7,6 @@ import thunk from 'redux-thunk';
 import "./styles/tailwind.output.css";
 
 import App from './App';
-
-
 // Importing Reducers
 import authenticationReducer from './store/reducers/authentication';
 import hostsReducer from './store/reducers/hosts'

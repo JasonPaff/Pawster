@@ -1,5 +1,3 @@
-import "../styles/tailwind.output.css";
-
 function EditPet() {
   return (
     <div className="flex justify-center">
