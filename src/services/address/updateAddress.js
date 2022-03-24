@@ -8,9 +8,9 @@ export default async function updateAddress(userId, address) {
             success
             message
             address {
-                street
                 city
                 state
+                street
                 zipcode
             }
         }

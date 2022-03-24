@@ -8,9 +8,9 @@ export default async function deleteAddress(userId) {
             success
             message
             address {
-                street
                 city
                 state
+                street
                 zipcode
             }
         }

@@ -8,9 +8,9 @@ export default async function createAddress(userId, address) {
             success
             message
             address {
-                street
                 city
                 state
+                street
                 zipcode
             }
         }
