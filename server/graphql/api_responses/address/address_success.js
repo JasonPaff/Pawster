@@ -1,31 +1,31 @@
-﻿module.exports.addressFoundSuccess = (email, address) => {
+﻿module.exports.addressFoundSuccess = (id, address) => {
     return {
         success: true,
-        message: `address for ${email} found`,
+        message: `address for ${id} found`,
         address: address
     };
 };
 
-module.exports.addressUpdatedSuccess = (email, address) => {
+module.exports.addressUpdatedSuccess = (id, address) => {
     return {
         success: true,
-        message: `new address for ${email} created`,
+        message: `new address for ${id} created`,
         address: address
     };
 };
 
-module.exports.addressCreatedSuccess = (email, address) => {
+module.exports.addressCreatedSuccess = (id, address) => {
     return {
         success: true,
-        message: `new address for ${email} created`,
+        message: `new address for ${id} created`,
         address: address
     };
 };
 
-module.exports.deleteAddressSuccess = (email, address) => {
+module.exports.deleteAddressSuccess = (id, address) => {
     return {
         success: true,
-        message: `address for ${email} deleted`,
+        message: `address for ${id} deleted`,
         address: address
     };
 };

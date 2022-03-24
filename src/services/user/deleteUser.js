@@ -2,16 +2,18 @@
 import {apiRoute} from "../../utils/apiRoute";
 import getGqlString from "../../utils/graphql_utils";
 
-export default async function deleteUser(email) {
-    let query = gql`mutation Mutation($email: String!) {
-        deleteUser(email: $email) {
+export default async function deleteUser(userId) {
+    let query = gql`mutation Mutation($userId: ID!) {
+        deleteUser(userId: $userId) {
             success
             message
             user {
-                dateCreated
-                password
-                email
                 id
+                email
+                password
+                firstName
+                lastName
+                dateCreated
             }
         }
     }`
@@ -27,7 +29,7 @@ export default async function deleteUser(email) {
         body: JSON.stringify({
             query,
             variables: {
-                email
+                userId
             }
         })
     };

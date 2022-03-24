@@ -6,10 +6,10 @@
     };
 };
 
-module.exports.petsFoundSuccess = (email, pets) => {
+module.exports.petsFoundSuccess = (id, pets) => {
     return {
         success: true,
-        message: `pets for ${email} found`,
+        message: `pets for id ${id} found`,
         pets: [pets]
     };
 };

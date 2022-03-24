@@ -1,7 +1,15 @@
-﻿module.exports.userNotFoundError = (email) => {
+﻿module.exports.userEmailNotFoundError = (email) => {
     return {
         success: false,
         message: `no user found for ${email}`,
+        user: null
+    };
+};
+
+module.exports.userIdNotFoundError = (id) => {
+    return {
+        success: false,
+        message: `no user found for id ${id}`,
         user: null
     };
 };
@@ -14,10 +22,10 @@ module.exports.invalidUsernamePasswordError = () => {
     }
 };
 
-module.exports.invalidPasswordError = (email) => {
+module.exports.invalidPasswordError = (id) => {
     return {
         success: false,
-        message: `password did not match saved password for ${email}`,
+        message: `password did not match saved password for ${id}`,
         user: null
     };
 };

@@ -2,16 +2,18 @@
 import {apiRoute} from "../../utils/apiRoute";
 import getGqlString from "../../utils/graphql_utils";
 
-export default async function updateUserPassword(email, password, newPassword) {
-    let query = gql`mutation Mutation($email: String!, $password: String!, $newPassword: String!) {
-        updateUserPassword(email: $email, password: $password, newPassword: $newPassword) {
+export default async function updateUserPassword(userId, password, newPassword) {
+    let query = gql`mutation Mutation($userId : ID!, $password: String!, $newPassword: String!) {
+        updateUserPassword(userId: $userId, password: $password, newPassword: $newPassword) {
             success
             message
             user {
-                dateCreated
-                password
-                email
                 id
+                email
+                password
+                firstName
+                lastName
+                dateCreated
             }
         }
     }`
@@ -27,7 +29,7 @@ export default async function updateUserPassword(email, password, newPassword) {
         body: JSON.stringify({
             query,
             variables: {
-                email,
+                userId,
                 password,
                 newPassword
             }
