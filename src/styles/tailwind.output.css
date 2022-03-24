@@ -730,6 +730,7 @@ label{
   position: relative;
 }
 
+<<<<<<< HEAD
 .mx-4{
   margin-left: 1rem;
   margin-right: 1rem;
@@ -751,6 +752,12 @@ label{
   margin-bottom: 0.75rem;
 }
 
+=======
+.m-20{
+  margin: 5rem;
+}
+
+>>>>>>> 19236d8a5b566494971f1a3dea788e9cadb6871b
 .flex{
   display: flex;
 }
@@ -785,6 +792,10 @@ label{
 
 .justify-between{
   justify-content: space-between;
+}
+
+.justify-around{
+  justify-content: space-around;
 }
 
 .gap-2{

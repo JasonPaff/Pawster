@@ -123,7 +123,7 @@ function Map() {
             onLoad={onLoad}
             >
                 
-                {pinMarkers}
+            {pinMarkers}
 
                 {/* {props.listings.map((listing) => (
                     <Marker 
@@ -132,18 +132,6 @@ function Map() {
                     onClick={() => setSelectedListing(listing)} 
                     />
                 ))}
-
-                {selectedListing ? (
-                    <InfoWindow 
-                        position={{lat:selectedListing.lat, lng: selectedListing.lng}}
-                        onCloseClick={() => {
-                            setSelectedListing(null)
-                        }}
-                    >
-                        <div>
-                            <h3>{selectedListing.title}</h3>
-                        </div>
-                    </InfoWindow>): null}
 
                 <Marker 
                 position={{lat: props.latitude, lng: props.longitude}} 

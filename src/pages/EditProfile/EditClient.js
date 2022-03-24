@@ -1,7 +1,14 @@
+import CreateAddress from "../../components/Create/CreateAddress";
+
+
+
 function EditClient() {
+
   return (
-    <div className="flex justify-center">
-      <h1>Edit Client Info Page</h1>
+    <div className="flex justify-around">
+      <div>
+        <CreateAddress />
+      </div>
     </div>
   );
 }

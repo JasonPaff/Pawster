@@ -1,8 +1,8 @@
 ﻿const {createModule, gql} = require('graphql-modules');
 const {findAddress, doesAddressExist, createAddress, updateAddress, deleteAddress} = require("../../mongodb/operations/address_operations");
-const {findUser} = require("../../mongodb/operations/user_operations");
+const {findUser, findUserById} = require("../../mongodb/operations/user_operations");
 const {authenticate} = require("../../utils/auth_utils");
-const {userNotFoundError} = require("../api_responses/user/user_error");
+const {userNotFoundError, userIdNotFoundError} = require("../api_responses/user/user_error");
 const {jwtError} = require("../api_responses/auth/auth_error");
 const {missingAddressError, existingAddressError} = require("../api_responses/address/address_error");
 const {addressFoundSuccess, addressUpdatedSuccess, addressCreatedSuccess, deleteAddressSuccess} = require("../api_responses/address/address_success");
@@ -13,12 +13,12 @@ module.exports.addressModule = createModule({
     typeDefs: [
         gql`
             extend type Query {
-                getAddress(email: String!) : AddressResponse
+                getAddress(userId: ID!) : AddressResponse
             },
             extend type Mutation {
-                createAddress(email: String!, address: AddressInput!) : AddressResponse
-                updateAddress(email: String!, address: AddressInput!) : AddressResponse
-                deleteAddress(email: String!) : AddressResponse
+                createAddress(userId: ID!, address: AddressInput!) : AddressResponse
+                updateAddress(userId: ID!, address: AddressInput!) : AddressResponse
+                deleteAddress(userId: ID!) : AddressResponse
             },
             type Address {
                 street: String
@@ -43,63 +43,63 @@ module.exports.addressModule = createModule({
     ],
     resolvers: {
         Query: {
-            getAddress: async (parent, {email}, context) => {
+            getAddress: async (parent, {userId}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
 
-                const user = await findUser(email);
-                if (!user) return userNotFoundError(email);
+                const user = await findUserById(userId);
+                if (!user) return userIdNotFoundError(userId);
 
-                const address = await findAddress(user._id);
-                if (!address) return missingAddressError(email);
+                const address = await findAddress(userId);
+                if (!address) return missingAddressError(userId);
 
-                return addressFoundSuccess(email, address);
+                return addressFoundSuccess(userId, address);
             },
         },
         Mutation: {
-            createAddress: async (parent, {email, address}, context) => {
+            createAddress: async (parent, {userId, address}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
 
-                const user = await findUser(email);
-                if (!user) return userNotFoundError(email);
+                const user = await findUserById(userId);
+                if (!user) return userIdNotFoundError(userId);
 
-                const hasAddress = await doesAddressExist(user._id);
-                if (hasAddress) return existingAddressError(email);
+                const hasAddress = await doesAddressExist(userId);
+                if (hasAddress) return existingAddressError(userId);
 
-                const newAddress = await createAddress(user._id, address)
+                const newAddress = await createAddress(userId, address)
 
-                return addressCreatedSuccess(email, newAddress);
+                return addressCreatedSuccess(userId, newAddress);
             },
-            updateAddress: async (parent, {email, address: updatedAddress}, context) => {
+            updateAddress: async (parent, {userId, address: updatedAddress}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
 
-                const user = await findUser(email);
-                if (!user) return userNotFoundError(email);
+                const user = await findUserById(userId);
+                if (!user) return userIdNotFoundError(userId);
 
-                const address = await findAddress(user._id);
-                if (!address) return missingAddressError(email);
+                const address = await findAddress(userId);
+                if (!address) return missingAddressError(userId);
 
                 address.street = updatedAddress.street ? updatedAddress.street : address.street;
                 address.city = updatedAddress.city ? updatedAddress.city : address.city;
                 address.state = updatedAddress.state ? updatedAddress.state : address.state;
                 address.zipcode = updatedAddress.zipcode ? updatedAddress.zipcode : address.zipcode;
 
-                await updateAddress(user._id, address);
+                await updateAddress(userId, address);
 
-                return addressUpdatedSuccess(email, address);
+                return addressUpdatedSuccess(userId, address);
             },
-            deleteAddress: async (parent, {email}, context) => {
+            deleteAddress: async (parent, {userId}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
 
-                const existingAddress = await findAddress(email);
-                if (!existingAddress) return missingAddressError(email);
+                const existingAddress = await findAddress(userId);
+                if (!existingAddress) return missingAddressError(userId);
 
-                await deleteAddress(email);
+                await deleteAddress(userId);
 
-                return deleteAddressSuccess(email, existingAddress);
+                return deleteAddressSuccess(userId, existingAddress);
             }
         }
     }

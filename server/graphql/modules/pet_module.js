@@ -4,8 +4,8 @@ const {jwtError} = require("../api_responses/auth/auth_error");
 const {findPet, findPets, createPet, updatePet, deletePet, deletePets} = require("../../mongodb/operations/pet_operations");
 const {petNotFoundError, petsNotFoundError} = require("../api_responses/pet/pet_error");
 const {petFoundSuccess, petsFoundSuccess, petCreatedSuccess, petUpdatedSuccess, petDeletedSuccess, petsDeletedSuccess} = require("../api_responses/pet/pet_success");
-const {findUser} = require("../../mongodb/operations/user_operations");
-const {userNotFoundError} = require("../api_responses/user/user_error");
+const {findUser, findUserById} = require("../../mongodb/operations/user_operations");
+const {userNotFoundError, userIdNotFoundError} = require("../api_responses/user/user_error");
 
 module.exports.petModule = createModule({
     id: 'pet_module',
@@ -14,11 +14,11 @@ module.exports.petModule = createModule({
         gql`
             extend type Query {
                 getPet(petId: ID!) : PetResponse
-                getPets(email: String!) : PetsResponse
+                getPets(userId: ID!) : PetsResponse
             }
             
             extend type Mutation {
-                createPet(email: String!, pet: PetInput!) : PetResponse
+                createPet(userId: ID!, pet: PetInput!) : PetResponse
                 updatePet(petId: ID!, updatedPet: PetInput!) : PetResponse
                 deletePet(petId: ID!) : PetResponse
                 deleteAllPets(userId: ID!) : PetsResponse
@@ -98,28 +98,28 @@ module.exports.petModule = createModule({
 
                 return petFoundSuccess(pet);
             },
-            getPets: async (parent, {email}, context) => {
+            getPets: async (parent, {userId}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
 
-                const user = await findUser(email);
-                if (!user) return userNotFoundError(email);
+                const user = await findUserById(userId);
+                if (!user) return userIdNotFoundError(userId);
 
                 const pets = await findPets(user._id);
-                if (!pets || pets.length === 0) return petsNotFoundError(email);
+                if (!pets || pets.length === 0) return petsNotFoundError(userId);
 
-                return petsFoundSuccess(email, pets);
+                return petsFoundSuccess(userId, pets);
             }
         },
         Mutation: {
-            createPet: async (parent, {email, pet}, context) => {
+            createPet: async (parent, {userId, pet}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
 
-                const user = await findUser(email);
-                if (!user) return userNotFoundError(email);
+                const user = await findUserById(userId);
+                if (!user) return userIdNotFoundError(userId);
 
-                const newPet = await createPet(user._id, pet);
+                const newPet = await createPet(userId, pet);
 
                 return petCreatedSuccess(newPet);
             },

@@ -2,15 +2,15 @@
 import {gql} from "@apollo/client";
 import getGqlString from "../../utils/graphql_utils";
 
-export default async function createAddress(email, address) {
-    let query = gql`mutation Mutation($email: String!, $address: AddressInput!) {
-        createAddress(email: $email, address: $address) {
+export default async function createAddress(userId, address) {
+    let query = gql`mutation Mutation($userId: ID!, $address: AddressInput!) {
+        createAddress(userId: $userId, address: $address) {
             success
             message
             address {
-                street
                 city
                 state
+                street
                 zipcode
             }
         }
@@ -27,7 +27,7 @@ export default async function createAddress(email, address) {
         body: JSON.stringify({
             query,
             variables: {
-                email,
+                userId,
                 address
             }
         })

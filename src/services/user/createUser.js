@@ -2,15 +2,20 @@ import { apiRoute } from "../../utils/apiRoute";
 import { gql } from "@apollo/client";
 import getGqlString from "../../utils/graphql_utils";
 
-export default async function createUser(email, password) {
-  let query = gql`
-    mutation Mutation($email: String!, $password: String!) {
-      createUser(email: $email, password: $password) {
-        success
-        message
-        token
-        user {
-          email
+export default async function createUser(user) {
+  let query = gql`mutation Mutation($user: UserInput!) {
+        createUser(user: $user) {
+            success
+            message
+            token
+            user {
+                id
+                email
+                password
+                firstName
+                lastName
+                dateCreated
+            }
         }
       }
     }
@@ -26,8 +31,7 @@ export default async function createUser(email, password) {
     body: JSON.stringify({
       query,
       variables: {
-        email,
-        password,
+        user,
       },
     }),
   };
@@ -38,6 +42,7 @@ export default async function createUser(email, password) {
   if (response.data.createUser.success) {
     localStorage.setItem("token", response.data.createUser.token);
     localStorage.setItem("email", response.data.createUser.user.email);
+    localStorage.setItem("userId", response.data.createUser.user.id);
   }
 
   return response;
