@@ -1,8 +1,8 @@
 ﻿const {createModule, gql} = require('graphql-modules');
 const {findAddress, doesAddressExist, createAddress, updateAddress, deleteAddress} = require("../../mongodb/operations/address_operations");
-const {findUser, findUserById} = require("../../mongodb/operations/user_operations");
+const {findUserById} = require("../../mongodb/operations/user_operations");
 const {authenticate} = require("../../utils/auth_utils");
-const {userNotFoundError, userIdNotFoundError} = require("../api_responses/user/user_error");
+const {userIdNotFoundError} = require("../api_responses/user/user_error");
 const {jwtError} = require("../api_responses/auth/auth_error");
 const {missingAddressError, existingAddressError} = require("../api_responses/address/address_error");
 const {addressFoundSuccess, addressUpdatedSuccess, addressCreatedSuccess, deleteAddressSuccess} = require("../api_responses/address/address_success");
@@ -24,6 +24,7 @@ module.exports.addressModule = createModule({
                 street: String
                 city: String
                 state: String
+                userId: ID
                 zipcode: Int
             }
 

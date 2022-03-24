@@ -4,8 +4,8 @@ const {jwtError} = require("../api_responses/auth/auth_error");
 const {findPet, findPets, createPet, updatePet, deletePet, deletePets} = require("../../mongodb/operations/pet_operations");
 const {petNotFoundError, petsNotFoundError} = require("../api_responses/pet/pet_error");
 const {petFoundSuccess, petsFoundSuccess, petCreatedSuccess, petUpdatedSuccess, petDeletedSuccess, petsDeletedSuccess} = require("../api_responses/pet/pet_success");
-const {findUser, findUserById} = require("../../mongodb/operations/user_operations");
-const {userNotFoundError, userIdNotFoundError} = require("../api_responses/user/user_error");
+const {findUserById} = require("../../mongodb/operations/user_operations");
+const {userIdNotFoundError} = require("../api_responses/user/user_error");
 
 module.exports.petModule = createModule({
     id: 'pet_module',
