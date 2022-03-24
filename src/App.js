@@ -7,6 +7,8 @@ import Login from './components/Authentication/Login'
 import Logout from './components/Authentication/Logout'
 import Search from "./pages/Search";
 import Register from './components/Authentication/Register'
+import ClientProfile from './pages/Profiles/ClientProfile';
+import EditClient from './pages/EditProfile/EditClient';
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/profile" element={<ClientProfile />} />
+          <Route path="/profile/account-info" element={<EditClient />} />
         </Routes>
       </BaseLayout>
     </div>
