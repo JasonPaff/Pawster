@@ -1,9 +1,9 @@
 ﻿const {createModule, gql} = require('graphql-modules');
 const {authenticate} = require("../../utils/auth_utils");
 const {jwtError} = require("../api_responses/auth/auth_error");
-const {findPet, findPets, createPet, updatePet, deletePet} = require("../../mongodb/operations/pet_operations");
+const {findPet, findPets, createPet, updatePet, deletePet, deletePets} = require("../../mongodb/operations/pet_operations");
 const {petNotFoundError, petsNotFoundError} = require("../api_responses/pet/pet_error");
-const {petFoundSuccess, petsFoundSuccess, petCreatedSuccess, petUpdatedSuccess, petDeletedSuccess} = require("../api_responses/pet/pet_success");
+const {petFoundSuccess, petsFoundSuccess, petCreatedSuccess, petUpdatedSuccess, petDeletedSuccess, petsDeletedSuccess} = require("../api_responses/pet/pet_success");
 const {findUser} = require("../../mongodb/operations/user_operations");
 const {userNotFoundError} = require("../api_responses/user/user_error");
 
@@ -21,6 +21,7 @@ module.exports.petModule = createModule({
                 createPet(email: String!, pet: PetInput!) : PetResponse
                 updatePet(petId: ID!, updatedPet: PetInput!) : PetResponse
                 deletePet(petId: ID!) : PetResponse
+                deleteAllPets(userId: ID!) : PetsResponse
             }            
             
             type Pet {
@@ -166,6 +167,17 @@ module.exports.petModule = createModule({
                 await deletePet(petId);
 
                 return petDeletedSuccess(petId, pet);
+            },
+            deleteAllPets: async (parent, {userId}, context) => {
+                const authenticated = await authenticate(context);
+                if (!authenticated) return jwtError();
+
+                const pets = await findPets(userId);
+                if (!pets) return petsNotFoundError(userId);
+
+                await deletePets(pets);
+
+                return petsDeletedSuccess(userId, pets);
             }
         }
     }

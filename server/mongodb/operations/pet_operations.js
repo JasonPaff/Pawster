@@ -1,5 +1,6 @@
 ﻿const {Pet} = require("../schemas/pet_schema");
 const {isValidObjectId} = require("../../utils/database_utils");
+const {deleteAllPetPhotos} = require("./pet_photo_operations");
 
 module.exports.findPet = async (id) => {
     if (!isValidObjectId(id)) return false;
@@ -42,4 +43,11 @@ module.exports.deletePet = async (id) => {
     await Pet.findOneAndRemove({
         _id: id
     });
+    await deleteAllPetPhotos(id);
+};
+
+module.exports.deletePets = async (pets) => {
+    for(const pet of pets) {
+        await this.deletePet(pet.id);
+    }
 };
