@@ -9,6 +9,7 @@ import Search from "./pages/Search";
 import Register from './components/Authentication/Register'
 import ClientProfile from './pages/Profiles/ClientProfile';
 import EditClient from './pages/EditProfile/EditClient';
+import AddPet from './pages/Pet/AddPetPage';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<ClientProfile />} />
           <Route path="/profile/account-info" element={<EditClient />} />
+          <Route path="/profile/add-pet" element={<AddPet />} />
         </Routes>
       </BaseLayout>
     </div>

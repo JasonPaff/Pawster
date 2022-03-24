@@ -8,9 +8,16 @@ function ClientProfile() {
 
   return (
     <div className="flex justify-around">
-      <div>User Photo</div>
+      <div>Account Info
+        <div className="text-sky-400"><NavLink to="/profile/account-info">Update</NavLink></div>
+      </div>
+
       <div><ClientInfo /></div>
-      <div><NavLink to="/profile/account-info">Update Account Info</NavLink></div>
+
+      <div>Pets
+        <div className="text-sky-400"><NavLink to="/profile/add-pet">Add Pet</NavLink></div>
+      </div>
+
     </div>
   );
 }
