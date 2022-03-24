@@ -9,7 +9,7 @@ export default function Login() {
           Login
         </NavLink>
         <span>|</span>
-        <NavLink to="/logout" className="link">
+        <NavLink to="/register" className="link">
           Register
         </NavLink>
       </div>

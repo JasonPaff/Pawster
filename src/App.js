@@ -6,6 +6,7 @@ import Landing from './pages/Landing';
 import Login from './components/Authentication/Login'
 import Logout from './components/Authentication/Logout'
 import Search from "./pages/Search";
+import Register from './components/Authentication/Register'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/search" element={<Search />}/>
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
       </BaseLayout>
     </div>
