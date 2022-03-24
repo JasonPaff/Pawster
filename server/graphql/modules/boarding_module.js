@@ -3,9 +3,24 @@ const {authenticate} = require("../../utils/auth_utils");
 const {jwtError} = require("../api_responses/auth/auth_error");
 const {userIdNotFoundError} = require("../api_responses/user/user_error");
 const {findUserById} = require("../../mongodb/operations/user_operations");
-const {doesBoardingExist, createBoarding, updateBoarding, deleteBoarding, findBoarding} = require("../../mongodb/operations/boarding_operations");
-const {boardingNotFoundError, boardingAlreadyExistsError, boardingDoesNotExistError} = require("../api_responses/boarding/boarding_error");
-const {boardingFoundSuccess, boardingCreatedSuccess, boardingUpdatedSuccess, boardingDeletedSuccess} = require("../api_responses/boarding/boarding_success");
+const {
+    doesBoardingExist,
+    createBoarding,
+    updateBoarding,
+    deleteBoarding,
+    findBoarding
+} = require("../../mongodb/operations/boarding_operations");
+const {
+    boardingNotFoundError,
+    boardingAlreadyExistsError,
+    boardingDoesNotExistError
+} = require("../api_responses/boarding/boarding_error");
+const {
+    boardingFoundSuccess,
+    boardingCreatedSuccess,
+    boardingUpdatedSuccess,
+    boardingDeletedSuccess
+} = require("../api_responses/boarding/boarding_success");
 
 module.exports.boardingModule = createModule({
     id: 'boarding_module',
@@ -23,24 +38,29 @@ module.exports.boardingModule = createModule({
             }
 
             type Boarding {
-                additionalPetRate: Float
-                bathingGroomingRate:Float
-                dropOffRate: Float
-                holidayRate:Float
-                hourlyRate: Float
+                additionalCatRate: Float
+                additionalDogRate: Float
+                baseRate: Float
+                bathingRate: Float
+                catRate: Float
+                dailyRate: Float
+                extendedCareRate: Float
+                holidayRate: Float
                 id: ID
-                pickupRate: Float
+                pickUpDropOffRate: Float
                 userId: ID
             }
 
             input BoardingInput {
-                additionalPetRate: Float
-                bathingGroomingRate:Float
-                dropOffRate: Float
-                holidayRate:Float
-                hourlyRate: Float
-                pickupRate: Float
-                userId: ID!
+                additionalCatRate: Float
+                additionalDogRate: Float
+                baseRate: Float
+                bathingRate: Float
+                catRate: Float
+                dailyRate: Float
+                extendedCareRate: Float
+                holidayRate: Float
+                pickUpDropOffRate: Float
             }
 
             type BoardingResponse {
@@ -70,8 +90,8 @@ module.exports.boardingModule = createModule({
                 const user = await findUserById(userId);
                 if (!user) return userIdNotFoundError(userId);
 
-                const existingHost = await doesBoardingExist(userId);
-                if (existingHost) return boardingAlreadyExistsError(userId);
+                const existingBoarding = await doesBoardingExist(userId);
+                if (existingBoarding) return boardingAlreadyExistsError(userId);
 
                 const newBoarding = await createBoarding(userId, boarding);
 
