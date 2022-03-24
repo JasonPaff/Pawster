@@ -6,8 +6,9 @@ const { createApplication } = require('graphql-modules');
 const {addressModule} = require("./modules/address_module");
 const {petPhotoModule} = require("./modules/pet_photo_module");
 const {userPhotoModule} = require("./modules/user_photo_module");
+const {boardingModule} = require("./modules/boarding_module");
 
 module.exports.graphql_schema = createApplication({
     modules: [userModule, addressModule, dateModule, petModule,
-        petPhotoModule, userPhotoModule, hostModule]
+        petPhotoModule, userPhotoModule, hostModule, boardingModule]
 }).createSchemaForApollo();

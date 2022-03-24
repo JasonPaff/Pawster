@@ -1,10 +1,10 @@
 ﻿const mongoose = require('mongoose');
 
 const address_schema = new mongoose.Schema({
-    userId: {type: String, required: true},
-    street: {type: String, default: ' '},
     city: {type: String, default: ' '},
     state: {type: String, default: ' '},
+    street: {type: String, default: ' '},
+    userId: {type: String, required: true},
     zipcode: {type: Number, required: true},
 });
 
