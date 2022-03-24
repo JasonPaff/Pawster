@@ -4,7 +4,7 @@ import updateAddress from '../../services/address/updateAddress'
 import getAddress from '../../services/address/getAddress'
 import { useNavigate } from 'react-router-dom'
 
-const fetchedEmail = localStorage.getItem("email")
+const fetchedId = localStorage.getItem("userId")
 
 function CreateAddress() {
   
@@ -14,7 +14,7 @@ function CreateAddress() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    getAddress(fetchedEmail).then((result) =>{
+    getAddress(fetchedId).then((result) =>{
         setAddCheck(result.data.getAddress.address)
     })
   }, [])
@@ -47,24 +47,24 @@ function CreateAddress() {
   }
 
   async function handleCreateAddress() {
-    console.log(fetchedEmail)
+    console.log(fetchedId)
     console.log(address)
-    const response = await createAddress(fetchedEmail, address);
+    const response = await createAddress(fetchedId, address);
 
     if (response.data.createAddress.success) {
-        navigate('/profile/account-info');
+        window.location.reload()
     } else {
         alert(response.data.createAddress.message);
     }
   }
 
   async function handleUpdateAddress() {
-    console.log(fetchedEmail)
-    const response = await updateAddress(fetchedEmail, addCheck);
+    console.log(fetchedId)
+    const response = await updateAddress(fetchedId, addCheck);
     console.log(response)
 
     if (response.data.updateAddress.success) {
-        navigate('/profile/account-info');
+        navigate('/profile');
     } else {
         alert(response.data.updateAddress.message);
     }
@@ -83,7 +83,7 @@ function CreateAddress() {
           <div><input type="text" placeholder="City" name="city" onChange={handleTextChange} /></div>
           <div><input type="text" placeholder="State" name="state" onChange={handleTextChange} /></div>
           <div><input type="text" placeholder="Zipcode" name="zipcode" onChange={handleZipcodeChange} /></div>
-          <button onClick={handleCreateAddress}>Submit</button>
+          <button onClick={handleCreateAddress}>Save</button>
         </div>
         : 
         <div>Update Address
@@ -91,7 +91,7 @@ function CreateAddress() {
           <div><input type="text" defaultValue={addCheck.city} name="city" onChange={handleUpdateTextChange} /></div>
           <div><input type="text" defaultValue={addCheck.state} name="state" onChange={handleUpdateTextChange} /></div>
           <div><input type="text" defaultValue={addCheck.zipcode} name="zipcode" onChange={handleUpdateZipcodeChange} /></div>
-          <button onClick={handleUpdateAddress}>Submit</button>
+          <button onClick={handleUpdateAddress}>Save</button>
         </div>
       }
     </div>
