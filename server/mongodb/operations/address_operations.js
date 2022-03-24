@@ -15,13 +15,6 @@ module.exports.doesAddressExist = async (id) => {
     });
 };
 
-module.exports.deleteAddress = async (id) => {
-    if (!isValidObjectId(id)) return false
-    await Address.findOneAndRemove({
-        userId: id
-    });
-};
-
 module.exports.createAddress = async (id, address) => {
     if (!isValidObjectId(id)) return false
     address.userId = id;
@@ -33,13 +26,13 @@ module.exports.createAddress = async (id, address) => {
 module.exports.updateAddress = async (id, address) => {
     if (!isValidObjectId(id)) return false
     await Address.findOneAndUpdate({
-            id: id
+            userId: id
         }, address
     );
 };
 
-module.exports.deleteAddress = async (email) => {
+module.exports.deleteAddress = async (id) => {
     await Address.findOneAndRemove({
-        email: email
+        userId: id
     });
 };

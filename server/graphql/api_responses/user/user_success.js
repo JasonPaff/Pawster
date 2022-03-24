@@ -1,7 +1,15 @@
-﻿module.exports.userFoundSuccess = (user, email) => {
+﻿module.exports.userEmailFoundSuccess = (user) => {
     return {
         success: true,
-        message: `${email} user data found`,
+        message: `${user.email} user data found`,
+        user: user
+    };
+};
+
+module.exports.userIdFoundSuccess = (user) => {
+    return {
+        success: true,
+        message: `user id ${user.id} data found`,
         user: user
     };
 };
@@ -15,10 +23,10 @@ module.exports.createUserSuccess = (user, token) => {
     };
 };
 
-module.exports.passwordUpdatedSuccess = (user, email) => {
+module.exports.passwordUpdatedSuccess = (user) => {
     return {
         success: true,
-        message: `password updated for ${email}`,
+        message: `password updated for ${user.email}`,
         user: user
     };
 };
@@ -31,10 +39,10 @@ module.exports.emailUpdatedSuccess = (user, email, newEmail) => {
     };
 };
 
-module.exports.accountDeletedSuccess = (user, email) => {
+module.exports.accountDeletedSuccess = (user) => {
     return {
         success: true,
-        message: `user account for ${email} deleted`,
+        message: `user account for ${user.email} deleted`,
         user: user
     };
 };

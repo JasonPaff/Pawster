@@ -9,7 +9,12 @@ export default async function validateUserLogin(email, password) {
             message
             token
             user {
+                id
                 email
+                password
+                firstName
+                lastName
+                dateCreated
             }
         }
     }`

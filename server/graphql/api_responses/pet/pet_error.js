@@ -6,10 +6,10 @@
     };
 };
 
-module.exports.petsNotFoundError = (email) => {
+module.exports.petsNotFoundError = (id) => {
     return {
         success: false,
-        message: `pets for ${email} not found`,
+        message: `pets for id ${id} not found`,
         pet: null
     };
 };

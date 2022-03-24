@@ -2,16 +2,18 @@
 import {apiRoute} from "../../utils/apiRoute";
 import getGqlString from "../../utils/graphql_utils";
 
-export default async function getUser(email) {
-    let query = gql`query Query($email: String!) {
-        getUser(email: $email) {
+export default async function getUserById(userId) {
+    let query = gql`query Query($userId: ID!) {
+        getUserById(userId: $userId) {
             success
             message
             user {
-                dateCreated
-                password
-                email
                 id
+                email
+                password
+                firstName
+                lastName
+                dateCreated
             }
         }
     }`
@@ -27,7 +29,7 @@ export default async function getUser(email) {
         body: JSON.stringify({
             query,
             variables: {
-                email
+                userId
             }
         })
     };
