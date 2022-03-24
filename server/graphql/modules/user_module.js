@@ -1,14 +1,14 @@
 ﻿const {createModule, gql} = require('graphql-modules');
-const {hashPassword, comparePasswordHashes} = require("../../utils/password_utils");
-const {updateUser, createUser, deleteUser, findUserByEmail, findUserById, doesUserEmailExist} = require("../../mongodb/operations/user_operations");
-const {authenticate, createToken} = require("../../utils/auth_utils");
 const {jwtError} = require("../api_responses/auth/auth_error");
+const {loginSuccess} = require("../api_responses/auth/auth_success");
+const {authenticate, createToken} = require("../../utils/auth_utils");
+const {deletePets} = require("../../mongodb/operations/pet_operations");
+const {deleteAddress} = require("../../mongodb/operations/address_operations");
+const {hashPassword, comparePasswordHashes} = require("../../utils/password_utils");
+const {deleteAllUserPhotos} = require("../../mongodb/operations/user_photo_operations");
+const {updateUser, createUser, deleteUser, findUserByEmail, findUserById, doesUserEmailExist} = require("../../mongodb/operations/user_operations");
 const {invalidUsernamePasswordError, invalidPasswordError, userAlreadyExistsError, userIdNotFoundError, userEmailNotFoundError} = require("../api_responses/user/user_error");
 const {createUserSuccess, passwordUpdatedSuccess, emailUpdatedSuccess, accountDeletedSuccess, userEmailFoundSuccess, userIdFoundSuccess} = require("../api_responses/user/user_success");
-const {deleteAddress} = require("../../mongodb/operations/address_operations");
-const {loginSuccess} = require("../api_responses/auth/auth_success");
-const {deletePets} = require("../../mongodb/operations/pet_operations");
-const {deleteAllUserPhotos} = require("../../mongodb/operations/user_photo_operations");
 
 module.exports.userModule = createModule({
     id: 'user_module',
