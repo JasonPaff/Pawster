@@ -1,10 +1,10 @@
 import { NavLink } from "react-router-dom";
 import { BiSearchAlt } from "react-icons/bi";
 import Account from "./Profile";
-import Login from "./LoginMenu";
+import LoginMenu from "./LoginMenu";
 
 export default function NavBar() {
-  const token = localStorage.getItem("jwt");
+  const token = localStorage.getItem("token");
   console.log(token);
   return (
     <div className="flex justify-center bg-white">
@@ -15,7 +15,7 @@ export default function NavBar() {
         <div className="flex flex-row align-middle items-center px-4 py-1 rounded link">
           <BiSearchAlt /> Search
         </div>
-        <div className="relative flex sm:mr-10">{token ? <Account /> : <Login />}</div>
+        <div className="relative flex sm:mr-10">{token ? <Account /> : <LoginMenu />}</div>
       </div>
     </div>
   );

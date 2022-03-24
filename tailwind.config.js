@@ -9,9 +9,12 @@ module.exports = {
         },
         background: {
           light: "#F6F6F6",
-          darker: "#EAE2E0",
+          darker: "#E8E4E3",
         },
-        grayout: "#A0A0A0",
+        grayout: {
+          lighter: "#AD0D0D0",
+          darker: "#A0A0A0",
+        },
       },
     },
     fontFamily: {

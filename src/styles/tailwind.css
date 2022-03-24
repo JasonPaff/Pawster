@@ -4,8 +4,41 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer components {
+@layer base {
+  button {
+    @apply px-4 py-2  rounded-md border border-slate-500;
+  }
+
+  button:hover {
+    @apply bg-accent-green bg-opacity-80  text-white;
+  }
+  button,
+  .link {
+    @apply transition-colors ease-out duration-300;
+  }
+
   .link:hover {
     @apply text-accent-red;
+  }
+  label {
+    @apply flex flex-col text-xs text-slate-600 text-center;
+  }
+
+  [type="text"],
+  [type="email"],
+  [type="url"],
+  [type="password"],
+  [type="number"],
+  [type="date"],
+  [type="datetime-local"],
+  [type="month"],
+  [type="search"],
+  [type="tel"],
+  [type="time"],
+  [type="week"],
+  [multiple],
+  textarea,
+  select {
+    @apply rounded border-slate-300 focus:border-slate-300 focus:ring-accent-green w-full;
   }
 }
