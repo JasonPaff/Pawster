@@ -1,34 +1,31 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import * as actionCreators from '../../store/action_creators/actionCreators';
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import * as actionCreators from "../../store/action_creators/actionCreators";
 
 function Logout(props) {
+  const navigate = useNavigate();
 
-    const navigate = useNavigate();
+  useEffect(() => {
+    // remove the login data from local storage
+    localStorage.removeItem("token");
+    localStorage.removeItem("email");
+    localStorage.removeItem("userId");
 
-    useEffect(() => {
-        // remove the login data from local storage
-        localStorage.removeItem('jsonwebtoken');
-        localStorage.removeItem('email');
-        localStorage.removeItem('userId');
+    // update global state
+    // isAuthenticated = false
+    props.onLogout();
 
-        // update global state 
-        // isAuthenticated = false 
-        props.onLogout();
+    navigate("/");
+  });
 
-        navigate("/");
-    });
-
-    return(
-        <h1>Log Out</h1>
-    );
+  return <h1>Log Out</h1>;
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return {
-        onLogout: () => dispatch(actionCreators.logout())
-    }
+  return {
+    onLogout: () => dispatch(actionCreators.logout()),
+  };
 };
 
 export default connect(null, mapDispatchToProps)(Logout);

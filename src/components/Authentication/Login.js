@@ -7,7 +7,8 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
 
-  async function handleAccountLogin() {
+  async function handleAccountLogin(e) {
+    e.preventDefault();
     // check for email or password
     if (password.length <= 0 || email.length <= 0) return;
 
@@ -22,18 +23,21 @@ export default function Login() {
 
   return (
     <div className="flex w-full  justify-center items-center align-middle">
-      <div className=" flex m-20 flex-col gap-4  bg-background-light p-8 border border-grayout rounded shadow-md ">
-        <div className="flex flex-col text-sm text-slate-500 text-center">
-          <label htmlFor="">Email:</label>
-          <input type="text" onChange={(e) => setEmail(e.target.value)} />
-        </div>
-        <div className="flex flex-col text-sm text-slate-500 text-center">
-          <label htmlFor="">Password:</label>
-          <input type="password" onChange={(e) => setPassword(e.target.value)} />
-        </div>
-        <button onClick={handleAccountLogin} className="py-2 bg-accent-green text-white rounded-md">
-          Login
-        </button>
+      <div className="flex mt-20 mx-4 flex-col border border-slate-300 rounded shadow-md w-[440px]">
+        <h3 className="text-center p-2 mb-4 bg-background-darker">Existing Account</h3>
+        <form onSubmit={handleAccountLogin} className="flex flex-col gap-3  bg-background-lighter px-8 pb-8 ">
+          <div>
+            <label htmlFor="">Email:</label>
+            <input type="text" onChange={(e) => setEmail(e.target.value)} required />
+          </div>
+          <div className="flex flex-col text-xs text-slate-600 text-center">
+            <label htmlFor="">Password:</label>
+            <input type="password" onChange={(e) => setPassword(e.target.value)} required />
+          </div>
+          <button type="submit" className=" py-2 mt-4 mb-3 bg-accent-green text-white rounded-md">
+            Login
+          </button>
+        </form>
       </div>
     </div>
   );
