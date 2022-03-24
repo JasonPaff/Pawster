@@ -39,7 +39,7 @@ export default async function validateUserLogin(email, password) {
     const response = await request.json();
 
     if (response.data.validateUserLogin.success) {
-        // console.log(response.data.validateUserLogin.user._id)
+        // a console.log(response.data.validateUserLogin.user._id)
         // TODO: response.data.validateUserLogin.user._id is undefined in the localStorage, was originally user.id (also undefined)
         localStorage.setItem('jsonwebtoken', response.data.validateUserLogin.token);
         localStorage.setItem('email', response.data.validateUserLogin.user.email);
