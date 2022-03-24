@@ -2,21 +2,18 @@
 import {gql} from "@apollo/client";
 import getGqlString from "../../utils/graphql_utils";
 
-export default async function updateBoarding(userId, updatedBoarding) {
-    let query = gql`mutation Mutation($userId: ID!, $updatedBoarding: BoardingInput!) {
-        updateBoarding(userId: $userId, updatedBoarding: $updatedBoarding) {
+export default async function updateWalking(userId, updatedWalking) {
+    let query = gql`mutation Mutation($userId: ID!, $updatedWalking: WalkingInput!) {
+        updateWalking(userId: $userId, updatedWalking: $updatedWalking) {
             success
             message
-            boarding {
-                additionalCatRate
+            walking {
                 additionalDogRate
                 baseRate
-                catRate
-                dailyRate
-                extendedCareRate
                 holidayRate
+                hourlyRate
                 id
-                pickUpDropOffRate
+                puppyRate
                 userId
             }
         }
@@ -34,7 +31,7 @@ export default async function updateBoarding(userId, updatedBoarding) {
             query,
             variables: {
                 userId,
-                updatedBoarding
+                updatedWalking
             }
         })
     };
