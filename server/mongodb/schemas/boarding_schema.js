@@ -3,9 +3,9 @@
 const boarding_schema = new mongoose.Schema({
     additionalPetRate: {type: Number, default: 0},
     bathingGroomingRate: {type: Number, default: 0},
+    dailyRate: {type: Number, default: 0},
     dropOffRate: {type: Number, default: 0},
     holidayRate: {type: Number, default: 0},
-    hourlyRate: {type: Number, default: 0},
     pickupRate: {type: Number, default: 0},
     userId: {type: String, required: true},
 });
