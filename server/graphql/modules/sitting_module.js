@@ -3,8 +3,8 @@ const {authenticate} = require("../../utils/auth_utils");
 const {jwtError} = require("../api_responses/auth/auth_error");
 const {userIdNotFoundError} = require("../api_responses/user/user_error");
 const {findUserById} = require("../../mongodb/operations/user_operations");
-const {findSitting, doesSittingExist, createSitting, updateSitting, deleteSitting} = require("../../mongodb/operations/sitting_operations");
 const {sittingNotFoundError, sittingAlreadyExistsError, sittingDoesNotExistError} = require("../api_responses/sitting/sitting_error");
+const {findSitting, doesSittingExist, createSitting, updateSitting, deleteSitting} = require("../../mongodb/operations/sitting_operations");
 const {sittingCreatedSuccess, sittingUpdatedSuccess, sittingDeletedSuccess, sittingFoundSuccess} = require("../api_responses/sitting/sitting_success");
 
 module.exports.sittingModule = createModule({
@@ -17,7 +17,7 @@ module.exports.sittingModule = createModule({
             }
 
             extend type Mutation {
-                createSitting(userId: ID!, visit: SittingInput!) : SittingResponse
+                createSitting(userId: ID!, sitting: SittingInput!) : SittingResponse
                 updateSitting(userId: ID!, updatedSitting: SittingInput!) : SittingResponse
                 deleteSitting(userId: ID!) : SittingResponse
             }
@@ -28,6 +28,7 @@ module.exports.sittingModule = createModule({
                 baseRate: Float
                 bathingRate: Float
                 catRate: Float
+                extendedCareRate: Float
                 holidayRate: Float
                 id: ID
                 pickUpDropOffRate: Float

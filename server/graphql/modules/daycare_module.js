@@ -17,6 +17,7 @@ module.exports.daycareModule = createModule({
             }
 
             extend type Mutation {
+                createDaycare(userId: ID!, daycare: DaycareInput!) : DaycareResponse
                 createDaycare(userId: ID!, visit: DaycareInput!) : DaycareResponse
                 updateDaycare(userId: ID!, updatedDaycare:DaycareInput!) : DaycareResponse
                 deleteDaycare(userId: ID!) : DaycareResponse

@@ -2,19 +2,21 @@
 import {gql} from "@apollo/client";
 import getGqlString from "../../utils/graphql_utils";
 
-export default async function deleteBoarding(userId) {
+export default async function deleteDaycare(userId) {
     let query = gql`mutation Mutation($userId: ID!) {
-        deleteBoarding(userId: $userId) {
+        deleteDaycare(userId: $userId) {
             success
             message
-            boarding {
-                additionalPetRate
-                bathingGroomingRate
-                dropOffRate
+            daycare {
+                additionalCatRate
+                additionalDogRate
+                baseRate
+                bathingRate
+                catRate
                 holidayRate
-                hourlyRate
                 id
-                pickupRate
+                pickUpDropOffRate
+                puppyRate
                 userId
             }
         }
