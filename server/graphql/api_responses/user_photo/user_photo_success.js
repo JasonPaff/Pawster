@@ -14,10 +14,26 @@ module.exports.userPhotosFoundSuccess = (email, photos) => {
     };
 };
 
-module.exports.userPhotoCreatedSuccess = (photo) => {
+module.exports.userPhotoAddedSuccess = (photo) => {
     return {
         success: true,
-        message: `photo created`,
+        message: `photo added`,
+        photo: photo
+    };
+};
+
+module.exports.userProfilePhotoFoundSuccess = (id, photo) => {
+    return {
+        success: true,
+        message: `profile photo for id ${id} found`,
+        photo: photo
+    };
+};
+
+module.exports.userProfilePhotoUpdatedSuccess = (userId, photo) => {
+    return {
+        success: true,
+        message: `profile photo updated for ${userId}`,
         photo: photo
     };
 };
