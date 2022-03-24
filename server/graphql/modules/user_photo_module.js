@@ -28,12 +28,14 @@ module.exports.userPhotoModule = createModule({
             type UserPhoto {
                 userId: ID!
                 photo: String!
+                photoType: String!
                 isProfilePhoto: Boolean
             }
 
             input UserPhotoInput {
                 userId: ID!
                 photo: String!
+                photoType: String!
             }
 
             type UserPhotoResponse {

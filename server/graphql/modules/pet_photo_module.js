@@ -28,12 +28,14 @@ module.exports.petPhotoModule = createModule({
             type PetPhoto {
                 petId: ID!
                 photo: String!
+                photoType: String!
                 isProfilePhoto: Boolean
             }
 
             input PetPhotoInput {
                 petId: ID!
                 photo: String!
+                photoType: String!
             }
 
             type PetPhotoResponse {

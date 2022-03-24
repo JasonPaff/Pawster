@@ -3,6 +3,7 @@
 const pet_photo_schema = new mongoose.Schema({
     petId: {type: String, required: true},
     photo: {type: String, required: true},
+    photoType: {type: String, required: true},
     isProfilePhoto: {type: Boolean, default: false}
 });
 
