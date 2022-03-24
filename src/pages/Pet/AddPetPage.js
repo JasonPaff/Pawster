@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import CreatePet from '../../components/Create/CreatePet'
+import AddPetPhoto from '../../components/Add&Create/AddPetPhoto';
+import CreatePet from '../../components/Add&Create/CreatePet'
 
 
 
@@ -10,7 +11,7 @@ function AddPetPage() {
     <div className="flex-col justify-center">
       <h1>Add Pet Page</h1>
       <CreatePet />
-      {/* Upload pet photo */}
+      <AddPetPhoto />
     </div>
   );
 }

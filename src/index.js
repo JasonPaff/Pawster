@@ -11,6 +11,7 @@ import App from './App';
 import authenticationReducer from './store/reducers/authentication';
 import hostsReducer from './store/reducers/hosts'
 import filtersReducer from './store/reducers/filters';
+import petReducer from './store/reducers/pets';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   authenticationRed : authenticationReducer,
   hostsRed: hostsReducer,
   filtersRed: filtersReducer,
+  petRed: petReducer
 
 });
 
