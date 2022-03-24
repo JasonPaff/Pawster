@@ -91,7 +91,7 @@ module.exports.boardingModule = createModule({
 
                 return boardingUpdatedSuccess(boarding);
             },
-            deleteBoarding: async (parent, {userId}, context) => {=======
+            deleteBoarding: async (parent, {userId}, context) => {
 
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();

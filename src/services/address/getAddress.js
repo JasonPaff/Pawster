@@ -8,10 +8,10 @@ export default async function getAddress(userId) {
             success
             message
             address {
-                zipcode
-                state
                 city
+                state
                 street
+                zipcode
             }
         }
     }`

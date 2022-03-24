@@ -9,7 +9,7 @@
 module.exports.addressUpdatedSuccess = (id, address) => {
     return {
         success: true,
-        message: `new address for ${id} created`,
+        message: `address for ${id} updated`,
         address: address
     };
 };
