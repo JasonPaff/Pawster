@@ -1,15 +1,14 @@
 .mapContainer {
-    height: 800px;
-    width: 800px;
-    right: 0;
+  height: 800px;
+  width: 800px;
+  right: 0;
 }
 
 .search {
-    max-width: 400px;
-    z-index: 10;
+  max-width: 400px;
+  z-index: 10;
 }
 
-
 .popup {
-    background-color: white;
+  background-color: white;
 }
