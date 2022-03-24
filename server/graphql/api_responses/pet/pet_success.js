@@ -37,3 +37,11 @@ module.exports.petDeletedSuccess = (id, pet) => {
         pet: pet
     };
 };
+
+module.exports.petsDeletedSuccess = (id, pet) => {
+    return {
+        success: true,
+        message: `pets for ${id} deleted`,
+        pet: pet
+    };
+};
