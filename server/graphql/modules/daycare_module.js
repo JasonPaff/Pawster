@@ -71,7 +71,7 @@ module.exports.daycareModule = createModule({
 
                 return daycareFoundSuccess(daycare);
             },
-            getSearchDaycare: async (parent, {userId}) => {
+            getDaycareById: async (parent, {userId}) => {
                 const user = await findUserById(userId);
                 if (!user) return userIdNotFoundError(userId);
 
@@ -112,9 +112,9 @@ module.exports.daycareModule = createModule({
                 const existingDaycare = await doesDaycareExist(userId);
                 if (!existingDaycare) return daycareDoesNotExistError(userId);
 
-                const daycare = await updateDaycare(userId, updatedDaycare);
+                await updateDaycare(userId, updatedDaycare);
 
-                return daycareUpdatedSuccess(daycare);
+                return daycareUpdatedSuccess(updatedDaycare);
             },
             deleteDaycare: async (parent, {}, context) => {
                 const authenticated = await authenticate(context);

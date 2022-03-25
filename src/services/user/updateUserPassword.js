@@ -8,7 +8,6 @@ export default async function updateUserPassword(password, newPassword) {
             success
             message
             user {
-                id
                 email
                 password
                 firstName

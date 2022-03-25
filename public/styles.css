@@ -1,16 +1,7 @@
-.footer-grid-box {
-  display: grid;
-  grid-template-columns: auto auto;
-  /* gap: 6px; */
-  text-align: center;
-  column-gap: 10px;
-  align-items: center;
-  align-content: center;
-  font-size: 0.7rem;
-}
-
-.icon {
-  grid-row: span 2;
-  font-size: 24px;
-  font-size: 1.6rem;
+#banner {
+  background-image: url("banners/pexels-5255523.jpg");
+  min-height: 60%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }

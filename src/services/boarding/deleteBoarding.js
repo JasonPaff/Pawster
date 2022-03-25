@@ -15,9 +15,7 @@ export default async function deleteBoarding() {
                 dailyRate
                 extendedCareRate
                 holidayRate
-                id
                 pickUpDropOffRate
-                userId
             }
         }
     }`

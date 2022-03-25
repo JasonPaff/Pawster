@@ -110,9 +110,9 @@ module.exports.sittingModule = createModule({
                 const existingSitting = await doesSittingExist(userId);
                 if (!existingSitting) return sittingDoesNotExistError(userId);
 
-                const sitting = await updateSitting(userId, updatedSitting);
+                await updateSitting(userId, updatedSitting);
 
-                return sittingUpdatedSuccess(sitting);
+                return sittingUpdatedSuccess(updatedSitting);
             },
             deleteSitting: async (parent, {}, context) => {
                 const authenticated = await authenticate(context);

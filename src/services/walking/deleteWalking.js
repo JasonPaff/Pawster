@@ -12,9 +12,7 @@ export default async function deleteWalking() {
                 baseRate
                 holidayRate
                 hourlyRate
-                id
                 puppyRate
-                userId
             }
         }
     }`

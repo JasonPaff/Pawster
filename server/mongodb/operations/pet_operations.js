@@ -11,6 +11,7 @@ module.exports.findPet = async (petId) => {
 
 module.exports.findPets = async (userId) => {
     if (!isValidObjectId(userId)) return false;
+    console.log(userId);
     return Pet.find({
         userId: userId
     });

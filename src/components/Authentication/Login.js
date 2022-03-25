@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import validateUserLogin from "../../services/authentication/validateUserLogin";
-import { connect } from 'react-redux'
-import * as actionCreators from '../../store/action_creators/actionCreators'
+import { connect } from "react-redux";
+import * as actionCreators from "../../store/action_creators/actionCreators";
 
 function Login(props) {
   const [password, setPassword] = useState("");
@@ -17,9 +17,9 @@ function Login(props) {
     const response = await validateUserLogin(email, password);
 
     if (response.data.validateUserLogin.success) {
-      props.onLogin(response.data.validateUserLogin.token)
+      props.onLogin(response.data.validateUserLogin.token);
       navigate("/");
-      console.log(response.data.validateUserLogin)
+      console.log(response.data.validateUserLogin);
     } else {
       alert(response.data.validateUserLogin.message);
     }
@@ -27,7 +27,7 @@ function Login(props) {
 
   return (
     <div className="flex w-full  justify-center items-center align-middle">
-      <div className="flex mt-10 mx-4 flex-col border border-slate-300 rounded shadow-md w-[440px]">
+      <div className="flex mt-10 mx-4 flex-col border border-slate-300 rounded shadow-md w-[440px] g-background-lighter">
         <h3 className="text-center p-2 mb-4 bg-background-darker">Existing Account</h3>
         <form onSubmit={handleAccountLogin} className="flex flex-col gap-3  bg-background-lighter px-8 pb-8 ">
           <div>
@@ -49,8 +49,8 @@ function Login(props) {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onLogin: (token) => dispatch(actionCreators.login(token))
-  }
-}
+    onLogin: (token) => dispatch(actionCreators.login(token)),
+  };
+};
 
 export default connect(null, mapDispatchToProps)(Login);

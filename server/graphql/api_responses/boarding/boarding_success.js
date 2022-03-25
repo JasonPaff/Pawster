@@ -1,31 +1,31 @@
-﻿module.exports.boardingFoundSuccess = (boarding) => {
+﻿module.exports.boardingFoundSuccess = (userId, boarding) => {
     return {
         success: true,
-        message: `boarding found for ${boarding.userId}`,
+        message: `boarding found for ${userId}`,
         boarding: boarding
     };
 };
 
-module.exports.boardingCreatedSuccess = (boarding) => {
+module.exports.boardingCreatedSuccess = (userId, boarding) => {
     return {
         success: true,
-        message: `boarding created for ${boarding.userId}`,
+        message: `boarding created for ${userId}`,
         boarding: boarding
     };
 };
 
-module.exports.boardingUpdatedSuccess = (boarding) => {
+module.exports.boardingUpdatedSuccess = (userId, boarding) => {
     return {
         success: true,
-        message: `boarding updated for ${boarding.userId}`,
+        message: `boarding updated for ${userId}`,
         boarding: boarding
     };
 };
 
-module.exports.boardingDeletedSuccess = (boarding) => {
+module.exports.boardingDeletedSuccess = (userId, boarding) => {
     return {
         success: true,
-        message: `boarding for ${boarding.userId} deleted`,
+        message: `boarding for ${userId} deleted`,
         boarding: boarding
     };
 };

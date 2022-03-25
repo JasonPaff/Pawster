@@ -15,10 +15,8 @@ export default async function createSitting(sitting) {
                 catRate
                 extendedCareRate
                 holidayRate
-                id
                 pickUpDropOffRate
                 puppyRate
-                userId
             }
         }
     }`

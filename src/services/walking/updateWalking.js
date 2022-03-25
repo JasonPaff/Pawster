@@ -12,9 +12,7 @@ export default async function updateWalking(updatedWalking) {
                 baseRate
                 holidayRate
                 hourlyRate
-                id
                 puppyRate
-                userId
             }
         }
     }`

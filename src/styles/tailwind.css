@@ -5,6 +5,10 @@
 @tailwind utilities;
 
 @layer base {
+  a:hover {
+    @apply text-accent-red;
+  }
+
   button {
     @apply px-4 py-2  rounded-md border border-slate-500;
   }

@@ -11,8 +11,6 @@ export default async function getReviewedById(userId) {
                 dateReviewed
                 review
                 stars
-                id
-                userId
                 userIdReviewed
             }
         }

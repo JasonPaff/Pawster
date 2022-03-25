@@ -3,8 +3,8 @@ import { BsGithub } from "react-icons/bs";
 
 export default function Footer() {
   return (
-    <footer className="flex justify-center items-center h-16 bg bg-background-darker">
-      <div className="footer-grid-box">
+    <footer className="flex justify-center items-center py-3 bg-background-darker">
+      <div className="flex flex-col text-xs justify-center text-center gap-1">
         <div className="flex flex-row gap-2 ">
           <a href="#" className="">
             Support
@@ -13,13 +13,15 @@ export default function Footer() {
           <a href="#" className="">
             FAQ
           </a>
+          <span>|</span>
+          <a href="#" className="">
+            Contact
+          </a>
         </div>
-        <a href="" className="icon">
+        <a href="https://github.com/JasonPaff/Petsy" className=" text-lg flex justify-center">
           <BsGithub />
         </a>
-        <a href="#" className="">
-          Contact
-        </a>
+        <p className="footer-year">2022</p>
       </div>
     </footer>
   );

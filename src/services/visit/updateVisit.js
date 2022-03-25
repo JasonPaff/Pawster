@@ -15,9 +15,7 @@ export default async function updateVisit(updatedVisit) {
                 catRate
                 holidayRate
                 hourlyRate
-                id
                 puppyRate
-                userId
             }
         }
     }`

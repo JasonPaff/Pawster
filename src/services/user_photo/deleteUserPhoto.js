@@ -8,7 +8,6 @@ export default async function deleteUserPhoto(photoId) {
             success
             message
             photo {
-                userId
                 photo
                 photoType
                 isProfilePhoto

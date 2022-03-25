@@ -8,8 +8,6 @@ export default async function deletePet(petId) {
             success
             message
             pet {
-                id
-                userId
                 name
                 additionalInfo
                 ageMonth
