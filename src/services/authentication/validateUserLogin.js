@@ -39,8 +39,6 @@ export default async function validateUserLogin(email, password) {
   const response = await request.json();
   if (response.data.validateUserLogin.success) {
       localStorage.setItem('jsonwebtoken', response.data.validateUserLogin.token);
-      localStorage.setItem('email', response.data.validateUserLogin.user.email);
-      localStorage.setItem('userId', response.data.validateUserLogin.user.id)
       localStorage.setItem('firstName', response.data.validateUserLogin.user.firstName);
       localStorage.setItem('lastName', response.data.validateUserLogin.user.lastName)
   }

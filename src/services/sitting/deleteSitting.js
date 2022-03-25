@@ -2,9 +2,9 @@
 import {gql} from "@apollo/client";
 import getGqlString from "../../utils/graphql_utils";
 
-export default async function deleteSitting(userId) {
-    let query = gql`mutation Mutation($userId: ID!) {
-        deleteSitting(userId: $userId) {
+export default async function deleteSitting() {
+    let query = gql`mutation Mutation {
+        deleteSitting {
             success
             message
             sitting {
@@ -32,10 +32,7 @@ export default async function deleteSitting(userId) {
             Authorization: localStorage.getItem('token')
         },
         body: JSON.stringify({
-            query,
-            variables: {
-                userId
-            }
+            query
         })
     };
 

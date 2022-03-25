@@ -1,5 +1,5 @@
 ﻿const {createModule, gql} = require("graphql-modules");
-const {authenticate} = require("../../utils/auth_utils");
+const {authenticate, decodeToken} = require("../../utils/auth_utils");
 const {jwtError} = require("../api_responses/auth/auth_error");
 const {findUser} = require("../../mongodb/operations/user_operations");
 const {userNotFoundError} = require("../api_responses/user/user_error");
@@ -14,15 +14,15 @@ module.exports.userPhotoModule = createModule({
         gql`
             extend type Query {
                 getUserPhoto(photoId: ID!) : UserPhotoResponse
-                getUserPhotos(userId: ID!) : UserPhotosResponse
-                getUserProfilePhoto(userId: ID!) : UserPhotoResponse
+                getUserPhotos : UserPhotosResponse
+                getUserProfilePhoto : UserPhotoResponse
             },
 
             extend type Mutation {
                 addUserPhoto(userPhoto: UserPhotoInput!) : UserPhotoResponse
-                updateUserProfilePhoto(userId: ID!, photoId: ID!) : UserPhotoResponse
+                updateUserProfilePhoto(photoId: ID!) : UserPhotoResponse
                 deleteUserPhoto(photoId: ID!) : UserPhotoResponse
-                deleteAllUserPhotos(userId: ID!) : UserPhotosResponse
+                deleteAllUserPhotos : UserPhotosResponse
             }
 
             type UserPhoto {
@@ -62,18 +62,24 @@ module.exports.userPhotoModule = createModule({
 
                 return userPhotoFoundSuccess(photoId, userPhoto);
             },
-            getUserPhotos: async (parent, {userId}, context) => {
+            getUserPhotos: async (parent, {}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
 
                 const userPhotos = await findUserPhotos(userId);
                 if (!userPhotos || userPhotos.length === 0) return userPhotoNotFoundError(userId);
 
                 return userPhotosFoundSuccess(userId);
             },
-            getUserProfilePhoto: async (parent, {userId}, context) => {
+            getUserProfilePhoto: async (parent, {}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
 
                 const userPhoto = await findUserProfilePhoto(userId);
                 if (!userPhoto) return userProfilePhotoNotFoundError(userId);
@@ -93,9 +99,12 @@ module.exports.userPhotoModule = createModule({
 
                 return userPhotoAddedSuccess(newPhoto);
             },
-            updateUserProfilePhoto: async (parent, {userId, photoId}, context) => {
+            updateUserProfilePhoto: async (parent, {photoId}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
 
                 const user = await findUser(userId);
                 if (!user) return userNotFoundError(userId);
@@ -118,9 +127,12 @@ module.exports.userPhotoModule = createModule({
 
                 return userPhotoDeletedSuccess(photoId, photo);
             },
-            deleteAllUserPhotos: async (parent, {userId}, context) => {
+            deleteAllUserPhotos: async (parent, {}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
 
                 const photos = await findUserPhotos(userId);
                 if (!photos || photos.length === 0) return userPhotoNotFoundError(userId);

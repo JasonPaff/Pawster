@@ -2,9 +2,9 @@
 import {gql} from "@apollo/client";
 import getGqlString from "../../utils/graphql_utils";
 
-export default async function updateVisit(userId, updatedVisit) {
-    let query = gql`mutation Mutation($userId: ID!, $updatedVisit: VisitInput!) {
-        updateVisit(userId: $userId, updatedVisit: $updatedVisit) {
+export default async function updateVisit(updatedVisit) {
+    let query = gql`mutation Mutation($updatedVisit: VisitInput!) {
+        updateVisit(updatedVisit: $updatedVisit) {
             success
             message
             visit {
@@ -33,7 +33,6 @@ export default async function updateVisit(userId, updatedVisit) {
         body: JSON.stringify({
             query,
             variables: {
-                userId,
                 updatedVisit
             }
         })

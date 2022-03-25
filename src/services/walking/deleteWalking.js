@@ -2,9 +2,9 @@
 import {gql} from "@apollo/client";
 import getGqlString from "../../utils/graphql_utils";
 
-export default async function deleteWalking(userId) {
-    let query = gql`mutation Mutation($userId: ID!) {
-        deleteWalking(userId: $userId) {
+export default async function deleteWalking() {
+    let query = gql`mutation Mutation {
+        deleteWalking {
             success
             message
             walking {
@@ -28,10 +28,7 @@ export default async function deleteWalking(userId) {
             Authorization: localStorage.getItem('token')
         },
         body: JSON.stringify({
-            query,
-            variables: {
-                userId
-            }
+            query
         })
     };
 

@@ -1,5 +1,5 @@
 ﻿const {createModule, gql} = require('graphql-modules');
-const {authenticate} = require("../../utils/auth_utils");
+const {authenticate, decodeToken} = require("../../utils/auth_utils");
 const {jwtError} = require("../api_responses/auth/auth_error");
 const {userIdNotFoundError} = require("../api_responses/user/user_error");
 const {findUserById} = require("../../mongodb/operations/user_operations");
@@ -28,13 +28,13 @@ module.exports.boardingModule = createModule({
     typeDefs: [
         gql`
             extend type Query {
-                getBoarding(userId: ID!) : BoardingResponse
+                getBoarding : BoardingResponse
             }
 
             extend type Mutation {
-                createBoarding(userId: ID!, boarding: BoardingInput!) : BoardingResponse
-                updateBoarding(userId: ID!, updatedBoarding: BoardingInput!) : BoardingResponse
-                deleteBoarding(userId: ID!) : BoardingResponse
+                createBoarding(boarding: BoardingInput!) : BoardingResponse
+                updateBoarding(updatedBoarding: BoardingInput!) : BoardingResponse
+                deleteBoarding : BoardingResponse
             }
 
             type Boarding {
@@ -72,9 +72,12 @@ module.exports.boardingModule = createModule({
     ],
     resolvers: {
         Query: {
-            getBoarding: async (parent, {userId}, context) => {
+            getBoarding: async (parent, {}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
 
                 const boarding = await findBoarding(userId);
                 if (!boarding) return boardingNotFoundError(userId);
@@ -83,9 +86,12 @@ module.exports.boardingModule = createModule({
             }
         },
         Mutation: {
-            createBoarding: async (parent, {userId, boarding}, context) => {
+            createBoarding: async (parent, {boarding}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
 
                 const user = await findUserById(userId);
                 if (!user) return userIdNotFoundError(userId);
@@ -97,9 +103,12 @@ module.exports.boardingModule = createModule({
 
                 return boardingCreatedSuccess(newBoarding);
             },
-            updateBoarding: async (parent, {userId, updatedBoarding}, context) => {
+            updateBoarding: async (parent, {updatedBoarding}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
 
                 const user = await findUserById(userId);
                 if (!user) return userIdNotFoundError(userId);
@@ -111,10 +120,12 @@ module.exports.boardingModule = createModule({
 
                 return boardingUpdatedSuccess(boarding);
             },
-            deleteBoarding: async (parent, {userId}, context) => {
-
+            deleteBoarding: async (parent, {}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
 
                 const user = await findUserById(userId);
                 if (!user) return userIdNotFoundError(userId);

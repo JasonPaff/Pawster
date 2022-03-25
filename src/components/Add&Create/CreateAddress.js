@@ -4,8 +4,6 @@ import updateAddress from '../../services/address/updateAddress'
 import getAddress from '../../services/address/getAddress'
 import { useNavigate } from 'react-router-dom'
 
-const fetchedId = localStorage.getItem("userId")
-
 function CreateAddress() {
   
   const [address, setAddress] = useState({})
@@ -14,7 +12,7 @@ function CreateAddress() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    getAddress(fetchedId).then((result) =>{
+    getAddress().then((result) =>{
         setAddCheck(result.data.getAddress.address)
     })
   }, [])
@@ -47,9 +45,8 @@ function CreateAddress() {
   }
 
   async function handleCreateAddress() {
-    console.log(fetchedId)
     console.log(address)
-    const response = await createAddress(fetchedId, address);
+    const response = await createAddress(address);
 
     if (response.data.createAddress.success) {
         window.location.reload()
@@ -59,8 +56,7 @@ function CreateAddress() {
   }
 
   async function handleUpdateAddress() {
-    console.log(fetchedId)
-    const response = await updateAddress(fetchedId, addCheck);
+    const response = await updateAddress(addCheck);
     console.log(response)
 
     if (response.data.updateAddress.success) {

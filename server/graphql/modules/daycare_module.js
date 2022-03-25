@@ -1,5 +1,5 @@
 ﻿const {createModule, gql} = require('graphql-modules');
-const {authenticate} = require("../../utils/auth_utils");
+const {authenticate, decodeToken} = require("../../utils/auth_utils");
 const {jwtError} = require("../api_responses/auth/auth_error");
 const {userIdNotFoundError} = require("../api_responses/user/user_error");
 const {findUserById} = require("../../mongodb/operations/user_operations");
@@ -13,14 +13,14 @@ module.exports.daycareModule = createModule({
     typeDefs: [
         gql`
             extend type Query {
-                getDaycare(userId: ID!) : DaycareResponse
+                getDaycare : DaycareResponse
             }
 
             extend type Mutation {
-                createDaycare(userId: ID!, daycare: DaycareInput!) : DaycareResponse
-                createDaycare(userId: ID!, visit: DaycareInput!) : DaycareResponse
-                updateDaycare(userId: ID!, updatedDaycare:DaycareInput!) : DaycareResponse
-                deleteDaycare(userId: ID!) : DaycareResponse
+                createDaycare(daycare: DaycareInput!) : DaycareResponse
+                createDaycare(visit: DaycareInput!) : DaycareResponse
+                updateDaycare(updatedDaycare:DaycareInput!) : DaycareResponse
+                deleteDaycare : DaycareResponse
             }
 
             type Daycare {
@@ -56,9 +56,12 @@ module.exports.daycareModule = createModule({
     ],
     resolvers: {
         Query: {
-            getDaycare: async (parent, {userId}, context) => {
+            getDaycare: async (parent, {}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
 
                 const daycare = await findDaycare(userId);
                 if (!daycare) return daycareNotFoundError(userId);
@@ -67,9 +70,12 @@ module.exports.daycareModule = createModule({
             }
         },
         Mutation: {
-            createDaycare: async (parent, {userId, daycare}, context) => {
+            createDaycare: async (parent, {daycare}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
 
                 const user = await findUserById(userId);
                 if (!user) return userIdNotFoundError(userId);
@@ -81,9 +87,12 @@ module.exports.daycareModule = createModule({
 
                 return daycareCreatedSuccess(newDaycare);
             },
-            updateDaycare: async (parent, {userId, updatedDaycare}, context) => {
+            updateDaycare: async (parent, {updatedDaycare}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
 
                 const user = await findUserById(userId);
                 if (!user) return userIdNotFoundError(userId);
@@ -95,9 +104,12 @@ module.exports.daycareModule = createModule({
 
                 return daycareUpdatedSuccess(daycare);
             },
-            deleteDaycare: async (parent, {userId}, context) => {
+            deleteDaycare: async (parent, {}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
 
                 const user = await findUserById(userId);
                 if (!user) return userIdNotFoundError(userId);

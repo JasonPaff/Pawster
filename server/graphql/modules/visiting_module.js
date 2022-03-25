@@ -1,5 +1,5 @@
 ﻿const {createModule, gql} = require('graphql-modules');
-const {authenticate} = require("../../utils/auth_utils");
+const {authenticate, decodeToken} = require("../../utils/auth_utils");
 const {jwtError} = require("../api_responses/auth/auth_error");
 const {userIdNotFoundError} = require("../api_responses/user/user_error");
 const {findUserById} = require("../../mongodb/operations/user_operations");
@@ -13,13 +13,13 @@ module.exports.visitModule = createModule({
     typeDefs: [
         gql`
             extend type Query {
-                getVisit(userId: ID!) : VisitResponse
+                getVisit : VisitResponse
             }
 
             extend type Mutation {
-                createVisit(userId: ID!, visit: VisitInput!) : VisitResponse
-                updateVisit(userId: ID!, updatedVisit: VisitInput!) : VisitResponse
-                deleteVisit(userId: ID!) : VisitResponse
+                createVisit(visit: VisitInput!) : VisitResponse
+                updateVisit(updatedVisit: VisitInput!) : VisitResponse
+                deleteVisit : VisitResponse
             }
 
             type Visit {
@@ -55,9 +55,12 @@ module.exports.visitModule = createModule({
     ],
     resolvers: {
         Query: {
-            getVisit: async (parent, {userId}, context) => {
+            getVisit: async (parent, {}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
 
                 const visit = await findVisit(userId);
                 if (!visit) return visitNotFoundError(userId);
@@ -66,9 +69,12 @@ module.exports.visitModule = createModule({
             }
         },
         Mutation: {
-            createVisit: async (parent, {userId, visit}, context) => {
+            createVisit: async (parent, {visit}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
 
                 const user = await findUserById(userId);
                 if (!user) return userIdNotFoundError(userId);
@@ -80,9 +86,12 @@ module.exports.visitModule = createModule({
 
                 return visitCreatedSuccess(newWalking);
             },
-            updateVisit: async (parent, {userId, updatedVisit}, context) => {
+            updateVisit: async (parent, {updatedVisit}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
 
                 const user = await findUserById(userId);
                 if (!user) return userIdNotFoundError(userId);
@@ -94,9 +103,12 @@ module.exports.visitModule = createModule({
 
                 return visitUpdatedSuccess(visit);
             },
-            deleteVisit: async (parent, {userId}, context) => {
+            deleteVisit: async (parent, {}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
 
                 const user = await findUserById(userId);
                 if (!user) return userIdNotFoundError(userId);
