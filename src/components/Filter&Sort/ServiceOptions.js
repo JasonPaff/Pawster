@@ -21,31 +21,26 @@ const data = {
                     "id": 11,
                     "name": "doesBoarding",
                     "label": "Boarding",
-                    "function": "onToggleBoard"
                 },
                 {
                     "id": 12,
                     "name": "doesHouseSitting",
                     "label": "Home Sitting",
-                    "function": "onToggleSitting"
                 },
                 {
                     "id": 13,
                     "name": "doesDropInVisits",
                     "label": "Drop-in Visits",
-                    "function": "onToggleVisits"
                 },
                 {
                     "id": 14,
                     "name": "doesDayCare",
                     "label": "Day Care",
-                    "function": "onToggleDayCare"
                 },
                 {
                     "id": 15,
                     "name": "doesDogWalking",
                     "label": "Dog Walking",
-                    "function": "onToggleWalking"
                 }
             ]
         },
