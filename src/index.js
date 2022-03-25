@@ -29,7 +29,7 @@ const rootReducer = combineReducers({
 
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
 
-const token = localStorage.getItem("token");
+const token = localStorage.getItem("jsonwebtoken");
 store.dispatch({ type: "LOGIN", payload: token });
 
 ReactDOM.render(

@@ -2,7 +2,7 @@ import * as actionTypes from '../actions/filterActionTypes'
 
 const initialState = {
     doesBoarding: false,
-    doesHouseSitting : false,
+    doesHouseSitting: false,
     doesDropInVisits: false,
     doesDayCare: false,
     doesDogWalking: false,
@@ -34,31 +34,15 @@ const filterReducer = (state=initialState, action) => {
                     ...state,
                     doesnt_own_cat: action.payload
                 }
-            case actionTypes.SET_BOARDING_FILTER:
+            case actionTypes.SET_SERVICE_FILTER:
                 return {
                     ...state,
-                    doesBoarding: action.payload,
-                    
-                }
-            case actionTypes.SET_HOUSE_SITTING_FILTER:
-                return {
-                    ...state,
-                    doesHouseSitting: action.payload
-                }
-            case actionTypes.SET_DROP_IN_VISITS_FILTER:
-                return {
-                    ...state,
-                    doesDropInVisits: action.payload
-                }
-            case actionTypes.SET_DAY_CARE_FILTER:
-                return {
-                    ...state,
-                    doesDayCare: action.payload
-                }
-            case actionTypes.SET_DOG_WALKING_FILTER:
-                return {
-                    ...state,
-                    doesDogWalking: action.payload
+                    doesBoarding: false,
+                    doesHouseSitting : false,
+                    doesDropInVisits: false,
+                    doesDayCare: false,
+                    doesDogWalking: false,
+                    ...action.payload
                 }
              
         default:

@@ -28,3 +28,9 @@ export const toggleCat = (value) => {
     }
 }
 
+export const toggleService = (value) => {
+    return {
+        type: actionTypes.SET_SERVICE_FILTER,
+        payload: value
+    }
+}

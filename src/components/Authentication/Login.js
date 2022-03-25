@@ -27,7 +27,7 @@ function Login(props) {
 
   return (
     <div className="flex w-full  justify-center items-center align-middle">
-      <div className="flex mt-20 mx-4 flex-col border border-slate-300 rounded shadow-md w-[440px]">
+      <div className="flex mt-10 mx-4 flex-col border border-slate-300 rounded shadow-md w-[440px]">
         <h3 className="text-center p-2 mb-4 bg-background-darker">Existing Account</h3>
         <form onSubmit={handleAccountLogin} className="flex flex-col gap-3  bg-background-lighter px-8 pb-8 ">
           <div>
