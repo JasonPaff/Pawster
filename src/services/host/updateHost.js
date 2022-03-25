@@ -2,9 +2,9 @@
 import {gql} from "@apollo/client";
 import getGqlString from "../../utils/graphql_utils";
 
-export default async function updateHost(userId, updatedHost) {
-    let query = gql`mutation Mutation($userId: ID!, $updatedHost: HostInput!) {
-        updateHost(userId: $userId, updatedHost: $updatedHost) {
+export default async function updateHost(updatedHost) {
+    let query = gql`mutation Mutation($updatedHost: HostInput!) {
+        updateHost(updatedHost: $updatedHost) {
             success
             message
             host {
@@ -45,7 +45,6 @@ export default async function updateHost(userId, updatedHost) {
         body: JSON.stringify({
             query,
             variables: {
-                userId,
                 updatedHost
             }
         })

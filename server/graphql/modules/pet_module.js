@@ -1,5 +1,5 @@
 ﻿const {createModule, gql} = require('graphql-modules');
-const {authenticate} = require("../../utils/auth_utils");
+const {authenticate, decodeToken} = require("../../utils/auth_utils");
 const {jwtError} = require("../api_responses/auth/auth_error");
 const {findPet, findPets, createPet, updatePet, deletePet, deletePets} = require("../../mongodb/operations/pet_operations");
 const {petNotFoundError, petsNotFoundError} = require("../api_responses/pet/pet_error");
@@ -14,14 +14,14 @@ module.exports.petModule = createModule({
         gql`
             extend type Query {
                 getPet(petId: ID!) : PetResponse
-                getPets(userId: ID!) : PetsResponse
+                getPets : PetsResponse
             }
             
             extend type Mutation {
-                createPet(userId: ID!, pet: PetInput!) : PetResponse
+                createPet(pet: PetInput!) : PetResponse
                 updatePet(petId: ID!, updatedPet: PetInput!) : PetResponse
                 deletePet(petId: ID!) : PetResponse
-                deleteAllPets(userId: ID!) : PetsResponse
+                deleteAllPets : PetsResponse
             }            
             
             type Pet {
@@ -98,9 +98,12 @@ module.exports.petModule = createModule({
 
                 return petFoundSuccess(pet);
             },
-            getPets: async (parent, {userId}, context) => {
+            getPets: async (parent, {}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
 
                 const user = await findUserById(userId);
                 if (!user) return userIdNotFoundError(userId);
@@ -112,9 +115,12 @@ module.exports.petModule = createModule({
             }
         },
         Mutation: {
-            createPet: async (parent, {userId, pet}, context) => {
+            createPet: async (parent, {pet}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
 
                 const user = await findUserById(userId);
                 if (!user) return userIdNotFoundError(userId);
@@ -168,9 +174,12 @@ module.exports.petModule = createModule({
 
                 return petDeletedSuccess(petId, pet);
             },
-            deleteAllPets: async (parent, {userId}, context) => {
+            deleteAllPets: async (parent, {}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
 
                 const pets = await findPets(userId);
                 if (!pets) return petsNotFoundError(userId);

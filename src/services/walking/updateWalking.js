@@ -2,9 +2,9 @@
 import {gql} from "@apollo/client";
 import getGqlString from "../../utils/graphql_utils";
 
-export default async function updateWalking(userId, updatedWalking) {
-    let query = gql`mutation Mutation($userId: ID!, $updatedWalking: WalkingInput!) {
-        updateWalking(userId: $userId, updatedWalking: $updatedWalking) {
+export default async function updateWalking(updatedWalking) {
+    let query = gql`mutation Mutation($updatedWalking: WalkingInput!) {
+        updateWalking(updatedWalking: $updatedWalking) {
             success
             message
             walking {
@@ -30,7 +30,6 @@ export default async function updateWalking(userId, updatedWalking) {
         body: JSON.stringify({
             query,
             variables: {
-                userId,
                 updatedWalking
             }
         })

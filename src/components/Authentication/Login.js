@@ -4,8 +4,6 @@ import validateUserLogin from "../../services/authentication/validateUserLogin";
 import { connect } from 'react-redux'
 import * as actionCreators from '../../store/action_creators/actionCreators'
 
-
-
 function Login(props) {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");

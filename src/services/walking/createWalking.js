@@ -2,9 +2,9 @@
 import {gql} from "@apollo/client";
 import getGqlString from "../../utils/graphql_utils";
 
-export default async function createWalking(userId, walking) {
-    let query = gql`mutation Mutation($userId: ID!, $walking: WalkingInput!) {
-        createWalking(userId: $userId, walking: $walking) {
+export default async function createWalking(walking) {
+    let query = gql`mutation Mutation($walking: WalkingInput!) {
+        createWalking(walking: $walking) {
             success
             message
             walking {
@@ -30,7 +30,6 @@ export default async function createWalking(userId, walking) {
         body: JSON.stringify({
             query,
             variables: {
-                userId,
                 walking
             }
         })

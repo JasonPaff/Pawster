@@ -2,9 +2,9 @@
 import {gql} from "@apollo/client";
 import getGqlString from "../../utils/graphql_utils";
 
-export default async function updateSitting(userId, updatedSitting) {
-    let query = gql`mutation Mutation($userId: ID!, $updatedSitting: SittingInput!) {
-        updateSitting(userId: $userId, updatedSitting: $updatedSitting) {
+export default async function updateSitting(updatedSitting) {
+    let query = gql`mutation Mutation($updatedSitting: SittingInput!) {
+        updateSitting(updatedSitting: $updatedSitting) {
             success
             message
             sitting {
@@ -34,7 +34,6 @@ export default async function updateSitting(userId, updatedSitting) {
         body: JSON.stringify({
             query,
             variables: {
-                userId,
                 updatedSitting
             }
         })

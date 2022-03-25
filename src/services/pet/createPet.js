@@ -2,9 +2,9 @@
 import {gql} from "@apollo/client";
 import getGqlString from "../../utils/graphql_utils";
 
-export default async function createPet(userId, pet) {
-    let query = gql`mutation Mutation($userId: ID!, $pet: PetInput!) {
-        createPet(userId: $userId, pet: $pet) {
+export default async function createPet(pet) {
+    let query = gql`mutation Mutation($pet: PetInput!) {
+        createPet(pet: $pet) {
             success
             message
             pet {
@@ -46,7 +46,6 @@ export default async function createPet(userId, pet) {
         body: JSON.stringify({
             query,
             variables: {
-                userId,
                 pet
             }
         })

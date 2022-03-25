@@ -1,7 +1,7 @@
 ﻿const {createModule, gql} = require('graphql-modules');
 const {jwtError} = require("../api_responses/auth/auth_error");
 const {loginSuccess} = require("../api_responses/auth/auth_success");
-const {authenticate, createToken} = require("../../utils/auth_utils");
+const {authenticate, createToken, decodeToken} = require("../../utils/auth_utils");
 const {deletePets} = require("../../mongodb/operations/pet_operations");
 const {deleteAddress} = require("../../mongodb/operations/address_operations");
 const {hashPassword, comparePasswordHashes} = require("../../utils/password_utils");
@@ -18,14 +18,15 @@ module.exports.userModule = createModule({
             type Query {
                 getUserByEmail(email: String!): UserResponse
                 getUserById(userId: ID!): UserResponse
+                getUser : UserResponse
                 validateUserLogin(email: String!, password: String!) : UserLoginResponse
             }
 
             type Mutation {
                 createUser(user: UserInput!) : UserLoginResponse
-                updateUserPassword(userId: ID!, password: String!, newPassword: String!) : UserResponse
-                updateUserEmail(userId: ID!, email: String!, newEmail: String!) : UserResponse
-                deleteUser(userId: ID!) : UserResponse
+                updateUserPassword(password: String!, newPassword: String!) : UserResponse
+                updateUserEmail( email: String!, newEmail: String!) : UserResponse
+                deleteUser : UserResponse
             }
             
             type User {
@@ -38,7 +39,6 @@ module.exports.userModule = createModule({
             }
 
             input UserInput {
-                id: ID
                 email: String
                 password: String
                 firstName: String
@@ -62,6 +62,18 @@ module.exports.userModule = createModule({
     ],
     resolvers: {
         Query: {
+            getUser: async (parent, {}, context) => {
+                const authenticated = await authenticate(context);
+                if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
+
+                const user = await findUserById(userId);
+                if (!user) return userIdNotFoundError(userId);
+
+                return userIdFoundSuccess(user);
+            },
             getUserByEmail: async (parent, {email}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
@@ -87,7 +99,7 @@ module.exports.userModule = createModule({
                 const validPassword = await comparePasswordHashes(password, user.password);
                 if (!validPassword) return invalidUsernamePasswordError();
 
-                const token = await createToken(email);
+                const token = await createToken(user._id);
 
                 return loginSuccess(user, token);
             }
@@ -104,9 +116,12 @@ module.exports.userModule = createModule({
 
                 return createUserSuccess(newUser, token);
             },
-            updateUserPassword: async(parent, {userId, password, newPassword}, context) => {
+            updateUserPassword: async(parent, {password, newPassword}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
 
                 const user = await findUserById(userId);
                 if (!user) return userIdNotFoundError(userId);
@@ -119,9 +134,12 @@ module.exports.userModule = createModule({
 
                 return passwordUpdatedSuccess(user);
             },
-            updateUserEmail: async (parent, {userId, email, newEmail}, context) => {
+            updateUserEmail: async (parent, {email, newEmail}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
 
                 const user = await findUserById(userId);
                 if (!user) return userIdNotFoundError(userId);
@@ -134,9 +152,12 @@ module.exports.userModule = createModule({
 
                 return emailUpdatedSuccess(user, email, newEmail);
             },
-            deleteUser: async (parent, {userId}, context) => {
+            deleteUser: async (parent, {}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
 
                 const user = await findUserById(userId);
                 if (!user) return userIdNotFoundError(userId);

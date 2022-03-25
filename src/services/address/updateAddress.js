@@ -2,9 +2,9 @@
 import {apiRoute} from "../../utils/apiRoute";
 import getGqlString from "../../utils/graphql_utils";
 
-export default async function updateAddress(userId, address) {
-    let query = gql`mutation Mutation($userId: ID!, $address: AddressInput!) {
-        updateAddress(userId: $userId, address: $address) {
+export default async function updateAddress(address) {
+    let query = gql`mutation Mutation($address: AddressInput!) {
+        updateAddress(address: $address) {
             success
             message
             address {
@@ -27,7 +27,6 @@ export default async function updateAddress(userId, address) {
         body: JSON.stringify({
             query,
             variables: {
-                userId,
                 address
             }
         })

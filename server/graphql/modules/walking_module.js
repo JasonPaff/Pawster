@@ -1,5 +1,5 @@
 ﻿const {createModule, gql} = require('graphql-modules');
-const {authenticate} = require("../../utils/auth_utils");
+const {authenticate, decodeToken} = require("../../utils/auth_utils");
 const {jwtError} = require("../api_responses/auth/auth_error");
 const {userIdNotFoundError} = require("../api_responses/user/user_error");
 const {findUserById} = require("../../mongodb/operations/user_operations");
@@ -13,13 +13,13 @@ module.exports.walkingModule = createModule({
     typeDefs: [
         gql`
             extend type Query {
-                getWalking(userId: ID!) : WalkingResponse
+                getWalking : WalkingResponse
             }
 
             extend type Mutation {
-                createWalking(userId: ID!, walking: WalkingInput!) : WalkingResponse
-                updateWalking(userId: ID!, updatedWalking: WalkingInput!) : WalkingResponse
-                deleteWalking(userId: ID!) : WalkingResponse
+                createWalking(walking: WalkingInput!) : WalkingResponse
+                updateWalking(updatedWalking: WalkingInput!) : WalkingResponse
+                deleteWalking : WalkingResponse
             }
 
             type Walking {
@@ -49,9 +49,12 @@ module.exports.walkingModule = createModule({
     ],
     resolvers: {
         Query: {
-            getWalking: async (parent, {userId}, context) => {
+            getWalking: async (parent, {}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
 
                 const walking = await findWalking(userId);
                 if (!walking) return walkingNotFoundError(userId);
@@ -60,9 +63,12 @@ module.exports.walkingModule = createModule({
             }
         },
         Mutation: {
-            createWalking: async (parent, {userId, walking}, context) => {
+            createWalking: async (parent, {walking}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
 
                 const user = await findUserById(userId);
                 if (!user) return userIdNotFoundError(userId);
@@ -74,9 +80,12 @@ module.exports.walkingModule = createModule({
 
                 return walkingCreatedSuccess(newWalking);
             },
-            updateWalking: async (parent, {userId, updatedWalking}, context) => {
+            updateWalking: async (parent, {updatedWalking}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
 
                 const user = await findUserById(userId);
                 if (!user) return userIdNotFoundError(userId);
@@ -88,9 +97,12 @@ module.exports.walkingModule = createModule({
 
                 return walkingUpdatedSuccess(walking);
             },
-            deleteWalking: async (parent, {userId}, context) => {
+            deleteWalking: async (parent, {}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
 
                 const user = await findUserById(userId);
                 if (!user) return userIdNotFoundError(userId);

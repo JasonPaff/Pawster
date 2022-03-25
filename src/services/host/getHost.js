@@ -2,9 +2,9 @@
 import {gql} from "@apollo/client";
 import getGqlString from "../../utils/graphql_utils";
 
-export default async function getHost(userId) {
-    let query = gql`query Query($userId: ID!) {
-        getHost(userId: $userId) {
+export default async function getHost() {
+    let query = gql`query Query {
+        getHost {
             success
             message
             host {
@@ -43,10 +43,7 @@ export default async function getHost(userId) {
             Authorization: localStorage.getItem('token')
         },
         body: JSON.stringify({
-            query,
-            variables: {
-                userId
-            }
+            query
         })
     };
 
