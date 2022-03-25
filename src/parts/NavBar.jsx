@@ -4,7 +4,7 @@ import Account from "./Profile";
 import LoginMenu from "./LoginMenu";
 
 export default function NavBar() {
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("jsonwebtoken");
   console.log(token);
   return (
     <div className="flex justify-center bg-white">
