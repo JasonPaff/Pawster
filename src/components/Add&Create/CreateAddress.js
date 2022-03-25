@@ -6,10 +6,11 @@ import { useNavigate } from 'react-router-dom'
 
 function CreateAddress() {
   
+  const navigate = useNavigate()
+  
   const [address, setAddress] = useState({})
   const [addCheck, setAddCheck] = useState({})
 
-  const navigate = useNavigate()
 
   useEffect(() => {
     getAddress().then((result) =>{
