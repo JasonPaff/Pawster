@@ -28,41 +28,6 @@ export const toggleCat = (value) => {
     }
 }
 
-export const toggleBoard = (value) => {
-    return {
-        type: actionTypes.SET_BOARDING_FILTER,
-        payload: value
-    }
-}
-
-export const toggleSitting = (value) => {
-    return {
-        type: actionTypes.SET_HOUSE_SITTING_FILTER,
-        payload: value
-    }
-}
-
-export const toggleVisits = (value) => {
-    return {
-        type: actionTypes.SET_DROP_IN_VISITS_FILTER,
-        payload: value
-    }
-}
-
-export const toggleDayCare = (value) => {
-    return {
-        type: actionTypes.SET_DAY_CARE_FILTER,
-        payload: value
-    }
-}
-
-export const toggleWalking = (value) => {
-    return {
-        type: actionTypes.SET_DOG_WALKING_FILTER,
-        payload: value
-    }
-}
-
 export const toggleService = (value) => {
     return {
         type: actionTypes.SET_SERVICE_FILTER,
