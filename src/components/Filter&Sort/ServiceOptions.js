@@ -7,11 +7,6 @@ import * as actionCreators from "../../store/action_creators/filterActionCreator
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onToggleBoard: (value) => dispatch(actionCreators.toggleBoard(value)),
-        onToggleSitting: (value) => dispatch(actionCreators.toggleSitting(value)),
-        onToggleVisits: (value) => dispatch(actionCreators.toggleVisits(value)),
-        onToggleDayCare: (value) => dispatch(actionCreators.toggleDayCare(value)),
-        onToggleWalking: (value) => dispatch(actionCreators.toggleWalking(value)),
         onToggleService: (value) => dispatch(actionCreators.toggleService(value)),
     }
 }
