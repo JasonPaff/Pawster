@@ -882,6 +882,12 @@ label{
   margin-bottom: calc(0.25rem * var(--tw-space-y-reverse));
 }
 
+.space-x-20 > :not([hidden]) ~ :not([hidden]){
+  --tw-space-x-reverse: 0;
+  margin-right: calc(5rem * var(--tw-space-x-reverse));
+  margin-left: calc(5rem * calc(1 - var(--tw-space-x-reverse)));
+}
+
 .rounded{
   border-radius: 0.25rem;
 }
