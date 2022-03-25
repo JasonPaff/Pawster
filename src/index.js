@@ -8,6 +8,12 @@ import "./styles/tailwind.output.css";
 
 import App from "./App";
 // Importing Reducers
+
+import authenticationReducer from './store/reducers/authentication';
+import hostsReducer from './store/reducers/hosts'
+import filtersReducer from './store/reducers/filters';
+import petReducer from './store/reducers/pets';
+
 import authenticationReducer from "./store/reducers/authentication";
 import hostsReducer from "./store/reducers/hosts";
 import filtersReducer from "./store/reducers/filters";
@@ -18,6 +24,10 @@ const rootReducer = combineReducers({
   authenticationRed: authenticationReducer,
   hostsRed: hostsReducer,
   filtersRed: filtersReducer,
+
+  petRed: petReducer
+
+
 });
 
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
