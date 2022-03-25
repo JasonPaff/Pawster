@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import validateUserLogin from "../../services/authentication/validateUserLogin";
+import { connect } from 'react-redux'
+import * as actionCreators from '../../store/action_creators/actionCreators'
 
-export default function Login() {
+function Login(props) {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
@@ -15,7 +17,9 @@ export default function Login() {
     const response = await validateUserLogin(email, password);
 
     if (response.data.validateUserLogin.success) {
+      props.onLogin(response.data.validateUserLogin.token)
       navigate("/");
+      console.log(response.data.validateUserLogin)
     } else {
       alert(response.data.validateUserLogin.message);
     }
@@ -42,3 +46,11 @@ export default function Login() {
     </div>
   );
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onLogin: (token) => dispatch(actionCreators.login(token))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Login);

@@ -2,14 +2,15 @@
 import {gql} from "@apollo/client";
 import getGqlString from "../../utils/graphql_utils";
 
-export default async function getUserPhotos(userId) {
-    let query = gql`query Query($userId: ID!) {
-        getUserPhotos(userId: $userId) {
+export default async function getUserPhotos() {
+    let query = gql`query Query {
+        getUserPhotos {
             success
             message
             photos {
                 userId
                 photo
+                photoType
                 isProfilePhoto
             }
         }
@@ -24,10 +25,7 @@ export default async function getUserPhotos(userId) {
             Authorization: localStorage.getItem('token')
         },
         body: JSON.stringify({
-            query,
-            variables: {
-                userId
-            }
+            query
         })
     };
 

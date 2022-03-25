@@ -41,8 +41,6 @@ export default async function createUser(user) {
 
   if (response.data.createUser.success) {
     localStorage.setItem("token", response.data.createUser.token);
-    localStorage.setItem("email", response.data.createUser.user.email);
-    localStorage.setItem("userId", response.data.createUser.user.id);
   }
 
   return response;

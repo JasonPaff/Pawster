@@ -1,8 +1,8 @@
 ﻿const {createModule, gql} = require('graphql-modules');
 const {findAddress, doesAddressExist, createAddress, updateAddress, deleteAddress} = require("../../mongodb/operations/address_operations");
-const {findUser, findUserById} = require("../../mongodb/operations/user_operations");
-const {authenticate} = require("../../utils/auth_utils");
-const {userNotFoundError, userIdNotFoundError} = require("../api_responses/user/user_error");
+const {findUserById} = require("../../mongodb/operations/user_operations");
+const {authenticate, decodeToken} = require("../../utils/auth_utils");
+const {userIdNotFoundError} = require("../api_responses/user/user_error");
 const {jwtError} = require("../api_responses/auth/auth_error");
 const {missingAddressError, existingAddressError} = require("../api_responses/address/address_error");
 const {addressFoundSuccess, addressUpdatedSuccess, addressCreatedSuccess, deleteAddressSuccess} = require("../api_responses/address/address_success");
@@ -13,17 +13,18 @@ module.exports.addressModule = createModule({
     typeDefs: [
         gql`
             extend type Query {
-                getAddress(userId: ID!) : AddressResponse
+                getAddress : AddressResponse
             },
             extend type Mutation {
-                createAddress(userId: ID!, address: AddressInput!) : AddressResponse
-                updateAddress(userId: ID!, address: AddressInput!) : AddressResponse
-                deleteAddress(userId: ID!) : AddressResponse
+                createAddress(address: AddressInput!) : AddressResponse
+                updateAddress(address: AddressInput!) : AddressResponse
+                deleteAddress : AddressResponse
             },
             type Address {
                 street: String
                 city: String
                 state: String
+                userId: ID
                 zipcode: Int
             }
 
@@ -43,9 +44,12 @@ module.exports.addressModule = createModule({
     ],
     resolvers: {
         Query: {
-            getAddress: async (parent, {userId}, context) => {
+            getAddress: async (parent, {}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
 
                 const user = await findUserById(userId);
                 if (!user) return userIdNotFoundError(userId);
@@ -57,9 +61,12 @@ module.exports.addressModule = createModule({
             },
         },
         Mutation: {
-            createAddress: async (parent, {userId, address}, context) => {
+            createAddress: async (parent, {address}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
 
                 const user = await findUserById(userId);
                 if (!user) return userIdNotFoundError(userId);
@@ -71,9 +78,12 @@ module.exports.addressModule = createModule({
 
                 return addressCreatedSuccess(userId, newAddress);
             },
-            updateAddress: async (parent, {userId, address: updatedAddress}, context) => {
+            updateAddress: async (parent, {updatedAddress}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
 
                 const user = await findUserById(userId);
                 if (!user) return userIdNotFoundError(userId);
@@ -90,9 +100,12 @@ module.exports.addressModule = createModule({
 
                 return addressUpdatedSuccess(userId, address);
             },
-            deleteAddress: async (parent, {userId}, context) => {
+            deleteAddress: async (parent, {}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
 
                 const existingAddress = await findAddress(userId);
                 if (!existingAddress) return missingAddressError(userId);

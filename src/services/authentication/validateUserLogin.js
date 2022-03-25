@@ -17,9 +17,7 @@ export default async function validateUserLogin(email, password) {
                 dateCreated
             }
         }
-      }
-    }
-  `;
+      }`;
   query = getGqlString(query);
 
   const headers = {
@@ -39,14 +37,10 @@ export default async function validateUserLogin(email, password) {
 
   const request = await fetch(`${apiRoute}/graphql`, headers);
   const response = await request.json();
-
   if (response.data.validateUserLogin.success) {
-    // console.log(response.data.validateUserLogin.user._id)
-    // TODO: response.data.validateUserLogin.user._id is undefined in the localStorage, was originally user.id (also undefined)
-    localStorage.setItem("token", response.data.validateUserLogin.token);
-    localStorage.setItem("email", response.data.validateUserLogin.user.email);
-    localStorage.setItem("userId", response.data.validateUserLogin.user._id);
+      localStorage.setItem('jsonwebtoken', response.data.validateUserLogin.token);
+      localStorage.setItem('firstName', response.data.validateUserLogin.user.firstName);
+      localStorage.setItem('lastName', response.data.validateUserLogin.user.lastName)
   }
-
   return response;
 }

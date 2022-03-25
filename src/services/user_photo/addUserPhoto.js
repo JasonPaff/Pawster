@@ -10,6 +10,7 @@ export default async function addUserPhoto(userPhoto) {
             photo {
                 userId
                 photo
+                photoType
                 isProfilePhoto
             }
         }

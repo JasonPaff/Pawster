@@ -2,9 +2,9 @@
 import {gql} from "@apollo/client";
 import getGqlString from "../../utils/graphql_utils";
 
-export default async function getDaycare(userId) {
-    let query = gql`query Query($userId: ID!) {
-        getDaycare(userId: $userId) {
+export default async function getDaycare() {
+    let query = gql`query Query {
+        getDaycare {
             success
             message
             daycare {
@@ -31,10 +31,7 @@ export default async function getDaycare(userId) {
             Authorization: localStorage.getItem('token')
         },
         body: JSON.stringify({
-            query,
-            variables: {
-                userId
-            }
+            query
         })
     };
 
