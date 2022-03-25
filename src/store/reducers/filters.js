@@ -2,7 +2,7 @@ import * as actionTypes from '../actions/filterActionTypes'
 
 const initialState = {
     doesBoarding: false,
-    doesHouseSitting : false,
+    doesHouseSitting: false,
     doesDropInVisits: false,
     doesDayCare: false,
     doesDogWalking: false,
@@ -59,6 +59,16 @@ const filterReducer = (state=initialState, action) => {
                 return {
                     ...state,
                     doesDogWalking: action.payload
+                }
+            case actionTypes.SET_SERVICE_FILTER:
+                return {
+                    ...state,
+                    doesBoarding: false,
+                    doesHouseSitting : false,
+                    doesDropInVisits: false,
+                    doesDayCare: false,
+                    doesDogWalking: false,
+                    ...action.payload
                 }
              
         default:

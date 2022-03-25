@@ -4,51 +4,109 @@ import '../../styles/ServiceOptions.css'
 import * as actionCreators from "../../store/action_creators/filterActionCreator"
 
 
-const mapStateToProps = (state) => {
-    return {
-        has_house: state.filtersRed.has_house,
-        has_fenced_yard: state.filtersRed.has_fenced_yard,
-        doesnt_own_dog: state.filtersRed.doesnt_own_dog,
-        doesnt_own_cat: state.filtersRed.doesnt_own_cat
-    }
-}
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onToggleHouse: (value) => dispatch(actionCreators.toggleHouse(value)),
-        onToggleYard: (value) => dispatch(actionCreators.toggleYard(value)),
-        onToggleDog: (value) => dispatch(actionCreators.toggleDog(value)),
-        onToggleCat: (value) => dispatch(actionCreators.toggleCat(value))
+        onToggleBoard: (value) => dispatch(actionCreators.toggleBoard(value)),
+        onToggleSitting: (value) => dispatch(actionCreators.toggleSitting(value)),
+        onToggleVisits: (value) => dispatch(actionCreators.toggleVisits(value)),
+        onToggleDayCare: (value) => dispatch(actionCreators.toggleDayCare(value)),
+        onToggleWalking: (value) => dispatch(actionCreators.toggleWalking(value)),
+        onToggleService: (value) => dispatch(actionCreators.toggleService(value)),
     }
 }
 
+const data = {
+    "services": [
+        {
+            "id": 1,
+            "name": "Services",
+            "options": [
+                {
+                    "id": 11,
+                    "name": "doesBoarding",
+                    "label": "Boarding",
+                    "function": "onToggleBoard"
+                },
+                {
+                    "id": 12,
+                    "name": "doesHouseSitting",
+                    "label": "Home Sitting",
+                    "function": "onToggleSitting"
+                },
+                {
+                    "id": 13,
+                    "name": "doesDropInVisits",
+                    "label": "Drop-in Visits",
+                    "function": "onToggleVisits"
+                },
+                {
+                    "id": 14,
+                    "name": "doesDayCare",
+                    "label": "Day Care",
+                    "function": "onToggleDayCare"
+                },
+                {
+                    "id": 15,
+                    "name": "doesDogWalking",
+                    "label": "Dog Walking",
+                    "function": "onToggleWalking"
+                }
+            ]
+        },
+    ]
+}
+
+
+
 
 function ServiceOptions(props) {
+    const radioButtons = data.services.map(({ id, name, options}) => {
+        return <div key={id}>
+                    <h2>{name}</h2>
+                    {options.map((opt) => {
+                        console.log(name)
+                        return <div key={opt.id} >
+                            <input 
+                            type="radio"
+                            value={opt.name}
+                            name={name}
+                            onChange={() => props.onToggleService({[opt.name]: true})}
+                            />
+                            {opt.label}
+                        </div>
+                    })}
+                </div>
+    })
 
+    // radio updates global state in real time?
     
     return (
       <div className="flex-col justify-center">
         <h1>Service Filter</h1>
+
+        {radioButtons}
+        
         <div className="flex space-x-20">
             <div>
-                <input class="radioInput" type="radio" name="serviceType" id="radio1"></input>
-                <label for="radio1">Option 1</label>
+                <input className="radioInput" type="radio" name="serviceType" id="radio1"></input>
+                <label htmlFor="radio1">Option 1</label>
             </div>
             <div>
-                <input class="radioInput" type="radio" name="serviceType" id="radio2"></input>
-                <label for="radio2">Option 2</label>
+                <input className="radioInput" type="radio" name="serviceType" id="radio2"></input>
+                <label htmlFor="radio2">Option 2</label>
             </div>
             <div>
-                <input class="radioInput" type="radio" name="serviceType" id="radio3"></input>
-                <label for="radio3">Option 3</label>
+                <input className="radioInput" type="radio" name="serviceType" id="radio3"></input>
+                <label htmlFor="radio3">Option 3</label>
             </div>
             <div>
-                <input class="radioInput" type="radio" name="serviceType" id="radio4"></input>
-                <label for="radio4">Option 4</label>
+                <input className="radioInput" type="radio" name="serviceType" id="radio4"></input>
+                <label htmlFor="radio4">Option 4</label>
             </div>
             <div>
-                <input class="radioInput" type="radio" name="serviceType" id="radio5"></input>
-                <label for="radio5">Option 5</label>
+                <input className="radioInput" type="radio" name="serviceType" id="radio5"></input>
+                <label htmlFor="radio5">Option 5</label>
             </div>
         </div>
 
@@ -56,4 +114,4 @@ function ServiceOptions(props) {
     );
 }
   
-export default connect(mapStateToProps, mapDispatchToProps)(ServiceOptions);
+export default connect(null, mapDispatchToProps)(ServiceOptions);
