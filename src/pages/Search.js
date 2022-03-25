@@ -1,5 +1,5 @@
 import DisplayHosts from "../components/DisplayHosts";
-import FilterOptions from "../components/FilterOptions";
+import FilterOptions from "../components/Filter&Sort/FilterOptions";
 import Map from "../parts/Map";
 
 function Search() {

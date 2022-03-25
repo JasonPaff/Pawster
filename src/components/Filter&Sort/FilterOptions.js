@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import * as actionCreators from "../store/action_creators/filterActionCreator"
+import * as actionCreators from "../../store/action_creators/filterActionCreator"
 
 
 const mapStateToProps = (state) => {
