@@ -55,6 +55,7 @@ module.exports.reviewModule = createModule({
     resolvers: {
         Query: {
             getReview: async (parent, {reviewId}) => {
+
                 const review = await findReview(reviewId);
                 if (!review) return missingReviewError(reviewId);
 
