@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import ClientInfo from '../../components/ClientProfile/ClientInfo';
 import { NavLink } from 'react-router-dom';
 import DisplayPets from '../../components/ClientProfile/DisplayPets';
+import DisplayServices from '../../components/ClientProfile/DisplayServices/DisplayServices';
 
 
 function ClientProfile() {
@@ -15,6 +16,14 @@ function ClientProfile() {
       </div>
 
       <div><ClientInfo /></div>
+
+      <div>Host Actions
+        <div className="text-sky-400"><NavLink to="/profile/create-boarding">Add Boarding Info</NavLink></div>
+      </div>
+
+      <div>Services
+        <DisplayServices />
+      </div>
 
       <div>Pets
         <DisplayPets />
