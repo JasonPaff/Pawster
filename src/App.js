@@ -28,7 +28,7 @@ function App() {
           <Route path="/profile/account-info" element={<EditClient />} />
           <Route path="/profile/add-pet" element={<AddPet />} />
           <Route path="/profile/register-host" element={<CreateHost />} />
-          <Route path="/profile/pet-profile/:id" element={<PetProfile />} />
+          <Route path="/profile/pet-profile/:petId" element={<PetProfile />} />
         </Routes>
       </BaseLayout>
     </div>
