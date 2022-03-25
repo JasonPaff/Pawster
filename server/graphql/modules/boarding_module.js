@@ -86,7 +86,7 @@ module.exports.boardingModule = createModule({
                 const boarding = await findBoarding(userId);
                 if (!boarding) return boardingNotFoundError(userId);
 
-                return boardingFoundSuccess(boarding);
+                return boardingFoundSuccess(userId, boarding);
             },
             getBoardingById: async (parent, {userId}) => {
                 const user = await findUserById(userId);
@@ -95,7 +95,7 @@ module.exports.boardingModule = createModule({
                 const boarding = await findBoarding(userId);
                 if (!boarding) return boardingNotFoundError(userId);
 
-                return boardingFoundSuccess(boarding);
+                return boardingFoundSuccess(userId, boarding);
             }
         },
         Mutation: {
@@ -114,7 +114,7 @@ module.exports.boardingModule = createModule({
 
                 const newBoarding = await createBoarding(userId, boarding);
 
-                return boardingCreatedSuccess(newBoarding);
+                return boardingCreatedSuccess(userId, newBoarding);
             },
             updateBoarding: async (parent, {updatedBoarding}, context) => {
                 const authenticated = await authenticate(context);
@@ -131,7 +131,7 @@ module.exports.boardingModule = createModule({
 
                 await updateBoarding(userId, updatedBoarding);
 
-                return boardingUpdatedSuccess(updatedBoarding);
+                return boardingUpdatedSuccess(userId, updatedBoarding);
             },
             deleteBoarding: async (parent, {}, context) => {
                 const authenticated = await authenticate(context);
