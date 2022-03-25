@@ -5,7 +5,7 @@ const {userIdNotFoundError} = require("../api_responses/user/user_error");
 const {findUserById} = require("../../mongodb/operations/user_operations");
 const {missingAddressError} = require("../api_responses/address/address_error");
 const {missingReviewError, missingReviewsError} = require("../api_responses/review/review_error");
-const {findReview, createReview, deleteReview, updateReview, findReviews} = require("../../mongodb/operations/review_operations");
+const {findReview, createReview, deleteReview, updateReview, findReviews, findReviewed} = require("../../mongodb/operations/review_operations");
 const {reviewFoundSuccess, reviewCreatedSuccess, reviewUpdatedSuccess, deleteReviewSuccess, reviewsFoundSuccess} = require("../api_responses/review/review_success");
 
 module.exports.reviewModule = createModule({
@@ -17,6 +17,8 @@ module.exports.reviewModule = createModule({
                 getReview(reviewId: ID!) : ReviewResponse
                 getReviews : ReviewsResponse
                 getReviewed: ReviewsResponse
+                getReviewsById(userId: ID!) : ReviewsResponse
+                getReviewedById(userId: ID!) : ReviewsResponse
             },
             extend type Mutation {
                 createReview(review: ReviewInput!) : ReviewResponse
@@ -24,11 +26,12 @@ module.exports.reviewModule = createModule({
                 deleteReview(reviewId: ID!) : ReviewResponse
             },
             type Review {
-                userId: ID
-                userIdReviewed: ID
+                dateReviewed: Date
+                id: ID
                 review: String
                 stars: Float
-                dateReviewed: Date                
+                userId: ID
+                userIdReviewed: ID
             }
 
             input ReviewInput {
@@ -54,13 +57,10 @@ module.exports.reviewModule = createModule({
     resolvers: {
         Query: {
             getReview: async (parent, {reviewId}, context) => {
-                const user = await findUserById(userId);
-                if (!user) return userIdNotFoundError(userId);
+                const review = await findReview(reviewId);
+                if (!review) return missingReviewError(reviewId);
 
-                const review = await findReview(userId);
-                if (!review) return missingReviewError(userId);
-
-                return reviewFoundSuccess(userId, review);
+                return reviewFoundSuccess(reviewId, review);
             },
             getReviews: async (parent, {}, context) => {
                 const authenticated = await authenticate(context);
@@ -73,6 +73,39 @@ module.exports.reviewModule = createModule({
                 if (!user) return userIdNotFoundError(userId);
 
                 const reviews = await findReviews(userId);
+                if (!reviews) return missingReviewsError(userId);
+
+                return reviewsFoundSuccess(userId, reviews);
+            },
+            getReviewed: async (parent, {}, context) => {
+                const authenticated = await authenticate(context);
+                if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
+
+                const user = await findUserById(userId);
+                if (!user) return userIdNotFoundError(userId);
+
+                const reviews = await findReviewed(userId);
+                if (!reviews) return missingReviewsError(userId);
+
+                return reviewsFoundSuccess(userId, reviews);
+            },
+            getReviewsById: async (parent, {userId}) => {
+                const user = await findUserById(userId);
+                if (!user) return userIdNotFoundError(userId);
+
+                const reviews = await findReviews(userId);
+                if (!reviews) return missingReviewsError(userId);
+
+                return reviewsFoundSuccess(userId, reviews);
+            },
+            getReviewedById: async (parent, {userId}) => {
+                const user = await findUserById(userId);
+                if (!user) return userIdNotFoundError(userId);
+
+                const reviews = await findReviewed(userId);
                 if (!reviews) return missingReviewsError(userId);
 
                 return reviewsFoundSuccess(userId, reviews);

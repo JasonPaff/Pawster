@@ -1,10 +1,10 @@
 ﻿const {isValidObjectId} = require("../../utils/database_utils");
 const {Review} = require("../schemas/review_schema");
 
-module.exports.findReview = async (userId) => {
-    if (!isValidObjectId(userId)) return false;
+module.exports.findReview = async (reviewId) => {
+    if (!isValidObjectId(reviewId)) return false;
     return Review.findOne({
-        userId: userId
+        _id: reviewId
     });
 };
 
@@ -15,10 +15,10 @@ module.exports.findReviews = async (userId) => {
     });
 };
 
-module.exports.doesReviewExist = async (userId) => {
+module.exports.findReviewed = async (userId) => {
     if (!isValidObjectId(userId)) return false;
-    return Review.exists({
-        userId: userId
+    return Review.find({
+        userIdReviewed: userId
     });
 };
 

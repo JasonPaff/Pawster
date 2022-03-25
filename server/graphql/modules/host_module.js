@@ -69,7 +69,6 @@ module.exports.hostModule = createModule({
                 totalCanHost: Int
                 typeOfHome: String
                 typeOfYard: String
-                userId: ID
             }
 
             type HostResponse {
