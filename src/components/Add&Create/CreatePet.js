@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import createPet from '../../services/pet/createPet'
-
-const fetchedId = localStorage.getItem("userId")
 
 function CreatePet() {
   
@@ -43,11 +41,9 @@ function CreatePet() {
       })
   }
 
-
   async function handleCreatePet() {
-    console.log(fetchedId)
     console.log(pet)
-    const response = await createPet(fetchedId, pet);
+    const response = await createPet(pet);
 
     if (response.data.createPet.success) {
         navigate('/profile')

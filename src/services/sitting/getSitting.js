@@ -2,9 +2,9 @@
 import {gql} from "@apollo/client";
 import getGqlString from "../../utils/graphql_utils";
 
-export default async function getSitting(userId) {
-    let query = gql`query Query($userId: ID!) {
-        getSitting(userId: $userId) {
+export default async function getSitting() {
+    let query = gql`query Query {
+        getSitting {
             success
             message
             sitting {
@@ -32,10 +32,7 @@ export default async function getSitting(userId) {
             Authorization: localStorage.getItem('token')
         },
         body: JSON.stringify({
-            query,
-            variables: {
-                userId
-            }
+            query
         })
     };
 

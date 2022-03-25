@@ -2,9 +2,9 @@
 import {gql} from "@apollo/client";
 import getGqlString from "../../utils/graphql_utils";
 
-export default async function deleteBoarding(userId) {
-    let query = gql`mutation Mutation($userId: ID!) {
-        deleteBoarding(userId: $userId) {
+export default async function deleteBoarding() {
+    let query = gql`mutation Mutation {
+        deleteBoarding {
             success
             message
             boarding {
@@ -31,10 +31,7 @@ export default async function deleteBoarding(userId) {
             Authorization: localStorage.getItem('token')
         },
         body: JSON.stringify({
-            query,
-            variables: {
-                userId
-            }
+            query
         })
     };
 

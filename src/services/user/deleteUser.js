@@ -2,9 +2,9 @@
 import {apiRoute} from "../../utils/apiRoute";
 import getGqlString from "../../utils/graphql_utils";
 
-export default async function deleteUser(userId) {
-    let query = gql`mutation Mutation($userId: ID!) {
-        deleteUser(userId: $userId) {
+export default async function deleteUser() {
+    let query = gql`mutation Mutation {
+        deleteUser {
             success
             message
             user {
@@ -27,10 +27,7 @@ export default async function deleteUser(userId) {
             Authorization: localStorage.getItem('token')
         },
         body: JSON.stringify({
-            query,
-            variables: {
-                userId
-            }
+            query
         })
     };
 

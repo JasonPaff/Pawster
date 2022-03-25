@@ -1,5 +1,5 @@
 ﻿const {createModule, gql} = require('graphql-modules');
-const {authenticate} = require("../../utils/auth_utils");
+const {authenticate, decodeToken} = require("../../utils/auth_utils");
 const {jwtError} = require("../api_responses/auth/auth_error");
 const {userIdNotFoundError} = require("../api_responses/user/user_error");
 const {findUserById} = require("../../mongodb/operations/user_operations");
@@ -13,13 +13,13 @@ module.exports.hostModule = createModule({
     typeDefs: [
         gql`
             extend type Query {
-                getHost(userId: ID!) : HostResponse
+                getHost : HostResponse
             }
 
             extend type Mutation {
-                createHost(userId: ID!, host: HostInput!) : HostResponse
-                updateHost(userId: ID!, updatedHost: HostInput!) : HostResponse
-                deleteHost(userId: ID!) : HostResponse
+                createHost(host: HostInput!) : HostResponse
+                updateHost(updatedHost: HostInput!) : HostResponse
+                deleteHost : HostResponse
             }
 
             type Host {
@@ -80,9 +80,12 @@ module.exports.hostModule = createModule({
     ],
     resolvers: {
         Query: {
-            getHost: async (parent, {userId}, context) => {
+            getHost: async (parent, {}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
 
                 const host = await findHost(userId);
                 if (!host) return hostNotFoundError(userId);
@@ -91,9 +94,12 @@ module.exports.hostModule = createModule({
             }
         },
         Mutation: {
-            createHost: async (parent, {userId, host}, context) => {
+            createHost: async (parent, {host}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
 
                 const user = await findUserById(userId);
                 if (!user) return userIdNotFoundError(userId);
@@ -105,9 +111,12 @@ module.exports.hostModule = createModule({
 
                 return hostCreatedSuccess(newHost);
             },
-            updateHost: async (parent, {userId, updatedHost}, context) => {
+            updateHost: async (parent, {updatedHost}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
 
                 const user = await findUserById(userId);
                 if (!user) return userIdNotFoundError(userId);
@@ -119,9 +128,12 @@ module.exports.hostModule = createModule({
 
                 return hostUpdatedSuccess(host);
             },
-            deleteHost: async (parent, {userId}, context) => {
+            deleteHost: async (parent, {}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
 
                 const user = await findUserById(userId);
                 if (!user) return userIdNotFoundError(userId);

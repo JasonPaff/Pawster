@@ -1,5 +1,5 @@
 ﻿const {createModule, gql} = require('graphql-modules');
-const {authenticate} = require("../../utils/auth_utils");
+const {authenticate, decodeToken} = require("../../utils/auth_utils");
 const {jwtError} = require("../api_responses/auth/auth_error");
 const {userIdNotFoundError} = require("../api_responses/user/user_error");
 const {findUserById} = require("../../mongodb/operations/user_operations");
@@ -13,13 +13,13 @@ module.exports.sittingModule = createModule({
     typeDefs: [
         gql`
             extend type Query {
-                getSitting(userId: ID!) : SittingResponse
+                getSitting : SittingResponse
             }
 
             extend type Mutation {
-                createSitting(userId: ID!, sitting: SittingInput!) : SittingResponse
-                updateSitting(userId: ID!, updatedSitting: SittingInput!) : SittingResponse
-                deleteSitting(userId: ID!) : SittingResponse
+                createSitting(sitting: SittingInput!) : SittingResponse
+                updateSitting(updatedSitting: SittingInput!) : SittingResponse
+                deleteSitting : SittingResponse
             }
 
             type Sitting {
@@ -56,9 +56,12 @@ module.exports.sittingModule = createModule({
     ],
     resolvers: {
         Query: {
-            getSitting: async (parent, {userId}, context) => {
+            getSitting: async (parent, {}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
 
                 const sitting = await findSitting(userId);
                 if (!sitting) return sittingNotFoundError(userId);
@@ -67,9 +70,12 @@ module.exports.sittingModule = createModule({
             }
         },
         Mutation: {
-            createSitting: async (parent, {userId, sitting}, context) => {
+            createSitting: async (parent, {sitting}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
 
                 const user = await findUserById(userId);
                 if (!user) return userIdNotFoundError(userId);
@@ -81,9 +87,12 @@ module.exports.sittingModule = createModule({
 
                 return sittingCreatedSuccess(newSitting);
             },
-            updateSitting: async (parent, {userId, updatedSitting}, context) => {
+            updateSitting: async (parent, {updatedSitting}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
 
                 const user = await findUserById(userId);
                 if (!user) return userIdNotFoundError(userId);
@@ -95,9 +104,12 @@ module.exports.sittingModule = createModule({
 
                 return sittingUpdatedSuccess(sitting);
             },
-            deleteSitting: async (parent, {userId}, context) => {
+            deleteSitting: async (parent, {}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
 
                 const user = await findUserById(userId);
                 if (!user) return userIdNotFoundError(userId);

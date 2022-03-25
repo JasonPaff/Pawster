@@ -21,9 +21,13 @@ module.exports.createToken = async (userId) => {
     return jwt.sign({userId: userId}, process.env.JWT_KEY,{ expiresIn: 36000}, null);
 }
 
-module.exports.decodeToken = async function parseJwt(token) {
+module.exports.decodeToken = async (context) => {
+    // get authorization header
+    const token = await context.req.headers['authorization'];
+
     try {
-        return JSON.parse(atob(token.split('.')[1]));
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        return payload.userId;
     } catch (e) {
         return null;
     }

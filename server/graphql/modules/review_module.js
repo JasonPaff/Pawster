@@ -1,5 +1,5 @@
 ﻿const {createModule, gql} = require('graphql-modules');
-const {authenticate} = require("../../utils/auth_utils");
+const {authenticate, decodeToken} = require("../../utils/auth_utils");
 const {jwtError} = require("../api_responses/auth/auth_error");
 const {userIdNotFoundError} = require("../api_responses/user/user_error");
 const {findUserById} = require("../../mongodb/operations/user_operations");
@@ -14,13 +14,13 @@ module.exports.reviewModule = createModule({
     typeDefs: [
         gql`
             extend type Query {
-                getReview(userId: ID!) : ReviewResponse
-                getReviews(userId: ID!) : ReviewsResponse
+                getReview(reviewId: ID!) : ReviewResponse
+                getReviews : ReviewsResponse
             },
             extend type Mutation {
-                createReview(userId: ID!, review: ReviewInput!) : ReviewResponse
-                updateReview(userId: ID!, review: ReviewInput!) : ReviewResponse
-                deleteReview(userId: ID!) : ReviewResponse
+                createReview(review: ReviewInput!) : ReviewResponse
+                updateReview(review: ReviewInput!) : ReviewResponse
+                deleteReview(reviewId: ID!) : ReviewResponse
             },
             type Review {
                 userId: ID
@@ -52,9 +52,12 @@ module.exports.reviewModule = createModule({
     ],
     resolvers: {
         Query: {
-            getReview: async (parent, {userId}, context) => {
+            getReview: async (parent, {reviewId}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
 
                 const user = await findUserById(userId);
                 if (!user) return userIdNotFoundError(userId);
@@ -64,9 +67,12 @@ module.exports.reviewModule = createModule({
 
                 return reviewFoundSuccess(userId, review);
             },
-            getReviews: async (parent, {userId}, context) => {
+            getReviews: async (parent, {}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
 
                 const user = await findUserById(userId);
                 if (!user) return userIdNotFoundError(userId);
@@ -78,9 +84,12 @@ module.exports.reviewModule = createModule({
             },
         },
         Mutation: {
-            createReview: async (parent, {userId, review}, context) => {
+            createReview: async (parent, {review}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
 
                 const user = await findUserById(userId);
                 if (!user) return userIdNotFoundError(userId);
@@ -89,9 +98,12 @@ module.exports.reviewModule = createModule({
 
                 return reviewCreatedSuccess(userId, newReview);
             },
-            updateReview: async (parent, {userId, updatedReview}, context) => {
+            updateReview: async (parent, {reviewId, updatedReview}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
 
                 const user = await findUserById(userId);
                 if (!user) return userIdNotFoundError(userId);
@@ -103,9 +115,12 @@ module.exports.reviewModule = createModule({
 
                 return reviewUpdatedSuccess(userId, review);
             },
-            deleteAddress: async (parent, {userId}, context) => {
+            deleteReview: async (parent, {reviewId}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
 
                 const existingReview = await findReview(userId);
                 if (!existingReview) return missingAddressError(userId);

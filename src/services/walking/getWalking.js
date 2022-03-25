@@ -2,9 +2,9 @@
 import {gql} from "@apollo/client";
 import getGqlString from "../../utils/graphql_utils";
 
-export default async function getWalking(userId) {
-    let query = gql`query Query($userId: ID!) {
-        getWalking(userId: $userId) {
+export default async function getWalking() {
+    let query = gql`query Query {
+        getWalking {
             success
             message
             walking {
@@ -28,10 +28,7 @@ export default async function getWalking(userId) {
             Authorization: localStorage.getItem('token')
         },
         body: JSON.stringify({
-            query,
-            variables: {
-                userId
-            }
+            query
         })
     };
 

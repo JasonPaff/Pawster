@@ -2,9 +2,9 @@
 import {gql} from "@apollo/client";
 import getGqlString from "../../utils/graphql_utils";
 
-export default async function createSitting(userId, sitting) {
-    let query = gql`mutation Mutation($userId: ID!, $sitting: SittingInput!) {
-        createSitting(userId: $userId, sitting: $sitting) {
+export default async function createSitting(sitting) {
+    let query = gql`mutation Mutation($sitting: SittingInput!) {
+        createSitting(sitting: $sitting) {
             success
             message
             sitting {
@@ -34,7 +34,6 @@ export default async function createSitting(userId, sitting) {
         body: JSON.stringify({
             query,
             variables: {
-                userId,
                 sitting
             }
         })

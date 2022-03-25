@@ -2,9 +2,9 @@
 import {gql} from "@apollo/client";
 import getGqlString from "../../utils/graphql_utils";
 
-export default async function deleteDaycare(userId) {
-    let query = gql`mutation Mutation($userId: ID!) {
-        deleteDaycare(userId: $userId) {
+export default async function deleteDaycare() {
+    let query = gql`mutation Mutation {
+        deleteDaycare {
             success
             message
             daycare {
@@ -31,10 +31,7 @@ export default async function deleteDaycare(userId) {
             Authorization: localStorage.getItem('token')
         },
         body: JSON.stringify({
-            query,
-            variables: {
-                userId
-            }
+            query
         })
     };
 

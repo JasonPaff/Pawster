@@ -24,9 +24,9 @@ module.exports.userModule = createModule({
 
             type Mutation {
                 createUser(user: UserInput!) : UserLoginResponse
-                updateUserPassword(userId: ID!, password: String!, newPassword: String!) : UserResponse
-                updateUserEmail(userId: ID!, email: String!, newEmail: String!) : UserResponse
-                deleteUser(userId: ID!) : UserResponse
+                updateUserPassword(password: String!, newPassword: String!) : UserResponse
+                updateUserEmail( email: String!, newEmail: String!) : UserResponse
+                deleteUser : UserResponse
             }
             
             type User {
@@ -62,7 +62,7 @@ module.exports.userModule = createModule({
     ],
     resolvers: {
         Query: {
-            getUser: async (context) => {
+            getUser: async (parent, {}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
 
@@ -99,7 +99,7 @@ module.exports.userModule = createModule({
                 const validPassword = await comparePasswordHashes(password, user.password);
                 if (!validPassword) return invalidUsernamePasswordError();
 
-                const token = await createToken(email);
+                const token = await createToken(user._id);
 
                 return loginSuccess(user, token);
             }
@@ -116,9 +116,12 @@ module.exports.userModule = createModule({
 
                 return createUserSuccess(newUser, token);
             },
-            updateUserPassword: async(parent, {userId, password, newPassword}, context) => {
+            updateUserPassword: async(parent, {password, newPassword}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
 
                 const user = await findUserById(userId);
                 if (!user) return userIdNotFoundError(userId);
@@ -131,9 +134,12 @@ module.exports.userModule = createModule({
 
                 return passwordUpdatedSuccess(user);
             },
-            updateUserEmail: async (parent, {userId, email, newEmail}, context) => {
+            updateUserEmail: async (parent, {email, newEmail}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
 
                 const user = await findUserById(userId);
                 if (!user) return userIdNotFoundError(userId);
@@ -146,9 +152,12 @@ module.exports.userModule = createModule({
 
                 return emailUpdatedSuccess(user, email, newEmail);
             },
-            deleteUser: async (parent, {userId}, context) => {
+            deleteUser: async (parent, {}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
 
                 const user = await findUserById(userId);
                 if (!user) return userIdNotFoundError(userId);
