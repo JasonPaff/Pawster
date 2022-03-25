@@ -35,10 +35,9 @@ module.exports.reviewModule = createModule({
             }
 
             input ReviewInput {
-                userIdReviewed: ID
-                review: String
-                stars: Float
-                dateReviewed: Date
+                userIdReviewed: ID!
+                review: String!
+                stars: Float!
             }
 
             type ReviewResponse {

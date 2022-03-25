@@ -32,7 +32,7 @@ module.exports.addressModule = createModule({
                 street: String
                 city: String
                 state: String
-                zipcode: Int
+                zipcode: Int!
             }
 
             type AddressResponse {
