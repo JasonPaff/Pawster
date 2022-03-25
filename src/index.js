@@ -7,16 +7,13 @@ import thunk from "redux-thunk";
 import "./styles/tailwind.output.css";
 
 import App from "./App";
-// Importing Reducers
 
+// Importing Reducers
 import authenticationReducer from './store/reducers/authentication';
 import hostsReducer from './store/reducers/hosts'
 import filtersReducer from './store/reducers/filters';
 import petReducer from './store/reducers/pets';
 
-import authenticationReducer from "./store/reducers/authentication";
-import hostsReducer from "./store/reducers/hosts";
-import filtersReducer from "./store/reducers/filters";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
