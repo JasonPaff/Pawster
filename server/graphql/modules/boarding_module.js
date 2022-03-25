@@ -29,6 +29,7 @@ module.exports.boardingModule = createModule({
         gql`
             extend type Query {
                 getBoarding : BoardingResponse
+                getBoardingById(userId: ID!) : BoardingResponse
             }
 
             extend type Mutation {
@@ -78,6 +79,18 @@ module.exports.boardingModule = createModule({
 
                 const userId = await decodeToken(context);
                 if (!userId) return jwtError();
+
+                const user = await findUserById(userId);
+                if (!user) return userIdNotFoundError(userId);
+
+                const boarding = await findBoarding(userId);
+                if (!boarding) return boardingNotFoundError(userId);
+
+                return boardingFoundSuccess(boarding);
+            },
+            getBoardingById: async (parent, {userId}) => {
+                const user = await findUserById(userId);
+                if (!user) return userIdNotFoundError(userId);
 
                 const boarding = await findBoarding(userId);
                 if (!boarding) return boardingNotFoundError(userId);

@@ -14,6 +14,7 @@ module.exports.walkingModule = createModule({
         gql`
             extend type Query {
                 getWalking : WalkingResponse
+                getWalkingById(userId: ID!) : WalkingResponse
             }
 
             extend type Mutation {
@@ -55,6 +56,15 @@ module.exports.walkingModule = createModule({
 
                 const userId = await decodeToken(context);
                 if (!userId) return jwtError();
+
+                const walking = await findWalking(userId);
+                if (!walking) return walkingNotFoundError(userId);
+
+                return walkingFoundSuccess(walking);
+            },
+            getWalkingById: async (parent, {userId}) => {
+                const user = await findUserById(userId);
+                if (!user) return userIdNotFoundError(userId);
 
                 const walking = await findWalking(userId);
                 if (!walking) return walkingNotFoundError(userId);

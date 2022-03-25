@@ -1,6 +1,6 @@
 ﻿const {createModule, gql} = require('graphql-modules');
-const {authenticate, decodeToken} = require("../../utils/auth_utils");
 const {jwtError} = require("../api_responses/auth/auth_error");
+const {authenticate, decodeToken} = require("../../utils/auth_utils");
 const {userIdNotFoundError} = require("../api_responses/user/user_error");
 const {findUserById} = require("../../mongodb/operations/user_operations");
 const {missingAddressError} = require("../api_responses/address/address_error");
@@ -16,6 +16,7 @@ module.exports.reviewModule = createModule({
             extend type Query {
                 getReview(reviewId: ID!) : ReviewResponse
                 getReviews : ReviewsResponse
+                getReviewed: ReviewsResponse
             },
             extend type Mutation {
                 createReview(review: ReviewInput!) : ReviewResponse
@@ -53,12 +54,6 @@ module.exports.reviewModule = createModule({
     resolvers: {
         Query: {
             getReview: async (parent, {reviewId}, context) => {
-                const authenticated = await authenticate(context);
-                if (!authenticated) return jwtError();
-
-                const userId = await decodeToken(context);
-                if (!userId) return jwtError();
-
                 const user = await findUserById(userId);
                 if (!user) return userIdNotFoundError(userId);
 

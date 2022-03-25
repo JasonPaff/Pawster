@@ -14,11 +14,11 @@ module.exports.daycareModule = createModule({
         gql`
             extend type Query {
                 getDaycare : DaycareResponse
+                getDaycareById(userId: ID!) : DaycareResponse
             }
 
             extend type Mutation {
                 createDaycare(daycare: DaycareInput!) : DaycareResponse
-                createDaycare(visit: DaycareInput!) : DaycareResponse
                 updateDaycare(updatedDaycare:DaycareInput!) : DaycareResponse
                 deleteDaycare : DaycareResponse
             }
@@ -62,6 +62,18 @@ module.exports.daycareModule = createModule({
 
                 const userId = await decodeToken(context);
                 if (!userId) return jwtError();
+
+                const user = await findUserById(userId);
+                if (!user) return userIdNotFoundError(userId);
+
+                const daycare = await findDaycare(userId);
+                if (!daycare) return daycareNotFoundError(userId);
+
+                return daycareFoundSuccess(daycare);
+            },
+            getSearchDaycare: async (parent, {userId}) => {
+                const user = await findUserById(userId);
+                if (!user) return userIdNotFoundError(userId);
 
                 const daycare = await findDaycare(userId);
                 if (!daycare) return daycareNotFoundError(userId);
