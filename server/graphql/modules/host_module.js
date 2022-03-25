@@ -133,9 +133,9 @@ module.exports.hostModule = createModule({
                 const existingHost = await doesHostExist(userId);
                 if (!existingHost) return hostDoesNotExistError(userId);
 
-                const host = await updateHost(userId, updatedHost);
+                await updateHost(userId, updatedHost);
 
-                return hostUpdatedSuccess(host);
+                return hostUpdatedSuccess(updatedHost);
             },
             deleteHost: async (parent, {}, context) => {
                 const authenticated = await authenticate(context);

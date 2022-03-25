@@ -103,9 +103,9 @@ module.exports.walkingModule = createModule({
                 const existingWalking = await doesWalkingExist(userId);
                 if (!existingWalking) return walkingDoesNotExistError(userId);
 
-                const walking = await updateWalking(userId, updatedWalking);
+                await updateWalking(userId, updatedWalking);
 
-                return walkingUpdatedSuccess(walking);
+                return walkingUpdatedSuccess(updatedWalking);
             },
             deleteWalking: async (parent, {}, context) => {
                 const authenticated = await authenticate(context);

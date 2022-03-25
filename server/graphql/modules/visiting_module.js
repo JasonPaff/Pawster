@@ -109,9 +109,9 @@ module.exports.visitModule = createModule({
                 const existingVisit = await doesVisitExist(userId);
                 if (!existingVisit) return visitDoesNotExistError(userId);
 
-                const visit = await updateVisit(userId, updatedVisit);
+                await updateVisit(userId, updatedVisit);
 
-                return visitUpdatedSuccess(visit);
+                return visitUpdatedSuccess(updatedVisit);
             },
             deleteVisit: async (parent, {}, context) => {
                 const authenticated = await authenticate(context);
