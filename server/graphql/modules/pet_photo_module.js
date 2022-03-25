@@ -70,9 +70,6 @@ module.exports.petPhotoModule = createModule({
                 return petPhotosFoundSuccess(petId);
             },
             getPetProfilePhoto: async (parent, {petId}, context) => {
-                const authenticated = await authenticate(context);
-                if (!authenticated) return jwtError();
-
                 const petProfilePhoto = await findPetProfilePhoto(petId);
                 if (!petProfilePhoto) return petProfilePhotoNotFoundError(petId);
 

@@ -84,9 +84,6 @@ module.exports.userModule = createModule({
                 return userEmailFoundSuccess(user);
             },
             getUserById: async (parent, {userId}, context) => {
-                const authenticated = await authenticate(context);
-                if (!authenticated) return jwtError();
-
                 const user = await findUserById(userId);
                 if (!user) return userIdNotFoundError(userId);
 

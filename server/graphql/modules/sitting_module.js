@@ -14,6 +14,7 @@ module.exports.sittingModule = createModule({
         gql`
             extend type Query {
                 getSitting : SittingResponse
+                getSittingById(userId: ID!) : SittingResponse
             }
 
             extend type Mutation {
@@ -62,6 +63,15 @@ module.exports.sittingModule = createModule({
 
                 const userId = await decodeToken(context);
                 if (!userId) return jwtError();
+
+                const sitting = await findSitting(userId);
+                if (!sitting) return sittingNotFoundError(userId);
+
+                return sittingFoundSuccess(sitting);
+            },
+            getSittingById: async (parent, {userId}) => {
+                const user = await findUserById(userId);
+                if (!user) return userIdNotFoundError(userId);
 
                 const sitting = await findSitting(userId);
                 if (!sitting) return sittingNotFoundError(userId);
