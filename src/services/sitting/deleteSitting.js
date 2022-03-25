@@ -15,10 +15,8 @@ export default async function deleteSitting() {
                 catRate
                 extendedCareRate
                 holidayRate
-                id
                 pickUpDropOffRate
                 puppyRate
-                userId
             }
         }
     }`

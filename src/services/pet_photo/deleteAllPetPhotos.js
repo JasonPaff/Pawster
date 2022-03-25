@@ -8,7 +8,6 @@ export default async function deleteAllPetPhotos(petId) {
             success
             message
             photos {
-                petId
                 photo
                 photoType
                 isProfilePhoto

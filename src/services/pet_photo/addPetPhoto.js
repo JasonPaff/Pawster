@@ -8,7 +8,6 @@ export default async function addPetPhoto(petPhoto) {
             success
             message
             photo {
-                petId
                 photo
                 photoType
                 isProfilePhoto

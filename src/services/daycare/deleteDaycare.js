@@ -14,10 +14,8 @@ export default async function deleteDaycare() {
                 bathingRate
                 catRate
                 holidayRate
-                id
                 pickUpDropOffRate
                 puppyRate
-                userId
             }
         }
     }`

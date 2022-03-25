@@ -16,7 +16,6 @@ export default async function getPets() {
                 canBeLeftAlone
                 energyLevel
                 feedingSchedule
-                id
                 isFixed
                 isHouseBroken
                 isFriendlyToChildren
@@ -30,7 +29,6 @@ export default async function getPets() {
                 type
                 vetDetails
                 weight
-                userId
             }
         }
     }`

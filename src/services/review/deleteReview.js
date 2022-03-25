@@ -9,10 +9,8 @@ export default async function deleteReviewed(reviewId) {
             message
             review {
                 dateReviewed
-                id
                 review
                 stars
-                userId
                 userIdReviewed
             }
         }

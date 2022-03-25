@@ -82,7 +82,7 @@ module.exports.userModule = createModule({
 
                 return userEmailFoundSuccess(user);
             },
-            getUserById: async (parent, {userId}, context) => {
+            getUserById: async (parent, {userId}) => {
                 const user = await findUserById(userId);
                 if (!user) return userIdNotFoundError(userId);
 

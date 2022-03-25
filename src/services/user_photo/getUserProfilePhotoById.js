@@ -2,13 +2,12 @@
 import {gql} from "@apollo/client";
 import getGqlString from "../../utils/graphql_utils";
 
-export default async function getSearchProfilePhoto(userId) {
+export default async function getUserProfilePhotoById(userId) {
     let query = gql`query Query($userId: ID!) {
-        getSearchProfilePhoto(userId: $userId) {
+        getUserProfilePhotoById(userId: $userId) {
             success
             message
             photo {
-                userId
                 photo
                 photoType
                 isProfilePhoto

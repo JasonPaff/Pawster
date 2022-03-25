@@ -12,9 +12,7 @@ export default async function getWalkingById(userId) {
                 baseRate
                 holidayRate
                 hourlyRate
-                id
                 puppyRate
-                userId
             }
         }
     }`
