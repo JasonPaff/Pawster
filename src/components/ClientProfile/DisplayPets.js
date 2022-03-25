@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import getPets from '../../services/pet/getPets'
+import { NavLink } from 'react-router-dom'
 
 
 function DisplayPets() {
@@ -11,7 +12,7 @@ function DisplayPets() {
     }, [])
 
     const petList = pets.map((pet) => {
-        return <li key={pet.id}>{pet.name}</li>
+        return <li key={pet.id}><NavLink to={`/profile/pet-profile/${pet.id}`}>{pet.name}</NavLink></li>
     })
 
     return (

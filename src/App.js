@@ -11,6 +11,7 @@ import ClientProfile from "./pages/Profiles/ClientProfile";
 import EditClient from "./pages/EditProfile/EditClient";
 import AddPet from "./pages/Pet/AddPetPage";
 import CreateHost from "./components/Add&Create/CreateHost";
+import PetProfile from "./pages/Profiles/PetProfile"
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/profile/account-info" element={<EditClient />} />
           <Route path="/profile/add-pet" element={<AddPet />} />
           <Route path="/profile/register-host" element={<CreateHost />} />
+          <Route path="/profile/pet-profile/:id" element={<PetProfile />} />
         </Routes>
       </BaseLayout>
     </div>
