@@ -12,9 +12,7 @@ export default async function createWalking(walking) {
                 baseRate
                 holidayRate
                 hourlyRate
-                id
                 puppyRate
-                userId
             }
         }
     }`

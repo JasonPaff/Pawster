@@ -8,8 +8,6 @@ export default async function updatePet(petId, pet) {
             success
             message
             pet {
-                id
-                userId
                 name
                 additionalInfo
                 ageMonth

@@ -9,10 +9,8 @@ export default async function updateReviewed(updatedReview) {
             message
             review {
                 dateReviewed
-                id
                 review
                 stars
-                userId
                 userIdReviewed
             }
         }

@@ -15,9 +15,7 @@ export default async function getBoarding() {
                 dailyRate
                 extendedCareRate
                 holidayRate
-                id
                 pickUpDropOffRate
-                userId
             }
         }
     }`

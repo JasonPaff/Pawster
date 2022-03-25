@@ -14,10 +14,8 @@ export default async function updateDaycare(updatedDaycare) {
                 bathingRate
                 catRate
                 holidayRate
-                id
                 pickUpDropOffRate
                 puppyRate
-                userId
             }
         }
     }`

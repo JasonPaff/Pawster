@@ -15,10 +15,8 @@ export default async function getSitting() {
                 catRate
                 extendedCareRate
                 holidayRate
-                id
                 pickUpDropOffRate
                 puppyRate
-                userId
             }
         }
     }`

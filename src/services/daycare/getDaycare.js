@@ -14,10 +14,8 @@ export default async function getDaycare() {
                 bathingRate
                 catRate
                 holidayRate
-                id
                 pickUpDropOffRate
                 puppyRate
-                userId
             }
         }
     }`
