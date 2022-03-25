@@ -148,7 +148,7 @@ module.exports.boardingModule = createModule({
 
                 await deleteBoarding(userId);
 
-                return boardingDeletedSuccess(userId);
+                return boardingDeletedSuccess(userId, existingBoarding);
             }
         }
     }
