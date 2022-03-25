@@ -60,7 +60,7 @@ module.exports.walkingModule = createModule({
                 const walking = await findWalking(userId);
                 if (!walking) return walkingNotFoundError(userId);
 
-                return walkingFoundSuccess(walking);
+                return walkingFoundSuccess(userId, walking);
             },
             getWalkingById: async (parent, {userId}) => {
                 const user = await findUserById(userId);
@@ -69,7 +69,7 @@ module.exports.walkingModule = createModule({
                 const walking = await findWalking(userId);
                 if (!walking) return walkingNotFoundError(userId);
 
-                return walkingFoundSuccess(walking);
+                return walkingFoundSuccess(userId, walking);
             }
         },
         Mutation: {
@@ -88,7 +88,7 @@ module.exports.walkingModule = createModule({
 
                 const newWalking = await createWalking(userId, walking);
 
-                return walkingCreatedSuccess(newWalking);
+                return walkingCreatedSuccess(userId, newWalking);
             },
             updateWalking: async (parent, {updatedWalking}, context) => {
                 const authenticated = await authenticate(context);
@@ -105,7 +105,7 @@ module.exports.walkingModule = createModule({
 
                 await updateWalking(userId, updatedWalking);
 
-                return walkingUpdatedSuccess(updatedWalking);
+                return walkingUpdatedSuccess(userId, updatedWalking);
             },
             deleteWalking: async (parent, {}, context) => {
                 const authenticated = await authenticate(context);
@@ -122,7 +122,7 @@ module.exports.walkingModule = createModule({
 
                 await deleteWalking(userId);
 
-                return walkingDeletedSuccess(userId);
+                return walkingDeletedSuccess(userId, existingWalking);
             }
         }
     }

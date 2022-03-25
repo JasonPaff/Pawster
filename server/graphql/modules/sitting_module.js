@@ -67,7 +67,7 @@ module.exports.sittingModule = createModule({
                 const sitting = await findSitting(userId);
                 if (!sitting) return sittingNotFoundError(userId);
 
-                return sittingFoundSuccess(sitting);
+                return sittingFoundSuccess(userId, sitting);
             },
             getSittingById: async (parent, {userId}) => {
                 const user = await findUserById(userId);
@@ -76,7 +76,7 @@ module.exports.sittingModule = createModule({
                 const sitting = await findSitting(userId);
                 if (!sitting) return sittingNotFoundError(userId);
 
-                return sittingFoundSuccess(sitting);
+                return sittingFoundSuccess(userId, sitting);
             }
         },
         Mutation: {
@@ -95,7 +95,7 @@ module.exports.sittingModule = createModule({
 
                 const newSitting = await createSitting(userId, sitting);
 
-                return sittingCreatedSuccess(newSitting);
+                return sittingCreatedSuccess(userId, newSitting);
             },
             updateSitting: async (parent, {updatedSitting}, context) => {
                 const authenticated = await authenticate(context);
@@ -112,7 +112,7 @@ module.exports.sittingModule = createModule({
 
                 await updateSitting(userId, updatedSitting);
 
-                return sittingUpdatedSuccess(updatedSitting);
+                return sittingUpdatedSuccess(userId, updatedSitting);
             },
             deleteSitting: async (parent, {}, context) => {
                 const authenticated = await authenticate(context);
@@ -129,7 +129,7 @@ module.exports.sittingModule = createModule({
 
                 await deleteSitting(userId);
 
-                return sittingDeletedSuccess(userId);
+                return sittingDeletedSuccess(userId, existingSitting);
             }
         }
     }
