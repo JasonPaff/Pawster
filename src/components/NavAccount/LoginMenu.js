@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 export default function Login() {
   return (
     <div className="flex flex-row">
-      <div className="relative flex flex-row gap-2 ">
+      <div className="relative flex flex-row gap-2 mr-3 ">
         <NavLink to="/login" className="link">
           Login
         </NavLink>

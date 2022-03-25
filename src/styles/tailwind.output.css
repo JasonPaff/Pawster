@@ -730,14 +730,21 @@ label{
   position: relative;
 }
 
-<<<<<<< HEAD
+.row-span-2{
+  grid-row: span 2 / span 2;
+}
+
 .mx-4{
   margin-left: 1rem;
   margin-right: 1rem;
 }
 
-.mt-20{
-  margin-top: 5rem;
+.mr-3{
+  margin-right: 0.75rem;
+}
+
+.mt-10{
+  margin-top: 2.5rem;
 }
 
 .mb-4{
@@ -752,14 +759,20 @@ label{
   margin-bottom: 0.75rem;
 }
 
-=======
-.m-20{
-  margin: 5rem;
-}
-
->>>>>>> 19236d8a5b566494971f1a3dea788e9cadb6871b
 .flex{
   display: flex;
+}
+
+.grid{
+  display: grid;
+}
+
+.h-screen{
+  height: 100vh;
+}
+
+.h-16{
+  height: 4rem;
 }
 
 .h-full{
@@ -772,6 +785,22 @@ label{
 
 .w-\[440px\]{
   width: 440px;
+}
+
+.flex-grow{
+  flex-grow: 1;
+}
+
+.grid-flow-row-dense{
+  grid-auto-flow: row dense;
+}
+
+.grid-cols-2{
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.grid-rows-2{
+  grid-template-rows: repeat(2, minmax(0, 1fr));
 }
 
 .flex-row{
@@ -814,6 +843,10 @@ label{
   border-radius: 0.375rem;
 }
 
+.rounded-lg{
+  border-radius: 0.5rem;
+}
+
 .border{
   border-width: 1px;
 }
@@ -823,19 +856,24 @@ label{
   border-color: rgb(203 213 225 / var(--tw-border-opacity));
 }
 
-.bg-white{
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
-
 .bg-background-darker{
   --tw-bg-opacity: 1;
   background-color: rgb(232 228 227 / var(--tw-bg-opacity));
 }
 
+.bg-white{
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+
 .bg-accent-green{
   --tw-bg-opacity: 1;
   background-color: rgb(0 147 90 / var(--tw-bg-opacity));
+}
+
+.bg-black{
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
 }
 
 .bg-background-light{
@@ -891,14 +929,19 @@ label{
   font-family: Poppins;
 }
 
-.text-5xl{
-  font-size: 3rem;
-  line-height: 1;
-}
-
 .text-xs{
   font-size: 0.75rem;
   line-height: 1rem;
+}
+
+.text-3xl{
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+}
+
+.text-5xl{
+  font-size: 3rem;
+  line-height: 1;
 }
 
 .text-accent-red{
@@ -914,6 +957,11 @@ label{
 .text-white{
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.text-sky-400{
+  --tw-text-opacity: 1;
+  color: rgb(56 189 248 / var(--tw-text-opacity));
 }
 
 .shadow-md{
