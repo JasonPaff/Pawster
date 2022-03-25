@@ -34,7 +34,6 @@ module.exports.userPhotoModule = createModule({
             }
 
             input UserPhotoInput {
-                userId: ID!
                 photo: String!
                 photoType: String!
             }
@@ -102,8 +101,11 @@ module.exports.userPhotoModule = createModule({
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
 
-                const user = await findUser(userPhoto.userId);
-                if (!user) return userNotFoundError(userPhoto.userId);
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
+
+                const user = await findUser(userId);
+                if (!user) return userNotFoundError(userId);
 
                 const newPhoto = await addUserPhoto(userPhoto);
 

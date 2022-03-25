@@ -2,16 +2,16 @@
 import {gql} from "@apollo/client";
 import getGqlString from "../../utils/graphql_utils";
 
-export default async function createReviewed(review) {
-    let query = gql`mutation Mutation($review: ReviewInput!) {
-        createReview(review: $review) {
+export default async function deleteReviewed(reviewId) {
+    let query = gql`mutation Mutation($reviewId: ID!) {
+        deleteReview(reviewId: $reviewId) {
             success
             message
             review {
                 dateReviewed
+                id
                 review
                 stars
-                id
                 userId
                 userIdReviewed
             }
@@ -29,7 +29,7 @@ export default async function createReviewed(review) {
         body: JSON.stringify({
             query,
             variables: {
-                review
+                reviewId
             }
         })
     };

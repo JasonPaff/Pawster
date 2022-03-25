@@ -129,9 +129,9 @@ module.exports.boardingModule = createModule({
                 const existingBoarding = await doesBoardingExist(userId);
                 if (!existingBoarding) return boardingDoesNotExistError(userId);
 
-                const boarding = await updateBoarding(userId, updatedBoarding);
+                await updateBoarding(userId, updatedBoarding);
 
-                return boardingUpdatedSuccess(boarding);
+                return boardingUpdatedSuccess(updatedBoarding);
             },
             deleteBoarding: async (parent, {}, context) => {
                 const authenticated = await authenticate(context);

@@ -17,7 +17,7 @@ module.exports.addressModule = createModule({
             },
             extend type Mutation {
                 createAddress(address: AddressInput!) : AddressResponse
-                updateAddress(address: AddressInput!) : AddressResponse
+                updateAddress(updatedAddress: AddressInput!) : AddressResponse
                 deleteAddress : AddressResponse
             },
             type Address {
@@ -88,17 +88,9 @@ module.exports.addressModule = createModule({
                 const user = await findUserById(userId);
                 if (!user) return userIdNotFoundError(userId);
 
-                const address = await findAddress(userId);
-                if (!address) return missingAddressError(userId);
+                await updateAddress(userId, updatedAddress);
 
-                address.street = updatedAddress.street ? updatedAddress.street : address.street;
-                address.city = updatedAddress.city ? updatedAddress.city : address.city;
-                address.state = updatedAddress.state ? updatedAddress.state : address.state;
-                address.zipcode = updatedAddress.zipcode ? updatedAddress.zipcode : address.zipcode;
-
-                await updateAddress(userId, address);
-
-                return addressUpdatedSuccess(userId, address);
+                return addressUpdatedSuccess(userId, updatedAddress);
             },
             deleteAddress: async (parent, {}, context) => {
                 const authenticated = await authenticate(context);

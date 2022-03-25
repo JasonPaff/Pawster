@@ -37,9 +37,9 @@ module.exports.updateReview = async (userId, updatedReview) => {
     }, updatedReview);
 };
 
-module.exports.deleteReview = async (userId) => {
-    if (!isValidObjectId(userId)) return false;
+module.exports.deleteReview = async (reviewId) => {
+    if (!isValidObjectId(reviewId)) return false;
     await Review.findOneAndRemove({
-        userId: userId
+        _id: reviewId
     });
 };
