@@ -38,7 +38,7 @@ export default async function validateUserLogin(email, password) {
   const request = await fetch(`${apiRoute}/graphql`, headers);
   const response = await request.json();
   if (response.data.validateUserLogin.success) {
-      localStorage.setItem('jsonwebtoken', response.data.validateUserLogin.token);
+      localStorage.setItem('token', response.data.validateUserLogin.token);
       localStorage.setItem('firstName', response.data.validateUserLogin.user.firstName);
       localStorage.setItem('lastName', response.data.validateUserLogin.user.lastName)
   }

@@ -14,6 +14,7 @@ module.exports.hostModule = createModule({
         gql`
             extend type Query {
                 getHost : HostResponse
+                getHostById(userId: ID!) : HostResponse
             }
 
             extend type Mutation {
@@ -68,7 +69,6 @@ module.exports.hostModule = createModule({
                 totalCanHost: Int
                 typeOfHome: String
                 typeOfYard: String
-                userId: ID
             }
 
             type HostResponse {
@@ -86,6 +86,15 @@ module.exports.hostModule = createModule({
 
                 const userId = await decodeToken(context);
                 if (!userId) return jwtError();
+
+                const host = await findHost(userId);
+                if (!host) return hostNotFoundError(userId);
+
+                return hostFoundSuccess(host);
+            },
+            getHostById: async (parent, {userId}) => {
+                const user = await findUserById(userId);
+                if (!user) return userIdNotFoundError(userId);
 
                 const host = await findHost(userId);
                 if (!host) return hostNotFoundError(userId);
@@ -124,9 +133,9 @@ module.exports.hostModule = createModule({
                 const existingHost = await doesHostExist(userId);
                 if (!existingHost) return hostDoesNotExistError(userId);
 
-                const host = await updateHost(userId, updatedHost);
+                await updateHost(userId, updatedHost);
 
-                return hostUpdatedSuccess(host);
+                return hostUpdatedSuccess(updatedHost);
             },
             deleteHost: async (parent, {}, context) => {
                 const authenticated = await authenticate(context);

@@ -14,6 +14,7 @@ module.exports.visitModule = createModule({
         gql`
             extend type Query {
                 getVisit : VisitResponse
+                getVisitById(userId: ID!) : VisitResponse
             }
 
             extend type Mutation {
@@ -66,6 +67,15 @@ module.exports.visitModule = createModule({
                 if (!visit) return visitNotFoundError(userId);
 
                 return visitFoundSuccess(visit);
+            },
+            getVisitById: async (parent, {userId}) => {
+                const user = await findUserById(userId);
+                if (!user) return userIdNotFoundError(userId);
+
+                const visit = await findVisit(userId);
+                if (!visit) return visitNotFoundError(userId);
+
+                return visitFoundSuccess(visit);
             }
         },
         Mutation: {
@@ -99,9 +109,9 @@ module.exports.visitModule = createModule({
                 const existingVisit = await doesVisitExist(userId);
                 if (!existingVisit) return visitDoesNotExistError(userId);
 
-                const visit = await updateVisit(userId, updatedVisit);
+                await updateVisit(userId, updatedVisit);
 
-                return visitUpdatedSuccess(visit);
+                return visitUpdatedSuccess(updatedVisit);
             },
             deleteVisit: async (parent, {}, context) => {
                 const authenticated = await authenticate(context);

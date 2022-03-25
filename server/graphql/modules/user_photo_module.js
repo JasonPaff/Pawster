@@ -16,6 +16,7 @@ module.exports.userPhotoModule = createModule({
                 getUserPhoto(photoId: ID!) : UserPhotoResponse
                 getUserPhotos : UserPhotosResponse
                 getUserProfilePhoto : UserPhotoResponse
+                getUserProfilePhotoById(userId: ID!) : UserPhotoResponse
             },
 
             extend type Mutation {
@@ -33,7 +34,6 @@ module.exports.userPhotoModule = createModule({
             }
 
             input UserPhotoInput {
-                userId: ID!
                 photo: String!
                 photoType: String!
             }
@@ -86,14 +86,26 @@ module.exports.userPhotoModule = createModule({
 
                 return userProfilePhotoFoundSuccess(userId);
             },
+            getUserProfilePhotoById: async (parent, {userId}) => {
+                const user = await findUser(userId);
+                if (!user) return userNotFoundError(userId);
+
+                const userPhoto = await findUserProfilePhoto(userId);
+                if (!userPhoto) return userProfilePhotoNotFoundError(userId);
+
+                return userProfilePhotoFoundSuccess(userId);
+            },
         },
         Mutation: {
             addUserPhoto: async (parent, {userPhoto}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
 
-                const user = await findUser(userPhoto.userId);
-                if (!user) return userNotFoundError(userPhoto.userId);
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
+
+                const user = await findUser(userId);
+                if (!user) return userNotFoundError(userId);
 
                 const newPhoto = await addUserPhoto(userPhoto);
 

@@ -10,6 +10,9 @@ import Register from "./components/Authentication/Register";
 import ClientProfile from "./pages/Profiles/ClientProfile";
 import EditClient from "./pages/EditProfile/EditClient";
 import AddPet from "./pages/Pet/AddPetPage";
+import CreateHost from "./components/Add&Create/CreateHost";
+import PetProfile from "./pages/Profiles/PetProfile"
+import CreateBoarding from "./components/Add&Create/CreateBoarding";
 
 function App() {
   return (
@@ -25,6 +28,9 @@ function App() {
           <Route path="/profile" element={<ClientProfile />} />
           <Route path="/profile/account-info" element={<EditClient />} />
           <Route path="/profile/add-pet" element={<AddPet />} />
+          <Route path="/profile/register-host" element={<CreateHost />} />
+          <Route path="/profile/pet-profile/:petId" element={<PetProfile />} />
+          <Route path="/profile/create-boarding" element={<CreateBoarding />} />
         </Routes>
       </BaseLayout>
     </div>
