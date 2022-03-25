@@ -12,7 +12,7 @@ function CreateAddress() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    getAddress(fetchedId).then((result) =>{
+    getAddress().then((result) =>{
         setAddCheck(result.data.getAddress.address)
     })
   }, [])
