@@ -1,6 +1,6 @@
 ﻿const jwt = require('jsonwebtoken');
 
-module.exports.authenticate = async function authenticate(context) {
+module.exports.authenticate = async (context) => {
     // disabled auth for now, remove to enable
     return true
 
@@ -17,6 +17,14 @@ module.exports.authenticate = async function authenticate(context) {
     return true;
 }
 
-module.exports.createToken = async function createToken(email) {
-    return jwt.sign({email: email}, process.env.JWT_KEY,{ expiresIn: 36000}, null);
+module.exports.createToken = async (userId) => {
+    return jwt.sign({userId: userId}, process.env.JWT_KEY,{ expiresIn: 36000}, null);
 }
+
+module.exports.decodeToken = async function parseJwt(token) {
+    try {
+        return JSON.parse(atob(token.split('.')[1]));
+    } catch (e) {
+        return null;
+    }
+};

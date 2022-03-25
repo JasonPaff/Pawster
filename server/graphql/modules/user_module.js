@@ -1,7 +1,7 @@
 ﻿const {createModule, gql} = require('graphql-modules');
 const {jwtError} = require("../api_responses/auth/auth_error");
 const {loginSuccess} = require("../api_responses/auth/auth_success");
-const {authenticate, createToken} = require("../../utils/auth_utils");
+const {authenticate, createToken, decodeToken} = require("../../utils/auth_utils");
 const {deletePets} = require("../../mongodb/operations/pet_operations");
 const {deleteAddress} = require("../../mongodb/operations/address_operations");
 const {hashPassword, comparePasswordHashes} = require("../../utils/password_utils");
@@ -18,6 +18,7 @@ module.exports.userModule = createModule({
             type Query {
                 getUserByEmail(email: String!): UserResponse
                 getUserById(userId: ID!): UserResponse
+                getUser : UserResponse
                 validateUserLogin(email: String!, password: String!) : UserLoginResponse
             }
 
@@ -38,7 +39,6 @@ module.exports.userModule = createModule({
             }
 
             input UserInput {
-                id: ID
                 email: String
                 password: String
                 firstName: String
@@ -62,6 +62,18 @@ module.exports.userModule = createModule({
     ],
     resolvers: {
         Query: {
+            getUser: async (context) => {
+                const authenticated = await authenticate(context);
+                if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
+
+                const user = await findUserById(userId);
+                if (!user) return userIdNotFoundError(userId);
+
+                return userIdFoundSuccess(user);
+            },
             getUserByEmail: async (parent, {email}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
