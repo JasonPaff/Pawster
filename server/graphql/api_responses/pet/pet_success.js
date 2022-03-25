@@ -10,7 +10,7 @@ module.exports.petsFoundSuccess = (id, pets) => {
     return {
         success: true,
         message: `pets for id ${id} found`,
-        pets: [pets]
+        pets: pets
     };
 };
 
