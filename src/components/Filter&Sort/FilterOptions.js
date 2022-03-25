@@ -2,14 +2,6 @@ import { connect } from 'react-redux'
 import * as actionCreators from "../../store/action_creators/filterActionCreator"
 
 
-const mapStateToProps = (state) => {
-    return {
-        has_house: state.filtersRed.has_house,
-        has_fenced_yard: state.filtersRed.has_fenced_yard,
-        doesnt_own_dog: state.filtersRed.doesnt_own_dog,
-        doesnt_own_cat: state.filtersRed.doesnt_own_cat
-    }
-}
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -43,4 +35,4 @@ function FilterOptions(props) {
     );
 }
   
-export default connect(mapStateToProps, mapDispatchToProps)(FilterOptions);
+export default connect(null, mapDispatchToProps)(FilterOptions);
