@@ -1,31 +1,31 @@
-﻿module.exports.daycareFoundSuccess = (daycare) => {
+﻿module.exports.daycareFoundSuccess = (userId, daycare) => {
     return {
         success: true,
-        message: `daycare found for ${daycare.userId}`,
+        message: `daycare found for ${userId}`,
         daycare: daycare
     };
 };
 
-module.exports.daycareCreatedSuccess = (daycare) => {
+module.exports.daycareCreatedSuccess = (userId, daycare) => {
     return {
         success: true,
-        message: `daycare created for ${daycare.userId}`,
+        message: `daycare created for ${userId}`,
         daycare: daycare
     };
 };
 
-module.exports.daycareUpdatedSuccess = (daycare) => {
+module.exports.daycareUpdatedSuccess = (userId, daycare) => {
     return {
         success: true,
-        message: `daycare updated for ${daycare.userId}`,
+        message: `daycare updated for ${userId}`,
         daycare: daycare
     };
 };
 
-module.exports.daycareDeletedSuccess = (daycare) => {
+module.exports.daycareDeletedSuccess = (userId, daycare) => {
     return {
         success: true,
-        message: `daycare for ${daycare.userId} deleted`,
+        message: `daycare for ${userId} deleted`,
         daycare: daycare
     };
 };

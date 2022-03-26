@@ -66,7 +66,7 @@ module.exports.visitModule = createModule({
                 const visit = await findVisit(userId);
                 if (!visit) return visitNotFoundError(userId);
 
-                return visitFoundSuccess(visit);
+                return visitFoundSuccess(userId, visit);
             },
             getVisitById: async (parent, {userId}) => {
                 const user = await findUserById(userId);
@@ -75,7 +75,7 @@ module.exports.visitModule = createModule({
                 const visit = await findVisit(userId);
                 if (!visit) return visitNotFoundError(userId);
 
-                return visitFoundSuccess(visit);
+                return visitFoundSuccess(userId, visit);
             }
         },
         Mutation: {
@@ -92,9 +92,9 @@ module.exports.visitModule = createModule({
                 const existingVisit = await doesVisitExist(userId);
                 if (existingVisit) return visitAlreadyExistsError(userId);
 
-                const newWalking = await createVisit(userId, visit);
+                const newVisit = await createVisit(userId, visit);
 
-                return visitCreatedSuccess(newWalking);
+                return visitCreatedSuccess(userId, newVisit);
             },
             updateVisit: async (parent, {updatedVisit}, context) => {
                 const authenticated = await authenticate(context);
@@ -111,7 +111,7 @@ module.exports.visitModule = createModule({
 
                 await updateVisit(userId, updatedVisit);
 
-                return visitUpdatedSuccess(updatedVisit);
+                return visitUpdatedSuccess(userId, updatedVisit);
             },
             deleteVisit: async (parent, {}, context) => {
                 const authenticated = await authenticate(context);
@@ -128,7 +128,7 @@ module.exports.visitModule = createModule({
 
                 await deleteVisit(userId);
 
-                return visitDeletedSuccess(userId);
+                return visitDeletedSuccess(userId, existingVisit);
             }
         }
     }
