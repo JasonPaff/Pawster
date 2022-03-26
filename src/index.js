@@ -5,7 +5,6 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import "./styles/tailwind.output.css";
-
 import App from "./App";
 
 // Importing Reducers
@@ -21,15 +20,13 @@ const rootReducer = combineReducers({
   authenticationRed: authenticationReducer,
   hostsRed: hostsReducer,
   filtersRed: filtersReducer,
-
   petRed: petReducer
-
 
 });
 
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
 
-const token = localStorage.getItem("jsonwebtoken");
+const token = localStorage.getItem("token");
 store.dispatch({ type: "LOGIN", payload: token });
 
 ReactDOM.render(

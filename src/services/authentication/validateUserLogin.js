@@ -41,6 +41,7 @@ export default async function validateUserLogin(email, password) {
       localStorage.setItem('token', response.data.validateUserLogin.token);
       localStorage.setItem('firstName', response.data.validateUserLogin.user.firstName);
       localStorage.setItem('lastName', response.data.validateUserLogin.user.lastName)
+      localStorage.setItem('id', response.data.validateUserLogin.user.id)
   }
   return response;
 }
