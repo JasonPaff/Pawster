@@ -747,6 +747,10 @@ label{
   position: relative;
 }
 
+.float-left{
+  float: left;
+}
+
 .mx-auto{
   margin-left: auto;
   margin-right: auto;
@@ -754,6 +758,14 @@ label{
 
 .mx-4{
   margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.mb-4{
+  margin-bottom: 1rem;
+}
+
+.mr-4{
   margin-right: 1rem;
 }
 
@@ -785,10 +797,6 @@ label{
   margin-top: 2.5rem;
 }
 
-.mb-4{
-  margin-bottom: 1rem;
-}
-
 .mt-4{
   margin-top: 1rem;
 }
@@ -809,12 +817,12 @@ label{
   height: 100vh;
 }
 
-.h-full{
-  height: 100%;
-}
-
 .h-20{
   height: 5rem;
+}
+
+.h-full{
+  height: 100%;
 }
 
 .h-12{
@@ -829,8 +837,8 @@ label{
   height: 0.5rem;
 }
 
-.w-20{
-  width: 5rem;
+.w-\[48\%\]{
+  width: 48%;
 }
 
 .w-12{
@@ -917,33 +925,28 @@ label{
   margin-left: calc(5rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
-.rounded{
-  border-radius: 0.25rem;
-}
-
 .rounded-md{
   border-radius: 0.375rem;
+}
+
+.rounded{
+  border-radius: 0.25rem;
 }
 
 .rounded-full{
   border-radius: 9999px;
 }
 
-.border-2{
-  border-width: 2px;
-}
-
 .border{
   border-width: 1px;
 }
 
-.border-dashed{
-  border-style: dashed;
+.border-2{
+  border-width: 2px;
 }
 
-.border-gray-300{
-  --tw-border-opacity: 1;
-  border-color: rgb(209 213 219 / var(--tw-border-opacity));
+.border-dashed{
+  border-style: dashed;
 }
 
 .border-slate-300{
@@ -951,19 +954,19 @@ label{
   border-color: rgb(203 213 225 / var(--tw-border-opacity));
 }
 
-.bg-slate-200{
-  --tw-bg-opacity: 1;
-  background-color: rgb(226 232 240 / var(--tw-bg-opacity));
-}
-
-.bg-background-darker{
-  --tw-bg-opacity: 1;
-  background-color: rgb(232 228 227 / var(--tw-bg-opacity));
+.border-gray-300{
+  --tw-border-opacity: 1;
+  border-color: rgb(209 213 219 / var(--tw-border-opacity));
 }
 
 .bg-white{
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+
+.bg-background-darker{
+  --tw-bg-opacity: 1;
+  background-color: rgb(232 228 227 / var(--tw-bg-opacity));
 }
 
 .bg-sky-100{
@@ -979,6 +982,10 @@ label{
 .bg-background-light{
   --tw-bg-opacity: 1;
   background-color: rgb(246 246 246 / var(--tw-bg-opacity));
+}
+
+.p-4{
+  padding: 1rem;
 }
 
 .p-3{
@@ -1078,24 +1085,24 @@ label{
   font-family: Poppins;
 }
 
-.text-xs{
-  font-size: 0.75rem;
-  line-height: 1rem;
-}
-
 .text-lg{
   font-size: 1.125rem;
   line-height: 1.75rem;
 }
 
-.text-5xl{
-  font-size: 3rem;
-  line-height: 1;
-}
-
 .text-sm{
   font-size: 0.875rem;
   line-height: 1.25rem;
+}
+
+.text-xs{
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.text-5xl{
+  font-size: 3rem;
+  line-height: 1;
 }
 
 .font-medium{
