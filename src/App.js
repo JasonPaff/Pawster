@@ -30,7 +30,7 @@ function App() {
           <Route path="/profile/add-pet" element={<AddPet />} />
           <Route path="/profile/register-host" element={<CreateHost />} />
           <Route path="/profile/pet-profile/:petId" element={<PetProfile />} />
-          <Route path="/profile/create-boarding" element={<CreateBoarding />} />
+          <Route path="/profile/edit-boarding" element={<CreateBoarding />} />
         </Routes>
       </BaseLayout>
     </div>
