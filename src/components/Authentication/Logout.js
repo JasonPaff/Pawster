@@ -10,7 +10,7 @@ function Logout(props) {
     // remove the login data from local storage
     localStorage.removeItem("token");
     localStorage.removeItem("email");
-    localStorage.removeItem("userId");
+    localStorage.removeItem("id");
     localStorage.removeItem("lastName")
     localStorage.removeItem("firstName")
     props.onLogout();
