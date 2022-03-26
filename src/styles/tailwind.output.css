@@ -841,6 +841,10 @@ label{
   width: 48%;
 }
 
+.w-6\/12{
+  width: 50%;
+}
+
 .w-12{
   width: 3rem;
 }
@@ -984,8 +988,16 @@ label{
   background-color: rgb(246 246 246 / var(--tw-bg-opacity));
 }
 
+.p-10{
+  padding: 2.5rem;
+}
+
 .p-4{
   padding: 1rem;
+}
+
+.p-5{
+  padding: 1.25rem;
 }
 
 .p-3{
