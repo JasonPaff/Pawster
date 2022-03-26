@@ -39,12 +39,14 @@ function DisplayHosts(props) {
   ])
 
   const hosts = filteredHosts.map((host, index) => {
-      return <li key={index}>{host.name}</li>
+      return <li key={index}
+        className="p-5 mb-3 border"
+        >
+        {host.name}</li>
   })
 
   return (
-    <div className="flex-col justify-center">
-      <h1>Display Hosts</h1>
+    <div className="flex-col p-10 border list-none w-full">
       {hosts}
     </div>
   );

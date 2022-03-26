@@ -17,7 +17,7 @@ function FilterOptions(props) {
     
 
     return (
-      <div className="flex-col justify-center">
+      <div className="flex-col justify-center p-10 border">
         <h1>Filters</h1>
         <div>
             <h2>House Conditions</h2>

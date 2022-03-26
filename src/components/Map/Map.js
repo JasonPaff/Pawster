@@ -2,7 +2,9 @@ import React, { useMemo, useCallback, useRef, useState } from 'react'
 import { GoogleMap, InfoWindow, Marker, useLoadScript } from '@react-google-maps/api'
 import usePlacesAutocomplete, {getGeocode, getLatLng} from 'use-places-autocomplete'
 import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption } from '@reach/combobox'
-import '../styles/Map.css'
+import '../../styles/Map.css'
+
+// TODO: Split map and mapsearch functions?
 
 function Map() {
 
@@ -24,7 +26,7 @@ function Map() {
 
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: API_KEY,
-        libraries
+        libraries,
     })
 
     if (!isLoaded) return <div>Loading...</div>
@@ -111,8 +113,7 @@ function Map() {
     }
     
     return (
-        <div>
-            <h1>Map</h1>
+        <div className="flex-col justify-end">
 
             <MapSearch panTo={panTo}/>
             <GoogleMap
