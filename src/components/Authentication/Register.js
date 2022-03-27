@@ -62,7 +62,6 @@ export default function Register() {
           <button type="submit" className=" py-2 bg-accent-green text-white rounded-md mt-4 mb-3">
             Create Account
           </button>
-          <div></div>
         </form>
       </div>
     </div>

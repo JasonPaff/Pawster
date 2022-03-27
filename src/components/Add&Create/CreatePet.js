@@ -41,7 +41,6 @@ function CreatePet() {
   }
 
   async function handleCreatePet() {
-    console.log(pet)
     const response = await createPet(pet);
 
     if (response.data.createPet.success) {
