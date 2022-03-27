@@ -18,7 +18,7 @@ function ClientProfile() {
       <div><ClientInfo /></div>
 
       <div>Host Actions
-        <div className="text-sky-400"><NavLink to="/profile/create-boarding">Add Boarding Info</NavLink></div>
+        <div className="text-sky-400"><NavLink to="/profile/edit-boarding">Add Boarding Info</NavLink></div>
       </div>
 
       <div>Services

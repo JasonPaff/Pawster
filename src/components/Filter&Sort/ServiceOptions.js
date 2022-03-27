@@ -77,29 +77,6 @@ function ServiceOptions(props) {
 
         {radioButtons}
         
-        <div className="flex space-x-20">
-            <div>
-                <input className="radioInput" type="radio" name="serviceType" id="radio1"></input>
-                <label htmlFor="radio1">Option 1</label>
-            </div>
-            <div>
-                <input className="radioInput" type="radio" name="serviceType" id="radio2"></input>
-                <label htmlFor="radio2">Option 2</label>
-            </div>
-            <div>
-                <input className="radioInput" type="radio" name="serviceType" id="radio3"></input>
-                <label htmlFor="radio3">Option 3</label>
-            </div>
-            <div>
-                <input className="radioInput" type="radio" name="serviceType" id="radio4"></input>
-                <label htmlFor="radio4">Option 4</label>
-            </div>
-            <div>
-                <input className="radioInput" type="radio" name="serviceType" id="radio5"></input>
-                <label htmlFor="radio5">Option 5</label>
-            </div>
-        </div>
-
       </div>
     );
 }
