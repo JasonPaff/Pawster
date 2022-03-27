@@ -102,7 +102,7 @@ module.exports.hostModule = createModule({
             },
             getAllHosts: async (parent, {}, context) => {
                 const hosts = await findHosts();
-                if (!hosts) return hostsNotFoundError();
+                if (!hosts || hosts.length === 0) return hostsNotFoundError();
 
                 return hostsFoundSuccess(hosts);
             },
