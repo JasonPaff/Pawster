@@ -20,6 +20,7 @@ function ClientProfile() {
       <div>Account Info
         <div className="text-sky-400"><NavLink to="/profile/account-info">Update</NavLink></div>
         <div className="text-sky-400"><NavLink to="/profile/register-host">Become a Host</NavLink></div>
+        <div className="text-sky-400"><NavLink to="/profile/messages">Messages</NavLink></div>
       </div>
 
       <div><ClientInfo /></div>
