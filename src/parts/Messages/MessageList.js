@@ -19,16 +19,11 @@ export default function MessageList(props) {
     }, []);
 
     const getMessages = async () => {
-        const messageThreads = getMessageThreads();
+        const messageThreads = await getMessageThreads();
 
-        messageThreads.sort((a, b) => {
-            if (a.sentAt < b.sentAt) return 1;
-            else if (a.sentAt > b.sentAt) return -1;
-            return 0;
-        });
+        setMessages(messageThreads.data.getMessageThreads);
 
         console.log(messageThreads);
-        setMessages(messageThreads);
     }
 
     return (
@@ -36,8 +31,8 @@ export default function MessageList(props) {
             <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
                 <table className="min-w-full divide-y divide-gray-300">
                     <tbody className="divide-y divide-gray-200 bg-white">
-                    {/*{messages.map((message) => (*/}
-                    {/*    <tr key={message.sentAt}*/}
+                    {/*{messages.messageThreads.map((message) => (*/}
+                    {/*    <tr key={message.id}*/}
                     {/*        onClick={() => console.log('click')}*/}
                     {/*    >*/}
                     {/*        <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium*/}
