@@ -55,7 +55,6 @@ function ServiceOptions(props) {
         return <div key={id}>
                     <h2>{name}</h2>
                     {options.map((opt) => {
-                        console.log(name)
                         return <div key={opt.id} >
                             <input 
                             type="radio"

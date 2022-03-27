@@ -88,7 +88,7 @@ function CreateAddress() {
           <div><input type="text" defaultValue={addCheck.city} name="city" onChange={handleUpdateTextChange} /></div>
           <div><input type="text" defaultValue={addCheck.state} name="state" onChange={handleUpdateTextChange} /></div>
           <div><input type="text" defaultValue={addCheck.zipcode} name="zipcode" onChange={handleUpdateZipcodeChange} /></div>
-          <button onClick={handleUpdateAddress}>Save</button>
+          <button onClick={handleUpdateAddress}>Update</button>
         </div>
       }
     </div>
