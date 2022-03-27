@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
 import hostsFilter from '../utils/hostsFilter'
 
@@ -42,7 +43,8 @@ function DisplayHosts(props) {
       return <li key={index}
         className="p-5 mb-3 border"
         >
-        {host.name}</li>
+          <NavLink to={`/profile/host/${host.id}`}>{host.name}</NavLink>
+        </li>
   })
 
   return (

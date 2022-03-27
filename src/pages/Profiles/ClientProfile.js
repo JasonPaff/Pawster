@@ -3,10 +3,12 @@ import ClientInfo from '../../components/ClientProfile/ClientInfo';
 import { NavLink } from 'react-router-dom';
 import DisplayPets from '../../components/ClientProfile/DisplayPets';
 import DisplayServices from '../../components/ClientProfile/DisplayServices/DisplayServices';
+import HostProfile from './HostProfile';
 
 
 function ClientProfile() {
   
+  const userId = localStorage.getItem("id")
 
   return (
     <div className="flex justify-around">
@@ -19,6 +21,7 @@ function ClientProfile() {
 
       <div>Host Actions
         <div className="text-sky-400"><NavLink to="/profile/edit-boarding">Add Boarding Info</NavLink></div>
+        <div className="text-sky-400"><NavLink to={`/profile/host/${userId}`}>View your Host Profile</NavLink></div>
       </div>
 
       <div>Services
