@@ -16,7 +16,7 @@ function CreateDayCare() {
 
   useEffect(() => {
     getDaycare().then((result) => {
-    setUpdateDayCare(result.data.getDaycare)
+    setUpdateDayCare(result.data.getDaycare.daycare)
     })
   },[])
 
