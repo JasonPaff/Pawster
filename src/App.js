@@ -16,6 +16,8 @@ import CreateBoarding from "./components/Add&Create/Services/CreateBoarding";
 import HostProfile from "./pages/Profiles/HostProfile";
 import CreateDayCare from "./components/Add&Create/Services/CreateDayCare";
 import CreateSitting from "./components/Add&Create/Services/CreateSitting";
+import CreateVisit from "./components/Add&Create/Services/CreateVisit";
+import CreateWalking from "./components/Add&Create/Services/CreateWalking";
 
 
 function App() {
@@ -38,6 +40,8 @@ function App() {
           <Route path="/profile/edit-boarding" element={<CreateBoarding />} />
           <Route path="/profile/edit-daycare" element={<CreateDayCare />} />
           <Route path="/profile/edit-sitting" element={<CreateSitting />} />
+          <Route path="/profile/edit-visit" element={<CreateVisit />} />
+          <Route path="/profile/edit-walking" element={<CreateWalking />} />
         </Routes>
       </BaseLayout>
     </div>

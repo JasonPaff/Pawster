@@ -1,0 +1,93 @@
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
+import createVisit from '../../../services/visit/createVisit'
+import updateVisit from '../../../services/visit/updateVisit'
+import getVisit from '../../../services/visit/getVisit'
+
+
+function CreateVisit() {
+  
+  const navigate = useNavigate()
+
+  const [visit, setVisit] = useState({})
+  const [updateVis, setUpdateVis] = useState({})
+
+  useEffect(() => {
+    getVisit().then((result) => {
+    console.log(result)
+    setUpdateVis(result.data.getVisit.visit)
+    })
+  },[])
+
+
+  const handleFloatChange = (e) => {
+    setVisit({
+      ...visit,
+      [e.target.name]: parseFloat(e.target.value),
+    })
+  }
+
+  const handleUpdateFloatChange = (e) => {
+    setUpdateVis({
+      ...updateVis,
+      [e.target.name]: parseFloat(e.target.value),
+    })
+  }
+
+  async function handleCreateVisit() {
+    console.log(visit)
+    const response = await createVisit(visit);
+
+    console.log(response)
+    if (response.data.createVisit.success) {
+        navigate('/profile')
+    } else {
+        alert(response.data.createVisit.message);
+    }
+  }
+
+  async function handleUpdateVis() {
+    console.log(updateVis)
+    const response = await updateVisit(updateVis);
+
+    console.log(response)
+    if (response.data.updateVisit.success) {
+        navigate('/profile')
+    } else {
+        alert(response.data.updateVisit.message);
+    }
+  }
+
+  
+
+  return (
+    <div className="flex justify-around">
+      {
+        !updateVis ?
+        <div>
+          <div>Additional Cat Rate<input type="text" placeholder="$0.00" name="additionalCatRate" onChange={handleFloatChange} /></div>
+          <div>Additional Dog Rate<input type="text" placeholder="$0.00" name="additionalDogRate" onChange={handleFloatChange} /></div>
+          <div>Base Rate<input type="text" placeholder="$0.00" name="baseRate" onChange={handleFloatChange} /></div>
+          <div>Bathing Cost<input type="text" placeholder="$0.00"name="bathingRate" onChange={handleFloatChange} /></div>
+          <div>Cat Rate<input type="text" placeholder="$0.00" name="catRate" onChange={handleFloatChange} /></div>
+          <div>Holiday Rate<input type="text" placeholder="$0.00" name="holidayRate" onChange={handleFloatChange} /></div>
+          <div>Puppy Rate<input type="text" placeholder="$0.00" name="puppyRate" onChange={handleFloatChange} /></div>
+          <button onClick={handleCreateVisit}>Save</button>
+        </div>
+        :
+        <div>
+          <div>Additional Cat Rate<input type="text" defaultValue={updateVis.additionalCatRate} placeholder="$0.00" name="additionalCatRate" onChange={handleUpdateFloatChange} /></div>
+          <div>Additional Dog Rate<input type="text" defaultValue={updateVis.additionalDogRate} placeholder="$0.00" name="additionalDogRate" onChange={handleUpdateFloatChange} /></div>
+          <div>Base Rate<input type="text" defaultValue={updateVis.baseRate} placeholder="$0.00" name="baseRate" onChange={handleUpdateFloatChange} /></div>
+          <div>Bathing Cost<input type="text" defaultValue={updateVis.bathingRate} placeholder="$0.00"name="bathingRate" onChange={handleUpdateFloatChange} /></div>
+          <div>Cat Rate<input type="text" defaultValue={updateVis.catRate} placeholder="$0.00" name="catRate" onChange={handleUpdateFloatChange} /></div>
+          <div>Holiday Rate<input type="text" defaultValue={updateVis.holidayRate} placeholder="$0.00" name="holidayRate" onChange={handleUpdateFloatChange} /></div>
+          <div>Puppy Rate<input type="text" placeholder="$0.00" defaultValue={updateVis.puppyRate} name="puppyRate" onChange={handleFloatChange} /></div>
+          <button onClick={handleUpdateVis}>Update</button>
+        </div>
+      }
+    </div>
+  );
+}
+
+export default CreateVisit;
