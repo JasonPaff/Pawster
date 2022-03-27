@@ -28,6 +28,28 @@ export default async function getAllHosts() {
                 totalCanHost
                 typeOfHome
                 typeOfYard
+                userId
+            }
+        }
+        getHostAddresses {
+            success
+            message
+            addresses{
+                street
+                city
+                state
+                zipcode
+                userId
+            }
+        }
+        getHostUsers {
+            success
+            message
+            users {
+                firstName
+                lastName
+                id
+                dateCreated
             }
         }
     }`

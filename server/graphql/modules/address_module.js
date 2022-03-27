@@ -1,11 +1,11 @@
 ﻿const {createModule, gql} = require('graphql-modules');
-const {findAddress, doesAddressExist, createAddress, updateAddress, deleteAddress} = require("../../mongodb/operations/address_operations");
+const {findAddress, doesAddressExist, createAddress, updateAddress, deleteAddress, findAddresses} = require("../../mongodb/operations/address_operations");
 const {findUserById} = require("../../mongodb/operations/user_operations");
 const {authenticate, decodeToken} = require("../../utils/auth_utils");
 const {userIdNotFoundError} = require("../api_responses/user/user_error");
 const {jwtError} = require("../api_responses/auth/auth_error");
-const {missingAddressError, existingAddressError} = require("../api_responses/address/address_error");
-const {addressFoundSuccess, addressUpdatedSuccess, addressCreatedSuccess, deleteAddressSuccess} = require("../api_responses/address/address_success");
+const {missingAddressError, existingAddressError, missingAddressesError} = require("../api_responses/address/address_error");
+const {addressFoundSuccess, addressUpdatedSuccess, addressCreatedSuccess, deleteAddressSuccess, addressesFoundSuccess} = require("../api_responses/address/address_success");
 
 module.exports.addressModule = createModule({
     id: 'address_module',
@@ -14,6 +14,8 @@ module.exports.addressModule = createModule({
         gql`
             extend type Query {
                 getAddress : AddressResponse
+                getHostAddresses : AddressesResponse
+                getAddressById(userId: ID!) : AddressResponse
             },
             extend type Mutation {
                 createAddress(address: AddressInput!) : AddressResponse
@@ -40,6 +42,12 @@ module.exports.addressModule = createModule({
                 message: String
                 address: Address
             }
+            
+            type AddressesResponse {
+                success: Boolean
+                message: String
+                addresses: [Address]
+            }
         `
     ],
     resolvers: {
@@ -51,6 +59,21 @@ module.exports.addressModule = createModule({
                 const userId = await decodeToken(context);
                 if (!userId) return jwtError();
 
+                const user = await findUserById(userId);
+                if (!user) return userIdNotFoundError(userId);
+
+                const address = await findAddress(userId);
+                if (!address) return missingAddressError(userId);
+
+                return addressFoundSuccess(userId, address);
+            },
+            getHostAddresses: async (parent, {}, context) => {
+                const addresses = await findAddresses();
+                if (!addresses) return missingAddressesError();
+
+                return addressesFoundSuccess(addresses);
+            },
+            getAddressById: async (parent, {userId}, context) => {
                 const user = await findUserById(userId);
                 if (!user) return userIdNotFoundError(userId);
 

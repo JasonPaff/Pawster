@@ -1,10 +1,17 @@
 ﻿const {isValidObjectId} = require("../../utils/database_utils");
 const {Host} = require("../schemas/host_schema");
+const {User} = require("../schemas/user_schema");
 
 module.exports.findHost = async (userId) => {
     if (!isValidObjectId(userId)) return false;
     return Host.findOne({
         userId: userId
+    });
+};
+
+module.exports.findHosts = async () => {
+    return User.find({
+        isHost: true
     });
 };
 
