@@ -2,6 +2,8 @@
 import {gql} from "@apollo/client";
 import getGqlString from "../../utils/graphql_utils";
 
+// excluded id and userId
+
 export default async function getVisit() {
     let query = gql`query Query {
         getVisit {
@@ -15,9 +17,7 @@ export default async function getVisit() {
                 catRate
                 holidayRate
                 hourlyRate
-                id
                 puppyRate
-                userId
             }
         }
     }`

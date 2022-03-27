@@ -4,7 +4,7 @@ import createDaycare from '../../../services/daycare/createDaycare'
 import updateDaycare from '../../../services/daycare/updateDaycare'
 import getDaycare from '../../../services/daycare/getDaycare'
 
-// TODO: Cannot read properties of undefined "exists"
+// TODO: Cannot read properties of undefined "exists" during save
 
 
 function CreateDayCare() {
@@ -16,8 +16,7 @@ function CreateDayCare() {
 
   useEffect(() => {
     getDaycare().then((result) => {
-    console.log(result)
-    setUpdateDayCare(result.data.getDaycare)
+    setUpdateDayCare(result.data.getDaycare.daycare)
     })
   },[])
 
@@ -37,9 +36,7 @@ function CreateDayCare() {
   }
 
   async function handleCreateDayCare() {
-    console.log(daycare)
     const response = await createDaycare(daycare);
-
     console.log(response)
     if (response.data.createDaycare.success) {
         navigate('/profile')
@@ -49,9 +46,7 @@ function CreateDayCare() {
   }
 
   async function handleUpdateDayCare() {
-    console.log(updateDayCare)
     const response = await updateDaycare(updateDayCare);
-
     if (response.data.updateDaycare.success) {
         navigate('/profile')
     } else {
