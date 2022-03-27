@@ -14,7 +14,6 @@ function CreateVisit() {
 
   useEffect(() => {
     getVisit().then((result) => {
-    console.log(result)
     setUpdateVis(result.data.getVisit.visit)
     })
   },[])
@@ -35,7 +34,6 @@ function CreateVisit() {
   }
 
   async function handleCreateVisit() {
-    console.log(visit)
     const response = await createVisit(visit);
 
     console.log(response)
@@ -47,10 +45,7 @@ function CreateVisit() {
   }
 
   async function handleUpdateVis() {
-    console.log(updateVis)
     const response = await updateVisit(updateVis);
-
-    console.log(response)
     if (response.data.updateVisit.success) {
         navigate('/profile')
     } else {

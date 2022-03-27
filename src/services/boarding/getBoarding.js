@@ -13,6 +13,7 @@ export default async function getBoarding() {
                 additionalCatRate
                 additionalDogRate
                 baseRate
+                bathingRate
                 catRate
                 dailyRate
                 extendedCareRate

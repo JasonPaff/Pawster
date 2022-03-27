@@ -16,7 +16,6 @@ function CreateWalking() {
 
   useEffect(() => {
     getWalking().then((result) => {
-    console.log(result)
     setUpdateWalk(result.data.getWalking.walking)
     })
   },[])
@@ -37,10 +36,7 @@ function CreateWalking() {
   }
 
   async function handleCreateWalking() {
-    console.log(walking)
     const response = await createWalking(walking);
-
-    console.log(response)
     if (response.data.createWalking.success) {
         navigate('/profile')
     } else {
@@ -49,10 +45,7 @@ function CreateWalking() {
   }
 
   async function handleUpdateWalk() {
-    console.log(updateWalk)
     const response = await updateWalking(updateWalk);
-
-    console.log(response)
     if (response.data.updateWalking.success) {
         navigate('/profile')
     } else {

@@ -19,7 +19,6 @@ function CreateBoarding() {
     })
   },[])
 
-  console.log(updateBoard)
 
   const handleFloatChange = (e) => {
     setBoarding({
@@ -46,7 +45,6 @@ function CreateBoarding() {
   }
 
   async function handleUpdateBoarding() {
-    console.log(updateBoard)
     const response = await updateBoarding(updateBoard);
 
     console.log(response)
