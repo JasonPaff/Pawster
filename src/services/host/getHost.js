@@ -2,12 +2,12 @@
 import {gql} from "@apollo/client";
 import getGqlString from "../../utils/graphql_utils";
 
-export default async function getAllHosts() {
+export default async function getHost() {
     let query = gql`query Query {
-        getAllHosts {
+        getHost {
             success
             message
-            hosts {
+            host {
                 cancellationPolicy
                 canHostMultiplePets
                 canHostUnspayedFemales

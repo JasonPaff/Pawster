@@ -4,7 +4,7 @@ const {jwtError} = require("../api_responses/auth/auth_error");
 const {userIdNotFoundError} = require("../api_responses/user/user_error");
 const {findUserById} = require("../../mongodb/operations/user_operations");
 const {hostNotFoundError, hostAlreadyExistsError, hostDoesNotExistError, hostsNotFoundError} = require("../api_responses/host/host_error");
-const {findHost, doesHostExist, createHost, updateHost, deleteHost, findHosts} = require("../../mongodb/operations/host_operations");
+const {findHost, doesHostExist, createHost, updateHost, deleteHost, findHosts, findHostUsers} = require("../../mongodb/operations/host_operations");
 const {hostFoundSuccess, hostCreatedSuccess, hostUpdatedSuccess, hostDeletedSuccess, hostsFoundSuccess} = require("../api_responses/host/host_success");
 
 module.exports.hostModule = createModule({
@@ -102,7 +102,7 @@ module.exports.hostModule = createModule({
             },
             getAllHosts: async (parent, {}, context) => {
                 const hosts = await findHosts();
-                if (!hosts || hosts.length === 0) return hostsNotFoundError();
+                if (!hosts) return hostsNotFoundError();
 
                 return hostsFoundSuccess(hosts);
             },

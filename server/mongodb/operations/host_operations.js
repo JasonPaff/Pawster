@@ -10,6 +10,10 @@ module.exports.findHost = async (userId) => {
 };
 
 module.exports.findHosts = async () => {
+    return Host.find({});
+}
+
+module.exports.findHostUsers = async () => {
     return User.find({
         isHost: true
     });
