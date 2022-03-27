@@ -149,7 +149,7 @@ module.exports.hostModule = createModule({
 
                 await updateHost(userId, updatedHost);
 
-                return hostUpdatedSuccess(updatedHost);
+                return hostUpdatedSuccess(userId, updatedHost);
             },
             deleteHost: async (parent, {}, context) => {
                 const authenticated = await authenticate(context);
