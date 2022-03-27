@@ -15,7 +15,6 @@ export default async function createSitting(sitting) {
                 catRate
                 extendedCareRate
                 holidayRate
-                pickUpDropOffRate
                 puppyRate
             }
         }

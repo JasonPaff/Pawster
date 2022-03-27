@@ -2,6 +2,8 @@
 import {gql} from "@apollo/client";
 import getGqlString from "../../utils/graphql_utils";
 
+// TH : excluded pickupdropoffrate
+
 export default async function updateSitting(updatedSitting) {
     let query = gql`mutation Mutation($updatedSitting: SittingInput!) {
         updateSitting(updatedSitting: $updatedSitting) {
@@ -15,7 +17,6 @@ export default async function updateSitting(updatedSitting) {
                 catRate
                 extendedCareRate
                 holidayRate
-                pickUpDropOffRate
                 puppyRate
             }
         }
