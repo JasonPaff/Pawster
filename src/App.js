@@ -13,6 +13,7 @@ import AddPet from "./pages/Pet/AddPetPage";
 import CreateHost from "./components/Add&Create/CreateHost";
 import PetProfile from "./pages/Profiles/PetProfile"
 import CreateBoarding from "./components/Add&Create/CreateBoarding";
+import HostProfile from "./pages/Profiles/HostProfile";
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
           <Route path="/logout" element={<Logout />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<ClientProfile />} />
+          <Route path="/profile/host/:hostId" element={<HostProfile />} />
           <Route path="/profile/account-info" element={<EditClient />} />
           <Route path="/profile/add-pet" element={<AddPet />} />
           <Route path="/profile/register-host" element={<CreateHost />} />

@@ -9,6 +9,7 @@ import '../../styles/Map.css'
 function Map() {
 
     const [pinMarkers, setPinMarkers] = useState([])
+    const [ libraries ] = useState(['places']);
     
     const mapRef = useRef()
     const onLoad = useCallback(map => (mapRef.current = map), [])
@@ -17,14 +18,13 @@ function Map() {
 
     const google = window.google
 
-    const libraries = ["places"];
 
     const panTo = React.useCallback(({lat, lng}) => {
         mapRef.current.panTo({lat, lng})
         mapRef.current.setZoom(14);
     })
 
-    const { isLoaded } = useLoadScript({
+    const { isLoaded, loadError } = useLoadScript({
         googleMapsApiKey: API_KEY,
         libraries,
     })

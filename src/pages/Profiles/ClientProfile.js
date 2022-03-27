@@ -3,6 +3,7 @@ import ClientInfo from '../../components/ClientProfile/ClientInfo';
 import { NavLink } from 'react-router-dom';
 import DisplayPets from '../../components/ClientProfile/DisplayPets';
 import DisplayServices from '../../components/ClientProfile/DisplayServices/DisplayServices';
+import HostProfile from './HostProfile';
 
 
 function ClientProfile() {
