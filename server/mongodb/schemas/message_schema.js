@@ -6,7 +6,9 @@ const message_schema = new mongoose.Schema({
     message: String,
     sender: String,
     receiver: String,
-    sentAt: { type: Date, default: Date.now },
+    displayForSender: {type: Boolean, default: true},
+    displayForReceiver: {type: Boolean, default: true},
+    sentAt: {type: Date, default: Date.now},
 });
 
 module.exports.Message = mongoose.model('Message', message_schema);

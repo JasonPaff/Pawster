@@ -2,21 +2,21 @@
 const {isValidObjectId} = require("../../utils/database_utils");
 
 module.exports.findAddress = async (id) => {
-    if (!isValidObjectId(id)) return false
+    if (!isValidObjectId(id)) return false;
     return Address.findOne({
         userId: id
     });
 };
 
 module.exports.doesAddressExist = async (id) => {
-    if (!isValidObjectId(id)) return false
+    if (!isValidObjectId(id)) return false;
     return Address.exists({
         userId: id
     });
 };
 
 module.exports.createAddress = async (id, address) => {
-    if (!isValidObjectId(id)) return false
+    if (!isValidObjectId(id)) return false;
     address.userId = id;
     const newAddress = await new Address(address);
     await newAddress.save();
@@ -24,7 +24,7 @@ module.exports.createAddress = async (id, address) => {
 };
 
 module.exports.updateAddress = async (id, address) => {
-    if (!isValidObjectId(id)) return false
+    if (!isValidObjectId(id)) return false;
     await Address.findOneAndUpdate({
             userId: id
         }, address
@@ -32,6 +32,7 @@ module.exports.updateAddress = async (id, address) => {
 };
 
 module.exports.deleteAddress = async (id) => {
+    if (!isValidObjectId(id)) return false;
     await Address.findOneAndRemove({
         userId: id
     });

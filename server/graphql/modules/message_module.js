@@ -4,6 +4,7 @@ const {userIdNotFoundError} = require("../api_responses/user/user_error");
 const {jwtError} = require("../api_responses/auth/auth_error");
 const {PubSub} = require('apollo-server');
 const {findUserById} = require("../../mongodb/operations/user_operations");
+const {receiverNotFoundError, senderNotFoundError} = require("../api_responses/message/message_error");
 const pubsub = new PubSub();
 
 module.exports.messageModule = createModule({
@@ -12,16 +13,18 @@ module.exports.messageModule = createModule({
     typeDefs: [
         gql`
             extend type Query {
-                getMessage(messageId: ID) : MessageResponse
-                getMessages : MessageResponse
+                getMessage(messageId: ID!) : MessageResponse
+                getSentMessages(messageId: ID!) : MessagesResponse
+                getReceivedMessages(messageId: ID!) : MessagesResponse
+                getMessages : MessagesResponse
                 getNewMessageId : Int
-                getMessageChain(messageChainId: Int) : MessagesResponse
+                getMessageChain(messageChainId: Int!) : MessagesResponse
             }
             
             extend type Mutation {
                 createMessage(message: MessageInput!) : MessageResponse
-                deleteMessage(messageId: ID) : MessageResponse
-                deleteMessageChain(messageChainId: Int) : MessagesResponse
+                deleteMessage(messageId: ID!) : MessageResponse
+                deleteMessageChain(messageChainId: Int!) : MessagesResponse
             }
             
             type Subscription {
@@ -76,9 +79,16 @@ module.exports.messageModule = createModule({
                 if (!userId) return jwtError();
 
                 const user = await findUserById(userId);
-                if (!user) return userIdNotFoundError(userId);
+                if (!user) return senderNotFoundError(userId);
+
+                const receiver = await findUserById(message.receiver);
+                if (!receiver) return receiverNotFoundError(receiver);
 
 
+
+                await pubsub.publish("MESSAGE_CREATED", {
+                   messageCreated: {message}
+                });
             }
         },
         Subscription : {
