@@ -24,7 +24,7 @@ export default function SelectedMessage(props) {
                 </button>
             </div>
             <div className="flex flex-col ml-4 mt-4">
-                message list
+
             </div>
         </div>
     );
