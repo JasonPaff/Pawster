@@ -14,6 +14,7 @@ module.exports.addressModule = createModule({
         gql`
             extend type Query {
                 getAddress : AddressResponse
+                getAddressById(userId: ID!) : AddressResponse
             },
             extend type Mutation {
                 createAddress(address: AddressInput!) : AddressResponse
@@ -51,6 +52,15 @@ module.exports.addressModule = createModule({
                 const userId = await decodeToken(context);
                 if (!userId) return jwtError();
 
+                const user = await findUserById(userId);
+                if (!user) return userIdNotFoundError(userId);
+
+                const address = await findAddress(userId);
+                if (!address) return missingAddressError(userId);
+
+                return addressFoundSuccess(userId, address);
+            },
+            getAddressById: async (parent, {userId}, context) => {
                 const user = await findUserById(userId);
                 if (!user) return userIdNotFoundError(userId);
 
