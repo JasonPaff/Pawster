@@ -1,5 +1,5 @@
 import ServiceOptions from "../components/Filter&Sort/ServiceOptions";
-import InfoFIlter from "../components/InfoFIlter";
+import InfoFilter from "../components/InfoFilter";
 
 export default function Landing() {
   return (
@@ -7,7 +7,7 @@ export default function Landing() {
       <div id="banner" className="flex justify-center items-center">
         <ServiceOptions />
       </div>
-      <InfoFIlter />
+      <InfoFilter />
     </div>
   );
 }

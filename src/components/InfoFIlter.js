@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function InfoFIlter() {
+export default function InfoFilter() {
   return (
     <>
       <div className="container mx-auto flex  justify-center py-8 px-4">

@@ -5,6 +5,7 @@ const {jwtError} = require("../api_responses/auth/auth_error");
 const {PubSub} = require('apollo-server');
 const {findUserById} = require("../../mongodb/operations/user_operations");
 const {receiverNotFoundError, senderNotFoundError} = require("../api_responses/message/message_error");
+
 const pubsub = new PubSub();
 
 module.exports.messageModule = createModule({
@@ -78,13 +79,11 @@ module.exports.messageModule = createModule({
                 const userId = await decodeToken(context);
                 if (!userId) return jwtError();
 
-                const user = await findUserById(userId);
+              const user = await findUserById(userId);
                 if (!user) return senderNotFoundError(userId);
 
                 const receiver = await findUserById(message.receiver);
                 if (!receiver) return receiverNotFoundError(receiver);
-
-
 
                 await pubsub.publish("MESSAGE_CREATED", {
                    messageCreated: {message}
