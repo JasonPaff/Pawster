@@ -22,10 +22,10 @@ module.exports.hostCreatedSuccess = (host) => {
     };
 };
 
-module.exports.hostUpdatedSuccess = (host) => {
+module.exports.hostUpdatedSuccess = (userId, host) => {
     return {
         success: true,
-        message: `host account updated for ${host.userId}`,
+        message: `host account updated for ${userId}`,
         host: host
     };
 };
