@@ -8,7 +8,6 @@ const sitting_schema = new mongoose.Schema({
     catRate: {type: Number, default: 0},
     extendedCareRate: {type: Number, default: 0},
     holidayRate: {type: Number, default: 0},
-    pickUpDropOffRate: {type: Number, default: 0},
     puppyRate: {type: Number, default: 0},
     userId: {type: String, required: true},
 });

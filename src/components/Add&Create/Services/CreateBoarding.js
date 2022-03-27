@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import createBoarding from '../../services/boarding/createBoarding'
-import updateBoarding from '../../services/boarding/updateBoarding'
+import createBoarding from '../../../services/boarding/createBoarding'
+import updateBoarding from '../../../services/boarding/updateBoarding'
 import { useNavigate } from 'react-router-dom';
-import getBoarding from '../../services/boarding/getBoarding';
+import getBoarding from '../../../services/boarding/getBoarding';
 
 
 
@@ -62,10 +62,10 @@ function CreateBoarding() {
   return (
     <div className="flex justify-around">
       {
-        !updateBoarding ?
+        !updateBoard ?
         <div>
           <div>Additional Cat Rate<input type="text" placeholder="$0.00" name="additionalCatRate" onChange={handleFloatChange} /></div>
-          <div>Addition Dog Rate<input type="text" placeholder="$0.00" name="additionalDogRate" onChange={handleFloatChange} /></div>
+          <div>Additional Dog Rate<input type="text" placeholder="$0.00" name="additionalDogRate" onChange={handleFloatChange} /></div>
           <div>Base Rate<input type="text" placeholder="$0.00" name="baseRate" onChange={handleFloatChange} /></div>
           <div>Bathing Cost<input type="text" placeholder="$0.00"name="bathingRate" onChange={handleFloatChange} /></div>
           <div>Cat Rate<input type="text" placeholder="$0.00" name="catRate" onChange={handleFloatChange} /></div>
@@ -78,7 +78,7 @@ function CreateBoarding() {
         :
         <div>
           <div>Additional Cat Rate<input type="text" defaultValue={updateBoard.additionalCatRate} placeholder="$0.00" name="additionalCatRate" onChange={handleUpdateFloatChange} /></div>
-          <div>Addition Dog Rate<input type="text" defaultValue={updateBoard.additionalDogRate} placeholder="$0.00" name="additionalDogRate" onChange={handleUpdateFloatChange} /></div>
+          <div>Additional Dog Rate<input type="text" defaultValue={updateBoard.additionalDogRate} placeholder="$0.00" name="additionalDogRate" onChange={handleUpdateFloatChange} /></div>
           <div>Base Rate<input type="text" defaultValue={updateBoard.baseRate} placeholder="$0.00" name="baseRate" onChange={handleUpdateFloatChange} /></div>
           <div>Bathing Cost<input type="text" defaultValue={updateBoard.bathingRate} placeholder="$0.00"name="bathingRate" onChange={handleUpdateFloatChange} /></div>
           <div>Cat Rate<input type="text" defaultValue={updateBoard.catRate} placeholder="$0.00" name="catRate" onChange={handleUpdateFloatChange} /></div>

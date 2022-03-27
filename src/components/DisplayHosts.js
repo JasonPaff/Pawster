@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
 import hostsFilter from '../utils/hostsFilter'
+import getAllHosts from '../services/host/getAllHosts'
 
 const mapStateToProps = (state) => {
     return {
@@ -24,6 +25,7 @@ function DisplayHosts(props) {
   const [filteredHosts, setFilteredHosts] = useState(props.hosts)
 
   useEffect(() => {
+    getAllHosts().then((result) => {console.log(result.data)})
     let hosts = [...props.hosts]
     hosts = hostsFilter(
       hosts, props.has_house, props.has_fenced_yard, 
@@ -40,15 +42,15 @@ function DisplayHosts(props) {
   ])
 
   const hosts = filteredHosts.map((host, index) => {
-      return <li key={index}
-        className="p-5 mb-3 border"
-        >
-          <NavLink to={`/profile/host/${host.id}`}>{host.name}</NavLink>
+      return <NavLink key={index} to={`/profile/host/${host.id}`}>
+        <li className="p-5 border">
+          {host.name}
         </li>
+        </NavLink>
   })
 
   return (
-    <div className="flex-col p-10 border list-none w-full">
+    <div className="flex-col p-2 border list-none w-full">
       {hosts}
     </div>
   );

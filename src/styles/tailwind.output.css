@@ -837,12 +837,12 @@ label{
   height: 0.5rem;
 }
 
-.w-\[48\%\]{
-  width: 48%;
+.w-full{
+  width: 100%;
 }
 
-.w-6\/12{
-  width: 50%;
+.w-\[48\%\]{
+  width: 48%;
 }
 
 .w-12{
@@ -855,10 +855,6 @@ label{
 
 .w-2{
   width: 0.5rem;
-}
-
-.w-full{
-  width: 100%;
 }
 
 .w-\[440px\]{
@@ -877,6 +873,10 @@ label{
   cursor: pointer;
 }
 
+.list-none{
+  list-style-type: none;
+}
+
 .flex-row{
   flex-direction: row;
 }
@@ -891,6 +891,10 @@ label{
 
 .items-center{
   align-items: center;
+}
+
+.justify-end{
+  justify-content: flex-end;
 }
 
 .justify-center{
@@ -921,12 +925,6 @@ label{
   --tw-space-y-reverse: 0;
   margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(0.25rem * var(--tw-space-y-reverse));
-}
-
-.space-x-20 > :not([hidden]) ~ :not([hidden]){
-  --tw-space-x-reverse: 0;
-  margin-right: calc(5rem * var(--tw-space-x-reverse));
-  margin-left: calc(5rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
 .rounded-md{
@@ -988,24 +986,24 @@ label{
   background-color: rgb(246 246 246 / var(--tw-bg-opacity));
 }
 
-.p-10{
-  padding: 2.5rem;
+.p-5{
+  padding: 1.25rem;
+}
+
+.p-2{
+  padding: 0.5rem;
 }
 
 .p-4{
   padding: 1rem;
 }
 
-.p-5{
-  padding: 1.25rem;
-}
-
 .p-3{
   padding: 0.75rem;
 }
 
-.p-2{
-  padding: 0.5rem;
+.p-10{
+  padding: 2.5rem;
 }
 
 .py-8{
