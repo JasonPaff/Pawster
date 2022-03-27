@@ -6,7 +6,7 @@
     };
 };
 
-module.exports.addressesFoundSuccess = (address) => {
+module.exports.addressesFoundSuccess = (addresses) => {
     return {
         success: true,
         message: `addresses found`,
