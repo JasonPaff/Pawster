@@ -11,8 +11,8 @@ function DisplayPets() {
         getPets().then((result) => {setPets(result.data.getPets.pets)})
     }, [])
 
-    const petList = pets.map((pet) => {
-        return <li key={pet.id}><NavLink to={`/profile/pet-profile/${pet.id}`}>{pet.name}</NavLink></li>
+    const petList = pets.map((pet, index) => {
+        return <li key={index}><NavLink to={`/profile/pet-profile/${pet.id}`}>{pet.name}</NavLink></li>
     })
 
     return (

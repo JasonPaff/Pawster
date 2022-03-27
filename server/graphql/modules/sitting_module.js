@@ -32,7 +32,6 @@ module.exports.sittingModule = createModule({
                 extendedCareRate: Float
                 holidayRate: Float
                 id: ID
-                pickUpDropOffRate: Float
                 puppyRate: Float
                 userId: ID
             }
@@ -43,6 +42,7 @@ module.exports.sittingModule = createModule({
                 baseRate: Float
                 bathingRate: Float
                 catRate: Float
+                extendedCareRate: Float
                 holidayRate: Float
                 hourlyRate: Float
                 puppyRate: Float
