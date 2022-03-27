@@ -14,11 +14,12 @@ module.exports.findAddresses = async () => {
 
 module.exports.findHostAddresses = async (hosts) => {
     const addresses = [];
-    hosts.forEach((host) => {
-        Address.findOne({
-            userId: host.userId
-        }).then((address) => addresses.push(address));
-    });
+    for(let c = 0; c < hosts.length; c++ ) {
+        const address = await Address.findOne({
+            userId: hosts[c]._id
+        })
+        if (address) addresses.push(address);
+    }
     return addresses;
 };
 

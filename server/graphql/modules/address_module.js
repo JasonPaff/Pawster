@@ -76,6 +76,8 @@ module.exports.addressModule = createModule({
                 const addresses = await findHostAddresses(hosts);
                 if (!addresses) return missingAddressesError();
 
+                console.log(addresses);
+
                 return addressesFoundSuccess(addresses);
             },
             getAddressById: async (parent, {userId}, context) => {
