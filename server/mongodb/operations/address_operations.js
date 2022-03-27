@@ -8,6 +8,10 @@ module.exports.findAddress = async (id) => {
     });
 };
 
+module.exports.findAddresses = async () => {
+    return Address.find({});
+};
+
 module.exports.doesAddressExist = async (id) => {
     if (!isValidObjectId(id)) return false;
     return Address.exists({

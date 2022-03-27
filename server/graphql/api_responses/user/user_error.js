@@ -14,6 +14,14 @@ module.exports.userIdNotFoundError = (id) => {
     };
 };
 
+module.exports.usersNotFoundError = () => {
+    return {
+        success: false,
+        message: `no users found`,
+        users: null
+    };
+};
+
 module.exports.invalidUsernamePasswordError = () => {
     return {
         success: false,

@@ -14,6 +14,14 @@ module.exports.userIdFoundSuccess = (user) => {
     };
 };
 
+module.exports.usersFoundSuccess = (users) => {
+    return {
+        success: true,
+        message: `users data found`,
+        users: users
+    };
+};
+
 module.exports.createUserSuccess = (user, token) => {
     return {
         success: true,

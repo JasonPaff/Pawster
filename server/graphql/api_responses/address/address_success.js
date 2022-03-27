@@ -6,6 +6,14 @@
     };
 };
 
+module.exports.addressesFoundSuccess = (address) => {
+    return {
+        success: true,
+        message: `addresses found`,
+        addresses: addresses
+    };
+};
+
 module.exports.addressUpdatedSuccess = (id, address) => {
     return {
         success: true,
