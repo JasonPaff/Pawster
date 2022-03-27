@@ -12,6 +12,16 @@ module.exports.findAddresses = async () => {
     return Address.find({});
 };
 
+module.exports.findHostAddresses = async (hosts) => {
+    const addresses = [];
+    hosts.forEach((host) => {
+        Address.findOne({
+            userId: host.userId
+        }).then((address) => addresses.push(address));
+    });
+    return addresses;
+};
+
 module.exports.doesAddressExist = async (id) => {
     if (!isValidObjectId(id)) return false;
     return Address.exists({
