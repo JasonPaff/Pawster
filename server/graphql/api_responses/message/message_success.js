@@ -7,6 +7,8 @@
 };
 
 module.exports.messageThreadFoundSuccess = (threadId, messageThread) => {
+
+    console.log(messageThread);
     return {
         success: true,
         message: `message thread found for ${threadId}`,

@@ -4,16 +4,16 @@ const {MessageThread} = require("../schemas/message_thread_schema");
 module.exports.getMessageThreadsByUserId = async (userId) => {
     if (!isValidObjectId(userId)) return false;
     return MessageThread.find({
-        $or: [{
-            senderUserId: userId,
-            receiverUserId: userId
-        }]
+        $or: [
+            { senderUserId: userId },
+            { receiverUserId: userId }
+        ]
     });
 };
 
 module.exports.getMessageThreadById = async (threadId) => {
     if (!isValidObjectId(threadId)) return false;
-    return MessageThread.find({
+    return MessageThread.findOne({
         _id: threadId
     });
 };
@@ -64,7 +64,7 @@ module.exports.addMessageToThread = async (userId, message) => {
 };
 
 module.exports.hideThreadForSender = async (userId, threadId) => {
-    const messageThread = await MessageThread.find({
+    const messageThread = await MessageThread.findOne({
         _id: threadId,
         senderUserId: userId
     });
@@ -77,7 +77,7 @@ module.exports.hideThreadForSender = async (userId, threadId) => {
 };
 
 module.exports.hideThreadForReceiver = async (userId, threadId) => {
-    const messageThread = await MessageThread.find({
+    const messageThread = await MessageThread.findOne({
         _id: threadId,
         receiverUserId: userId
     });

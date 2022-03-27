@@ -30,7 +30,7 @@ module.exports.messageModule = createModule({
             
             extend type Mutation {
                 createMessageThread(messageThread: MessageThreadInput!) : MessageResponse
-                addMessage(message: MessageInput!) : MessageResponse
+                addMessageToThread(message: MessageInput!) : MessageResponse
                 hideThreadForReceiver(threadId: ID) : MessageResponse
                 hideThreadForSender(threadId: ID) : MessageResponse                
             }
@@ -86,7 +86,7 @@ module.exports.messageModule = createModule({
             type MessagesResponse {
                 success: Boolean
                 message: String
-                messageThread: [MessageThread]
+                messageThreads: [MessageThread]
             }
         `
     ],
@@ -158,7 +158,7 @@ module.exports.messageModule = createModule({
 
                 return messageThreadCreatedSuccess(newMessageThread);
             },
-            addMessage: async (parent, {message}, context) => {
+            addMessageToThread: async (parent, {message}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
 
