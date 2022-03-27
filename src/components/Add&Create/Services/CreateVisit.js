@@ -3,7 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import createVisit from '../../../services/visit/createVisit'
 import updateVisit from '../../../services/visit/updateVisit'
 import getVisit from '../../../services/visit/getVisit'
+import getHost from '../../../services/host/getHost'
+import updateHost from '../../../services/host/updateHost'
 
+// TODO: Update host service boolean to true upon creation, and false upon delete.
 
 function CreateVisit() {
   
@@ -11,11 +14,16 @@ function CreateVisit() {
 
   const [visit, setVisit] = useState({})
   const [updateVis, setUpdateVis] = useState({})
+  const [host, setHost] = useState({})
 
   useEffect(() => {
-    getVisit().then((result) => {
-    setUpdateVis(result.data.getVisit.visit)
+    getHost()
+    .then((result) => {
+      const host = result.data.getHost.host
+      setHost({})
     })
+    // idk where to go from here
+    getVisit().then((result) => {setUpdateVis(result.data.getVisit.visit)})
   },[])
 
 
@@ -32,17 +40,30 @@ function CreateVisit() {
       [e.target.name]: parseFloat(e.target.value),
     })
   }
+  async function handleUpdateHost() {
+    console.log(host)
+    const response = await updateHost(host)
+    console.log(response)
+    if (response.data.updateHost.success) {
+        console.log("Host Updated")
+    } else {
+        alert(response.data.updateHost.message);
+    }
+  }
 
   async function handleCreateVisit() {
     const response = await createVisit(visit);
+    const responseHost = await updateHost(host)
+
 
     console.log(response)
-    if (response.data.createVisit.success) {
+    if (response.data.createVisit.success && responseHost.data.updateHost.success) {
         navigate('/profile')
     } else {
-        alert(response.data.createVisit.message);
+        alert(response.data.createVisit.message && responseHost.data.updateHost.message);
     }
   }
+
 
   async function handleUpdateVis() {
     const response = await updateVisit(updateVis);
@@ -66,8 +87,9 @@ function CreateVisit() {
           <div>Bathing Cost<input type="text" placeholder="$0.00"name="bathingRate" onChange={handleFloatChange} /></div>
           <div>Cat Rate<input type="text" placeholder="$0.00" name="catRate" onChange={handleFloatChange} /></div>
           <div>Holiday Rate<input type="text" placeholder="$0.00" name="holidayRate" onChange={handleFloatChange} /></div>
+          <div>Hourly Rate<input type="text" placeholder="$0.00" name="hourlyRate" onChange={handleFloatChange} /></div>
           <div>Puppy Rate<input type="text" placeholder="$0.00" name="puppyRate" onChange={handleFloatChange} /></div>
-          <button onClick={handleCreateVisit}>Save</button>
+          <button onClick={() => {handleCreateVisit(); handleUpdateHost()}}>Save</button>
         </div>
         :
         <div>
@@ -77,7 +99,8 @@ function CreateVisit() {
           <div>Bathing Cost<input type="text" defaultValue={updateVis.bathingRate} placeholder="$0.00"name="bathingRate" onChange={handleUpdateFloatChange} /></div>
           <div>Cat Rate<input type="text" defaultValue={updateVis.catRate} placeholder="$0.00" name="catRate" onChange={handleUpdateFloatChange} /></div>
           <div>Holiday Rate<input type="text" defaultValue={updateVis.holidayRate} placeholder="$0.00" name="holidayRate" onChange={handleUpdateFloatChange} /></div>
-          <div>Puppy Rate<input type="text" placeholder="$0.00" defaultValue={updateVis.puppyRate} name="puppyRate" onChange={handleFloatChange} /></div>
+          <div>Hourly Rate<input type="text" defaultValue={updateVis.hourlyRate} placeholder="$0.00" name="hourlyRate" onChange={handleFloatChange} /></div>
+          <div>Puppy Rate<input type="text" defaultValue={updateVis.puppyRate} placeholder="$0.00" name="puppyRate" onChange={handleFloatChange} /></div>
           <button onClick={handleUpdateVis}>Update</button>
         </div>
       }
