@@ -6,6 +6,14 @@
     };
 };
 
+module.exports.missingAddressesError = () => {
+    return {
+        success: false,
+        message: `no addresses found`,
+        addresses: null
+    };
+};
+
 module.exports.existingAddressError = (id) => {
     return {
         success: false,

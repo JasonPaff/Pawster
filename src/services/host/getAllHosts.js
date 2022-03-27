@@ -4,10 +4,10 @@ import getGqlString from "../../utils/graphql_utils";
 
 export default async function getAllHosts() {
     let query = gql`query Query {
-        getHost {
+        getAllHosts {
             success
             message
-            host {
+            hosts {
                 cancellationPolicy
                 canHostMultiplePets
                 canHostUnspayedFemales
@@ -29,6 +29,27 @@ export default async function getAllHosts() {
                 typeOfHome
                 typeOfYard
                 userId
+            }
+        }
+        getHostAddresses {
+            success
+            message
+            addresses{
+                street
+                city
+                state
+                zipcode
+                userId
+            }
+        }
+        getHostUsers {
+            success
+            message
+            users {
+                firstName
+                lastName
+                id
+                dateCreated
             }
         }
     }`

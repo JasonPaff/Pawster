@@ -1,5 +1,9 @@
 ﻿const {User} = require("../schemas/user_schema");
 
+module.exports.findUsers = async () => {
+    return User.find({});
+};
+
 module.exports.findUserById = async (userId) => {
     return User.findOne({
         _id: userId
