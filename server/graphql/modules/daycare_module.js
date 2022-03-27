@@ -43,7 +43,6 @@ module.exports.daycareModule = createModule({
                 bathingRate: Float
                 catRate: Float
                 holidayRate: Float
-                hourlyRate: Float
                 pickUpDropOffRate: Float
                 puppyRate: Float
             }

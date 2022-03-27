@@ -12,4 +12,4 @@ const daycare_schema = new mongoose.Schema({
     userId: {type: String, required: true},
 });
 
-module.exports.Visit = mongoose.model('Daycare', daycare_schema);
+module.exports.Daycare = mongoose.model('Daycare', daycare_schema);

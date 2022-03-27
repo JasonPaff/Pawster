@@ -1,60 +1,90 @@
-const {isValidObjectId} = require("../../utils/database_utils");
-const {Message} = require("../schemas/message_schema");
+﻿const {isValidObjectId} = require("../../utils/database_utils");
+const {MessageThread} = require("../schemas/message_thread_schema");
 
-module.exports.getMessage = async (id) => {
-    if (!isValidObjectId(id)) return false;
-    return Message.find({
+module.exports.getMessageThreadsByUserId = async (userId) => {
+    if (!isValidObjectId(userId)) return false;
+    return MessageThread.find({
         $or: [{
-                sender: id,
-                receiver: id
-            }]
+            senderUserId: userId,
+            receiverUserId: userId
+        }]
     });
 };
 
-module.exports.getMessages = async (id) => {
-    if (!isValidObjectId(id)) return false;
-    return Message.find({
-        _id: id
+module.exports.getMessageThreadById = async (threadId) => {
+    if (!isValidObjectId(threadId)) return false;
+    return MessageThread.find({
+        _id: threadId
     });
 };
 
-module.exports.getSentMessages = async (id) => {
-    if (!isValidObjectId(id)) return false;
-    return Message.find({
-        sender: id
+module.exports.getMessageThreadsBySenderId = async (userId) => {
+    if (!isValidObjectId(userId)) return false;
+    return MessageThread.find({
+        senderUserId: userId
     });
 };
 
-module.exports.getReceivedMessages = async (id) => {
-    if (!isValidObjectId(id)) return false;
-    return Message.find({
-        receiver: id
+module.exports.getMessageThreadsByReceiverId = async (userId) => {
+    if (!isValidObjectId(userId)) return false;
+    return MessageThread.find({
+        receiverUserId: userId
     });
 };
 
-module.exports.getNewMessageId = async () => {
-    let maxId = 0;
-    const messages = await Message.find({});
-    for (let i = 0; i < messages.length; i++) {
-        maxId = Math.max(messages[i].chatId, maxId);
+module.exports.createMessageThread = async (thread) => {
+    const newMessage = {
+        message: thread.message,
+        userId: thread.message.userId,
+        sentAt: Date.now(),
     }
-    return maxId + 1;
+    thread.messages = [newMessage];
+    const messageThread = await new MessageThread(thread);
+    await messageThread.save();
+    return messageThread;
 };
 
-module.exports.getMessageChain = async (id) => {
-    return Message.find({
-        chatId: id
+module.exports.addMessageToThread = async (userId, message) => {
+    const messageThread = await MessageThread.findOne({
+        _id: message.threadId
     });
+
+    const newMessage = {
+        message: message.message,
+        userId: userId,
+        sentAt: Date.now(),
+    }
+    messageThread.messages.push(newMessage);
+    messageThread.isVisibleToSender = true;
+    messageThread.isVisibleToReceiver = true;
+    await MessageThread.findOneAndUpdate({
+        _id: message.threadId
+    }, messageThread);
+    return messageThread;
 };
 
-module.exports.doesMessageChainExist = async (id) => {
-    return Message.exists({
-        chatId: id
+module.exports.hideThreadForSender = async (userId, threadId) => {
+    const messageThread = await MessageThread.find({
+        _id: threadId,
+        senderUserId: userId
     });
+    messageThread.isVisibleToSender = false;
+    await MessageThread.findOneAndUpdate({
+        _id: threadId,
+        senderUserId: userId
+    }, messageThread);
+    return messageThread;
 };
 
-module.exports.createMessage = async (userId, message) => {
-    const newMessage = await new Message(message);
-    await newMessage.save();
-    return newMessage();
-}
+module.exports.hideThreadForReceiver = async (userId, threadId) => {
+    const messageThread = await MessageThread.find({
+        _id: threadId,
+        receiverUserId: userId
+    });
+    messageThread.isVisibleToReceiver = false;
+    await MessageThread.findOneAndUpdate({
+        _id: threadId,
+        receiverUserId: userId
+    }, messageThread);
+    return messageThread;
+};
