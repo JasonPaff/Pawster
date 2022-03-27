@@ -16,7 +16,6 @@ function CreateDayCare() {
 
   useEffect(() => {
     getDaycare().then((result) => {
-    console.log(result)
     setUpdateDayCare(result.data.getDaycare)
     })
   },[])
@@ -37,9 +36,7 @@ function CreateDayCare() {
   }
 
   async function handleCreateDayCare() {
-    console.log(daycare)
     const response = await createDaycare(daycare);
-
     console.log(response)
     if (response.data.createDaycare.success) {
         navigate('/profile')
@@ -49,9 +46,7 @@ function CreateDayCare() {
   }
 
   async function handleUpdateDayCare() {
-    console.log(updateDayCare)
     const response = await updateDaycare(updateDayCare);
-
     if (response.data.updateDaycare.success) {
         navigate('/profile')
     } else {
