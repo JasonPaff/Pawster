@@ -2,6 +2,7 @@ import React, { useMemo, useCallback, useRef, useState } from 'react'
 import { GoogleMap, InfoWindow, Marker, useLoadScript } from '@react-google-maps/api'
 import usePlacesAutocomplete, {getGeocode, getLatLng} from 'use-places-autocomplete'
 import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption } from '@reach/combobox'
+import "@reach/combobox/styles.css"
 import '../../styles/Map.css'
 
 // TODO: Split map and mapsearch functions?
@@ -9,6 +10,7 @@ import '../../styles/Map.css'
 function Map() {
 
     const [pinMarkers, setPinMarkers] = useState([])
+    const [ libraries ] = useState(['places']);
     
     const mapRef = useRef()
     const onLoad = useCallback(map => (mapRef.current = map), [])
@@ -17,14 +19,13 @@ function Map() {
 
     const google = window.google
 
-    const libraries = ["places"];
 
     const panTo = React.useCallback(({lat, lng}) => {
         mapRef.current.panTo({lat, lng})
         mapRef.current.setZoom(14);
     })
 
-    const { isLoaded } = useLoadScript({
+    const { isLoaded, loadError } = useLoadScript({
         googleMapsApiKey: API_KEY,
         libraries,
     })
@@ -55,7 +56,8 @@ function Map() {
                     // if (i == 1){map.setCenter(results[0].geometry.location); }
         
                     // Create dynamic markers on map as per the address array
-                    const markerComponent = <Marker 
+                    const markerComponent = <Marker
+                    key={i}
                     position={{lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng()}} 
                     icon={{
                         url: "https://raw.githubusercontent.com/Concept211/Google-Maps-Markers/master/images/marker_blue"+(i+1)+".png", 

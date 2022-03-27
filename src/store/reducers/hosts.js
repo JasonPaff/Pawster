@@ -3,6 +3,7 @@ import * as actionTypes from '../actions/filterActionTypes'
 const initialState = {
     hosts: [
         {
+            "id": 1,
             "name":"John",
             "has_house": true,
             "has_fenced_yard": true,
@@ -16,6 +17,7 @@ const initialState = {
 
         },
         {
+            "id": 2,
             "name": "Mary",
             "has_house": true,
             "has_fenced_yard": false,
@@ -29,6 +31,7 @@ const initialState = {
 
         },
         {
+            "id": 3,
             "name": "Steven",
             "has_house": false,
             "has_fenced_yard": false,
@@ -41,6 +44,7 @@ const initialState = {
             "doesDogWalking": false,
         },
         {
+            "id": 4,
             "name": "Greg",
             "has_house": true,
             "has_fenced_yard": true,
@@ -53,6 +57,7 @@ const initialState = {
             "doesDogWalking": false,
         },
         {
+            "id": 5,
             "name": "Tom",
             "has_house": true,
             "has_fenced_yard": false,
