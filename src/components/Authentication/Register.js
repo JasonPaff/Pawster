@@ -4,7 +4,7 @@ import createUser from "../../services/user/createUser";
 
 export default function Register() {
   const [password2, setPassword2] = useState("");
-  const [user, setUser] = useState({})
+  const [user, setUser] = useState({});
   const navigate = useNavigate();
 
   async function handleCreateAccount(e) {
@@ -19,7 +19,6 @@ export default function Register() {
 
     const response = await createUser(user);
 
-    console.log(response)
     if (response.data.createUser.success) {
       navigate("/");
     } else {
@@ -31,8 +30,8 @@ export default function Register() {
     setUser({
       ...user,
       [e.target.name]: e.target.value,
-    })
-  }
+    });
+  };
 
   return (
     <div className="flex w-full  justify-center items-center align-middle">
