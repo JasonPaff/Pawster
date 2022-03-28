@@ -3,10 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import createVisit from '../../../services/visit/createVisit'
 import updateVisit from '../../../services/visit/updateVisit'
 import getVisit from '../../../services/visit/getVisit'
+import deleteVisit from '../../../services/visit/deleteVisit'
 import getHost from '../../../services/host/getHost'
 import updateHost from '../../../services/host/updateHost'
 
-// TODO: Update host service boolean to true upon creation, and false upon delete.
+// TODO: Update host service boolean false upon delete.
 
 function CreateVisit() {
   
@@ -17,20 +18,20 @@ function CreateVisit() {
   const [host, setHost] = useState({})
 
   useEffect(() => {
-    getHost()
-    .then((result) => {
-      const host = result.data.getHost.host
-      setHost({})
-    })
-    // idk where to go from here
+    getHost().then((result) => {setHost(result.data.getHost.host)})
     getVisit().then((result) => {setUpdateVis(result.data.getVisit.visit)})
   },[])
+
 
 
   const handleFloatChange = (e) => {
     setVisit({
       ...visit,
       [e.target.name]: parseFloat(e.target.value),
+    })
+    setHost({
+      ...host,
+      doesDropInVisits: true
     })
   }
 
@@ -40,8 +41,8 @@ function CreateVisit() {
       [e.target.name]: parseFloat(e.target.value),
     })
   }
+
   async function handleUpdateHost() {
-    console.log(host)
     const response = await updateHost(host)
     console.log(response)
     if (response.data.updateHost.success) {
@@ -53,17 +54,13 @@ function CreateVisit() {
 
   async function handleCreateVisit() {
     const response = await createVisit(visit);
-    const responseHost = await updateHost(host)
-
-
     console.log(response)
-    if (response.data.createVisit.success && responseHost.data.updateHost.success) {
+    if (response.data.createVisit.success) {
         navigate('/profile')
     } else {
-        alert(response.data.createVisit.message && responseHost.data.updateHost.message);
+        alert(response.data.createVisit.message);
     }
   }
-
 
   async function handleUpdateVis() {
     const response = await updateVisit(updateVis);
@@ -71,6 +68,27 @@ function CreateVisit() {
         navigate('/profile')
     } else {
         alert(response.data.updateVisit.message);
+    }
+  }
+
+  function setStateAsync(host) {
+    return new Promise((resolve) => {
+      setHost({
+        ...host,
+        doesDropInVisits: false
+      }, resolve)
+    });
+  }
+
+  async function handleDeleteService() {
+    await setStateAsync(host)
+    const response = await deleteVisit();
+    if (response.data.deleteVisit.success) {
+        console.log(host)
+        handleUpdateHost()
+        navigate('/profile')
+    } else {
+        alert(response.data.deleteVisit.message);
     }
   }
 
@@ -101,7 +119,7 @@ function CreateVisit() {
           <div>Holiday Rate<input type="text" defaultValue={updateVis.holidayRate} placeholder="$0.00" name="holidayRate" onChange={handleUpdateFloatChange} /></div>
           <div>Hourly Rate<input type="text" defaultValue={updateVis.hourlyRate} placeholder="$0.00" name="hourlyRate" onChange={handleFloatChange} /></div>
           <div>Puppy Rate<input type="text" defaultValue={updateVis.puppyRate} placeholder="$0.00" name="puppyRate" onChange={handleFloatChange} /></div>
-          <button onClick={handleUpdateVis}>Update</button>
+          <div><button onClick={handleUpdateVis}>Update</button><button onClick={handleDeleteService}>Deactivate Service</button></div>
         </div>
       }
     </div>
