@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { RadioGroup } from "@headlessui/react";
 import "../../styles/ServiceOptions.css";
 import * as actionCreators from "../../store/action_creators/filterActionCreator";
 
@@ -48,25 +49,25 @@ const data = {
 function ServiceOptions(props) {
   const availableServices = data.services.map(({ id, name, options }) => {
     return (
-      <div key={id} className="flex bg-slate-500 gap-2 p-4">
-        {/* <h2>{name}</h2> */}
+      <RadioGroup key={id} value={data} className="flex bg-slate-500 gap-2 p-4 flex-wrap justify-around">
         {options.map((opt) => {
           console.log(name);
           return (
-            <div key={opt.id} className="bg-slate-300">
-              <input type="radio" value={opt.name} name={name} onChange={() => props.onToggleService({ [opt.name]: true })} />
-              {opt.label}
-            </div>
+            <>
+              <RadioGroup.Option key={opt.id} value={opt.name} name={name} onChange={() => props.onToggleService({ [opt.name]: true })}>
+                {({ checked }) => <span className={checked ? "bg-blue-200" : ""}>{opt.label}</span>}
+              </RadioGroup.Option>
+            </>
           );
         })}
-      </div>
+      </RadioGroup>
     );
   });
 
   // radio updates global state in real time?
 
   return (
-    <div className="rounded overflow-hidden bg-background-light border border-slate-300">
+    <div className="rounded overflow-hidden bg-background-light border border-slate-300 m-4">
       {/* TODO: filter by Dog and Cat  services   */}
       <div className="flex flex-row py-2 px-6 gap-2 items-center bg-background-darker">
         <p>I'm looking for service for my:</p>
