@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
 import hostsFilter from '../utils/hostsFilter'
+import getUserById from '../services/user/getUserById'
 import getAllHosts from '../services/host/getAllHosts'
+import * as actionCreators from '../store/action_creators/actionCreators'
 
 const mapStateToProps = (state) => {
     return {
@@ -19,13 +21,32 @@ const mapStateToProps = (state) => {
     }
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onGetHost: (hosts) => dispatch(actionCreators.getHosts(hosts))
+  }
+}
+
 
 function DisplayHosts(props) {
-
-  const [filteredHosts, setFilteredHosts] = useState(props.hosts)
+  const [hostUsers, setHostUsers] = useState([])
+  const [filteredHosts, setFilteredHosts] = useState(hostUsers)
 
   useEffect(() => {
-    getAllHosts().then((result) => {console.log(result.data)})
+    getAllHosts().then((result) => {
+      console.log(result)
+      const users = result.data.getHostUsers.users
+      const hosts = result.data.getAllHosts.hosts 
+      const userHosts = users.map(user => {
+        const host = hosts.find(h => h.userId == user.id)
+        return {
+          ...user,
+          ...host
+        }
+      })
+      console.log(userHosts)
+      props.onGetHost(userHosts)
+    })
     let hosts = [...props.hosts]
     hosts = hostsFilter(
       hosts, props.has_house, props.has_fenced_yard, 
@@ -35,7 +56,7 @@ function DisplayHosts(props) {
       )
     setFilteredHosts(hosts)
   },[
-    props.hosts, props.has_house, props.has_fenced_yard, 
+    props.has_house, props.has_fenced_yard, 
     props.doesnt_own_dog, props.doesnt_own_cat,
     props.doesBoarding, props.doesHouseSitting, props.doesDropInVisits,
     props.doesDayCare, props.doesDogWalking  
@@ -44,7 +65,7 @@ function DisplayHosts(props) {
   const hosts = filteredHosts.map((host, index) => {
       return <NavLink key={index} to={`/profile/host/${host.id}`}>
         <li className="p-5 border">
-          {host.name}
+          {host.firstName}
         </li>
         </NavLink>
   })
@@ -56,4 +77,4 @@ function DisplayHosts(props) {
   );
 }
   
-export default connect(mapStateToProps)(DisplayHosts);
+export default connect(mapStateToProps, mapDispatchToProps)(DisplayHosts);

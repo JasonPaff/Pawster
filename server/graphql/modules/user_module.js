@@ -6,7 +6,8 @@ const {deletePets} = require("../../mongodb/operations/pet_operations");
 const {deleteAddress} = require("../../mongodb/operations/address_operations");
 const {hashPassword, comparePasswordHashes} = require("../../utils/password_utils");
 const {deleteAllUserPhotos} = require("../../mongodb/operations/user_photo_operations");
-const {updateUser, createUser, deleteUser, findUserByEmail, findUserById, doesUserEmailExist, findUsers} = require("../../mongodb/operations/user_operations");
+const {updateUser, createUser, deleteUser, findUserByEmail, findUserById, doesUserEmailExist} = require("../../mongodb/operations/user_operations");
+const {findHostUsers} = require("../../mongodb/operations/host_operations");
 const {invalidUsernamePasswordError, invalidPasswordError, userAlreadyExistsError, userIdNotFoundError, userEmailNotFoundError,
     usersNotFoundError
 } = require("../api_responses/user/user_error");
@@ -85,7 +86,7 @@ module.exports.userModule = createModule({
                 return userIdFoundSuccess(user);
             },
             getHostUsers: async (parent, {}, context) => {
-                const users = await findUsers();
+                const users = await findHostUsers();
                 if (!users) return usersNotFoundError();
 
                 return usersFoundSuccess(users);

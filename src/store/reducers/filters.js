@@ -6,15 +6,17 @@ const initialState = {
     doesDropInVisits: false,
     doesDayCare: false,
     doesDogWalking: false,
-    has_house: false,
-    has_fenced_yard: false,
-    doesnt_own_dog: false,
-    doesnt_own_cat: false,    
+    canHostMultiplePets: false,
+    canHostUnspayedFemales: false,
+    hasChildren: false,
+    hasOtherPets: false,
+    isHomeFullTime: false,
+    isSmoking: false,    
 }
 
 const filterReducer = (state=initialState, action) => {
     switch (action.type) {
-        case actionTypes.SET_HAS_HOUSE_FILTER:
+        case actionTypes.SET_CAN_HOST_MULTI_PETS:
                 return {
                     ...state,
                     has_house: action.payload
