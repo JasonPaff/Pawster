@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { RadioGroup } from "@headlessui/react";
 import "../../styles/ServiceOptions.css";
+
 import * as actionCreators from "../../store/action_creators/filterActionCreator";
 
 const mapDispatchToProps = (dispatch) => {
@@ -20,26 +21,36 @@ const data = {
           id: 11,
           name: "doesBoarding",
           label: "Boarding",
+          iconColor: "travel-color.png",
+          iconContour: "travel-contour.png",
         },
         {
           id: 12,
           name: "doesHouseSitting",
           label: "Home Sitting",
+          iconColor: "house-color.png",
+          iconContour: "house-contour.png",
         },
         {
           id: 13,
           name: "doesDropInVisits",
           label: "Drop-in Visits",
+          iconColor: "pet-bowl-color.png",
+          iconContour: "pet-bowl-contour.png",
         },
         {
           id: 14,
           name: "doesDayCare",
           label: "Day Care",
+          iconColor: "daycare-color.png",
+          iconContour: "daycare-contour.png",
         },
         {
           id: 15,
           name: "doesDogWalking",
           label: "Dog Walking",
+          iconColor: "dog-walking-color.png",
+          iconContour: "dog-walking-contour.png",
         },
       ],
     },
@@ -47,17 +58,37 @@ const data = {
 };
 
 function ServiceOptions(props) {
+  const [selected, setSelected] = useState(data[0]);
+  console.log(selected);
+  props.onToggleService({ [selected]: true });
+
   const availableServices = data.services.map(({ id, name, options }) => {
     return (
-      <RadioGroup key={id} value={data} className="flex bg-slate-500 gap-2 p-4 flex-wrap justify-around">
-        {options.map((opt) => {
-          console.log(name);
+      <RadioGroup key={id} value={selected} onChange={setSelected} className="flex gap-2 p-6 flex-wrap justify-around ">
+        {options.map((opt, i) => {
           return (
-            <>
-              <RadioGroup.Option key={opt.id} value={opt.name} name={name} onChange={() => props.onToggleService({ [opt.name]: true })}>
-                {({ checked }) => <span className={checked ? "bg-blue-200" : ""}>{opt.label}</span>}
-              </RadioGroup.Option>
-            </>
+            <RadioGroup.Option
+              key={opt.id}
+              value={opt.name}
+              name={name}
+              className={({ active, checked }) =>
+                `flex rounded bg-white w-36 h-24 justify-center items-center cursor-pointer focus:outline-none border 
+                ${active ? "ring-2 ring-offset-1 ring-offset-accent-red ring-white ring-opacity-60 " : ""}
+                  ${checked ? "border-accent-red " : "border-slate-300 "}
+                     `
+              }
+            >
+              {({ checked }) => {
+                console.log(opt.iconColor);
+                let imgURL = opt.iconColor;
+                return (
+                  <span className={checked ? "text-accent-red" : "text-slate-600"}>
+                    <img src={checked ? require("../../img/icons/" + opt.iconColor) : require("../../img/icons/" + opt.iconContour)} alt="" className=" h-10 mx-auto mb-2" />
+                    {opt.label}
+                  </span>
+                );
+              }}
+            </RadioGroup.Option>
           );
         })}
       </RadioGroup>
