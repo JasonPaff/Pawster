@@ -4,7 +4,6 @@ import { NavLink } from 'react-router-dom'
 
 
 function DisplayPets() {
-
     const [pets, setPets] = useState([])
 
     useEffect(() => {

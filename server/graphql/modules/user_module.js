@@ -7,13 +7,10 @@ const {deleteAddress} = require("../../mongodb/operations/address_operations");
 const {hashPassword, comparePasswordHashes} = require("../../utils/password_utils");
 const {deleteAllUserPhotos} = require("../../mongodb/operations/user_photo_operations");
 const {updateUser, createUser, deleteUser, findUserByEmail, findUserById, doesUserEmailExist} = require("../../mongodb/operations/user_operations");
+const {invalidUsernamePasswordError, invalidPasswordError, userAlreadyExistsError, userIdNotFoundError, userEmailNotFoundError, usersNotFoundError} = require("../api_responses/user/user_error");
+const {createUserSuccess, passwordUpdatedSuccess, emailUpdatedSuccess, accountDeletedSuccess, userEmailFoundSuccess, userIdFoundSuccess, usersFoundSuccess} = require("../api_responses/user/user_success");
 const {findHostUsers} = require("../../mongodb/operations/host_operations");
-const {invalidUsernamePasswordError, invalidPasswordError, userAlreadyExistsError, userIdNotFoundError, userEmailNotFoundError,
-    usersNotFoundError
-} = require("../api_responses/user/user_error");
-const {createUserSuccess, passwordUpdatedSuccess, emailUpdatedSuccess, accountDeletedSuccess, userEmailFoundSuccess, userIdFoundSuccess,
-    usersFoundSuccess
-} = require("../api_responses/user/user_success");
+
 
 module.exports.userModule = createModule({
     id: 'user_module',
@@ -126,7 +123,7 @@ module.exports.userModule = createModule({
                 user.password = await hashPassword(user.password);
 
                 const newUser = await createUser(user);
-                const token = await createToken(user.email);
+                const token = await createToken(user);
 
                 return createUserSuccess(newUser, token);
             },
