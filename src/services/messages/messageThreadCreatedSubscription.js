@@ -1,7 +1,6 @@
 ﻿import {gql} from "@apollo/client";
-import getGqlString from "../../utils/graphql_utils";
 
-const query = gql`subscription Subscription {
+export const messageThreadCreatedSubscription = gql`subscription Subscription {
     messageThreadCreated {
         messageThread {
             subject
@@ -19,5 +18,3 @@ const query = gql`subscription Subscription {
         }
     }
 }`
-
-export const messageThreadCreatedSubscription = getGqlString(query);
