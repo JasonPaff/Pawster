@@ -4,8 +4,8 @@ import { BrowserRouter } from "react-router-dom";
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
-import "./styles/tailwind.output.css";
 import App from "./App";
+import "./styles/tailwind.output.css";
 
 // Importing Reducers
 import authenticationReducer from "./store/reducers/authentication";

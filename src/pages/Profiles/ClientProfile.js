@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import ClientInfo from '../../components/ClientProfile/ClientInfo';
 import { NavLink } from 'react-router-dom';
 import DisplayPets from '../../components/ClientProfile/DisplayPets';
 import getHost from '../../services/host/getHost'
@@ -30,7 +29,7 @@ function ClientProfile() {
       <div className="border p-5 row-span-3">Host Actions
         <div className="text-sky-400"><NavLink to="/profile/edit-boarding">Edit Boarding Info</NavLink></div>
         <div className="text-sky-400"><NavLink to="/profile/edit-sitting">Edit Home Sitting Info</NavLink></div>
-        {host.doesDropInVisits===true ? <div className="text-sky-400"><NavLink to="/profile/edit-visit">Edit Drop-in Visit Info</NavLink></div> : <div className="text-sky-400"><NavLink to="/profile/edit-visit">Add Drop-in Visit Info</NavLink></div>}
+        <div className="text-sky-400"><NavLink to="/profile/edit-visit">Edit Drop-in Visit Info</NavLink></div>
         <div className="text-sky-400"><NavLink to="/profile/edit-daycare">Edit Day Care Info</NavLink></div>
         <div className="text-sky-400"><NavLink to="/profile/edit-walking">Edit Dog Walking Info</NavLink></div>
         <div className="text-sky-400"><NavLink to={`/profile/host/${userId}`}>View your Host Profile</NavLink></div>
