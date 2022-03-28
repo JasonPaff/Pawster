@@ -5,21 +5,11 @@ import { NavLink } from "react-router-dom";
 function DisplayPets() {
   const [pets, setPets] = useState([]);
 
-  const [pets, setPets] = useState([]);
-
   useEffect(() => {
     getPets().then((result) => {
       setPets(result.data.getPets.pets || []);
     });
   }, []);
-
-  const petList = pets.map((pet, index) => {
-    return (
-      <li key={index}>
-        <NavLink to={`/profile/pet-profile/${pet.id}`}>{pet.name}</NavLink>
-      </li>
-    );
-  });
 
   const petList = pets.map((pet, index) => {
     console.log(pets);
