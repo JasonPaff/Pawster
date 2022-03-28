@@ -13,3 +13,11 @@ export const logout = () => {
         payload: null
     }
 }
+
+
+export const getHosts = (hosts) => {
+    return {
+        type: actionTypes.SET_HOSTS,
+        payload: hosts
+    }
+}

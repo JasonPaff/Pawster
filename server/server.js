@@ -35,7 +35,7 @@ const server = new ApolloServer({
   schema: graphql_schema,
   context: async ({ req, connection }) => {
     if (connection) {
-      return {};
+      return { req };
     }
     if (req) {
       return { req };
@@ -52,7 +52,6 @@ const startUp = async () => {
 startUp().catch(console.error);
 
 // start apollo http server (query, mutation)
-
 httpServer.listen({ port: process.env.PORT }, () => {
   console.log(`Apollo Server on http://localhost:${process.env.PORT}/graphql`);
 });

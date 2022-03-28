@@ -12,7 +12,6 @@ function DisplayPets() {
   }, []);
 
   const petList = pets.map((pet, index) => {
-    console.log(pets);
     return (
       <li key={index}>
         <NavLink to={`/profile/pet-profile/${pet.id}`}>{pet.name}</NavLink>

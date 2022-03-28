@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
 import hostsFilter from '../utils/hostsFilter'
 import getAllHosts from '../services/host/getAllHosts'
+import * as actionCreators from '../store/action_creators/actionCreators'
 
 const mapStateToProps = (state) => {
     return {
@@ -12,39 +13,66 @@ const mapStateToProps = (state) => {
       doesDropInVisits: state.filtersRed.doesDropInVisits,
       doesDayCare: state.filtersRed.doesDayCare,
       doesDogWalking: state.filtersRed.doesDogWalking,
-      has_house: state.filtersRed.has_house,
-      has_fenced_yard: state.filtersRed.has_fenced_yard,
-      doesnt_own_dog: state.filtersRed.doesnt_own_dog,
-      doesnt_own_cat: state.filtersRed.doesnt_own_cat
+      canHostMultiplePets: state.filtersRed.canHostMultiplePets,
+      canHostUnspayedFemales: state.filtersRed.canHostUnspayedFemales,
+      hasChildren: state.filtersRed.hasChildren,
+      hasOtherPets: state.filtersRed.hasOtherPets,
+      isHomeFullTime: state.filtersRed.isHomeFullTime,
+      isSmoking: state.filtersRed.isSmoking,
     }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onGetHost: (hosts) => dispatch(actionCreators.getHosts(hosts))
+  }
 }
 
 
 function DisplayHosts(props) {
-
   const [filteredHosts, setFilteredHosts] = useState(props.hosts)
 
   useEffect(() => {
-    getAllHosts().then((result) => {console.log(result.data)})
+    if (props.hosts.length === 0) {
+      getAllHosts().then((result) => {
+        console.log(result)
+        const users = result.data.getHostUsers.users
+        const hosts = result.data.getAllHosts.hosts
+        const addresses = result.data.getHostAddresses.addresses
+        const userHosts = users.map(user => {
+          const host = hosts.find(h => h.userId === user.id)
+          const address = addresses.find(a => a.userId === user.id)
+          return {
+            ...user,
+            ...host,
+            ...address
+          }
+        })
+        props.onGetHost(userHosts)
+      })
+    }
     let hosts = [...props.hosts]
     hosts = hostsFilter(
-      hosts, props.has_house, props.has_fenced_yard, 
-      props.doesnt_own_dog, props.doesnt_own_cat,
-      props.doesBoarding, props.doesHouseSitting, props.doesDropInVisits,
-      props.doesDayCare, props.doesDogWalking
-      )
+      props.hosts, props.doesBoarding, props.doesHouseSitting, props.doesDropInVisits,
+      props.doesDayCare, props.doesDogWalking, props.canHostMultiplePets,
+      props.canHostUnspayedFemales, props.hasChildren, props.hasOtherPets,
+      props.isHomeFullTime, props.isSmoking
+    )
+    console.log(hosts)
     setFilteredHosts(hosts)
   },[
-    props.hosts, props.has_house, props.has_fenced_yard, 
-    props.doesnt_own_dog, props.doesnt_own_cat,
-    props.doesBoarding, props.doesHouseSitting, props.doesDropInVisits,
-    props.doesDayCare, props.doesDogWalking  
+    props.hosts, props.doesBoarding, props.doesHouseSitting, props.doesDropInVisits,
+    props.doesDayCare, props.doesDogWalking, props.canHostMultiplePets,
+    props.canHostUnspayedFemales, props.hasChildren, props.hasOtherPets,
+    props.isHomeFullTime, props.isSmoking 
   ])
+
+  console.log(filteredHosts)
 
   const hosts = filteredHosts.map((host, index) => {
       return <NavLink key={index} to={`/profile/host/${host.id}`}>
         <li className="p-5 border">
-          {host.name}
+          {host.firstName} {host.lastName}
         </li>
         </NavLink>
   })
@@ -56,4 +84,4 @@ function DisplayHosts(props) {
   );
 }
   
-export default connect(mapStateToProps)(DisplayHosts);
+export default connect(mapStateToProps, mapDispatchToProps)(DisplayHosts);

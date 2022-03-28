@@ -6,13 +6,11 @@ const {deletePets} = require("../../mongodb/operations/pet_operations");
 const {deleteAddress} = require("../../mongodb/operations/address_operations");
 const {hashPassword, comparePasswordHashes} = require("../../utils/password_utils");
 const {deleteAllUserPhotos} = require("../../mongodb/operations/user_photo_operations");
-const {updateUser, createUser, deleteUser, findUserByEmail, findUserById, doesUserEmailExist, findUsers} = require("../../mongodb/operations/user_operations");
-const {invalidUsernamePasswordError, invalidPasswordError, userAlreadyExistsError, userIdNotFoundError, userEmailNotFoundError,
-    usersNotFoundError
-} = require("../api_responses/user/user_error");
-const {createUserSuccess, passwordUpdatedSuccess, emailUpdatedSuccess, accountDeletedSuccess, userEmailFoundSuccess, userIdFoundSuccess,
-    usersFoundSuccess
-} = require("../api_responses/user/user_success");
+const {updateUser, createUser, deleteUser, findUserByEmail, findUserById, doesUserEmailExist} = require("../../mongodb/operations/user_operations");
+const {invalidUsernamePasswordError, invalidPasswordError, userAlreadyExistsError, userIdNotFoundError, userEmailNotFoundError, usersNotFoundError} = require("../api_responses/user/user_error");
+const {createUserSuccess, passwordUpdatedSuccess, emailUpdatedSuccess, accountDeletedSuccess, userEmailFoundSuccess, userIdFoundSuccess, usersFoundSuccess} = require("../api_responses/user/user_success");
+const {findHostUsers} = require("../../mongodb/operations/host_operations");
+
 
 module.exports.userModule = createModule({
     id: 'user_module',
@@ -85,7 +83,7 @@ module.exports.userModule = createModule({
                 return userIdFoundSuccess(user);
             },
             getHostUsers: async (parent, {}, context) => {
-                const users = await findUsers();
+                const users = await findHostUsers();
                 if (!users) return usersNotFoundError();
 
                 return usersFoundSuccess(users);
@@ -125,7 +123,7 @@ module.exports.userModule = createModule({
                 user.password = await hashPassword(user.password);
 
                 const newUser = await createUser(user);
-                const token = await createToken(user.email);
+                const token = await createToken(user);
 
                 return createUserSuccess(newUser, token);
             },
