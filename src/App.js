@@ -11,7 +11,7 @@ import ClientProfile from "./pages/Profiles/ClientProfile";
 import EditClient from "./pages/EditProfile/EditClient";
 import AddPet from "./pages/Pet/AddPetPage";
 import CreateHost from "./components/Add&Create/CreateHost";
-import PetProfile from "./pages/Profiles/PetProfile"
+import PetProfile from "./pages/Profiles/PetProfile";
 import CreateBoarding from "./components/Add&Create/Services/CreateBoarding";
 import HostProfile from "./pages/Profiles/HostProfile";
 import CreateDayCare from "./components/Add&Create/Services/CreateDayCare";
@@ -20,10 +20,9 @@ import CreateVisit from "./components/Add&Create/Services/CreateVisit";
 import CreateWalking from "./components/Add&Create/Services/CreateWalking";
 import Messages from "./pages/Messages";
 
-
 function App() {
   return (
-    <div>
+    <>
       <BaseLayout>
         <Routes>
           <Route path="/" element={<Landing />} />
@@ -46,7 +45,7 @@ function App() {
           <Route path="/profile/edit-walking" element={<CreateWalking />} />
         </Routes>
       </BaseLayout>
-    </div>
+    </>
   );
 }
 
