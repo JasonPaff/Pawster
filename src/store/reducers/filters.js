@@ -6,33 +6,45 @@ const initialState = {
     doesDropInVisits: false,
     doesDayCare: false,
     doesDogWalking: false,
-    has_house: false,
-    has_fenced_yard: false,
-    doesnt_own_dog: false,
-    doesnt_own_cat: false,    
+    canHostMultiplePets: false,
+    canHostUnspayedFemales: false,
+    hasChildren: false,
+    hasOtherPets: false,
+    isHomeFullTime: false,
+    isSmoking: false,    
 }
 
 const filterReducer = (state=initialState, action) => {
     switch (action.type) {
-        case actionTypes.SET_HAS_HOUSE_FILTER:
+        case actionTypes.SET_CAN_HOST_MULTI_PETS:
                 return {
                     ...state,
-                    has_house: action.payload
+                    canHostMultiplePets: action.payload
                 }
-            case actionTypes.SET_HAS_FENCED_YARD_FILTER:
+            case actionTypes.SET_CAN_HOST_UPSPAYED:
                 return {
                     ...state,
-                    has_fenced_yard: action.payload
+                    canHostUnspayedFemales: action.payload
                 }
-            case actionTypes.SET_DOESNT_OWN_DOG_FILTER:
+            case actionTypes.SET_HAS_CHILDREN:
                 return {
                     ...state,
-                    doesnt_own_dog: action.payload
+                    hasChildren: action.payload
                 }
-            case actionTypes.SET_DOESNT_OWN_CAT_FILTER:
+            case actionTypes.SET_HAS_OTHER_PETS:
                 return {
                     ...state,
-                    doesnt_own_cat: action.payload
+                    hasOtherPets: action.payload
+                }
+            case actionTypes.SET_IS_HOME_FULL_TIME:
+                return {
+                    ...state,
+                    isHomeFullTime: action.payload
+                }
+            case actionTypes.SET_IS_SMOKING:
+                return {
+                    ...state,
+                    isSmoking: action.payload
                 }
             case actionTypes.SET_SERVICE_FILTER:
                 return {
