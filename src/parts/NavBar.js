@@ -20,7 +20,7 @@ function NavBar(props) {
         </div>
         <div className="relative flex sm:mr-10">
           {props.isAuth ? <Profile /> : <LoginMenu />}
-          <div className="ml-2 -mt-1">
+          <div className="ml-2">
             {props.isAuth && (<NotificationButton> </NotificationButton>)}
           </div>
         </div>
