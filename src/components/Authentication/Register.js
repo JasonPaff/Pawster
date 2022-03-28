@@ -3,9 +3,8 @@ import { useNavigate } from "react-router-dom";
 import createUser from "../../services/user/createUser";
 
 export default function Register() {
-  const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
-  const [email, setEmail] = useState("");
+  const [user, setUser] = useState({})
   const navigate = useNavigate();
 
   async function handleCreateAccount(e) {
@@ -13,18 +12,26 @@ export default function Register() {
 
     // TODO: validation of email and password
     // REFACTOR: alert - modal or under field message
-    if (password !== password2) {
+    if (user.password !== password2) {
       alert("not matching");
       return;
     }
 
-    const response = await createUser(email, password);
+    const response = await createUser(user);
 
+    console.log(response)
     if (response.data.createUser.success) {
       navigate("/");
     } else {
       alert(response.data.createUser.message);
     }
+  }
+
+  const handleTextChange = (e) => {
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value,
+    })
   }
 
   return (
@@ -33,26 +40,21 @@ export default function Register() {
         <h3 className="text-center p-2 mb-4 bg-background-darker">Register New Account</h3>
         <form onSubmit={handleCreateAccount} className="flex flex-col gap-3  bg-background-lighter px-8 pb-8 ">
           <div>
-            <label htmlFor="">Name:</label>
-            <input type="text" onChange={(e) => setEmail(e.target.value)} required />
+            <label htmlFor="">First Name:</label>
+            <input type="text" name="firstName" onChange={handleTextChange} required />
           </div>
           <div>
             <label htmlFor="">Last Name:</label>
-            <input type="text" onChange={(e) => setEmail(e.target.value)} required />
+            <input type="text" name="lastName" onChange={handleTextChange} required />
           </div>
-          <div>
-            <label htmlFor="">Zip Code:</label>
-            <input type="text" pattern="[0-9]*" onChange={(e) => setEmail(e.target.value)} required />
-          </div>
-
           <div>
             <label htmlFor="">Email</label>
-            <input type="text" onChange={(e) => setEmail(e.target.value)} required />
+            <input type="text" name="email" onChange={handleTextChange} required />
           </div>
 
           <div>
             <label htmlFor="">Password</label>
-            <input type="password" onChange={(e) => setPassword(e.target.value)} required />
+            <input type="password" name="password" onChange={handleTextChange} required />
           </div>
 
           <div>

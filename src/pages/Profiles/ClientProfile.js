@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import ClientInfo from '../../components/ClientProfile/ClientInfo';
 import { NavLink } from 'react-router-dom';
 import DisplayPets from '../../components/ClientProfile/DisplayPets';
 import getHost from '../../services/host/getHost'
