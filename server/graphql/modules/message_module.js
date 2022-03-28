@@ -99,6 +99,8 @@ module.exports.messageModule = createModule({
                 const userId = await decodeToken(context);
                 if (!userId) return jwtError();
 
+                console.log(userId);
+
                 const user = await findUserById(userId);
                 if (!user) return userIdNotFoundError(userId);
 
