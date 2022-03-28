@@ -3,10 +3,12 @@ import Footer from "./parts/Footer";
 
 export default function BaseLayout(props) {
   return (
-    <div className="flex flex-col h-screen">
-      <NavBar />
-      <main className=" flex-grow">{props.children}</main>
-      <Footer />
-    </div>
+    <>
+      <div className="flex flex-col min-h-screen">
+        <NavBar />
+        <main>{props.children}</main>
+        <Footer />
+      </div>
+    </>
   );
 }
