@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import createUser from "../../services/user/createUser";
+import { connect } from "react-redux";
+import * as actionCreators from "../../store/action_creators/actionCreators";
 
-export default function Register() {
+function Register(props) {
   const [password2, setPassword2] = useState("");
   const [user, setUser] = useState({});
   const navigate = useNavigate();
@@ -20,6 +22,7 @@ export default function Register() {
     const response = await createUser(user);
 
     if (response.data.createUser.success) {
+      props.onRegister(response.data.createUser.token)
       navigate("/");
     } else {
       alert(response.data.createUser.message);
@@ -68,3 +71,10 @@ export default function Register() {
     </div>
   );
 }
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onRegister: (token) => dispatch(actionCreators.login(token)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Register);

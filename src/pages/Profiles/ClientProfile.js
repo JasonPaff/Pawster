@@ -31,9 +31,7 @@ function ClientProfile() {
       <div className="col-span-2 border p-5 row-span-2">
         <div>Current Bookings + Communication</div>
       </div>
-      <div className="text-sky-400">
-        <NavLink to="/profile/edit-visit">Edit Drop-in Visit Info</NavLink>
-      </div>
+
       <div className="border p-5 row-span-3">
         Host Actions
         <div className="text-sky-400">
@@ -41,6 +39,9 @@ function ClientProfile() {
         </div>
         <div className="text-sky-400">
           <NavLink to="/profile/edit-sitting">Edit Home Sitting Info</NavLink>
+        </div>
+        <div className="text-sky-400">
+          <NavLink to="/profile/edit-visit">Edit Drop-in Visit Info</NavLink>
         </div>
         <div className="text-sky-400">
           <NavLink to="/profile/edit-daycare">Edit Day Care Info</NavLink>

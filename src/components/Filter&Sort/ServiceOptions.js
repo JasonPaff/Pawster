@@ -59,7 +59,6 @@ const data = {
 
 function ServiceOptions(props) {
   const [selected, setSelected] = useState(data[0]);
-  console.log(selected);
   props.onToggleService({ [selected]: true });
 
   const availableServices = data.services.map(({ id, name, options }) => {
@@ -79,7 +78,6 @@ function ServiceOptions(props) {
               }
             >
               {({ checked }) => {
-                console.log(opt.iconColor);
                 let imgURL = opt.iconColor;
                 return (
                   <span className={checked ? "text-accent-red" : "text-slate-600"}>
