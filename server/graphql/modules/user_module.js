@@ -6,9 +6,13 @@ const {deletePets} = require("../../mongodb/operations/pet_operations");
 const {deleteAddress} = require("../../mongodb/operations/address_operations");
 const {hashPassword, comparePasswordHashes} = require("../../utils/password_utils");
 const {deleteAllUserPhotos} = require("../../mongodb/operations/user_photo_operations");
-const {updateUser, createUser, deleteUser, findUserByEmail, findUserById, doesUserEmailExist} = require("../../mongodb/operations/user_operations");
-const {invalidUsernamePasswordError, invalidPasswordError, userAlreadyExistsError, userIdNotFoundError, userEmailNotFoundError} = require("../api_responses/user/user_error");
-const {createUserSuccess, passwordUpdatedSuccess, emailUpdatedSuccess, accountDeletedSuccess, userEmailFoundSuccess, userIdFoundSuccess} = require("../api_responses/user/user_success");
+const {updateUser, createUser, deleteUser, findUserByEmail, findUserById, doesUserEmailExist, findUsers} = require("../../mongodb/operations/user_operations");
+const {invalidUsernamePasswordError, invalidPasswordError, userAlreadyExistsError, userIdNotFoundError, userEmailNotFoundError,
+    usersNotFoundError
+} = require("../api_responses/user/user_error");
+const {createUserSuccess, passwordUpdatedSuccess, emailUpdatedSuccess, accountDeletedSuccess, userEmailFoundSuccess, userIdFoundSuccess,
+    usersFoundSuccess
+} = require("../api_responses/user/user_success");
 
 module.exports.userModule = createModule({
     id: 'user_module',
@@ -19,6 +23,7 @@ module.exports.userModule = createModule({
                 getUserByEmail(email: String!): UserResponse
                 getUserById(userId: ID!): UserResponse
                 getUser : UserResponse
+                getHostUsers : UsersResponse
                 validateUserLogin(email: String!, password: String!) : UserLoginResponse
             }
 
@@ -57,6 +62,12 @@ module.exports.userModule = createModule({
                 message: String
                 user: User
             }
+            
+            type UsersResponse {
+                success: Boolean
+                message: String
+                users: [User]
+            }
         `
     ],
     resolvers: {
@@ -73,6 +84,12 @@ module.exports.userModule = createModule({
 
                 return userIdFoundSuccess(user);
             },
+            getHostUsers: async (parent, {}, context) => {
+                const users = await findUsers();
+                if (!users) return usersNotFoundError();
+
+                return usersFoundSuccess(users);
+            },
             getUserByEmail: async (parent, {email}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
@@ -82,7 +99,7 @@ module.exports.userModule = createModule({
 
                 return userEmailFoundSuccess(user);
             },
-            getUserById: async (parent, {userId}, context) => {
+            getUserById: async (parent, {userId}) => {
                 const user = await findUserById(userId);
                 if (!user) return userIdNotFoundError(userId);
 

@@ -3,9 +3,9 @@ const {authenticate, decodeToken} = require("../../utils/auth_utils");
 const {jwtError} = require("../api_responses/auth/auth_error");
 const {userIdNotFoundError} = require("../api_responses/user/user_error");
 const {findUserById} = require("../../mongodb/operations/user_operations");
-const {hostNotFoundError, hostAlreadyExistsError, hostDoesNotExistError} = require("../api_responses/host/host_error");
-const {findHost, doesHostExist, createHost, updateHost, deleteHost} = require("../../mongodb/operations/host_operations");
-const {hostFoundSuccess, hostCreatedSuccess, hostUpdatedSuccess, hostDeletedSuccess} = require("../api_responses/host/host_success");
+const {hostNotFoundError, hostAlreadyExistsError, hostDoesNotExistError, hostsNotFoundError} = require("../api_responses/host/host_error");
+const {findHost, doesHostExist, createHost, updateHost, deleteHost, findHosts, findHostUsers} = require("../../mongodb/operations/host_operations");
+const {hostFoundSuccess, hostCreatedSuccess, hostUpdatedSuccess, hostDeletedSuccess, hostsFoundSuccess} = require("../api_responses/host/host_success");
 
 module.exports.hostModule = createModule({
     id: 'host_module',
@@ -14,7 +14,9 @@ module.exports.hostModule = createModule({
         gql`
             extend type Query {
                 getHost : HostResponse
+                getAllHosts : HostsResponse
                 getHostById(userId: ID!) : HostResponse
+                
             }
 
             extend type Mutation {
@@ -76,6 +78,12 @@ module.exports.hostModule = createModule({
                 message: String
                 host: Host
             }
+
+            type HostsResponse {
+                success: Boolean
+                message: String
+                hosts: [Host]
+            }
         `
     ],
     resolvers: {
@@ -91,6 +99,12 @@ module.exports.hostModule = createModule({
                 if (!host) return hostNotFoundError(userId);
 
                 return hostFoundSuccess(host);
+            },
+            getAllHosts: async (parent, {}, context) => {
+                const hosts = await findHosts();
+                if (!hosts) return hostsNotFoundError();
+
+                return hostsFoundSuccess(hosts);
             },
             getHostById: async (parent, {userId}) => {
                 const user = await findUserById(userId);
@@ -135,7 +149,7 @@ module.exports.hostModule = createModule({
 
                 await updateHost(userId, updatedHost);
 
-                return hostUpdatedSuccess(updatedHost);
+                return hostUpdatedSuccess(userId, updatedHost);
             },
             deleteHost: async (parent, {}, context) => {
                 const authenticated = await authenticate(context);

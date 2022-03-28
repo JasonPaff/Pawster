@@ -8,7 +8,6 @@ export default async function getUserProfilePhoto() {
             success
             message
             photo {
-                userId
                 photo
                 photoType
                 isProfilePhoto

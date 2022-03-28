@@ -6,6 +6,14 @@
     };
 };
 
+module.exports.hostsNotFoundError = () => {
+    return {
+        success: false,
+        message: `no host accounts found`,
+        hosts: null
+    };
+};
+
 module.exports.hostAlreadyExistsError = (userId) => {
     return {
         success: false,

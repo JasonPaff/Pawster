@@ -8,4 +8,4 @@ const review_schema = new mongoose.Schema({
     dateReviewed: {type: Date, default: Date.now},
 });
 
-module.exports.Sitting = mongoose.model('Review', review_schema);
+module.exports.Review = mongoose.model('Review', review_schema);

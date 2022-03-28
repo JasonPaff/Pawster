@@ -1,31 +1,31 @@
-﻿module.exports.visitFoundSuccess = (visit) => {
+﻿module.exports.visitFoundSuccess = (userId, visit) => {
     return {
         success: true,
-        message: `visit found for ${visit.userId}`,
+        message: `visit found for ${userId}`,
         visit: visit
     };
 };
 
-module.exports.visitCreatedSuccess = (visit) => {
+module.exports.visitCreatedSuccess = (userId, visit) => {
     return {
         success: true,
-        message: `visit created for ${visit.userId}`,
+        message: `visit created for ${userId}`,
         visit: visit
     };
 };
 
-module.exports.visitUpdatedSuccess = (visit) => {
+module.exports.visitUpdatedSuccess = (userId, visit) => {
     return {
         success: true,
-        message: `visit updated for ${visit.userId}`,
+        message: `visit updated for ${userId}`,
         visit: visit
     };
 };
 
-module.exports.visitDeletedSuccess = (visit) => {
+module.exports.visitDeletedSuccess = (userId, visit) => {
     return {
         success: true,
-        message: `visit for ${visit.userId} deleted`,
+        message: `visit for ${userId} deleted`,
         visit: visit
     };
 };

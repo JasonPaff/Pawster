@@ -43,7 +43,7 @@ module.exports.daycareModule = createModule({
                 bathingRate: Float
                 catRate: Float
                 holidayRate: Float
-                hourlyRate: Float
+                pickUpDropOffRate: Float
                 puppyRate: Float
             }
 
@@ -69,7 +69,7 @@ module.exports.daycareModule = createModule({
                 const daycare = await findDaycare(userId);
                 if (!daycare) return daycareNotFoundError(userId);
 
-                return daycareFoundSuccess(daycare);
+                return daycareFoundSuccess(userId, daycare);
             },
             getDaycareById: async (parent, {userId}) => {
                 const user = await findUserById(userId);
@@ -78,7 +78,7 @@ module.exports.daycareModule = createModule({
                 const daycare = await findDaycare(userId);
                 if (!daycare) return daycareNotFoundError(userId);
 
-                return daycareFoundSuccess(daycare);
+                return daycareFoundSuccess(userId, daycare);
             }
         },
         Mutation: {
@@ -97,7 +97,7 @@ module.exports.daycareModule = createModule({
 
                 const newDaycare = await createDaycare(userId, daycare);
 
-                return daycareCreatedSuccess(newDaycare);
+                return daycareCreatedSuccess(userId, newDaycare);
             },
             updateDaycare: async (parent, {updatedDaycare}, context) => {
                 const authenticated = await authenticate(context);
@@ -114,7 +114,7 @@ module.exports.daycareModule = createModule({
 
                 await updateDaycare(userId, updatedDaycare);
 
-                return daycareUpdatedSuccess(updatedDaycare);
+                return daycareUpdatedSuccess(userId, updatedDaycare);
             },
             deleteDaycare: async (parent, {}, context) => {
                 const authenticated = await authenticate(context);
@@ -131,7 +131,7 @@ module.exports.daycareModule = createModule({
 
                 await deleteDaycare(userId);
 
-                return daycareDeletedSuccess(userId);
+                return daycareDeletedSuccess(userId, existingDaycare);
             }
         }
     }

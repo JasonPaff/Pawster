@@ -20,7 +20,6 @@ export default async function updateHost(updatedHost) {
                 experience
                 hasChildren
                 hasOtherPets
-                id
                 isHomeFullTime
                 isSmoking
                 range
@@ -29,7 +28,6 @@ export default async function updateHost(updatedHost) {
                 totalCanHost
                 typeOfHome
                 typeOfYard
-                userId
             }
         }
     }`

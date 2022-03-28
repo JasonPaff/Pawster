@@ -79,7 +79,6 @@ function ServiceOptions(props) {
         </label>
         <input type="checkbox" className=" inline" id="cat-services" />
       </div>
-
       <div>
         {availableServices}
 

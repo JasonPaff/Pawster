@@ -2,13 +2,12 @@
 import {apiRoute} from "../../utils/apiRoute";
 import getGqlString from "../../utils/graphql_utils";
 
-export default async function getUserById() {
-    let query = gql`query Query {
-        getUserById {
+export default async function getUserById(userId) {
+    let query = gql`query Query ($userId: ID!) {
+        getUserById (userId: $userId) {
             success
             message
             user {
-                id
                 email
                 password
                 firstName
@@ -27,7 +26,10 @@ export default async function getUserById() {
             Authorization: localStorage.getItem('token')
         },
         body: JSON.stringify({
-            query
+            query,
+            variables: {
+                userId: userId
+            }
         })
     };
 

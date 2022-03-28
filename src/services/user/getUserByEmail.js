@@ -8,7 +8,6 @@ export default async function getUserByEmail(email) {
             success
             message
             user {
-                id
                 email
                 password
                 firstName

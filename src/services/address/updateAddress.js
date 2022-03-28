@@ -4,7 +4,7 @@ import getGqlString from "../../utils/graphql_utils";
 
 export default async function updateAddress(address) {
     let query = gql`mutation Mutation($address: AddressInput!) {
-        updateAddress(address: $address) {
+        updateAddress(updatedAddress: $address) {
             success
             message
             address {

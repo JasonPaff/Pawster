@@ -2,17 +2,25 @@
 import {gql} from "@apollo/client";
 import getGqlString from "../../utils/graphql_utils";
 
-export default async function getSearchProfilePhoto(userId) {
+export default async function getMessageThreadBySenderId(userId) {
     let query = gql`query Query($userId: ID!) {
-        getSearchProfilePhoto(userId: $userId) {
+        getMessageThreadsBySenderId(userId: $userId) {
+            messageThreads {
+                messages {
+                    userId
+                    sentAt
+                    message
+                }
+                isVisibleToReceiver
+                isVisibleToSender
+                id
+                createdAt
+                receiverUserId
+                senderUserId
+                subject
+            }
             success
             message
-            photo {
-                userId
-                photo
-                photoType
-                isProfilePhoto
-            }
         }
     }`
     query = getGqlString(query);
@@ -26,7 +34,7 @@ export default async function getSearchProfilePhoto(userId) {
         },
         body: JSON.stringify({
             query,
-            variables: {
+            variables : {
                 userId
             }
         })

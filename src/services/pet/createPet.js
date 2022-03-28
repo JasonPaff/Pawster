@@ -8,8 +8,6 @@ export default async function createPet(pet) {
             success
             message
             pet {
-                id
-                userId
                 name
                 additionalInfo
                 ageMonth

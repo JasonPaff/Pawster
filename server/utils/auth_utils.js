@@ -1,13 +1,10 @@
 ﻿const jwt = require('jsonwebtoken');
 
 module.exports.authenticate = async (context) => {
-    // get authorization header
     const token = await context.req.headers['authorization'];
 
-    // no token attached
     if (!token) return false;
 
-    // verify token
     try { await jwt.verify(token, process.env.JWT_KEY, null, null); }
     catch (err) { return false }
 
@@ -19,7 +16,6 @@ module.exports.createToken = async (userId) => {
 }
 
 module.exports.decodeToken = async (context) => {
-    // get authorization header
     const token = await context.req.headers['authorization'];
 
     try {

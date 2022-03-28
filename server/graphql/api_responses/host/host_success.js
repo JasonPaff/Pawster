@@ -6,6 +6,14 @@
     };
 };
 
+module.exports.hostsFoundSuccess = (hosts) => {
+    return {
+        success: true,
+        message: `host accounts found`,
+        hosts: hosts
+    };
+};
+
 module.exports.hostCreatedSuccess = (host) => {
     return {
         success: true,
@@ -14,10 +22,10 @@ module.exports.hostCreatedSuccess = (host) => {
     };
 };
 
-module.exports.hostUpdatedSuccess = (host) => {
+module.exports.hostUpdatedSuccess = (userId, host) => {
     return {
         success: true,
-        message: `host account updated for ${host.userId}`,
+        message: `host account updated for ${userId}`,
         host: host
     };
 };

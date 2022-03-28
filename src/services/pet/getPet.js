@@ -16,7 +16,6 @@ export default async function getPet(petId) {
                 description
                 energyLevel
                 feedingSchedule
-                id
                 isHouseBroken
                 isFixed
                 isFriendlyToChildren
@@ -28,7 +27,6 @@ export default async function getPet(petId) {
                 name
                 pottySchedule
                 type
-                userId
                 vetDetails
                 weight
             }
