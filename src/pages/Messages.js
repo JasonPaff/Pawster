@@ -1,9 +1,8 @@
 ﻿import React, {useEffect, useState} from "react";
+import {loadMessages} from "../utils/message_utils";
 import {useSubscription} from "@apollo/react-hooks";
 import MessageList from "../parts/Messages/MessageList";
 import SelectedMessage from "../parts/Messages/SelectedMessage";
-import {adjustTimes, attachNames} from "../utils/message_utils";
-import getMessageThreads from "../services/messages/getMessageThreads";
 import {messageAddedToThreadSubscription} from "../services/messages/messageAddedToThreadSubscription";
 import {messageThreadCreatedSubscription} from "../services/messages/messageThreadCreatedSubscription";
 
@@ -13,6 +12,7 @@ export default function Messages() {
     const [messages, setMessages] = useState([]);
     const [selectedMessage, setSelectedMessage] = useState([]);
     const [reloadMessages, setReloadMessages] = useState(true);
+
     const userId = localStorage.getItem('id');
 
     useSubscription(messageAddedToThreadSubscription, {
@@ -34,26 +34,10 @@ export default function Messages() {
     });
 
     useEffect(() => {
-        loadMessages().catch((err) => console.log(err));
+        loadMessages(selectedMessage, setSelectedMessage, setMessages)
+            .catch((err) => console.log(err));
         setReloadMessages(false);
     }, [reloadMessages]);
-
-    const loadMessages = async () => {
-        const messageThreadsData = await getMessageThreads();
-        const messageThreads = messageThreadsData.data.getMessageThreads.messageThreads;
-
-        await attachNames(messageThreads);
-        await adjustTimes(messageThreads);
-        await setMessages(messageThreads);
-
-        // reload currently selected message
-        for (let c = 0; c < messageThreads.length; c++) {
-            if (messageThreads[c].id === selectedMessage.id) {
-               await setSelectedMessage(messageThreads[c]);
-               break;
-            }
-        }
-    };
 
     return (
         <div className="flex flex-col px-4 sm:grid sm:grid-cols-2 sm:grid-rows-2 items-start">
