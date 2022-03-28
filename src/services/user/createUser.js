@@ -14,6 +14,7 @@ export default async function createUser(user) {
                 firstName
                 lastName
                 dateCreated
+                id
             }
         }
     }`
@@ -37,7 +38,10 @@ export default async function createUser(user) {
     const response = await request.json();
 
     if (response.data.createUser.success) {
-        localStorage.setItem("token", response.data.createUser.token);
+      localStorage.setItem('token', response.data.createUser.token);
+      localStorage.setItem('firstName', response.data.createUser.user.firstName);
+      localStorage.setItem('lastName', response.data.createUser.user.lastName)
+      localStorage.setItem('id', response.data.createUser.user.id)
     }
 
     return response;

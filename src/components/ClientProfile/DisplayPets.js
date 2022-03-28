@@ -8,7 +8,7 @@ function DisplayPets() {
     const [pets, setPets] = useState([])
 
     useEffect(() => {
-        getPets().then((result) => {setPets(result.data.getPets.pets)})
+        getPets().then((result) => {setPets(result.data.getPets.pets || [])})
     }, [])
 
     const petList = pets.map((pet, index) => {
