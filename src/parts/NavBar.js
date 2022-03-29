@@ -3,7 +3,7 @@ import { BiSearchAlt } from "react-icons/bi";
 import Profile from "../components/NavAccount/ProfileMenu";
 import LoginMenu from "../components/NavAccount/LoginMenu";
 import { connect } from "react-redux";
-import NotificationButton from "../components/NavAccount/NotificationsButton";
+import Notifications from "../components/Notifications/Notifications";
 
 function NavBar(props) {
   return (
@@ -21,7 +21,7 @@ function NavBar(props) {
         <div className="relative flex sm:mr-10">
           {props.isAuth ? <Profile /> : <LoginMenu />}
           <div className="ml-2">
-            {props.isAuth && (<NotificationButton> </NotificationButton>)}
+            {props.isAuth && (<Notifications/>)}
           </div>
         </div>
       </div>
