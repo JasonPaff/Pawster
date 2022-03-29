@@ -71,17 +71,20 @@ function CreateVisit() {
     }
   }
 
-  function setStateAsync(host) {
-    return new Promise((resolve) => {
-      setHost({
-        ...host,
-        doesDropInVisits: false
-      }, resolve)
-    });
-  }
+  // function setStateAsync(host) {
+  //   return new Promise((resolve) => {
+  //     setHost({
+  //       ...host,
+  //       doesDropInVisits: false
+  //     }, resolve)
+  //   });
+  // }
 
   async function handleDeleteService() {
-    await setStateAsync(host)
+    setHost({
+        ...host,
+        doesDropInVisits: false
+      })
     const response = await deleteVisit();
     if (response.data.deleteVisit.success) {
         console.log(host)
