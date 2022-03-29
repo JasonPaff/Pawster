@@ -71,7 +71,7 @@ function ServiceOptions(props) {
               value={opt.name}
               name={name}
               className={({ active, checked }) =>
-                `flex rounded bg-white p-3 justify-center items-center cursor-pointer focus:outline-none border 
+                `flex rounded bg-white w-36 h-24 justify-center items-center cursor-pointer focus:outline-none border 
                 ${active ? "ring-2 ring-offset-1 ring-offset-accent-red ring-white ring-opacity-60 " : ""}
                   ${checked ? "border-accent-red " : "border-slate-300 "}
                      `
@@ -95,7 +95,7 @@ function ServiceOptions(props) {
   // radio updates global state in real time?
 
   return (
-    <div className=" sm:w-[800px] w-[400px] m-4 rounded overflow-hidden bg-background-light bg-red-400 border border-slate-300 ">
+    <div className="rounded overflow-hidden bg-background-light border border-slate-300 m-4">
       {/* TODO: filter by Dog and Cat  services   */}
       <div className="flex flex-row py-2 px-6 gap-2 items-center bg-background-darker">
         <p>I'm looking for service for my:</p>
