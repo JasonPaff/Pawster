@@ -15,6 +15,7 @@ const {messageThreadsFoundSuccess, messageThreadsForReceiverFoundSuccess, messag
     messageThreadFoundSuccess, messageThreadCreatedSuccess, messageCreatedSuccess, hideThreadForReceiverSuccess,
     hideThreadForSenderSuccess
 } = require("../api_responses/message/message_success");
+const {addNotification} = require("../../mongodb/operations/notification_operations");
 
 module.exports.messageModule = createModule({
     id: 'message_module',
