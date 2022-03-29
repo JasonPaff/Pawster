@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { NavLink } from "react-router-dom";
 import getUserById from '../../services/user/getUserById'
 import getHostById from '../../services/host/getHostById'
+import DisplayPets from '../../components/ClientProfile/DisplayPets';
+import DisplayServices from '../../components/HostProfile/DisplayServices';
+
+
+const card = "bg-white border border-slate-200 shadow-sm  rounded-md p-5 ";
 
 function HostProfile() {
 
@@ -25,8 +31,20 @@ function HostProfile() {
 
 
   return (
-    <div className="flex justify-around">
-        <div>{user.firstName}'s Host Profile</div>
+    <div className="grid row-span-2">
+      <div className={`${card} row-span-1`}>
+        Account Info
+      </div>
+
+      <div className={`${card} row-span-1`}>
+        Services
+        <DisplayServices hostId={params.userId}/>
+      </div>
+
+      <div className={`${card} row-span-2 col-span-2`}>
+        Pets
+        <DisplayPets />
+      </div>
     </div>
   );
 }
