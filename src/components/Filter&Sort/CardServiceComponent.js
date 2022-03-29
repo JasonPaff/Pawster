@@ -10,7 +10,7 @@ function CardServiceComponent(props) {
         return (
           <RadioGroup.Option
             key={opt.id}
-            value={opt.name}
+            value={opt}
             name={opt.name}
             className={({ active, checked }) =>
               `flex rounded bg-white w-36 h-24 justify-center items-center cursor-pointer focus:outline-none border 
