@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
 import * as actionCreators from "../../store/action_creators/filterActionCreator"
+import ServiceDropdown from './ServiceDropdown'
 
 const mapStateToProps = (state) => {
   return {
@@ -29,8 +30,9 @@ function FilterOptions(props) {
 
     return (
       <div className="flex-col justify-center p-10 border">
-        <h1>Filters</h1>
+        <ServiceDropdown/>
         <div>
+            <h1>Filters</h1>
             <div><input type="checkbox" defaultChecked={props.canHostMultiplePets} name="canHostMultiplePets" onChange={(e) => props.onToggleMultiPets(e.target.checked)} /> Can Host Multiple Pets</div>
             <div><input type="checkbox" defaultChecked={props.canHostUnspayedFemales} name="canHostUnspayedFemales" onChange={(e) => props.onToggleUnspayed(e.target.checked)}/> Can Host Unspayed Females</div>
             <div><input type="checkbox" defaultChecked={props.hasChildren} name="hasChildren" onChange={(e) => props.onToggleChildren(e.target.checked)}/> Has Children</div>
