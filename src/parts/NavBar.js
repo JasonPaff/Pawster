@@ -18,9 +18,9 @@ function NavBar(props) {
             Search
           </NavLink>
         </div>
-        <div className="relative flex items-center sm:mr-10">
+        <div className="relative flex gap-2 items-center sm:mr-10">
           {props.isAuth ? <Profile /> : <LoginMenu />}
-          <div className="ml-2">{props.isAuth && <NotificationButton> </NotificationButton>}</div>
+          <div className="">{props.isAuth && <NotificationButton> </NotificationButton>}</div>
         </div>
       </div>
     </div>
