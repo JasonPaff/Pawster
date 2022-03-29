@@ -1,6 +1,7 @@
 ﻿import {BellIcon} from "@heroicons/react/outline";
 
 export default function NotificationButton() {
+
     return (
         <button
             type="button"
