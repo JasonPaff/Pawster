@@ -1,14 +1,15 @@
 ﻿import {Popover, Transition} from '@headlessui/react'
-import {BellIcon} from "@heroicons/react/outline";
 import {Fragment} from "react";
+import {BiBell} from "react-icons/bi";
 
 export default function NotificationDropdown(props) {
 
     return (
         <Popover className="relative">
             <Popover.Button
-                className="p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none">
-                <BellIcon className="h-4 w-4" aria-hidden="true"/>
+                className="p-1 rounded-full text-slate-400  hover:text-accent-red hover:bg-transparent
+                    hover:border-accent-red focus:outline-none border-transparent">
+                <BiBell className="h-5 w-5" aria-hidden="true"/>
             </Popover.Button>
             <Transition
                 as={Fragment}

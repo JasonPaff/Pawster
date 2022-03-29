@@ -3,6 +3,8 @@ import { NavLink } from "react-router-dom";
 import DisplayPets from "../../components/ClientProfile/DisplayPets";
 import getHost from "../../services/host/getHost";
 
+const card = "bg-white border border-slate-200 shadow-sm  rounded-md p-5 ";
+
 function ClientProfile() {
   const [host, setHost] = useState({});
   const userId = localStorage.getItem("id");
@@ -15,7 +17,7 @@ function ClientProfile() {
 
   return (
     <div className="grid grid-cols-3 gap-4 grid-rows-4 p-12">
-      <div className="border p-5 row-span-1">
+      <div className={`${card}`}>
         Account Info
         <div className="text-sky-400">
           <NavLink to="/profile/account-info">Update</NavLink>
@@ -28,11 +30,11 @@ function ClientProfile() {
         </div>
       </div>
 
-      <div className="col-span-2 border p-5 row-span-2">
+      <div className={`${card} row-span-2 col-span-2`}>
         <div>Current Bookings + Communication</div>
       </div>
 
-      <div className="border p-5 row-span-3">
+      <div className={`${card} row-span-3`}>
         Host Actions
         <div className="text-sky-400">
           <NavLink to="/profile/edit-boarding">Edit Boarding Info</NavLink>
@@ -58,7 +60,7 @@ function ClientProfile() {
         </div>
       </div>
 
-      <div className="col-span-2 border p-5 row-span-2">
+      <div className={`${card} col-span-2 row-span-2`}>
         Pets
         <DisplayPets />
         <div className="text-sky-400">

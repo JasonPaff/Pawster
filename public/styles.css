@@ -32,7 +32,7 @@ input:required:valid {
 
 #banner {
   background-image: url("banners/pexels-5255523.jpg");
-  min-height: 50vh;
+  min-height: 46vh;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
