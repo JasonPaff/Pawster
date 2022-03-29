@@ -5,6 +5,8 @@ import hostsFilter from '../utils/hostsFilter'
 import getAllHosts from '../services/host/getAllHosts'
 import * as actionCreators from '../store/action_creators/actionCreators'
 
+// needs to put the addresses of the hosts in a seperate array, global state, and passed onto the maps to set pins
+
 const mapStateToProps = (state) => {
     return {
       hosts: state.hostsRed.hosts,
@@ -24,7 +26,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onGetHost: (hosts) => dispatch(actionCreators.getHosts(hosts))
+    onGetHost: (hosts) => dispatch(actionCreators.getHosts(hosts)),
+    onGetFilteredHosts:  (filteredHosts) => dispatch(actionCreators.getFilteredHosts(filteredHosts))
   }
 }
 
@@ -35,7 +38,6 @@ function DisplayHosts(props) {
   useEffect(() => {
     if (props.hosts.length === 0) {
       getAllHosts().then((result) => {
-        console.log(result)
         const users = result.data.getHostUsers.users
         const hosts = result.data.getAllHosts.hosts
         const addresses = result.data.getHostAddresses.addresses
@@ -58,16 +60,14 @@ function DisplayHosts(props) {
       props.canHostUnspayedFemales, props.hasChildren, props.hasOtherPets,
       props.isHomeFullTime, props.isSmoking
     )
-    console.log(hosts)
     setFilteredHosts(hosts)
+    props.onGetFilteredHosts(hosts)
   },[
     props.hosts, props.doesBoarding, props.doesHouseSitting, props.doesDropInVisits,
     props.doesDayCare, props.doesDogWalking, props.canHostMultiplePets,
     props.canHostUnspayedFemales, props.hasChildren, props.hasOtherPets,
     props.isHomeFullTime, props.isSmoking 
   ])
-
-  console.log(filteredHosts)
 
   const hosts = filteredHosts.map((host, index) => {
       return <NavLink key={index} to={`/profile/host/${host.id}`}>

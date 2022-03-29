@@ -1,3 +1,4 @@
+
 export default function hostsFilter(
     hosts, doesBoarding, doesHouseSitting, doesDropInVisits, doesDayCare, doesDogWalking,
     canHostMultiplePets, canHostUnspayedFemales, hasChildren, hasOtherPets, isHomeFullTime,
@@ -72,3 +73,4 @@ export default function hostsFilter(
 
     return hosts
 }
+
