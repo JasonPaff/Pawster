@@ -17,11 +17,17 @@ footer {
   bottom: 0;
 }
 
+/* input:focus:required:invalid {
+  border: 1px solid red;
+}
+input:required:valid {
+  background-color: white;
+} */
+
 #root {
   position: relative;
   min-height: 100%;
   width: 100%;
-  background-color: ;
 }
 
 #banner {

@@ -6,20 +6,27 @@ import getHostById from '../../services/host/getHostById'
 function HostProfile() {
 
   const params = useParams()
-
-  console.log(params.userId)
   
   const [host, setHost] = useState({})
   const [user, setUser] = useState({})
 
   useEffect(() => {
-    getUserById(params.userId).then((result) => {console.log(result)})
-    getHostById(params.userId).then((result) => {console.log(result)})
+    getUserById(params.userId).then((result) => {setUser(result.data.getUserById.user)})
+    getHostById(params.userId).then((result) => {setHost(result.data.getHostById.host)})
   },[])
+
+  // const hostInfo = host.map((host) => {
+  //   return <li key={host.id}>{}</li>
+  // })
+
+  // const userInfo = host.map((userInfo) => {
+  //   return <li key={host.id}>{}</li>
+  // })
+
 
   return (
     <div className="flex justify-around">
-        
+        <div>{user.firstName}'s Host Profile</div>
     </div>
   );
 }
