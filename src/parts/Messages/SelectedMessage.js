@@ -1,5 +1,6 @@
 ﻿import React, {useState} from "react";
 import addMessageToThread from "../../services/messages/addMessageToThread";
+import addNotification from "../../services/notifications/addNotification";
 
 export default function SelectedMessage(props) {
     const [messageText, setMessageText] = useState(' ');
@@ -8,6 +9,12 @@ export default function SelectedMessage(props) {
         await addMessageToThread({
             message: messageText,
             threadId: props.selectedMessage.id
+        });
+
+        await addNotification({
+            userId: props.selectedMessage.receiverUserId,
+            message: "you have a new message",
+            link: "profile/messages"
         });
     }
 

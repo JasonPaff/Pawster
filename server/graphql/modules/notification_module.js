@@ -71,7 +71,7 @@ module.exports.notificationModule = createModule({
 
                 const notifications = await getNotifications(userId);
                 if (!notifications || notifications.length === 0) return notificationsNotFoundError(userId);
-                console.log(notifications);
+
                 return notificationsFoundSuccess(userId, notifications);
             }
         },
