@@ -12,7 +12,7 @@ module.exports.authenticate = async (context) => {
 }
 
 module.exports.createToken = async (userId) => {
-    return jwt.sign({userId: userId}, process.env.JWT_KEY,{ expiresIn: 36000}, null);
+    return jwt.sign({userId: userId}, process.env.JWT_KEY, null, null);
 }
 
 module.exports.decodeToken = async (context) => {

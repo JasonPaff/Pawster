@@ -13,11 +13,13 @@ const {reviewModule} = require("./modules/review_module");
 const {sittingModule} = require("./modules/sitting_module");
 const {visitModule} = require("./modules/visiting_module");
 const {walkingModule} = require("./modules/walking_module");
+const {notificationModule} = require("./modules/notification_module");
 
 module.exports.graphql_schema = createApplication({
     modules: [
         addressModule, boardingModule, dateModule, daycareModule,
         hostModule, messageModule, petModule, petPhotoModule, reviewModule,
-        sittingModule, userModule, userPhotoModule, visitModule, walkingModule
+        sittingModule, userModule, userPhotoModule, visitModule, walkingModule,
+        notificationModule
     ]
 }).createSchemaForApollo();
