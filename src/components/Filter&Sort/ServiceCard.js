@@ -55,15 +55,44 @@ const data = {
       ],
     },
   ],
+  weights: [
+    {
+      id: 1,
+      name: "Weights",
+      options: [
+        {
+          id: "w1",
+          title: "Small",
+          weight: "1 - 15",
+        },
+        {
+          id: "w2",
+          title: "Medium",
+          weight: "16 - 40",
+        },
+        {
+          id: "w3",
+          title: "Large",
+          weight: "41 - 100",
+        },
+        {
+          id: "w4",
+          title: "Giant",
+          weight: "101 - 200",
+        },
+      ],
+    },
+  ],
 };
 
 function ServiceOptions(props) {
-  const [selected, setSelected] = useState(data[0]);
-  props.onToggleService({ [selected]: true });
+  const [selectedService, setSelectedService] = useState([]);
+  const [selectedWeight, setSelectedWeight] = useState([]);
+  props.onToggleService({ [selectedService]: true });
 
   const availableServices = data.services.map(({ id, name, options }) => {
     return (
-      <RadioGroup key={id} value={selected} onChange={setSelected} className="flex gap-2 p-6 flex-wrap justify-around ">
+      <RadioGroup key={id} value={selectedService} onChange={setSelectedService} className="flex gap-2 p-6 flex-wrap justify-around ">
         {options.map((opt, i) => {
           return (
             <RadioGroup.Option
@@ -92,7 +121,36 @@ function ServiceOptions(props) {
     );
   });
 
-  // radio updates global state in real time?
+  const weightOptions = data.weights.map(({ id, name, options }) => {
+    return (
+      <RadioGroup key={id} value={selectedWeight} onChange={setSelectedWeight} className="flex gap-2 flex-wrap justify-around ">
+        {options.map((opt, i) => {
+          return (
+            <RadioGroup.Option
+              key={opt.id}
+              value={opt.title}
+              name={name}
+              className={({ active, checked }) =>
+                `flex rounded bg-white justify-center items-center cursor-pointer focus:outline-none border 
+                ${active ? "ring-2 ring-offset-1 ring-offset-accent-red ring-white ring-opacity-60 " : ""}
+                ${checked ? "border-accent-red " : "border-slate-300 "}
+                `
+              }
+            >
+              {({ checked }) => {
+                return (
+                  <div className="flex flex-col text-sm w-28 items-center p-2 border rounded">
+                    <div className={checked ? "text-accent-red" : "text-slate-600"}>{opt.title}</div>
+                    <div className={checked ? "text-accent-red" : "text-slate-600"}>{opt.weight} Lbs</div>
+                  </div>
+                );
+              }}
+            </RadioGroup.Option>
+          );
+        })}
+      </RadioGroup>
+    );
+  });
 
   return (
     <div className="rounded overflow-hidden bg-background-light border border-slate-300 m-4">
@@ -110,31 +168,11 @@ function ServiceOptions(props) {
       </div>
       <div>
         {availableServices}
-
-        <div className="flex space-x-20">
-          <div>
-            <label htmlFor="radio1">Option 1</label>
-            <input className="radioInput" type="radio" name="serviceType" id="radio1"></input>
-          </div>
-          <div>
-            <label htmlFor="radio2">Option 2</label>
-            <input className="radioInput" type="radio" name="serviceType" id="radio2"></input>
-          </div>
-          <div>
-            <label htmlFor="radio3">Option 3</label>
-            <input className="radioInput" type="radio" name="serviceType" id="radio3"></input>
-          </div>
-          <div>
-            <label htmlFor="radio4">Option 4</label>
-            <input className="radioInput" type="radio" name="serviceType" id="radio4"></input>
-          </div>
-          <div>
-            <label htmlFor="radio5">Option 5</label>
-            <input className="radioInput" type="radio" name="serviceType" id="radio5"></input>
-          </div>
+        <div className="flex flex-row gap-4 p-6 justify-items-stretch">
+          {weightOptions}
+          <button className=" bg-accent-green text-white flex-1 ">Search</button>
         </div>
       </div>
-      <button>Search</button>
     </div>
   );
 }
