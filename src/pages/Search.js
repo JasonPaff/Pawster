@@ -1,5 +1,6 @@
 import DisplayHosts from "../components/DisplayHosts";
 import FilterOptions from "../components/Filter&Sort/FilterOptions";
+import MapBox from "../components/Map/MapBox";
 import Map from "../components/Map/Map";
 
 function Search() {
@@ -9,7 +10,7 @@ function Search() {
         <FilterOptions />
         <DisplayHosts />
       </div>
-
+      
       <Map />
     </div>
   );

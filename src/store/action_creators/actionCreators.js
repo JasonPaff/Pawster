@@ -21,3 +21,11 @@ export const getHosts = (hosts) => {
         payload: hosts
     }
 }
+
+
+export const getFilteredHosts = (filteredHosts) => {
+    return {
+        type: actionTypes.SET_FILTERED_HOSTS,
+        payload: filteredHosts
+    }
+}

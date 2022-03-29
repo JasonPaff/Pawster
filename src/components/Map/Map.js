@@ -1,4 +1,5 @@
-import React, { useMemo, useCallback, useRef, useState } from 'react'
+import React, { useMemo, useCallback, useRef, useState, useEffect } from 'react'
+import { connect } from 'react-redux'
 import { GoogleMap, InfoWindow, Marker, useLoadScript } from '@react-google-maps/api'
 import usePlacesAutocomplete, {getGeocode, getLatLng} from 'use-places-autocomplete'
 import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption } from '@reach/combobox'
@@ -7,11 +8,18 @@ import '../../styles/Map.css'
 
 // TODO: Split map and mapsearch functions?
 
-function Map() {
+const mapStateToProps = (state) => {
+    return {
+        filteredHosts: state.hostsRed.filteredHosts
+    }
+}
+
+function Map(props) {
 
     const [pinMarkers, setPinMarkers] = useState([])
     const [ libraries ] = useState(['places']);
-    
+
+
     const mapRef = useRef()
     const onLoad = useCallback(map => (mapRef.current = map), [])
 
@@ -38,23 +46,21 @@ function Map() {
     // }), [])
 
 
-    var address=["new york", "las vegas", "san francisco", "chicago"];
-
-
-
     var geocoder=new google.maps.Geocoder();
 
     const buildMarkers = (callback) => {
         const markers = []
-        for (var i = 0; i < address.length; i++) {
+        const addresses = props.filteredHosts.map((host) => {
+            return host.street +", "+ host.city
+        })
+        for (var i = 0; i < addresses.length; i++) {
             (function(i) {
     
             // Use geocoder to grab latlong for user inputed address
-            geocoder.geocode({'address': address[i]}, function(results, status) {
+            geocoder.geocode({'address': addresses[i]}, function(results, status) {
                 if (status === google.maps.GeocoderStatus.OK) {
                     // Redefine map center location
                     // if (i == 1){map.setCenter(results[0].geometry.location); }
-        
                     // Create dynamic markers on map as per the address array
                     const markerComponent = <Marker
                     key={i}
@@ -66,7 +72,7 @@ function Map() {
                         anchor: new window.google.maps.Point(15, 15)
                         }}/>
                     markers.push(markerComponent)
-                    if (markers.length === address.length) {
+                    if (markers.length === addresses.length) {
                         callback(markers)
                     }      
                 }
@@ -82,7 +88,7 @@ function Map() {
         const {ready, value, suggestions: {status, data}, setValue, clearSuggestions
         } = usePlacesAutocomplete({
             requestOptions: {
-                location: {lat: () => 33.7490, lng: () => -84.5610312},
+                location: {lat: () => 53.7490, lng: () => -84.5610312},
                 radius: 200 * 1000,
             }
         })
@@ -94,6 +100,7 @@ function Map() {
                     clearSuggestions();
                     try {
                         const results = await getGeocode({address});
+                        console.log(results)
                         const { lat, lng } = await getLatLng(results[0])
                         panTo({ lat, lng })
                     } catch (error) {
@@ -150,4 +157,4 @@ function Map() {
 }
 
 
-export default Map
+export default connect(mapStateToProps)(Map)
