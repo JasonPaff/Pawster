@@ -7,5 +7,17 @@ export default function Account() {
   const fullName = firstName + " " + lastName
   const user = fullName || "Anonymous";
 
-  return <div><NavLink to="/profile">{user}</NavLink></div>;
+  return (
+    <div className="flex flex-row">
+      <div className="relative flex flex-row gap-2 ">
+        <NavLink to="/profile" className="link">
+          {user}
+        </NavLink>
+        <span>|</span>
+        <NavLink to="/logout" className="link">
+          Logout
+        </NavLink>
+      </div>
+    </div>
+  )
 }
