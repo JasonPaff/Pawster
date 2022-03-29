@@ -2,7 +2,7 @@ import * as actionTypes from '../actions/actionTypes'
 
 const initialState = {
     hosts: [],
-    filtered_hosts:[]
+    filteredHosts:[]
 }
 
 const hostReducer = (state=initialState, action) => {
@@ -15,7 +15,7 @@ const hostReducer = (state=initialState, action) => {
         case actionTypes.SET_FILTERED_HOSTS:
             return {
                 ...state,
-                filtered_hosts: action.payload
+                filteredHosts: action.payload
             }
         default:
             return state;

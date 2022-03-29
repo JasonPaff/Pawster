@@ -38,7 +38,6 @@ function DisplayHosts(props) {
   useEffect(() => {
     if (props.hosts.length === 0) {
       getAllHosts().then((result) => {
-        console.log(result)
         const users = result.data.getHostUsers.users
         const hosts = result.data.getAllHosts.hosts
         const addresses = result.data.getHostAddresses.addresses
@@ -61,7 +60,6 @@ function DisplayHosts(props) {
       props.canHostUnspayedFemales, props.hasChildren, props.hasOtherPets,
       props.isHomeFullTime, props.isSmoking
     )
-    console.log(hosts)
     setFilteredHosts(hosts)
     props.onGetFilteredHosts(hosts)
   },[
@@ -70,8 +68,6 @@ function DisplayHosts(props) {
     props.canHostUnspayedFemales, props.hasChildren, props.hasOtherPets,
     props.isHomeFullTime, props.isSmoking 
   ])
-
-  console.log(filteredHosts)
 
   const hosts = filteredHosts.map((host, index) => {
       return <NavLink key={index} to={`/profile/host/${host.id}`}>
