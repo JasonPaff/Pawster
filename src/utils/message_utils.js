@@ -1,4 +1,5 @@
 ﻿import getUserById from "../services/user/getUserById";
+import getMessageThreads from "../services/messages/getMessageThreads";
 
 export const attachNames = async (messages) => {
     for (let c = 0; c < messages.length; c++) {
@@ -21,5 +22,22 @@ export const adjustTimes = async (messages) => {
         const lastItem = messages[c].messages.length - 1;
         messages[c].time =
             new Date(messages[c].messages[lastItem].sentAt).toLocaleString();
+    }
+};
+
+export const loadMessages = async (selectedMessage, setSelectedMessage, setMessages) => {
+    const messageThreadsData = await getMessageThreads();
+    const messageThreads = messageThreadsData.data.getMessageThreads.messageThreads;
+
+    await attachNames(messageThreads);
+    await adjustTimes(messageThreads);
+    await setMessages(messageThreads);
+
+    // reload currently selected message
+    for (let c = 0; c < messageThreads.length; c++) {
+        if (messageThreads[c].id === selectedMessage.id) {
+            await setSelectedMessage(messageThreads[c]);
+            break;
+        }
     }
 };

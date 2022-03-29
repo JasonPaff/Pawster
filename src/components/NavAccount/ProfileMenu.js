@@ -11,13 +11,8 @@ export default function Account() {
     <div className="flex flex-row">
       <div className="relative flex flex-row gap-2 ">
         <NavLink to="/profile" className="link">
-          {fullName}
+          {user}
         </NavLink>
-        <ul className="absolute">
-          <li></li>
-          <li></li>
-          <li></li>
-        </ul>
         <span>|</span>
         <NavLink to="/logout" className="link">
           Logout
