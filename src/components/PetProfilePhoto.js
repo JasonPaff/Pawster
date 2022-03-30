@@ -7,18 +7,32 @@ import emptyImage from '../img/icons/user.png'
 
 function PetProfilePhoto(props) {
 
-    const [photo, setPhoto] = useState({})
+    const [fetchedPhotos, setPhotos] = useState([])
 
-    const image = "../img/icons/user.png"
+    console.log(fetchedPhotos)
 
     useEffect(() => {
-        getPetPhotos(props.petId).then((result) => {console.log(result)})
+        getPetPhotos(props.petId).then((result) => {
+            if (result.data.getPetPhotos.success === true) {
+                setPhotos(result.data.getPetPhotos.photos)
+            } else {
+                return null
+            }
+        })
     }, [])
+
+    const petProfilePhoto = fetchedPhotos.map((pic) => {
+        if (pic.isProfilePhoto === true) {
+            const imageSrc = `data:${pic.photoType};base64, ${pic.photo}`;
+            return imageSrc
+        } else {
+            return emptyImage
+        }
+    })
 
     return (
         <div>
-            {photo.isProfilePhoto === true ? <div></div> : <image src="../img/icons/user.png"/>}
-            <img className="w-10"src={emptyImage}/>
+            <img className="w-10"src={petProfilePhoto}/>
         </div>
     )
 

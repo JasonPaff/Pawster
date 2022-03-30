@@ -63,19 +63,32 @@ function EditPet(props) {
       }
     }
 
-    async function uploadPetPhoto(getPhoto) {
+    async function submit(dataString, type) {
         const sendPhoto = {
             petId: params.petId,
-            photo: getPhoto[0].name,
-            photoType: getPhoto[0].type,
-
+            photo: dataString,
+            photoType: type,
+    
         }
         const response = await addPetPhoto(sendPhoto)
+        
         console.log(response)
         if (response.data.addPetPhoto.success) {
         } else {
             alert(response.data.addPetPhoto.message);
         }
+
+    }
+
+    async function uploadPetPhoto(getPhoto) {
+        console.log(getPhoto)
+
+        const reader = new FileReader();
+        reader.onload = () => {
+            submit(reader.result.replace("data:", "")
+                .replace(/^.+,/, ""), getPhoto[0].type);
+            }
+        reader.readAsDataURL(getPhoto[0]);
     }
   
   
