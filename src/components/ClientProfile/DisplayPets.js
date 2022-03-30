@@ -7,14 +7,16 @@ function DisplayPets() {
 
   useEffect(() => {
     getPets().then((result) => {
-      setPets(result.data.getPets.pets || []);
+      setPets(result.data.getPets.pets);
     });
   }, []);
 
   const petList = pets.map((pet, index) => {
+    console.log(pet.name)
     return (
       <li key={index}>
         <NavLink to={`/profile/pet-profile/${pet.id}`}>{pet.name}</NavLink>
+        <NavLink className="text-sky-400" to={`/profile/pet-profile/edit/${pet.id}`}>Edit</NavLink>
       </li>
     );
   });
