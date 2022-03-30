@@ -10,7 +10,7 @@ import Modal from 'react-modal'
 
 
 function DisplayServices(props) {
-    
+
     const [host, setHost] = useState({})
     const [user, setUser] = useState({})
     const [boarding, setBoarding] = useState({})
@@ -25,7 +25,7 @@ function DisplayServices(props) {
         getHostById(props.hostId).then((result) => {setHost(result.data.getHostById.host)})
         getUserById(props.hostId).then((result) => {setUser(result.data.getUserById.user)})
         getBoardingById(props.hostId).then((result) => {setBoarding(result.data.getBoardingById.boarding)})
-        getSittingById(props.hostId).then((result) => {setSitting(result.data.getSittingById.sitting)})
+        getSittingById(props.hostId).then((result) => {if (result.data.getSittingById.success) setSitting(result.data.getSittingById.sitting)})
         getVisitById(props.hostId).then((result) => {setVisit(result.data.getVisitById.visit)})
         getDaycareById(props.hostId).then((result) => {setDaycare(result.data.getDaycareById.daycare)})
         getWalkingById(props.hostId).then((result) => {setWalking(result.data.getWalkingById.walking)})
@@ -62,7 +62,7 @@ function DisplayServices(props) {
 
     return (
         <div className="flex-col p-1">
-            {host.doesBoarding === true ? 
+            {host.doesBoarding === true ?
             <div className="flex-col mb-3">
                 <div className="flex justify-between">
                     <div>Boarding</div>
@@ -75,7 +75,7 @@ function DisplayServices(props) {
             </div>
             : null}
 
-            {host.doesHouseSitting === true ? 
+            {host.doesHouseSitting === true ?
             <div className="flex-col mb-3">
                 <div className="flex justify-between">
                     <div>Home Sitting</div>
@@ -88,7 +88,7 @@ function DisplayServices(props) {
             </div>
             : null}
 
-            {host.doesDropInVisits === true ? 
+            {host.doesDropInVisits === true ?
             <div className="flex-col mb-3">
                 <div className="flex justify-between">
                     <div>Drop-in Visits</div>
@@ -101,7 +101,7 @@ function DisplayServices(props) {
             </div>
             : null}
 
-            {host.doesDayCare === true ? 
+            {host.doesDayCare === true ?
             <div className="flex-col mb-3">
                 <div className="flex justify-between">
                     <div>Day Care</div>
@@ -114,7 +114,7 @@ function DisplayServices(props) {
             </div>
             : null}
 
-            {host.doesDogWalking === true ? 
+            {host.doesDogWalking === true ?
             <div className="flex-col mb-3">
                 <div className="flex justify-between">
                     <div>Dog Walking</div>
@@ -142,7 +142,7 @@ function DisplayServices(props) {
                         <a className="cursor-pointer"onClick={closeModal}>X</a>
                         </div>
 
-                        {host.doesBoarding === true ? 
+                        {host.doesBoarding === true ?
                         <div className="flex-col mb-3">
                             <div className="border p-4">
                                 <div className="mb-4">
@@ -231,7 +231,7 @@ function DisplayServices(props) {
                         </div>
                         : null}
 
-                        {host.doesHouseSitting === true ? 
+                        {host.doesHouseSitting === true ?
                         <div className="flex-col mb-3">
                             <div className="border p-4">
                                 <div className="mb-4">
@@ -311,7 +311,7 @@ function DisplayServices(props) {
                         </div>
                         : null}
 
-                        {host.doesDropInVisits === true ? 
+                        {host.doesDropInVisits === true ?
                         <div className="flex-col mb-3">
                             <div className="border p-4">
                                 <div className="mb-4">
@@ -382,7 +382,7 @@ function DisplayServices(props) {
                         </div>
                         : null}
 
-                        {host.doesDayCare === true ? 
+                        {host.doesDayCare === true ?
                         <div className="flex-col mb-3">
                             <div className="border p-4">
                                 <div className="mb-4">
@@ -462,7 +462,7 @@ function DisplayServices(props) {
                         </div>
                         : null}
 
-                        {host.doesDogWalking === true ? 
+                        {host.doesDogWalking === true ?
                         <div className="flex-col mb-3">
                             <div className="border p-4">
                                 <div className="mb-4">

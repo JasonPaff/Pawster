@@ -2,7 +2,7 @@
 import {gql} from "@apollo/client";
 import getGqlString from "../../utils/graphql_utils";
 
-export default async function createMessageThread(messageThread) {
+export default async function createMessageThread(thread) {
     let query = gql`mutation CreateMessageThread($thread: MessageThreadInput!) {
         createMessageThread(messageThread: $thread) {
             success
@@ -35,7 +35,7 @@ export default async function createMessageThread(messageThread) {
         body: JSON.stringify({
             query,
             variables : {
-                messageThread
+                thread
             }
         })
     };

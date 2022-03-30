@@ -3,6 +3,7 @@ import {Fragment} from "react";
 import {BiBell} from "react-icons/bi";
 import classNameJoiner from "../../utils/classNameJoiner";
 import removeNotification from "../../services/notifications/removeNotification";
+import {NavLink} from "react-router-dom";
 
 export default function NotificationDropdown(props) {
     async function clearNotification(id) {
@@ -20,7 +21,6 @@ export default function NotificationDropdown(props) {
                     props.newNotifications ? "outline-none text-red-400 border-red-400" : "",
                     )}            >
                 <BiBell
-
                     className="h-5 w-5"
                     aria-hidden="true"/>
             </Popover.Button>
@@ -35,21 +35,20 @@ export default function NotificationDropdown(props) {
             >
                 <Popover.Panel className="absolute z-10 w-40">
                     <div className="flex flex-col bg-gray-200">
-                        {props.notifications.map((notification) => (
+                        {props.notifications.map((notification, index) => (
                                 <div className="flex flex-row w-full"
-                                key={notification.id}>
+                                key={index}>
                                     {notification.link === "none" && (
                                         <div>
                                             {notification.message}
                                         </div>
                                         )}
                                     {notification.link !== "none" && (
-                                        <a
-                                            href={notification.link}
+                                        <NavLink to={notification.link}
                                             onClick={() => clearNotification(notification.id)}
                                         >
                                             {notification.message}
-                                        </a>
+                                        </NavLink>
                                     )}
                                 </div>
                             )

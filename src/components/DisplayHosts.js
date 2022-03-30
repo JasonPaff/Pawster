@@ -31,7 +31,6 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-
 function DisplayHosts(props) {
   const [filteredHosts, setFilteredHosts] = useState(props.hosts)
 
