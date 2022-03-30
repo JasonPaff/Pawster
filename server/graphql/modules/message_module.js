@@ -154,8 +154,8 @@ module.exports.messageModule = createModule({
 
                 const newMessageThread = await createMessageThread(messageThread);
 
-                await pubsub.publish("MESSAGE_THREAD_CREATED", {
-                    messageThreadCreated: {
+                await pubsub.publish("MESSAGE_ADDED", {
+                    messageAdded: {
                         messageThread: newMessageThread
                     }
                 });

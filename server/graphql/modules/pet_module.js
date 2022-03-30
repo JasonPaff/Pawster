@@ -114,11 +114,11 @@ module.exports.petModule = createModule({
 
                 return petsFoundSuccess(userId, pets);
             },
-            getPetsById: async (parent, {id}) => {
-                const pets = await findPets(id);
-                if (!pets) return petsNotFoundError(id);
+            getPetsById: async (parent, {userId}) => {
+                const pets = await findPets(userId);
+                if (!pets) return petsNotFoundError(userId);
 
-                return petsFoundSuccess(id, pets);
+                return petsFoundSuccess(userId, pets);
             }
         },
         Mutation: {

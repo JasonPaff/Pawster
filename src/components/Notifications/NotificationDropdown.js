@@ -35,9 +35,9 @@ export default function NotificationDropdown(props) {
             >
                 <Popover.Panel className="absolute z-10 w-40">
                     <div className="flex flex-col bg-gray-200">
-                        {props.notifications.map((notification) => (
+                        {props.notifications.map((notification, index) => (
                                 <div className="flex flex-row w-full"
-                                key={notification.id}>
+                                key={index}>
                                     {notification.link === "none" && (
                                         <div>
                                             {notification.message}
