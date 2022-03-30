@@ -7,8 +7,6 @@
 };
 
 module.exports.messageThreadFoundSuccess = (threadId, messageThread) => {
-
-    console.log(messageThread);
     return {
         success: true,
         message: `message thread found for ${threadId}`,
@@ -41,7 +39,6 @@ module.exports.messageThreadCreatedSuccess = (messageThread) => {
 };
 
 module.exports.messageCreatedSuccess = (messageThread) => {
-    console.log(messageThread);
     return {
         success: true,
         message: `new message on thread ${messageThread.id} created`,

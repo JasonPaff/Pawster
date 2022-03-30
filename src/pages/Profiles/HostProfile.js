@@ -15,10 +15,11 @@ function HostProfile() {
   
   const [host, setHost] = useState({})
   const [user, setUser] = useState({})
+  const userId = localStorage.getItem("id");
 
   useEffect(() => {
-    getUserById(params.userId).then((result) => {setUser(result.data.getUserById.user)})
-    getHostById(params.userId).then((result) => {setHost(result.data.getHostById.host)})
+    getUserById(userId).then((result) => {setUser(result.data.getUserById.user)})
+    getHostById(userId).then((result) => {setHost(result.data.getHostById.host)})
   },[])
 
   // const hostInfo = host.map((host) => {

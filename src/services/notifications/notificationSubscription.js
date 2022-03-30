@@ -3,10 +3,11 @@
 export const notificationSubscription = gql`subscription Subscription {
     notificationAdded {
         notification {
+            fromUserId
             id
             link
             message
-            userId
+            toUserId
         }
     }
 }`

@@ -8,7 +8,8 @@ export const getUserNotifications = async (setNotifications) => {
         setNotifications(notifications.notifications);
     else
         setNotifications([{
-            id: -1,
+            toUserId: -1,
+            fromUserId: -1,
             message: "no notifications",
             link: "none",
         }]);

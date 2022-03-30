@@ -8,10 +8,11 @@ export default async function addNotification(notification) {
             success
             message
             notification {
-                userId
-                message
+                fromUserId
+                id                
                 link
-                id
+                message
+                toUserId
             }
         }
     }`
