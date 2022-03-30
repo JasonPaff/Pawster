@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { data } from "./data";
 import * as actionCreators from "../../store/action_creators/filterActionCreator";
 
 const mapDispatchToProps = (dispatch) => {
@@ -10,15 +9,15 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 function ServiceDropdown(props) {
-  const [selected, setSelected] = useState(data[0]);
-  props.onToggleService({ [selected]: true });
+  // const [selected, setSelected] = useState(data[0]);
+  // props.onToggleService({ [selected]: true });
 
-  const availableServices = data.services.map(({ id, name, options }) => {
-    return <option key={id}></option>;
-  });
+  // const availableServices = data.services.map(({ id, name, options }) => {
+  //   return <option key={id}></option>;
+  // });
 
   return (
-    <select value={selected} onChange={setSelected}>
+    <select>
       <option value={true}>Boarding</option>
       <option value={true}>Home Sitting</option>
       <option value={true}>Drop-in Visits</option>
