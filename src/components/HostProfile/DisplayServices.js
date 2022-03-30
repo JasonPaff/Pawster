@@ -53,7 +53,9 @@ function DisplayServices(props) {
           bottom: 'auto',
           marginRight: '-50%',
           transform: 'translate(-50%, -50%)',
-          width: '30vw'
+          width: '30vw',
+          overflowY: 'auto',
+          maxHeight: 'calc(100vh - 210px)',
         },
     };
 
@@ -135,7 +137,7 @@ function DisplayServices(props) {
                     contentLabel="Example Modal"
                 >
                     <div className="flex-col">
-                        <div className="flex justify-between text-xl font-medium mb-10">
+                        <div className="flex justify-between text-xl font-medium mb-6">
                         {user.firstName}'s Rates
                         <a className="cursor-pointer"onClick={closeModal}>X</a>
                         </div>
@@ -145,12 +147,12 @@ function DisplayServices(props) {
                             <div className="border p-4">
                                 <div className="mb-4">
                                     <div className="flex justify-between">
-                                        <div>Boarding</div>
+                                        <div className="text-xl font-medium">Boarding</div>
                                         <div>${boarding.baseRate}</div>
                                     </div>
                                     <div className="flex justify-between">
-                                        <div>in the host's home</div>
-                                        <div>per night</div>
+                                        <div className="text-gray-500">in the host's home</div>
+                                        <div className="text-gray-500">per night</div>
                                     </div>
                                 </div>
                                 <div className="mb-4">
@@ -159,7 +161,7 @@ function DisplayServices(props) {
                                         <div>${boarding.holidayRate}</div>
                                     </div>
                                     <div className="flex">
-                                        <div>per night</div>
+                                        <div className="text-gray-500">per night</div>
                                     </div>
                                 </div>
                                 <div className="mb-4">
@@ -168,7 +170,7 @@ function DisplayServices(props) {
                                         <div>${boarding.additionalDogRate}</div>
                                     </div>
                                     <div className="flex">
-                                        <div>per night, per additional dog</div>
+                                        <div className="text-gray-500">per night, per additional dog</div>
                                     </div>
                                 </div>
                                 <div className="mb-4">
@@ -177,7 +179,7 @@ function DisplayServices(props) {
                                         <div>${boarding.additionalCatRate}</div>
                                     </div>
                                     <div className="flex">
-                                        <div>per night</div>
+                                        <div className="text-gray-500">per night</div>
                                     </div>
                                 </div>
                                 {/* <div className="mb-4">
@@ -195,7 +197,7 @@ function DisplayServices(props) {
                                         <div>${boarding.catRate}</div>
                                     </div>
                                     <div className="flex">
-                                        <div>per night</div>
+                                        <div className="text-gray-500">per night</div>
                                     </div>
                                 </div>
                                 <div className="mb-4">
@@ -204,7 +206,7 @@ function DisplayServices(props) {
                                         <div>${boarding.bathingRate}</div>
                                     </div>
                                     <div className="flex">
-                                        <div>per bath</div>
+                                        <div className="text-gray-500">per bath</div>
                                     </div>
                                 </div>
                                 <div className="mb-4">
@@ -213,7 +215,7 @@ function DisplayServices(props) {
                                         <div>${boarding.pickUpDropOffRate}</div>
                                     </div>
                                     <div className="flex">
-                                        <div>per round trip</div>
+                                        <div className="text-gray-500">per round trip</div>
                                     </div>
                                 </div>
                                 <div className="mb-4">
@@ -222,7 +224,282 @@ function DisplayServices(props) {
                                         <div>${boarding.extendedCareRate}</div>
                                     </div>
                                     <div className="flex">
-                                        <div>per night</div>
+                                        <div className="text-gray-500">per night</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        : null}
+
+                        {host.doesHouseSitting === true ? 
+                        <div className="flex-col mb-3">
+                            <div className="border p-4">
+                                <div className="mb-4">
+                                    <div className="flex justify-between">
+                                        <div className="text-xl font-medium">Home Sitting</div>
+                                        <div>${sitting.baseRate}</div>
+                                    </div>
+                                    <div className="flex justify-between">
+                                        <div className="text-gray-500">in your home</div>
+                                        <div className="text-gray-500">per night</div>
+                                    </div>
+                                </div>
+                                <div className="mb-4">
+                                    <div className="flex justify-between">
+                                        <div>Holiday Rate</div>
+                                        <div>${sitting.holidayRate}</div>
+                                    </div>
+                                    <div className="flex">
+                                        <div className="text-gray-500">per night</div>
+                                    </div>
+                                </div>
+                                <div className="mb-4">
+                                    <div className="flex justify-between">
+                                        <div>Additional Dog Rate</div>
+                                        <div>${sitting.additionalDogRate}</div>
+                                    </div>
+                                    <div className="flex">
+                                        <div className="text-gray-500">per night, per additional dog</div>
+                                    </div>
+                                </div>
+                                <div className="mb-4">
+                                    <div className="flex justify-between">
+                                        <div>Additional Cat Rate</div>
+                                        <div>${sitting.additionalCatRate}</div>
+                                    </div>
+                                    <div className="flex">
+                                        <div className="text-gray-500">per night</div>
+                                    </div>
+                                </div>
+                                <div className="mb-4">
+                                    <div className="flex justify-between">
+                                        <div>Puppy Rate</div>
+                                        <div>${sitting.puppyRate}</div>
+                                    </div>
+                                    <div className="flex">
+                                        <div className="text-gray-500">per night</div>
+                                    </div>
+                                </div>
+                                <div className="mb-4">
+                                    <div className="flex justify-between">
+                                        <div>Cat Care</div>
+                                        <div>${sitting.catRate}</div>
+                                    </div>
+                                    <div className="flex">
+                                        <div className="text-gray-500">per night</div>
+                                    </div>
+                                </div>
+                                <div className="mb-4">
+                                    <div className="flex justify-between">
+                                        <div>Bathing / Grooming</div>
+                                        <div>${sitting.bathingRate}</div>
+                                    </div>
+                                    <div className="flex">
+                                        <div className="text-gray-500">per bath</div>
+                                    </div>
+                                </div>
+                                <div className="mb-4">
+                                    <div className="flex justify-between">
+                                        <div>Extended Care</div>
+                                        <div>${sitting.extendedCareRate}</div>
+                                    </div>
+                                    <div className="flex">
+                                        <div className="text-gray-500">per night</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        : null}
+
+                        {host.doesDropInVisits === true ? 
+                        <div className="flex-col mb-3">
+                            <div className="border p-4">
+                                <div className="mb-4">
+                                    <div className="flex justify-between">
+                                        <div className="text-xl font-medium">Drop-In Visits</div>
+                                        <div>${visit.baseRate}</div>
+                                    </div>
+                                    <div className="flex justify-between">
+                                        <div className="text-gray-500">visits in your home</div>
+                                        <div className="text-gray-500">per night</div>
+                                    </div>
+                                </div>
+                                <div className="mb-4">
+                                    <div className="flex justify-between">
+                                        <div>Holiday Rate</div>
+                                        <div>${visit.holidayRate}</div>
+                                    </div>
+                                    <div className="flex">
+                                        <div className="text-gray-500">per night</div>
+                                    </div>
+                                </div>
+                                <div className="mb-4">
+                                    <div className="flex justify-between">
+                                        <div>Additional Dog Rate</div>
+                                        <div>${visit.additionalDogRate}</div>
+                                    </div>
+                                    <div className="flex">
+                                        <div className="text-gray-500">per night, per additional dog</div>
+                                    </div>
+                                </div>
+                                <div className="mb-4">
+                                    <div className="flex justify-between">
+                                        <div>Additional Cat Rate</div>
+                                        <div>${visit.additionalCatRate}</div>
+                                    </div>
+                                    <div className="flex">
+                                        <div className="text-gray-500">per night</div>
+                                    </div>
+                                </div>
+                                <div className="mb-4">
+                                    <div className="flex justify-between">
+                                        <div>Puppy Rate</div>
+                                        <div>${visit.puppyRate}</div>
+                                    </div>
+                                    <div className="flex">
+                                        <div className="text-gray-500">per night</div>
+                                    </div>
+                                </div>
+                                <div className="mb-4">
+                                    <div className="flex justify-between">
+                                        <div>Cat Care</div>
+                                        <div>${visit.catRate}</div>
+                                    </div>
+                                    <div className="flex">
+                                        <div className="text-gray-500">per night</div>
+                                    </div>
+                                </div>
+                                <div className="mb-4">
+                                    <div className="flex justify-between">
+                                        <div>Bathing / Grooming</div>
+                                        <div>${visit.bathingRate}</div>
+                                    </div>
+                                    <div className="flex">
+                                        <div className="text-gray-500">per bath</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        : null}
+
+                        {host.doesDayCare === true ? 
+                        <div className="flex-col mb-3">
+                            <div className="border p-4">
+                                <div className="mb-4">
+                                    <div className="flex justify-between">
+                                        <div className="text-xl font-medium">Day Care</div>
+                                        <div>${daycare.baseRate}</div>
+                                    </div>
+                                    <div className="flex justify-between">
+                                        <div className="text-gray-500">in the host's home</div>
+                                        <div className="text-gray-500">per night</div>
+                                    </div>
+                                </div>
+                                <div className="mb-4">
+                                    <div className="flex justify-between">
+                                        <div>Holiday Rate</div>
+                                        <div>${daycare.holidayRate}</div>
+                                    </div>
+                                    <div className="flex">
+                                        <div className="text-gray-500">per night</div>
+                                    </div>
+                                </div>
+                                <div className="mb-4">
+                                    <div className="flex justify-between">
+                                        <div>Additional Dog Rate</div>
+                                        <div>${daycare.additionalDogRate}</div>
+                                    </div>
+                                    <div className="flex">
+                                        <div className="text-gray-500">per night, per additional dog</div>
+                                    </div>
+                                </div>
+                                <div className="mb-4">
+                                    <div className="flex justify-between">
+                                        <div>Additional Cat Rate</div>
+                                        <div>${daycare.additionalCatRate}</div>
+                                    </div>
+                                    <div className="flex">
+                                        <div className="text-gray-500">per night</div>
+                                    </div>
+                                </div>
+                                <div className="mb-4">
+                                    <div className="flex justify-between">
+                                        <div>Puppy Rate</div>
+                                        <div>${daycare.puppyRate}</div>
+                                    </div>
+                                    <div className="flex">
+                                        <div className="text-gray-500">per night</div>
+                                    </div>
+                                </div>
+                                <div className="mb-4">
+                                    <div className="flex justify-between">
+                                        <div>Cat Care</div>
+                                        <div>${daycare.catRate}</div>
+                                    </div>
+                                    <div className="flex">
+                                        <div className="text-gray-500">per night</div>
+                                    </div>
+                                </div>
+                                <div className="mb-4">
+                                    <div className="flex justify-between">
+                                        <div>Bathing / Grooming</div>
+                                        <div>${daycare.bathingRate}</div>
+                                    </div>
+                                    <div className="flex">
+                                        <div className="text-gray-500">per bath</div>
+                                    </div>
+                                </div>
+                                <div className="mb-4">
+                                    <div className="flex justify-between">
+                                        <div>Sitter Pick-Up and Drop-Off</div>
+                                        <div>${daycare.pickUpDropOffRate}</div>
+                                    </div>
+                                    <div className="flex">
+                                        <div className="text-gray-500">per round trip</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        : null}
+
+                        {host.doesDogWalking === true ? 
+                        <div className="flex-col mb-3">
+                            <div className="border p-4">
+                                <div className="mb-4">
+                                    <div className="flex justify-between">
+                                        <div className="text-xl font-medium">Dog Walking</div>
+                                        <div>${walking.baseRate}</div>
+                                    </div>
+                                    <div className="flex justify-between">
+                                        <div className="text-gray-500">in your neighborhood</div>
+                                        <div className="text-gray-500">per night</div>
+                                    </div>
+                                </div>
+                                <div className="mb-4">
+                                    <div className="flex justify-between">
+                                        <div>Holiday Rate</div>
+                                        <div>${walking.holidayRate}</div>
+                                    </div>
+                                    <div className="flex">
+                                        <div className="text-gray-500">per night</div>
+                                    </div>
+                                </div>
+                                <div className="mb-4">
+                                    <div className="flex justify-between">
+                                        <div>Additional Dog Rate</div>
+                                        <div>${walking.additionalDogRate}</div>
+                                    </div>
+                                    <div className="flex">
+                                        <div className="text-gray-500">per night, per additional dog</div>
+                                    </div>
+                                </div>
+                                <div className="mb-4">
+                                    <div className="flex justify-between">
+                                        <div>Puppy Rate</div>
+                                        <div>${walking.puppyRate}</div>
+                                    </div>
+                                    <div className="flex">
+                                        <div className="text-gray-500">per night</div>
                                     </div>
                                 </div>
                             </div>
