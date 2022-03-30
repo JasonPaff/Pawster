@@ -5,22 +5,29 @@ import getUserById from '../../services/user/getUserById'
 import getHostById from '../../services/host/getHostById'
 import DisplayPets from '../../components/ClientProfile/DisplayPets';
 import DisplayServices from '../../components/HostProfile/DisplayServices';
+import SendMessage from "../../parts/Messages/SendMessage";
 
 
 const card = "bg-white border border-slate-200 shadow-sm rounded-md p-5 ";
 
 function HostProfile() {
 
-  const params = useParams()
-  
-  const [host, setHost] = useState({})
-  const [user, setUser] = useState({})
+  const params = useParams();
+  const [host, setHost] = useState({});
+  const [user, setUser] = useState({});
+  const [isLoggedInUser, setIsLoggedInUser] = useState(false);
 
   useEffect(() => {
-    getUserById(params.userId).then((result) => {setUser(result.data.getUserById.user)})
-    getHostById(params.userId).then((result) => {setHost(result.data.getHostById.host)})
-  },[])
+    getUserById(params.userId).then((result) => {setUser(result.data.getUserById.user)});
+    getHostById(params.userId).then((result) => {setHost(result.data.getHostById.host)});
+  },[]);
 
+  function checkLoggedInUser() {
+      if(params.userId === localStorage.getItem('id')) {
+          setIsLoggedInUser(true);
+      }
+  }
+  
   // const hostInfo = host.map((host) => {
   //   return <li key={host.id}>{}</li>
   // })
@@ -29,11 +36,15 @@ function HostProfile() {
   //   return <li key={host.id}>{}</li>
   // })
 
-
   return (
     <div className="grid grid-rows-2 grid-flow-col gap-4 p-10">
       <div className={`${card} row-span-1`}>
         Profile Picture here
+      </div>
+
+      <div className={`${card} row-span-1`}>
+          <span>Contact {user.firstName} {user.lastName}</span>
+        <SendMessage/>
       </div>
 
       <div className={`${card} row-span-1 flex-row`}>

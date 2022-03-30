@@ -147,7 +147,7 @@ module.exports.boardingModule = createModule({
                 if (!existingBoarding) return boardingDoesNotExistError(userId);
 
                 await deleteBoarding(userId);
-
+                // TODO: set isBoarding to false in user host table
                 return boardingDeletedSuccess(userId, existingBoarding);
             }
         }
