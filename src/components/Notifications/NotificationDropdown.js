@@ -3,6 +3,7 @@ import {Fragment} from "react";
 import {BiBell} from "react-icons/bi";
 import classNameJoiner from "../../utils/classNameJoiner";
 import removeNotification from "../../services/notifications/removeNotification";
+import {NavLink} from "react-router-dom";
 
 export default function NotificationDropdown(props) {
     async function clearNotification(id) {
@@ -20,7 +21,6 @@ export default function NotificationDropdown(props) {
                     props.newNotifications ? "outline-none text-red-400 border-red-400" : "",
                     )}            >
                 <BiBell
-
                     className="h-5 w-5"
                     aria-hidden="true"/>
             </Popover.Button>
@@ -44,12 +44,11 @@ export default function NotificationDropdown(props) {
                                         </div>
                                         )}
                                     {notification.link !== "none" && (
-                                        <a
-                                            href={notification.link}
+                                        <NavLink to={notification.link}
                                             onClick={() => clearNotification(notification.id)}
                                         >
                                             {notification.message}
-                                        </a>
+                                        </NavLink>
                                     )}
                                 </div>
                             )
