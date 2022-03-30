@@ -9,7 +9,7 @@ function Search() {
         <FilterOptions />
         <DisplayHosts />
       </div>
-
+      
       <Map />
     </div>
   );

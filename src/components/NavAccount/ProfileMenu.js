@@ -12,7 +12,7 @@ export default function Account() {
 
   return (
     <div className="flex flex-row">
-      <Menu as="div" className="relative flex flex-row gap-2 focus:outline-none">
+      <Menu as="div" className="relative flex flex-row gap-2 focus:outline-none z-10">
         <Menu.Button className="border-0 p-0 hover:bg-inherit hover:text-accent-red focus:outline-none ">{user}</Menu.Button>
         <Menu.Items className="flex flex-col absolute mt-8 py-4 rounded bg-background-light shadow border border-slate-300 focus:outline-none">
           <Menu.Item className={menuItem}>
