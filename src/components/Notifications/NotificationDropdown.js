@@ -14,13 +14,13 @@ export default function NotificationDropdown(props) {
     return (
         <Popover
             onClick={() => props.setNewNotifications(false)}
-            className="relative">
+            className="relative flex flex-grow">
             <Popover.Button
                 className={classNameJoiner(
                     "p-1 rounded-full text-slate-400 focus:outline-none border-transparent",
                     "hover:text-accent-red hover:bg-transparent hover:border-accent-red",
                     props.newNotifications ? "outline-none text-red-400 border-red-400" : "",
-                    )}            >
+                )}>
                 <BiBell
                     className="h-5 w-5"
                     aria-hidden="true"/>
@@ -34,21 +34,24 @@ export default function NotificationDropdown(props) {
                 leaveFrom="opacity-100 translate-y-0"
                 leaveTo="opacity-0 translate-y-1"
             >
-                <Popover.Panel className="absolute z-10 w-40">
-                    <div className="flex flex-col bg-gray-200">
+                <Popover.Panel className="absolute z-10 px-4 flex flex-col mt-8 py-4 rounded bg-background-light
+                shadow border border-slate-300 w-52 focus:outline-none">
+                    <div className="flex flex-col">
                         {props.notifications.map((notification, index) => (
                                 <div className="flex flex-row w-full"
-                                key={index}>
+                                     key={index}>
                                     {notification.link === "none" && (
                                         <div>
                                             {notification.message}
                                         </div>
-                                        )}
+                                    )}
                                     {notification.link !== "none" && (
                                         <NavLink to={notification.link}
-                                            onClick={() => clearNotification(notification.id)}
+                                                 onClick={() => clearNotification(notification.id)}
                                         >
-                                            {notification.message}
+                                            <div className={classNameJoiner(index < props.notifications.length - 1 ? "border-b-2" : "")}>
+                                                {notification.message}
+                                            </div>
                                         </NavLink>
                                     )}
                                 </div>
