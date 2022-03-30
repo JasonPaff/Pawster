@@ -7,7 +7,7 @@ import DisplayPets from '../../components/ClientProfile/DisplayPets';
 import DisplayServices from '../../components/HostProfile/DisplayServices';
 
 
-const card = "bg-white border border-slate-200 shadow-sm  rounded-md p-5 ";
+const card = "bg-white border border-slate-200 shadow-sm rounded-md p-5 ";
 
 function HostProfile() {
 
@@ -31,18 +31,29 @@ function HostProfile() {
 
 
   return (
-    <div className="grid row-span-2">
+    <div className="grid grid-rows-2 grid-flow-col gap-4 p-10">
       <div className={`${card} row-span-1`}>
-        Account Info
+        Profile Picture here
       </div>
 
-      <div className={`${card} row-span-1`}>
-        Services
+      <div className={`${card} row-span-1 flex-row`}>
+        <div className="text-2xl font-medium mb-2">Services</div>
         <DisplayServices hostId={params.userId}/>
       </div>
 
-      <div className={`${card} row-span-2 col-span-2`}>
-        Pets
+      <div className={`${card} row-start-1 row-end-6 col-span-5`}>
+        <div>
+          {user.firstName} {user.lastName} 
+        </div>
+
+        <div>
+          About me?
+        </div>
+
+        <div>
+          Host Info
+        </div>
+        
         <DisplayPets />
       </div>
     </div>
