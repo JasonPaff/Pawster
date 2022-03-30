@@ -25,12 +25,21 @@ export const adjustTimes = async (messages) => {
     }
 };
 
+export const sortMessagesByMostRecent = async (messages) => {
+    messages[0].messages.sort((a,b) => {
+        if (a.sentAt < b.sentAt) return 1;
+        else if (a.sentAt > b.sentAt) return -1;
+        return 0;
+    });
+};
+
 export const loadMessages = async (selectedMessage, setSelectedMessage, setMessages) => {
     const messageThreadsData = await getMessageThreads();
     const messageThreads = messageThreadsData.data.getMessageThreads.messageThreads;
 
     await attachNames(messageThreads);
     await adjustTimes(messageThreads);
+    await sortMessagesByMostRecent(messageThreads);
     await setMessages(messageThreads);
 
     // reload currently selected message

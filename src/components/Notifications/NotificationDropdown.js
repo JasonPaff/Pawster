@@ -2,10 +2,11 @@
 import {Fragment} from "react";
 import {BiBell} from "react-icons/bi";
 import classNameJoiner from "../../utils/classNameJoiner";
+import removeNotification from "../../services/notifications/removeNotification";
 
 export default function NotificationDropdown(props) {
     async function clearNotification(id) {
-
+        await removeNotification(id);
     }
 
     return (

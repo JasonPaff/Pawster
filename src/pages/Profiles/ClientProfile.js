@@ -52,7 +52,7 @@ function ClientProfile() {
           <NavLink to="/profile/edit-walking">Edit Dog Walking Info</NavLink>
         </div>
         <div className="text-sky-400">
-          <NavLink to={`/profile/host/${userId}`}>View your Host Profile</NavLink>
+          <NavLink to={`/profile/host`}>View your Host Profile</NavLink>
         </div>
         <div>
           Services Active
