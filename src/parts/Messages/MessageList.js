@@ -11,7 +11,7 @@
                             <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium
                                             text-gray-900 sm:pl-6 cursor-pointer">
                                 <div className="flex flex-col">
-                                    <span>{message.subject} {message.time}</span>
+                                    <span>{message.subject} <br/>{message.time}</span>
                                     <span className="text-gray-500">From: {message.sender}</span>
                                     <span className="text-gray-500">To: {message.receiver}</span>
                                 </div>

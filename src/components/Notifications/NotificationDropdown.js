@@ -8,6 +8,7 @@ import {NavLink} from "react-router-dom";
 export default function NotificationDropdown(props) {
     async function clearNotification(id) {
         await removeNotification(id);
+        props.setReloadNotifications(true);
     }
 
     return (

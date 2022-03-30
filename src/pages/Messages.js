@@ -12,7 +12,6 @@ export default function Messages() {
     const [messages, setMessages] = useState([]);
     const [selectedMessage, setSelectedMessage] = useState([]);
     const [reloadMessages, setReloadMessages] = useState(true);
-
     const userId = localStorage.getItem('id');
 
     useSubscription(messageAddedToThreadSubscription, {
@@ -40,12 +39,17 @@ export default function Messages() {
     }, [reloadMessages]);
 
     return (
-        <div className="flex flex-col px-4 sm:grid sm:grid-cols-2 sm:grid-rows-2 items-start">
-            <div className="row-span-2 ml-2">
-                <MessageList messages={messages} setSelectedMessage={setSelectedMessage}/>
-            </div>
-            <div className="flex flex-col">
-                <SelectedMessage selectedMessage={selectedMessage}/>
+        <div className="flex flex-row justify-center mt-10 h-full">
+            <div className="flex flex-col max-w-4xl px-4 sm:grid sm:grid-cols-2">
+                <div className="ml-2 mr-2">
+                    <div className="flex justify-center">
+                        <h2>Your Messages</h2>
+                    </div>
+                    <MessageList messages={messages} setSelectedMessage={setSelectedMessage}/>
+                </div>
+                <div className="flex flex-col mt-6">
+                    <SelectedMessage selectedMessage={selectedMessage}/>
+                </div>
             </div>
         </div>
     );
