@@ -26,6 +26,7 @@ export default function Notifications() {
     }, [reloadNotifications]);
 
     return (
-        <NotificationDropdown notifications={notifications} setNewNotifications={setNewNotifications} newNotifications={newNotifications}/>
+        <NotificationDropdown notifications={notifications} setNewNotifications={setNewNotifications}
+                              newNotifications={newNotifications} setReloadNotifications={setReloadNotifications}/>
     );
 }
