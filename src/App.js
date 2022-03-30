@@ -32,7 +32,7 @@ function App() {
           <Route path="/logout" element={<Logout />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<ClientProfile />} />
-          <Route path="/profile/host" element={<HostProfile />} />
+          <Route path="/profile/host/:userId" element={<HostProfile />} />
           <Route path="/profile/account-info" element={<EditClient />} />
           <Route path="/profile/add-pet" element={<AddPet />} />
           <Route path="/profile/register-host" element={<CreateHost />} />
