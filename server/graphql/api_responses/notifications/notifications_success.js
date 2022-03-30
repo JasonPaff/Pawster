@@ -13,3 +13,11 @@ module.exports.notificationAddedSuccess = (notification) => {
         notification:notification
     }
 };
+
+module.exports.notificationDeletedSuccess = (id) => {
+    return {
+        success: true,
+        message: `notification ${id} deleted`,
+        notification:null
+    }
+};

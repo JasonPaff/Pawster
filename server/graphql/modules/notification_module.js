@@ -3,11 +3,11 @@ const pubsub = new PubSub();
 const {createModule, gql} = require("graphql-modules");
 const {jwtError} = require("../api_responses/auth/auth_error");
 const {authenticate, decodeToken} = require("../../utils/auth_utils");
-const {findUserById} = require("../../mongodb/operations/user_operations");
 const {userIdNotFoundError} = require("../api_responses/user/user_error");
-const {getNotifications, addNotification} = require("../../mongodb/operations/notification_operations");
+const {findUserById} = require("../../mongodb/operations/user_operations");
 const {notificationsNotFoundError} = require("../api_responses/notifications/notifications_error");
-const {notificationsFoundSuccess, notificationAddedSuccess} = require("../api_responses/notifications/notifications_success");
+const {getNotifications, addNotification, deleteNotification} = require("../../mongodb/operations/notification_operations");
+const {notificationsFoundSuccess, notificationAddedSuccess, notificationDeletedSuccess} = require("../api_responses/notifications/notifications_success");
 
 module.exports.notificationModule = createModule({
     id: 'notification_module',
@@ -28,16 +28,18 @@ module.exports.notificationModule = createModule({
             }
 
             input NotificationInput {
-                userId: ID
+                fromUserId: ID
                 message: String
                 link: String
+                toUserId: ID
             }
 
             type Notification {
+                fromUserId: ID
                 id: ID
                 link: String
                 message: String
-                userId: ID
+                toUserId: ID
             }
 
             type NotificationAdded {
@@ -94,6 +96,20 @@ module.exports.notificationModule = createModule({
                     }});
 
                 return notificationAddedSuccess(newNotification);
+            },
+            removeNotification: async (parent, {id}, context) => {
+                const authenticated = await authenticate(context);
+                if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
+
+                const user = await findUserById(userId);
+                if (!user) return userIdNotFoundError(userId);
+
+                await deleteNotification(id);
+
+                return notificationDeletedSuccess(id);
             }
         },
         Subscription: {

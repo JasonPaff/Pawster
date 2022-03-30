@@ -12,8 +12,9 @@ export default function SelectedMessage(props) {
         });
 
         await addNotification({
-            userId: props.selectedMessage.receiverUserId,
-            message: "you have a new message",
+            toUserId: props.selectedMessage.receiverUserId,
+            fromUserId: props.selectedMessage.senderUserId,
+            message: `new message from ${props.selectedMessage.sender}`,
             link: "profile/messages"
         });
     }

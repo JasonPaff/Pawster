@@ -1,13 +1,13 @@
 ﻿const {createModule, gql} = require('graphql-modules');
-const {findAddress, doesAddressExist, createAddress, updateAddress, deleteAddress, findAddresses, findHostAddresses} = require("../../mongodb/operations/address_operations");
-const {findUserById} = require("../../mongodb/operations/user_operations");
-const {authenticate, decodeToken} = require("../../utils/auth_utils");
-const {userIdNotFoundError} = require("../api_responses/user/user_error");
 const {jwtError} = require("../api_responses/auth/auth_error");
-const {missingAddressError, existingAddressError, missingAddressesError} = require("../api_responses/address/address_error");
-const {addressFoundSuccess, addressUpdatedSuccess, addressCreatedSuccess, deleteAddressSuccess, addressesFoundSuccess} = require("../api_responses/address/address_success");
+const {authenticate, decodeToken} = require("../../utils/auth_utils");
 const {hostsNotFoundError} = require("../api_responses/host/host_error");
+const {userIdNotFoundError} = require("../api_responses/user/user_error");
+const {findUserById} = require("../../mongodb/operations/user_operations");
 const {findHostUsers} = require("../../mongodb/operations/host_operations");
+const {missingAddressError, existingAddressError, missingAddressesError} = require("../api_responses/address/address_error");
+const {findAddress, doesAddressExist, createAddress, updateAddress, deleteAddress, findHostAddresses} = require("../../mongodb/operations/address_operations");
+const {addressFoundSuccess, addressUpdatedSuccess, addressCreatedSuccess, deleteAddressSuccess, addressesFoundSuccess} = require("../api_responses/address/address_success");
 
 module.exports.addressModule = createModule({
     id: 'address_module',
@@ -75,8 +75,6 @@ module.exports.addressModule = createModule({
 
                 const addresses = await findHostAddresses(hosts);
                 if (!addresses) return missingAddressesError();
-
-                console.log(addresses);
 
                 return addressesFoundSuccess(addresses);
             },

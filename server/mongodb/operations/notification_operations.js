@@ -4,12 +4,13 @@ const {Notification} = require("../schemas/notification_schema");
 module.exports.getNotifications = async (userId) => {
     if (!isValidObjectId(userId)) return false;
     return Notification.find({
-        userId: userId
+        toUserId: userId
     });
 };
 
 module.exports.addNotification = async (notification) => {
-    if (!isValidObjectId(notification.userId)) return false;
+    if (!isValidObjectId(notification.toUserId)) return false;
+    if (!isValidObjectId(notification.fromUserId)) return false;
     const newNotification = await new Notification(notification);
     newNotification.save();
     return newNotification;
