@@ -20,7 +20,7 @@ function DisplayPets() {
         <div className="w-6 h-6 bg-slate-300 flex-shrink-0">
           <PetProfilePhoto petId={pet.id} />
         </div>
-        <span className=" flex-grow">
+        <span className="flex-grow">
           <NavLink to={`/profile/pet-profile/${pet.id}`}>{pet.name}</NavLink>
         </span>
         <span className=" text-right text-xs">
@@ -32,7 +32,13 @@ function DisplayPets() {
     );
   });
 
-  return <div className="flex-col justify-center">{pets.length === 0 ? defaultMessage : petList}</div>;
+
+  return (
+    <div className="flex list-none">
+      {pets.length === 0 ? defaultMessage : petList}
+    </div>
+  );
+
 }
 
 export default DisplayPets;
