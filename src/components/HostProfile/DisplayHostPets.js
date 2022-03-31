@@ -1,29 +1,30 @@
 import React, { useState, useEffect } from "react";
 import getPetsById from "../../services/pet/getPetsById"
+import PetProfilePhoto from "../PetProfilePhoto";
 import { NavLink } from "react-router-dom";
 
 function DisplayHostPets(props) {
   const [pets, setPets] = useState([]);
 
   useEffect(() => {
-    getPetsById().then((result) => {
-      setPets(result.data.getPets.pets);
+    getPetsById(props.userId).then((result) => {
+      setPets(result.data.getPetsById.pets);
     });
   }, []);
 
   const petList = pets.map((pet, index) => {
-    console.log(pet.name)
     return (
-      <li key={index}>
-        <NavLink to={`/profile/pet-profile/${pet.id}`}>{pet.name}</NavLink>
-        <NavLink className="text-sky-400" to={`/profile/pet-profile/edit/${pet.id}`}>Edit</NavLink>
-      </li>
+      <NavLink to={`/profile/pet-profile/${pet.id}`}>
+        <li className="flex-col border p-5 mr-3" key={index}>
+          <PetProfilePhoto petId={pet.id}/>
+          {pet.name}
+        </li>
+      </NavLink>
     );
   });
 
   return (
-    <div className="flex-col justify-center">
-      <h1>Display Pets</h1>
+    <div className="flex list-none">
       {petList}
     </div>
   );

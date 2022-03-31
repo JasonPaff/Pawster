@@ -27,6 +27,9 @@
   label {
     @apply flex flex-col text-xs text-slate-600 text-center;
   }
+  .card {
+    @apply bg-white border border-slate-200 shadow-sm  rounded-md p-5;
+  }
 
   [type="text"],
   [type="email"],
