@@ -8,6 +8,7 @@ export default async function deleteHost() {
             success
             message
             host {
+                aboutMe
                 cancellationPolicy
                 canHostMultiplePets
                 canHostUnspayedFemales

@@ -8,6 +8,7 @@ export default async function getHostById(userId) {
             success
             message
             host {
+                aboutMe
                 cancellationPolicy
                 canHostMultiplePets
                 canHostUnspayedFemales

@@ -12,7 +12,9 @@ export default function SelectedMessage(props) {
         });
 
         const userId = localStorage.getItem('id');
-        const receiver = userId === props.selectedMessage.receiverUserId ? props.selectedMessage.senderUserId : props.selectedMessage.receiverUserId;
+        const receiver = userId === props.selectedMessage.receiverUserId
+            ? props.selectedMessage.senderUserId
+            : props.selectedMessage.receiverUserId;
         await addNotification({
             toUserId: receiver,
             fromUserId: userId,

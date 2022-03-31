@@ -26,6 +26,7 @@ module.exports.hostModule = createModule({
             }
 
             type Host {
+                aboutMe: String
                 cancellationPolicy: String
                 canHostMultiplePets: Boolean
                 canHostUnspayedFemales: Boolean
@@ -51,6 +52,7 @@ module.exports.hostModule = createModule({
             }
 
             input HostInput {
+                aboutMe: String
                 cancellationPolicy: String
                 canHostMultiplePets: Boolean
                 canHostUnspayedFemales: Boolean
