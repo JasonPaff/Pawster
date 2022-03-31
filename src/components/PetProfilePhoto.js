@@ -9,8 +9,6 @@ function PetProfilePhoto(props) {
 
     const [fetchedPhotos, setPhotos] = useState([])
 
-    console.log(fetchedPhotos)
-
     useEffect(() => {
         getPetPhotos(props.petId).then((result) => {
             if (result.data.getPetPhotos.success === true) {

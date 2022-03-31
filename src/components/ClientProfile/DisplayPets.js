@@ -13,7 +13,6 @@ function DisplayPets() {
   }, []);
 
   const petList = pets.map((pet, index) => {
-    console.log(pet.name)
     return (
       <li key={index}>
         <PetProfilePhoto petId={pet.id}/>

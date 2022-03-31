@@ -6,6 +6,7 @@ import getHostById from '../../services/host/getHostById'
 import DisplayPets from '../../components/ClientProfile/DisplayPets';
 import DisplayServices from '../../components/HostProfile/DisplayServices';
 import SendMessage from "../../parts/Messages/SendMessage";
+import HostProfilePic from '../../components/HostProfile/HostProfilePic';
 
 const card = "bg-white border border-slate-200 shadow-sm rounded-md p-5 ";
 
@@ -44,7 +45,7 @@ function HostProfile() {
     return (
         <div className="grid grid-rows-2 grid-flow-col gap-4 p-10">
             <div className={`${card} row-span-1`}>
-                Profile Picture here
+                <HostProfilePic />
             </div>
 
             {isNotLoggedInUser && (
