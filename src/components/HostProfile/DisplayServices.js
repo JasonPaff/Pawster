@@ -38,7 +38,7 @@ function DisplayServices(props) {
 
     function openModal() { setIsOpen(true); }
     function closeModal() { setIsOpen(false); }
-    function afterOpenModal() { subtitle.style.color = '#f00';  }
+    function afterOpenModal() { subtitle.style.color = '#f00'; }
 
     const modalStyles = {
         content: {
