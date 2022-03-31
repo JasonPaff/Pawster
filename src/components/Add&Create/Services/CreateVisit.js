@@ -62,6 +62,16 @@ function CreateVisit() {
     }
   }
 
+  async function handleUpdateHost() {
+    const response = await updateHost(host)
+    console.log(response)
+    if (response.data.updateHost.success) {
+        console.log("Host Updated")
+    } else {
+        alert(response.data.updateHost.message);
+    }
+  }
+
   async function handleUpdateVis() {
     const response = await updateVisit(updateVis);
     if (response.data.updateVisit.success) {
@@ -71,29 +81,7 @@ function CreateVisit() {
     }
   }
 
-  // function setStateAsync(host) {
-  //   return new Promise((resolve) => {
-  //     setHost({
-  //       ...host,
-  //       doesDropInVisits: false
-  //     }, resolve)
-  //   });
-  // }
 
-  async function handleDeleteService() {
-    setHost({
-        ...host,
-        doesDropInVisits: false
-      })
-    const response = await deleteVisit();
-    if (response.data.deleteVisit.success) {
-        console.log(host)
-        handleUpdateHost()
-        navigate('/profile')
-    } else {
-        alert(response.data.deleteVisit.message);
-    }
-  }
 
   
 
@@ -122,7 +110,7 @@ function CreateVisit() {
           <div>Holiday Rate<input type="text" defaultValue={updateVis.holidayRate} placeholder="$0.00" name="holidayRate" onChange={handleUpdateFloatChange} /></div>
           <div>Hourly Rate<input type="text" defaultValue={updateVis.hourlyRate} placeholder="$0.00" name="hourlyRate" onChange={handleFloatChange} /></div>
           <div>Puppy Rate<input type="text" defaultValue={updateVis.puppyRate} placeholder="$0.00" name="puppyRate" onChange={handleFloatChange} /></div>
-          <div><button onClick={handleUpdateVis}>Update</button><button onClick={handleDeleteService}>Deactivate Service</button></div>
+          <div><button onClick={handleUpdateVis}>Update</button></div>
         </div>
       }
     </div>
