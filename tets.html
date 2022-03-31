@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  </head>
+
+  <body style="font-size:20px; padding: 60px;">
+    <h3>Build Your Pages</h3>
+    import&nbsp;React&nbsp;from&nbsp;&apos;react&apos;;<br>
+    <br>
+    function&nbsp;Home()&nbsp;{<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;(<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h1&gt;this&nbsp;is&nbsp;the&nbsp;homepage&lt;/h1&gt;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;);<br>
+    }<br>
+
+    export&nbsp;default&nbsp;Home;
+    <hr>
+
+    <h3>3. Make The Navbar</h3>
+    import&nbsp;React&nbsp;from&nbsp;&quot;react&quot;; <br>
+    import&nbsp;{&nbsp;BrowserRouter,&nbsp;Route,&nbsp;Link&nbsp;}&nbsp;from&nbsp;&quot;react-router-dom&quot;; <br>
+    <br>
+    function&nbsp;Navbar()&nbsp;{ <br>
+    &nbsp;&nbsp;return&nbsp;( <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;nav&gt; <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ul&gt; <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt; <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Link&nbsp;to=&quot;/&quot;&gt;Home&lt;/Link&gt; <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/li&gt; <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt; <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Link&nbsp;to=&quot;/blogs&quot;&gt;Blogs&lt;/Link&gt; <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/li&gt; <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt; <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Link&nbsp;to=&quot;/contact&quot;&gt;Contact&lt;/Link&gt; <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/li&gt; <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ul&gt; <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;/nav&gt; <br>
+    &nbsp;&nbsp;); <br>
+    } <br>
+    <br>
+    export&nbsp;default&nbsp;Navbar; <br>
+    <hr>
+    <h3>4. Bring Everything Together With Layout.jsx</h3>
+    import&nbsp;React&nbsp;from&nbsp;&quot;react&quot;; <br>
+    import&nbsp;{Outlet}&nbsp;from&nbsp;&quot;react-router-dom&quot;; <br>
+    import&nbsp;Navbar&nbsp;from&nbsp;&quot;../Navbar&quot;; <br>
+    <br>
+    const&nbsp;Layout&nbsp;=&nbsp;()&nbsp;=&gt;&nbsp;{ <br>
+    &nbsp;&nbsp;return&nbsp;( <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;&gt; <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Navbar&nbsp;/&gt; <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Outlet&nbsp;/&gt; <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;/&gt; <br>
+    &nbsp;&nbsp;); <br>
+    }; <br>
+    <br>
+    export&nbsp;default&nbsp;Layout; <br>
+    <hr>
+    <h3>5. Create Routes</h3>
+    import&nbsp;ReactDOM&nbsp;from&nbsp;&quot;react-dom&quot;; <br>
+    import&nbsp;{&nbsp;BrowserRouter,&nbsp;Routes,&nbsp;Route&nbsp;}&nbsp;from&nbsp;&quot;react-router-dom&quot;; <br>
+    import&nbsp;Layout&nbsp;from&nbsp;&quot;./pages/Layout&quot;; <br>
+    import&nbsp;Home&nbsp;from&nbsp;&quot;./pages/Home&quot;; <br>
+    import&nbsp;Blogs&nbsp;from&nbsp;&quot;./pages/Blogs&quot;; <br>
+    import&nbsp;Contact&nbsp;from&nbsp;&quot;./pages/Contact&quot;; <br>
+    import&nbsp;NoPage&nbsp;from&nbsp;&quot;./pages/NoPage&quot;; <br>
+    <br>
+    export&nbsp;default&nbsp;function&nbsp;App()&nbsp;{ <br>
+    &nbsp;&nbsp;return&nbsp;( <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;BrowserRouter&gt; <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Routes&gt; <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Route&nbsp;path=&quot;/&quot;&nbsp;element={&lt;Layout&nbsp;/&gt;}&gt; <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Route&nbsp;index&nbsp;element={&lt;Home&nbsp;/&gt;}&nbsp;/&gt; <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Route&nbsp;path=&quot;blogs&quot;&nbsp;element={&lt;Blogs&nbsp;/&gt;}&nbsp;/&gt; <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Route&nbsp;path=&quot;contact&quot;&nbsp;element={&lt;Contact&nbsp;/&gt;}&nbsp;/&gt; <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Route&nbsp;path=&quot;*&quot;&nbsp;element={&lt;NoPage&nbsp;/&gt;}&nbsp;/&gt; <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/Route&gt; <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/Routes&gt; <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;/BrowserRouter&gt; <br>
+    &nbsp;&nbsp;); <br>
+    } <br>
+    <br>
+    ReactDOM.render(&lt;App&nbsp;/&gt;,&nbsp;document.getElementById(&quot;root&quot;)); <br>
+    <br>
+
+    <hr>
+    &lt;Route&nbsp;path=&quot;blogs&quot;&nbsp;element={&lt;Blogs&nbsp;/&gt;}&nbsp;/&gt; <br>
+    &lt;Route&nbsp;path=&quot;contact&quot;&nbsp;element={&lt;Contact&nbsp;/&gt;}&nbsp;/&gt; <br>
+    <br>
+    &lt;Route&nbsp;path=&quot;*&quot;&nbsp;element={&lt;NoPage&nbsp;/&gt;}&nbsp;/&gt; <br>
+  </body>
+
+</html>

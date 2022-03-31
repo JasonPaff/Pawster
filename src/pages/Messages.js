@@ -4,7 +4,6 @@ import {useSubscription} from "@apollo/react-hooks";
 import MessageList from "../parts/Messages/MessageList";
 import SelectedMessage from "../parts/Messages/SelectedMessage";
 import {messageAddedToThreadSubscription} from "../services/messages/messageAddedToThreadSubscription";
-import {messageThreadCreatedSubscription} from "../services/messages/messageThreadCreatedSubscription";
 
 export default function Messages() {
     document.title = "Messages";
@@ -17,15 +16,6 @@ export default function Messages() {
     useSubscription(messageAddedToThreadSubscription, {
         onSubscriptionData: (res) => {
             const messageData = res.subscriptionData.data.messageAdded.messageThread;
-            if (messageData.senderUserId === userId || messageData.receiverUserId === userId) {
-                setReloadMessages(true);
-            }
-        }
-    });
-
-    useSubscription(messageThreadCreatedSubscription, {
-        onSubscriptionData: (res) => {
-            const messageData = res.subscriptionData.data.messageThreadCreated.messageThread;
             if (messageData.senderUserId === userId || messageData.receiverUserId === userId) {
                 setReloadMessages(true);
             }

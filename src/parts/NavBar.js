@@ -7,7 +7,7 @@ import Notifications from "../components/Notifications/Notifications";
 
 function NavBar(props) {
   return (
-    <div className="flex justify-center bg-white">
+    <nav className="flex justify-center bg-white">
       <div className="container flex flex-row justify-between items-center ">
         <h1 className="font-logo text-accent-red text-5xl p-3 sm:ml-10">
           <NavLink to="/">Pawster</NavLink>
@@ -20,12 +20,10 @@ function NavBar(props) {
         </div>
         <div className="relative flex sm:mr-10">
           {props.isAuth ? <Profile /> : <LoginMenu />}
-          <div className="ml-2">
-            {props.isAuth && (<Notifications/>)}
-          </div>
+          <div className="ml-2">{props.isAuth && <Notifications />}</div>
         </div>
       </div>
-    </div>
+    </nav>
   );
 }
 
