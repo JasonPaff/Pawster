@@ -13,3 +13,17 @@ export const removePhoto = (photo) => {
         payload: photo
     }
 }
+
+export const setUserPhoto = (photo) => {
+    return {
+        type: actionTypes.SET_USER_PHOTO,
+        payload: photo,
+    }
+}
+
+export const removeUserPhoto = (photo) => {
+    return {
+        type: actionTypes.REMOVE_PHOTO,
+        payload: photo
+    }
+}

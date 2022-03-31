@@ -1,8 +1,10 @@
 import * as actionTypes from '../actions/actionTypes'
+import * as actionTypesPhoto from '../actions/photoActionTypes'
 
 const initialState = {
     hosts: [],
-    filteredHosts:[]
+    filteredHosts:[],
+    userPhoto: [],
 }
 
 const hostReducer = (state=initialState, action) => {
@@ -16,6 +18,19 @@ const hostReducer = (state=initialState, action) => {
             return {
                 ...state,
                 filteredHosts: action.payload
+            }
+        case actionTypesPhoto.SET_USER_PHOTO:
+            return {
+                ...state,
+                userPhoto: action.payload
+            }
+        case actionTypesPhoto.REMOVE_PHOTO:
+            const photos = state.userPhoto.filter((shot) => {
+                return shot.name !== action.payload;
+            });
+            return {
+                ...state,
+                userPhoto: photos
             }
         default:
             return state;
