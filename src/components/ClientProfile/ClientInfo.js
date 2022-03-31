@@ -1,9 +1,4 @@
-import React, { useEffect, useState } from 'react'
-
-
-
-function ClientInfo() {
-  
+export default function ClientInfo() {
 
   return (
     <div className="flex-col justify-center">
@@ -12,5 +7,3 @@ function ClientInfo() {
     </div>
   );
 }
-
-export default ClientInfo;
