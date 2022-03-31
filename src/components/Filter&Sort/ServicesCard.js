@@ -39,7 +39,7 @@ function ServiceOptions(props) {
           <label className=" text-base mx-2">{selectedService.label} near:</label>
           <input type="text" placeholder="Address or zip code" className=" text-center" />
         </div>
-        <label className="text-left text-base px-8">My pet Size:</label>
+        <label className="text-left text-sm px-8">My pet Size:</label>
         <div className="flex flex-row gap-4 px-6 pb-8 justify-items-stretch">
           <CardWeightsComponent selectedWeight={selectedWeight} setSelectedWeight={setSelectedWeight} />
           <button className=" bg-accent-green text-white flex-1 text-lg">
