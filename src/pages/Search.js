@@ -10,6 +10,7 @@ function Search() {
         <FilterOptions />
         <DisplayHosts />
       </div>
+
       <ReactMap/>
     </div>
   );

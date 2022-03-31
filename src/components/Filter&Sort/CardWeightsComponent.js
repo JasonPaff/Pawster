@@ -10,8 +10,8 @@ function CardWeightsComponent(props) {
           return (
             <RadioGroup.Option
               key={opt.id}
-              value={opt.title}
-              name={opt.title}
+              value={opt}
+              name={opt.name}
               className={({ active, checked }) =>
                 `flex rounded bg-white justify-center items-center cursor-pointer focus:outline-none border 
                 ${active ? "ring-2 ring-offset-1 ring-offset-accent-red ring-white ring-opacity-60 " : ""}

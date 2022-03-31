@@ -40,25 +40,25 @@ const data = {
   weights: [
     {
       id: "w1",
-      name: "sizeCanHost",
+      name: "canHostSmallPet",
       title: "Small",
       weight: "1 - 15",
     },
     {
       id: "w2",
-      name: "sizeCanHost",
+      name: "canHostMediumPet",
       title: "Medium",
       weight: "16 - 40",
     },
     {
       id: "w3",
-      name: "sizeCanHost",
+      name: "canHostLargePet",
       title: "Large",
       weight: "41 - 100",
     },
     {
       id: "w4",
-      name: "sizeCanHost",
+      name: "canHostGiantPet",
       title: "Giant",
       weight: "101 - 200",
     },
