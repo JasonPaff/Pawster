@@ -9,8 +9,6 @@ function ClientProfilePic() {
 
     const [fetchedPhotos, setPhotos] = useState([])
 
-    console.log(fetchedPhotos)
-
     useEffect(() => {
         getUserPhotos().then((result) => {
             console.log(result)
