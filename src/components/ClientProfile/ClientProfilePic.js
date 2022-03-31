@@ -2,16 +2,12 @@ import React, {useEffect, useState} from 'react'
 import getUserPhotos from '../../services/user_photo/getUserPhotos'
 import emptyImage from '../../img/icons/user.png'
 
-
-
-
 function ClientProfilePic() {
 
     const [fetchedPhotos, setPhotos] = useState([])
 
     useEffect(() => {
         getUserPhotos().then((result) => {
-            console.log(result)
             if (result.data.getUserPhotos.success === true) {
                 setPhotos(result.data.getUserPhotos.photos)
             } else {
@@ -22,8 +18,7 @@ function ClientProfilePic() {
 
     const userProfilePhoto = fetchedPhotos.map((pic) => {
         if (pic.isProfilePhoto === true) {
-            const imageSrc = `data:${pic.photoType};base64, ${pic.photo}`;
-            return imageSrc
+            return `data:${pic.photoType};base64, ${pic.photo}`
         } else {
             return emptyImage
         }
@@ -31,7 +26,7 @@ function ClientProfilePic() {
 
     return (
         <div>
-            <img className="w-10"src={userProfilePhoto}/>
+            <img className="w-10" src={userProfilePhoto} alt="profile"/>
         </div>
     )
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import getPetPhotos from "../services/pet_photo/getPetPhotos";
 import emptyImage from "../img/icons/user.png";
 
@@ -17,8 +17,7 @@ function PetProfilePhoto(props) {
 
     const petProfilePhoto = fetchedPhotos.map((pic) => {
         if (pic.isProfilePhoto === true) {
-            const imageSrc = `data:${pic.photoType};base64, ${pic.photo}`;
-            return imageSrc
+            return `data:${pic.photoType};base64, ${pic.photo}`
         } else {
             return emptyImage
         }
@@ -26,7 +25,7 @@ function PetProfilePhoto(props) {
 
     return (
         <div>
-            <img className="w-60"src={petProfilePhoto}/>
+            <img className="w-60" src={petProfilePhoto} alt="pet profile"/>
         </div>
     )
 }

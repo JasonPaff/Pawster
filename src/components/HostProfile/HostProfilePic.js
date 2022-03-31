@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom'
 import getUserProfilePhotoById from '../../services/user_photo/getUserProfilePhotoById'
 import emptyImage from '../../img/icons/user.png'
 
-
 function HostProfilePic() {
 
     const [fetchedPhoto, setPhoto] = useState({})
@@ -29,7 +28,7 @@ function HostProfilePic() {
 
     return (
         <div>
-            <img className="w-10"src={imageSrc}/>
+            <img className="w-10" src={imageSrc} alt="profile"/>
         </div>
     )
 

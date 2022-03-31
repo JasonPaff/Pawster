@@ -8,7 +8,6 @@ import getDaycareById from '../../services/daycare/getDaycareById'
 import getWalkingById from '../../services/walking/getWalkingById'
 import Modal from 'react-modal'
 
-
 function DisplayServices(props) {
 
     const [host, setHost] = useState({})
