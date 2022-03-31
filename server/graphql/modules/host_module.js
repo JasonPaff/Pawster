@@ -30,11 +30,17 @@ module.exports.hostModule = createModule({
                 cancellationPolicy: String
                 canHostMultiplePets: Boolean
                 canHostUnspayedFemales: Boolean
+                canHostSmallPet: Boolean,
+                canHostMediumPet: Boolean,
+                canHostLargePet: Boolean,
+                canHostGiantPet: Boolean,
                 daysAvailable: String
                 doesBoarding: Boolean
                 doesHouseSitting: Boolean
                 doesDropInVisits: Boolean
                 doesDayCare: Boolean
+                doesCat: Boolean
+                doesDog: Boolean
                 doesDogWalking: Boolean
                 experience: String
                 hasChildren: Boolean
@@ -55,9 +61,15 @@ module.exports.hostModule = createModule({
                 aboutMe: String
                 cancellationPolicy: String
                 canHostMultiplePets: Boolean
+                canHostSmallPet: Boolean,
+                canHostMediumPet: Boolean,
+                canHostLargePet: Boolean,
+                canHostGiantPet: Boolean,
                 canHostUnspayedFemales: Boolean
                 daysAvailable: String
                 doesBoarding: Boolean
+                doesCat: Boolean
+                doesDog: Boolean
                 doesHouseSitting: Boolean
                 doesDropInVisits: Boolean
                 doesDayCare: Boolean

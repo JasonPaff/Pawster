@@ -11,8 +11,14 @@ export default async function getHost() {
                 aboutMe
                 cancellationPolicy
                 canHostMultiplePets
+                canHostSmallPet,
+                canHostMediumPet,
+                canHostLargePet,
+                canHostGiantPet,
                 canHostUnspayedFemales
                 daysAvailable
+                doesCat
+                doesDog
                 doesBoarding
                 doesHouseSitting
                 doesDropInVisits
