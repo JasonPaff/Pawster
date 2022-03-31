@@ -1,6 +1,9 @@
 ﻿const {createModule, gql} = require("graphql-modules");
 const {authenticate, decodeToken} = require("../../utils/auth_utils");
 const {jwtError} = require("../api_responses/auth/auth_error");
+
+const {findUser, findUserById} = require("../../mongodb/operations/user_operations");
+
 const {userNotFoundError} = require("../api_responses/user/user_error");
 const {userPhotoNotFoundError, userProfilePhotoNotFoundError} = require("../api_responses/user_photo/user_photo_error");
 const {findUserPhoto, findUserPhotos, findUserProfilePhoto, updateUserProfilePhoto, deleteUserPhoto, deleteAllUserPhotos, addUserPhoto} = require("../../mongodb/operations/user_photo_operations");
@@ -27,7 +30,9 @@ module.exports.userPhotoModule = createModule({
             }
 
             type UserPhoto {
+
                 userId: ID
+
                 photo: String
                 photoType: String
                 isProfilePhoto: Boolean
@@ -107,8 +112,10 @@ module.exports.userPhotoModule = createModule({
                 const user = await findUserById(userId);
                 if (!user) return userNotFoundError(userId);
 
-                userPhoto.userId = userId;
+                userPhoto.userId = userId
+
                 const newPhoto = await addUserPhoto(userPhoto);
+                console.log(newPhoto)
 
                 return userPhotoAddedSuccess(newPhoto);
             },

@@ -1,27 +1,27 @@
 import React, {useEffect, useState} from 'react'
-import getUserPhotos from '../../services/user_photo/getUserPhotos'
+import getPetPhotos from '../services/pet_photo/getPetPhotos'
 import emptyImage from '../img/icons/user.png'
 
 
 
 
-function ClientProfilePhoto() {
+function PetProfilePhoto(props) {
 
     const [fetchedPhotos, setPhotos] = useState([])
 
     console.log(fetchedPhotos)
 
     useEffect(() => {
-        getUserPhotos().then((result) => {
-            if (result.data.getUserPhotos.success === true) {
-                setPhotos(result.data.getUserPhotos.photos)
+        getPetPhotos(props.petId).then((result) => {
+            if (result.data.getPetPhotos.success === true) {
+                setPhotos(result.data.getPetPhotos.photos)
             } else {
                 return null
             }
         })
     }, [])
 
-    const userProfilePhoto = fetchedPhotos.map((pic) => {
+    const petProfilePhoto = fetchedPhotos.map((pic) => {
         if (pic.isProfilePhoto === true) {
             const imageSrc = `data:${pic.photoType};base64, ${pic.photo}`;
             return imageSrc
@@ -32,10 +32,10 @@ function ClientProfilePhoto() {
 
     return (
         <div>
-            <img className="w-10"src={userProfilePhoto}/>
+            <img className="w-10"src={petProfilePhoto}/>
         </div>
     )
 
 }
 
-export default ClientProfilePhoto
+export default PetProfilePhoto
