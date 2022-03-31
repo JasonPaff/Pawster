@@ -1,8 +1,16 @@
 import React, { useState } from 'react'
+import {connect} from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import createPet from '../../services/pet/createPet'
+import addPetPhoto from '../../services/pet_photo/addPetPhoto'
 
-function CreatePet() {
+const mapStateToProps = (state) => {
+  return {
+    photo: state.petRed.photo
+  }
+}
+
+function CreatePet(props) {
   
   const [pet, setPet] = useState({
       "canBeLeftAlone": false,
@@ -41,9 +49,13 @@ function CreatePet() {
   }
 
   async function handleCreatePet() {
+    console.log(props.photo)
     const response = await createPet(pet);
+    const photoResponse = await addPetPhoto(props.photo)
 
-    if (response.data.createPet.success) {
+    console.log(photoResponse)
+
+    if (response.data.createPet.success && photoResponse.data.addPetPhoto.success) {
         navigate('/profile')
     } else {
         alert(response.data.createPet.message);
@@ -82,4 +94,4 @@ function CreatePet() {
   );
 }
 
-export default CreatePet;
+export default connect(mapStateToProps)(CreatePet);

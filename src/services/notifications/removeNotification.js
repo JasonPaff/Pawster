@@ -2,12 +2,12 @@
 import {apiRoute} from "../../utils/apiRoute";
 import getGqlString from "../../utils/graphql_utils";
 
-export default async function getNotifications() {
-    let query = gql`query Query {
-        getNotifications {
+export default async function removeNotification(id) {
+    let query = gql`mutation Mutation($id: ID!) {
+        removeNotification(id: $id) {
             success
             message
-            notifications {
+            notification {
                 fromUserId
                 id
                 link
@@ -26,7 +26,10 @@ export default async function getNotifications() {
             Authorization: localStorage.getItem('token')
         },
         body: JSON.stringify({
-            query
+            query,
+            variables: {
+                id
+            }
         })
     };
 

@@ -4,18 +4,20 @@ const {createModule, gql} = require('graphql-modules');
 const {jwtError} = require("../api_responses/auth/auth_error");
 const {authenticate, decodeToken} = require("../../utils/auth_utils");
 const {findUserById} = require("../../mongodb/operations/user_operations");
-const {messageThreadsNotFoundError, messageThreadsForReceiverNotFoundError,
+const {
+    messageThreadsNotFoundError, messageThreadsForReceiverNotFoundError,
     messageThreadsForSenderNotFoundError, messageThreadNotFoundError
 } = require("../api_responses/message/message_error");
 const {userIdNotFoundError} = require("../api_responses/user/user_error");
-const {getMessageThreadsByUserId, getMessageThreadsByReceiverId, getMessageThreadsBySenderId, getMessageThreadById,
+const {
+    getMessageThreadsByUserId, getMessageThreadsByReceiverId, getMessageThreadsBySenderId, getMessageThreadById,
     createMessageThread, addMessageToThread, hideThreadForReceiver, hideThreadForSender
 } = require("../../mongodb/operations/message_operations");
-const {messageThreadsFoundSuccess, messageThreadsForReceiverFoundSuccess, messageThreadsForSenderFoundSuccess,
+const {
+    messageThreadsFoundSuccess, messageThreadsForReceiverFoundSuccess, messageThreadsForSenderFoundSuccess,
     messageThreadFoundSuccess, messageThreadCreatedSuccess, messageCreatedSuccess, hideThreadForReceiverSuccess,
     hideThreadForSenderSuccess
 } = require("../api_responses/message/message_success");
-const {addNotification} = require("../../mongodb/operations/notification_operations");
 
 module.exports.messageModule = createModule({
     id: 'message_module',
@@ -26,16 +28,16 @@ module.exports.messageModule = createModule({
                 getMessageThreads : MessagesResponse
                 getMessageThreadById(threadId: ID!) : MessageResponse
                 getMessageThreadsBySenderId(userId: ID!) : MessagesResponse
-                getMessageThreadsByReceiverId(userId: ID!) : MessagesResponse                
+                getMessageThreadsByReceiverId(userId: ID!) : MessagesResponse
             }
-            
+
             extend type Mutation {
                 createMessageThread(messageThread: MessageThreadInput!) : MessageResponse
                 addMessageToThread(message: MessageInput!) : MessageResponse
                 hideThreadForReceiver(threadId: ID) : MessageResponse
-                hideThreadForSender(threadId: ID) : MessageResponse                
+                hideThreadForSender(threadId: ID) : MessageResponse
             }
-            
+
             type Subscription {
                 messageAdded: MessageAdded
                 messageThreadCreated: MessageThreadCreated
@@ -44,11 +46,11 @@ module.exports.messageModule = createModule({
             type MessageThreadCreated {
                 messageThread: MessageThread
             }
-            
+
             type MessageAdded{
                 messageThread: MessageThread
             }
-            
+
             type Message {
                 message: String
                 sentAt: Date
@@ -63,9 +65,9 @@ module.exports.messageModule = createModule({
                 messages: [Message]
                 receiverUserId: ID
                 senderUserId: ID
-                subject: String                
+                subject: String
             }
-            
+
             input MessageInput {
                 message: String!
                 threadId: ID!
@@ -77,13 +79,13 @@ module.exports.messageModule = createModule({
                 senderUserId: ID!
                 subject: String!
             }
-                        
+
             type MessageResponse {
                 success: Boolean
                 message: String
                 messageThread: MessageThread
             }
-                        
+
             type MessagesResponse {
                 success: Boolean
                 message: String
@@ -152,10 +154,11 @@ module.exports.messageModule = createModule({
 
                 const newMessageThread = await createMessageThread(messageThread);
 
-                await pubsub.publish("MESSAGE_THREAD_CREATED", {
-                    messageThreadCreated: {
+                await pubsub.publish("MESSAGE_ADDED", {
+                    messageAdded: {
                         messageThread: newMessageThread
-                    }});
+                    }
+                });
 
                 return messageThreadCreatedSuccess(newMessageThread);
             },
@@ -173,8 +176,9 @@ module.exports.messageModule = createModule({
 
                 await pubsub.publish("MESSAGE_ADDED", {
                     messageAdded: {
-                 messageThread: updatedMessageThread
-                }});
+                        messageThread: updatedMessageThread
+                    }
+                });
 
                 return messageCreatedSuccess(updatedMessageThread);
             },
@@ -209,7 +213,7 @@ module.exports.messageModule = createModule({
                 return hideThreadForSenderSuccess(userId, messageThread);
             }
         },
-        Subscription : {
+        Subscription: {
             messageAdded: {
                 subscribe: async () => await pubsub.asyncIterator("MESSAGE_ADDED")
             },

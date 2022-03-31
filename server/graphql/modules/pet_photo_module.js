@@ -67,7 +67,7 @@ module.exports.petPhotoModule = createModule({
                 const petPhotos = await findPetPhotos(petId);
                 if (!petPhotos || petPhotos.length === 0) return petPhotosNotFoundError(petId);
 
-                return petPhotosFoundSuccess(petId);
+                return petPhotosFoundSuccess(petId, petPhotos);
             },
             getPetProfilePhoto: async (parent, {petId}, context) => {
                 const petProfilePhoto = await findPetProfilePhoto(petId);

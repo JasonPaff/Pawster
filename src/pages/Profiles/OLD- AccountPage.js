@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import DisplayPets from "../../components/ClientProfile/DisplayPets";
 import getHost from "../../services/host/getHost";
+import ClientProfilePic from '../../components/ClientProfile/ClientProfilePic'
 
 function ClientProfile() {
   const [host, setHost] = useState({});
@@ -17,6 +18,7 @@ function ClientProfile() {
     <div className="grid grid-cols-3 gap-4 grid-rows-4 p-12">
       <div className="card">
         Account Info
+        <ClientProfilePic />
         <div className="text-sky-400">
           <NavLink to="/profile/account-info">Update</NavLink>
         </div>

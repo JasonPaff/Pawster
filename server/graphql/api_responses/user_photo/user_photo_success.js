@@ -6,10 +6,10 @@
     };
 };
 
-module.exports.userPhotosFoundSuccess = (email, photos) => {
+module.exports.userPhotosFoundSuccess = (userId, photos) => {
     return {
         success: true,
-        message: `photos for ${email} found`,
+        message: `photos for ${userId} found`,
         photos: photos
     };
 };
@@ -46,10 +46,10 @@ module.exports.userPhotoDeletedSuccess = (id, photo) => {
     };
 };
 
-module.exports.userPhotosDeletedSuccess = (email, photos) => {
+module.exports.userPhotosDeletedSuccess = (userId, photos) => {
     return {
         success: true,
-        message: `all photos for ${email} deleted`,
+        message: `all photos for ${userId} deleted`,
         photo: photos
     };
 };

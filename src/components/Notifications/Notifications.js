@@ -5,14 +5,16 @@ import {getUserNotifications} from "../../utils/notification_utils";
 import {notificationSubscription} from "../../services/notifications/notificationSubscription";
 
 export default function Notifications() {
-    const userId = localStorage.getItem('id');
     const [notifications, setNotifications] = useState([]);
     const [reloadNotifications, setReloadNotifications] = useState(true);
+    const [newNotifications, setNewNotifications] = useState(false);
 
     useSubscription(notificationSubscription, {
         onSubscriptionData: (res) => {
+            const userId = localStorage.getItem('id');
             const notification = res.subscriptionData.data.notificationAdded.notification;
-            if (notification.userId === userId) {
+            if (notification.toUserId === userId) {
+                setNewNotifications(true);
                 setReloadNotifications(true);
             }
         }
@@ -21,9 +23,10 @@ export default function Notifications() {
     useEffect(() => {
         getUserNotifications(setNotifications).catch((err) => console.log(err))
         setReloadNotifications(false);
-    }, [reloadNotifications])
+    }, [reloadNotifications]);
 
     return (
-        <NotificationDropdown notifications={notifications}/>
+        <NotificationDropdown notifications={notifications} setNewNotifications={setNewNotifications}
+                              newNotifications={newNotifications} setReloadNotifications={setReloadNotifications}/>
     );
 }

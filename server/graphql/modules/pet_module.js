@@ -15,6 +15,7 @@ module.exports.petModule = createModule({
             extend type Query {
                 getPet(petId: ID!) : PetResponse
                 getPets : PetsResponse
+                getPetsById(userId: ID!) : PetsResponse
             }
             
             extend type Mutation {
@@ -109,7 +110,13 @@ module.exports.petModule = createModule({
                 if (!user) return userIdNotFoundError(userId);
 
                 const pets = await findPets(userId);
-                if (!pets || pets.length === 0) return petsNotFoundError(userId);
+                if (!pets) return petsNotFoundError(userId);
+
+                return petsFoundSuccess(userId, pets);
+            },
+            getPetsById: async (parent, {userId}) => {
+                const pets = await findPets(userId);
+                if (!pets) return petsNotFoundError(userId);
 
                 return petsFoundSuccess(userId, pets);
             }

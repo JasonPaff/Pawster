@@ -19,6 +19,7 @@ import CreateVisit from "./components/Add&Create/Services/CreateVisit";
 import CreateWalking from "./components/Add&Create/Services/CreateWalking";
 import Messages from "./pages/Messages";
 import AccountInfo from "./pages/Profiles/AccountInfo";
+import EditPet from "./pages/Pet/EditPet";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
           <Route path="/profile/host/:userId" element={<HostProfile />} />
           <Route path="/profile/account-info" element={<EditClient />} />
           <Route path="/profile/add-pet" element={<AddPet />} />
+          <Route path="/profile/pet-profile/edit/:petId" element={<EditPet />} />
           <Route path="/profile/register-host" element={<CreateHost />} />
           <Route path="/profile/pet-profile/:petId" element={<PetProfile />} />
           <Route path="/profile/edit-boarding" element={<CreateBoarding />} />
