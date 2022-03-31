@@ -1,6 +1,7 @@
 ﻿const mongoose = require('mongoose');
 
 const host_schema = new mongoose.Schema({
+    aboutMe: {type: String, default: ' '},
     cancellationPolicy: {type: String, default: ' '},
     canHostMultiplePets: {type: Boolean, default: false},
     canHostUnspayedFemales: {type: Boolean, default: false},

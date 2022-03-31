@@ -8,6 +8,7 @@ export default async function getAllHosts() {
             success
             message
             hosts {
+                aboutMe
                 cancellationPolicy
                 canHostMultiplePets
                 canHostUnspayedFemales

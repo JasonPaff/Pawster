@@ -16,6 +16,7 @@ export default async function deleteBoarding() {
                 extendedCareRate
                 holidayRate
                 pickUpDropOffRate
+                puppyRate
             }
         }
     }`

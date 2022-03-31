@@ -11,7 +11,6 @@ function HostProfilePic() {
 
     useEffect(() => {
         getUserProfilePhotoById(params.userId).then((result) => {
-            console.log(result)
             if (result.data.getUserProfilePhotoById.success === true) {
                 setPhoto(result.data.getUserProfilePhotoById.photo)
             } else {
@@ -28,11 +27,9 @@ function HostProfilePic() {
         imageSrc = emptyImage
     }
 
-    console.log(imageSrc)
-
     return (
-        <div>
-            <img className="w-10"src={imageSrc}/>
+        <div className="flex justify-center">
+            <img className="w-60 rounded-full"src={imageSrc}/>
         </div>
     )
 

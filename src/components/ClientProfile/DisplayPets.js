@@ -2,16 +2,19 @@ import React, { useState, useEffect } from "react";
 
 import getPets from "../../services/pet/getPets";
 import { NavLink } from "react-router-dom";
-import PetProfilePhoto from "../PetProfilePhoto";
+import PetProfilePhoto from "../ClientProfile/PetProfilePhoto";
+
 
 function DisplayPets() {
   const [pets, setPets] = useState([]);
   const defaultMessage = "You have no pets?";
 
+
   useEffect(() => {
     getPets().then((result) => {
       setPets(result.data.getPets.pets);
     });
+
   }, []);
 
   const petList = pets.map((pet, index) => {
@@ -20,7 +23,7 @@ function DisplayPets() {
         <div className="w-6 h-6 bg-slate-300 flex-shrink-0">
           <PetProfilePhoto petId={pet.id} />
         </div>
-        <span className=" flex-grow">
+        <span className="flex-grow">
           <NavLink to={`/profile/pet-profile/${pet.id}`}>{pet.name}</NavLink>
         </span>
         <span className=" text-right text-xs">
@@ -32,7 +35,13 @@ function DisplayPets() {
     );
   });
 
-  return <div className="flex-col justify-center">{pets.length === 0 ? defaultMessage : petList}</div>;
+
+  return (
+    <div className="flex list-none">
+      {pets.length === 0 ? defaultMessage : petList}
+    </div>
+  );
+
 }
 
 export default DisplayPets;

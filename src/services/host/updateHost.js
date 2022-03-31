@@ -8,6 +8,7 @@ export default async function updateHost(updatedHost) {
             success
             message
             host {
+                aboutMe
                 cancellationPolicy
                 canHostMultiplePets
                 canHostUnspayedFemales
