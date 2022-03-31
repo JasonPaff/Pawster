@@ -1,6 +1,7 @@
 import DisplayHosts from "../components/DisplayHosts";
 import FilterOptions from "../components/Filter&Sort/FilterOptions";
 import Map from "../components/Map/Map";
+import ReactMap from "../components/Map/ReactMap";
 
 function Search() {
   return (
@@ -9,8 +10,8 @@ function Search() {
         <FilterOptions />
         <DisplayHosts />
       </div>
-      
-      <Map />
+
+      <ReactMap/>
     </div>
   );
 }
