@@ -10,6 +10,7 @@ const boarding_schema = new mongoose.Schema({
     extendedCareRate: {type: Number, default: 0},
     holidayRate: {type: Number, default: 0},
     pickUpDropOffRate: {type: Number, default: 0},
+    puppyRate: {type: Number, default: 0},
     userId: {type: String, required: true},
 });
 

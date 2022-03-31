@@ -21,11 +21,11 @@ function ClientProfilePic() {
     }, [])
 
     const userProfilePhoto = fetchedPhotos.map((pic) => {
+        let imageSrc = `data:${pic.photoType};base64, ${pic.photo}`;
         if (pic.isProfilePhoto === true) {
-            const imageSrc = `data:${pic.photoType};base64, ${pic.photo}`;
             return imageSrc
         } else {
-            return emptyImage
+            imageSrc = emptyImage
         }
     })
 

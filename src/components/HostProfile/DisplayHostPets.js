@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import getPetsById from "../../services/pet/getPetsById"
-import PetProfilePhoto from "../PetProfilePhoto";
+import PetProfilePhoto from "../ClientProfile/PetProfilePhoto";
 import { NavLink } from "react-router-dom";
 
 function DisplayHostPets(props) {
@@ -12,10 +12,10 @@ function DisplayHostPets(props) {
     });
   }, []);
 
-  const petList = pets.map((pet, index) => {
+  const petList = pets.map((pet) => {
     return (
-      <NavLink to={`/profile/pet-profile/${pet.id}`}>
-        <li className="flex-col border p-5 mr-3" key={index}>
+      <NavLink key={pet.id} to={`/profile/pet-profile/${pet.id}`}>
+        <li className="flex-col border p-5 mr-3">
           <PetProfilePhoto petId={pet.id}/>
           {pet.name}
         </li>

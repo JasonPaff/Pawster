@@ -49,6 +49,7 @@ module.exports.boardingModule = createModule({
                 holidayRate: Float
                 id: ID
                 pickUpDropOffRate: Float
+                puppyRate: Float
                 userId: ID
             }
 
@@ -62,6 +63,7 @@ module.exports.boardingModule = createModule({
                 extendedCareRate: Float
                 holidayRate: Float
                 pickUpDropOffRate: Float
+                puppyRate: Float
             }
 
             type BoardingResponse {

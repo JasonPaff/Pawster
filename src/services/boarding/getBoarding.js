@@ -19,6 +19,7 @@ export default async function getBoarding() {
                 extendedCareRate
                 holidayRate
                 pickUpDropOffRate
+                puppyRate
             }
         }
     }`
