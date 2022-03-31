@@ -8,6 +8,7 @@ export default async function createHost(host) {
             success
             message
             host {
+                aboutMe
                 cancellationPolicy
                 canHostMultiplePets
                 canHostUnspayedFemales
