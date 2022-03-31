@@ -11,6 +11,10 @@ export default async function updateHost(updatedHost) {
                 aboutMe
                 cancellationPolicy
                 canHostMultiplePets
+                canHostSmallPet,
+                canHostMediumPet,
+                canHostLargePet,
+                canHostGiantPet,
                 canHostUnspayedFemales
                 daysAvailable
                 doesCat
