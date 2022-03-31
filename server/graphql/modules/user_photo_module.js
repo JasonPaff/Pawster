@@ -1,11 +1,14 @@
 ﻿const {createModule, gql} = require("graphql-modules");
 const {authenticate, decodeToken} = require("../../utils/auth_utils");
 const {jwtError} = require("../api_responses/auth/auth_error");
+
 const {findUser, findUserById} = require("../../mongodb/operations/user_operations");
+
 const {userNotFoundError} = require("../api_responses/user/user_error");
 const {userPhotoNotFoundError, userProfilePhotoNotFoundError} = require("../api_responses/user_photo/user_photo_error");
 const {findUserPhoto, findUserPhotos, findUserProfilePhoto, updateUserProfilePhoto, deleteUserPhoto, deleteAllUserPhotos, addUserPhoto} = require("../../mongodb/operations/user_photo_operations");
 const {userPhotosFoundSuccess, userProfilePhotoFoundSuccess, userPhotoFoundSuccess, userPhotoAddedSuccess, userProfilePhotoUpdatedSuccess, userPhotoDeletedSuccess, userPhotosDeletedSuccess} = require("../api_responses/user_photo/user_photo_success");
+const {findUserById} = require("../../mongodb/operations/user_operations");
 
 module.exports.userPhotoModule = createModule({
     id: 'user_photo_module',
@@ -27,7 +30,9 @@ module.exports.userPhotoModule = createModule({
             }
 
             type UserPhoto {
-                userId: ID!
+
+                userId: ID
+
                 photo: String
                 photoType: String
                 isProfilePhoto: Boolean
@@ -70,9 +75,9 @@ module.exports.userPhotoModule = createModule({
                 if (!userId) return jwtError();
 
                 const userPhotos = await findUserPhotos(userId);
-                if (!userPhotos || userPhotos.length === 0) return userPhotoNotFoundError(userId);
+                if (!userPhotos) return userPhotoNotFoundError(userId);
 
-                return userPhotosFoundSuccess(userId);
+                return userPhotosFoundSuccess(userId, userPhotos);
             },
             getUserProfilePhoto: async (parent, {}, context) => {
                 const authenticated = await authenticate(context);
@@ -84,16 +89,16 @@ module.exports.userPhotoModule = createModule({
                 const userPhoto = await findUserProfilePhoto(userId);
                 if (!userPhoto) return userProfilePhotoNotFoundError(userId);
 
-                return userProfilePhotoFoundSuccess(userId);
+                return userProfilePhotoFoundSuccess(userId, userPhoto);
             },
             getUserProfilePhotoById: async (parent, {userId}) => {
-                const user = await findUser(userId);
+                const user = await findUserById(userId);
                 if (!user) return userNotFoundError(userId);
 
                 const userPhoto = await findUserProfilePhoto(userId);
                 if (!userPhoto) return userProfilePhotoNotFoundError(userId);
 
-                return userProfilePhotoFoundSuccess(userId);
+                return userProfilePhotoFoundSuccess(userId, userPhoto);
             },
         },
         Mutation: {
@@ -106,7 +111,9 @@ module.exports.userPhotoModule = createModule({
 
                 const user = await findUserById(userId);
                 if (!user) return userNotFoundError(userId);
+
                 userPhoto.userId = userId
+
                 const newPhoto = await addUserPhoto(userPhoto);
                 console.log(newPhoto)
 
