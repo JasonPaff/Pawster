@@ -13,19 +13,18 @@ function DisplayHostPets(props) {
   }, []);
 
   const petList = pets.map((pet, index) => {
-    console.log(pet.name)
-    console.log(pet)
     return (
-      <li key={index}>
-        <PetProfilePhoto petId={pet.id}/>
-        <NavLink to={`/profile/pet-profile/${pet.id}`}>{pet.name}</NavLink>
-      </li>
+      <NavLink to={`/profile/pet-profile/${pet.id}`}>
+        <li className="flex-col border p-5 mr-3" key={index}>
+          <PetProfilePhoto petId={pet.id}/>
+          {pet.name}
+        </li>
+      </NavLink>
     );
   });
 
   return (
-    <div className="flex-col justify-center">
-      <h1>Display Pets</h1>
+    <div className="flex list-none">
       {petList}
     </div>
   );

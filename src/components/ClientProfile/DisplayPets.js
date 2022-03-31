@@ -13,19 +13,19 @@ function DisplayPets() {
   }, []);
 
   const petList = pets.map((pet, index) => {
-    console.log(pet)
     return (
-      <li key={index}>
+      <li className="flex-col border p-5 mr-3" key={index}>
         <PetProfilePhoto petId={pet.id}/>
         <NavLink to={`/profile/pet-profile/${pet.id}`}>{pet.name}</NavLink>
-        <NavLink className="text-sky-400" to={`/profile/pet-profile/edit/${pet.id}`}>Edit</NavLink>
+        <div>
+          <NavLink className="text-sky-400" to={`/profile/pet-profile/edit/${pet.id}`}>Edit</NavLink>
+        </div>
       </li>
     );
   });
 
   return (
-    <div className="flex-col justify-center">
-      <h1>Display Pets</h1>
+    <div className="flex list-none">
       {petList}
     </div>
   );
