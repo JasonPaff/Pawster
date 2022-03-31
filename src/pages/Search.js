@@ -10,7 +10,7 @@ function Search() {
         <DisplayHosts />
       </div>
       
-      <Map />
+      {/* <Map /> */}
     </div>
   );
 }

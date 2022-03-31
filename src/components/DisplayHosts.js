@@ -21,6 +21,10 @@ const mapStateToProps = (state) => {
       hasOtherPets: state.filtersRed.hasOtherPets,
       isHomeFullTime: state.filtersRed.isHomeFullTime,
       isSmoking: state.filtersRed.isSmoking,
+      canHostSmallPet: state.filtersRed.canHostSmallPet,
+      canHostMediumPet: state.filtersRed.canHostMediumPet,
+      canHostLargePet: state.filtersRed.canHostLargePet,
+      canHostGiantPet: state.filtersRed.canHostGiantPet,
     }
 }
 
@@ -57,7 +61,8 @@ function DisplayHosts(props) {
       props.hosts, props.doesBoarding, props.doesHouseSitting, props.doesDropInVisits,
       props.doesDayCare, props.doesDogWalking, props.canHostMultiplePets,
       props.canHostUnspayedFemales, props.hasChildren, props.hasOtherPets,
-      props.isHomeFullTime, props.isSmoking
+      props.isHomeFullTime, props.isSmoking, props.canHostSmallPet, props.canHostMediumPet,
+      props.canHostLargePet, props.canHostGiantPet
     )
     setFilteredHosts(hosts)
     props.onGetFilteredHosts(hosts)
@@ -65,7 +70,8 @@ function DisplayHosts(props) {
     props.hosts, props.doesBoarding, props.doesHouseSitting, props.doesDropInVisits,
     props.doesDayCare, props.doesDogWalking, props.canHostMultiplePets,
     props.canHostUnspayedFemales, props.hasChildren, props.hasOtherPets,
-    props.isHomeFullTime, props.isSmoking 
+    props.isHomeFullTime, props.isSmoking, props.canHostSmallPet, props.canHostMediumPet,
+    props.canHostLargePet, props.canHostGiantPet
   ])
 
   const hosts = filteredHosts.map((host, index) => {
