@@ -13,6 +13,8 @@ export default async function getHostById(userId) {
                 canHostMultiplePets
                 canHostUnspayedFemales
                 daysAvailable
+                doesCat
+                doesDog
                 doesBoarding
                 doesHouseSitting
                 doesDropInVisits

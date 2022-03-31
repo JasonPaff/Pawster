@@ -13,6 +13,8 @@ export default async function updateHost(updatedHost) {
                 canHostMultiplePets
                 canHostUnspayedFemales
                 daysAvailable
+                doesCat
+                doesDog
                 doesBoarding
                 doesHouseSitting
                 doesDropInVisits

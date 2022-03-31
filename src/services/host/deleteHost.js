@@ -13,6 +13,8 @@ export default async function deleteHost() {
                 canHostMultiplePets
                 canHostUnspayedFemales
                 daysAvailable
+                doesCat
+                doesDog
                 doesBoarding
                 doesHouseSitting
                 doesDropInVisits

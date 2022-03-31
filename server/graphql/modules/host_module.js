@@ -35,6 +35,8 @@ module.exports.hostModule = createModule({
                 doesHouseSitting: Boolean
                 doesDropInVisits: Boolean
                 doesDayCare: Boolean
+                doesCat: Boolean
+                doesDog: Boolean
                 doesDogWalking: Boolean
                 experience: String
                 hasChildren: Boolean
@@ -58,6 +60,8 @@ module.exports.hostModule = createModule({
                 canHostUnspayedFemales: Boolean
                 daysAvailable: String
                 doesBoarding: Boolean
+                doesCat: Boolean
+                doesDog: Boolean
                 doesHouseSitting: Boolean
                 doesDropInVisits: Boolean
                 doesDayCare: Boolean

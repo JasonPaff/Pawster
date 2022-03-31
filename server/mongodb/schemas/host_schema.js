@@ -10,6 +10,8 @@ const host_schema = new mongoose.Schema({
     doesHouseSitting: {type: Boolean, default: false},
     doesDropInVisits: {type: Boolean, default: false},
     doesDayCare: {type: Boolean, default: false},
+    doesCat: {type: Boolean, default: false},
+    doesDog: {type: Boolean, default: true},
     doesDogWalking: {type: Boolean, default: false},
     experience: {type: String, default: ' '},
     hasChildren: {type: Boolean, default: false},

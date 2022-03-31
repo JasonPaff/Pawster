@@ -13,6 +13,8 @@ export default async function createHost(host) {
                 canHostMultiplePets
                 canHostUnspayedFemales
                 daysAvailable
+                doesCat
+                doesDog
                 doesBoarding
                 doesHouseSitting
                 doesDropInVisits
