@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { Menu, Transition } from "@headlessui/react";
+import { Menu } from "@headlessui/react";
 
 export default function Account() {
   const firstName = localStorage.getItem("firstName");

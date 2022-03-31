@@ -1,9 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {useParams} from 'react-router-dom'
-import {NavLink} from "react-router-dom";
 import getUserById from '../../services/user/getUserById'
 import getHostById from '../../services/host/getHostById'
-import DisplayPets from '../../components/ClientProfile/DisplayPets';
 import DisplayServices from '../../components/HostProfile/DisplayServices';
 import SendMessage from "../../parts/Messages/SendMessage";
 import HostProfilePic from '../../components/HostProfile/HostProfilePic'
