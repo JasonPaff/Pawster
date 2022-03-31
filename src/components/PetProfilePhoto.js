@@ -1,12 +1,8 @@
-import React, {useEffect, useState} from 'react'
-import getPetPhotos from '../services/pet_photo/getPetPhotos'
-import emptyImage from '../img/icons/user.png'
-
-
-
+import React, { useEffect, useState } from "react";
+import getPetPhotos from "../services/pet_photo/getPetPhotos";
+import emptyImage from "../img/icons/user.png";
 
 function PetProfilePhoto(props) {
-
     const [fetchedPhotos, setPhotos] = useState([])
 
     useEffect(() => {
@@ -33,7 +29,6 @@ function PetProfilePhoto(props) {
             <img className="w-60"src={petProfilePhoto}/>
         </div>
     )
-
 }
 
-export default PetProfilePhoto
+export default PetProfilePhoto;

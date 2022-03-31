@@ -5,13 +5,13 @@ import {getUserNotifications} from "../../utils/notification_utils";
 import {notificationSubscription} from "../../services/notifications/notificationSubscription";
 
 export default function Notifications() {
-    const userId = localStorage.getItem('id');
     const [notifications, setNotifications] = useState([]);
     const [reloadNotifications, setReloadNotifications] = useState(true);
     const [newNotifications, setNewNotifications] = useState(false);
 
     useSubscription(notificationSubscription, {
         onSubscriptionData: (res) => {
+            const userId = localStorage.getItem('id');
             const notification = res.subscriptionData.data.notificationAdded.notification;
             if (notification.toUserId === userId) {
                 setNewNotifications(true);

@@ -27,9 +27,7 @@ module.exports.userPhotoModule = createModule({
             }
 
             type UserPhoto {
-
                 userId: ID
-
                 photo: String
                 photoType: String
                 isProfilePhoto: Boolean
@@ -109,10 +107,8 @@ module.exports.userPhotoModule = createModule({
                 const user = await findUserById(userId);
                 if (!user) return userNotFoundError(userId);
 
-                userPhoto.userId = userId
-
+                userPhoto.userId = userId;
                 const newPhoto = await addUserPhoto(userPhoto);
-                console.log(newPhoto)
 
                 return userPhotoAddedSuccess(newPhoto);
             },
