@@ -3,7 +3,8 @@ import createBoarding from '../../../services/boarding/createBoarding'
 import updateBoarding from '../../../services/boarding/updateBoarding'
 import { useNavigate } from 'react-router-dom';
 import getBoarding from '../../../services/boarding/getBoarding';
-
+import getHost from '../../../services/host/getHost'
+import updateHost from '../../../services/host/updateHost'
 
 
 function CreateBoarding() {
@@ -12,11 +13,11 @@ function CreateBoarding() {
 
   const [boarding, setBoarding] = useState({})
   const [updateBoard, setUpdateBoarding] = useState({})
+  const [host, setHost] = useState({})
 
   useEffect(() => {
-    getBoarding().then((result) => {
-      setUpdateBoarding(result.data.getBoarding.boarding)
-    })
+    getHost().then((result) => {setHost(result.data.getHost.host)})
+    getBoarding().then((result) => {setUpdateBoarding(result.data.getBoarding.boarding)})
   },[])
 
 
@@ -24,6 +25,10 @@ function CreateBoarding() {
     setBoarding({
       ...boarding,
       [e.target.name]: parseFloat(e.target.value),
+    })
+    setHost({
+      ...host,
+      doesDropInVisits: true
     })
   }
 
@@ -41,6 +46,16 @@ function CreateBoarding() {
         navigate('/profile')
     } else {
         alert(response.data.createBoarding.message);
+    }
+  }
+
+  async function handleUpdateHost() {
+    const response = await updateHost(host)
+    console.log(response)
+    if (response.data.updateHost.success) {
+        console.log("Host Updated")
+    } else {
+        alert(response.data.updateHost.message);
     }
   }
 
@@ -71,7 +86,7 @@ function CreateBoarding() {
           <div>Extended Care Rate<input type="text" placeholder="$0.00" name="extendedCareRate" onChange={handleFloatChange} /></div>
           <div>Holiday Rate<input type="text" placeholder="$0.00" name="holidayRate" onChange={handleFloatChange} /></div>
           <div>Pick-up/Drop-off Rate<input type="text" placeholder="$0.00" name="pickUpDropOffRate" onChange={handleFloatChange} /></div>
-          <button onClick={handleCreateBoarding}>Save</button>
+          <button onClick={() => {handleCreateBoarding(); handleUpdateHost()}}>Save</button>
         </div>
         :
         <div>
