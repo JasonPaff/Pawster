@@ -5,7 +5,7 @@ import emptyImage from '../../img/icons/user.png'
 
 
 
-function ClientProfilePhoto() {
+function ClientProfilePic() {
 
     const [fetchedPhotos, setPhotos] = useState([])
 
@@ -39,4 +39,4 @@ function ClientProfilePhoto() {
 
 }
 
-export default ClientProfilePhoto
+export default ClientProfilePic
