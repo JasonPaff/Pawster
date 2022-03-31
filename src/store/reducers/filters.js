@@ -11,7 +11,8 @@ const initialState = {
     hasChildren: false,
     hasOtherPets: false,
     isHomeFullTime: false,
-    isSmoking: false,    
+    isSmoking: false,
+    sizeCanHost: "All"    
 }
 
 const filterReducer = (state=initialState, action) => {
@@ -45,6 +46,11 @@ const filterReducer = (state=initialState, action) => {
                 return {
                     ...state,
                     isSmoking: action.payload
+                }
+            case actionTypes.SET_SIZE:
+                return {
+                    ...state,
+                    sizeCanHost: action.payload
                 }
             case actionTypes.SET_SERVICE_FILTER:
                 return {
