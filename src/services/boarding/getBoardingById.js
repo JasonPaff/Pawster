@@ -11,12 +11,13 @@ export default async function getBoardingById(userId) {
                 additionalCatRate
                 additionalDogRate
                 baseRate
+                bathingRate
                 catRate
                 dailyRate
                 extendedCareRate
                 holidayRate
                 pickUpDropOffRate
-                bathingRate
+                puppyRate
             }
         }
     }`
