@@ -11,9 +11,11 @@ export default function SelectedMessage(props) {
             threadId: props.selectedMessage.id
         });
 
+        const userId = localStorage.getItem('id');
+        const receiver = userId === props.selectedMessage.receiverUserId ? props.selectedMessage.senderUserId : props.selectedMessage.receiverUserId;
         await addNotification({
-            toUserId: props.selectedMessage.receiverUserId,
-            fromUserId: props.selectedMessage.senderUserId,
+            toUserId: receiver,
+            fromUserId: userId,
             message: `new message from ${props.selectedMessage.sender}`,
             link: "profile/messages"
         });
