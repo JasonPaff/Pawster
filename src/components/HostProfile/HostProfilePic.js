@@ -28,8 +28,8 @@ function HostProfilePic() {
     }
 
     return (
-        <div>
-            <img className="w-10"src={imageSrc}/>
+        <div className="flex justify-center">
+            <img className="w-60 rounded-full"src={imageSrc}/>
         </div>
     )
 
