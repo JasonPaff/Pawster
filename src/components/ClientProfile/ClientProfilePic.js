@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import getUserPhotos from '../../services/user_photo/getUserPhotos'
-import emptyImage from '../img/icons/user.png'
+import emptyImage from '../../img/icons/user.png'
 
 
 
@@ -13,6 +13,7 @@ function ClientProfilePhoto() {
 
     useEffect(() => {
         getUserPhotos().then((result) => {
+            console.log(result)
             if (result.data.getUserPhotos.success === true) {
                 setPhotos(result.data.getUserPhotos.photos)
             } else {
