@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { NavLink } from "react-router-dom";
 import getUserById from "../../services/user/getUserById";
 import getHostById from "../../services/host/getHostById";
-import DisplayPets from "../../components/ClientProfile/DisplayPets";
 import DisplayServices from "../../components/HostProfile/DisplayServices";
 import SendMessage from "../../parts/Messages/SendMessage";
 import HostProfilePic from "../../components/HostProfile/HostProfilePic";
@@ -33,14 +31,6 @@ function HostProfile() {
       setIsNotLoggedInUser(false);
     }
   }
-
-  // const hostInfo = host.map((host) => {
-  //   return <li key={host.id}>{}</li>
-  // })
-
-  // const userInfo = host.map((userInfo) => {
-  //   return <li key={host.id}>{}</li>
-  // })
 
   return (
     <div className=" container mx-auto grid grid-rows-2 grid-flow-col gap-4 p-10 h-full">

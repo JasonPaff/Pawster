@@ -42,8 +42,8 @@ function CreateAddress() {
   };
 
   async function handleCreateAddress() {
-    console.log(address);
     const response = await createAddress(address);
+    console.log(response);
 
     if (response.data.createAddress.success) {
       window.location.reload();

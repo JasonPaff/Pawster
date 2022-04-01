@@ -11,7 +11,14 @@ const initialState = {
     hasChildren: false,
     hasOtherPets: false,
     isHomeFullTime: false,
-    isSmoking: false,    
+    isSmoking: false,
+    sizeCanHost: "All" ,
+    canHostSmallPet: false,
+    canHostMediumPet: false,
+    canHostLargePet: false,
+    canHostGiantPet: false,
+    doesCat:false,
+    doesDog:false,   
 }
 
 const filterReducer = (state=initialState, action) => {
@@ -46,6 +53,36 @@ const filterReducer = (state=initialState, action) => {
                     ...state,
                     isSmoking: action.payload
                 }
+            case actionTypes.SET_SMALL:
+                return {
+                    ...state,
+                    canHostSmallPet: action.payload
+                }
+            case actionTypes.SET_MEDIUM:
+                return {
+                    ...state,
+                    canHostMediumPet: action.payload
+                }
+            case actionTypes.SET_LARGE:
+                return {
+                    ...state,
+                    canHostLargePet: action.payload
+                }
+            case actionTypes.SET_GIANT:
+                return {
+                    ...state,
+                    canHostGiantPet: action.payload
+                }
+            case actionTypes.SET_DOG:
+                return {
+                    ...state,
+                    doesDog: action.payload
+                }
+            case actionTypes.SET_CAT:
+                return {
+                    ...state,
+                    doesCat: action.payload
+                }
             case actionTypes.SET_SERVICE_FILTER:
                 return {
                     ...state,
@@ -54,6 +91,15 @@ const filterReducer = (state=initialState, action) => {
                     doesDropInVisits: false,
                     doesDayCare: false,
                     doesDogWalking: false,
+                    ...action.payload
+                }
+            case actionTypes.SET_SIZE_FILTER:
+                return {
+                    ...state,
+                    canHostSmallPet: false,
+                    canHostMediumPet : false,
+                    canHostLargePet: false,
+                    canHostGiantPet: false,
                     ...action.payload
                 }
              
