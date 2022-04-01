@@ -30,7 +30,7 @@ function PetProfilePhoto(props) {
 
     return (
         <div>
-            <img className="w-60"src={petProfilePhoto}/>
+            <img className="w-60 rounded-lg"src={petProfilePhoto}/>
         </div>
     )
 }
