@@ -32,6 +32,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/profile/host/:userId" element={<HostProfile />} />
+          <Route path="/profile/pet-profile/:petId" element={<PetProfile />} />
         </Route>
         <Route path="/profile" element={<DashboardLayout />}>
           <Route path="/profile" element={<AccountInfo />} />
@@ -39,7 +40,6 @@ function App() {
           <Route path="/profile/add-pet" element={<AddPet />} />
           <Route path="/profile/pet-profile/edit/:petId" element={<EditPet />} />
           <Route path="/profile/register-host" element={<CreateHost />} />
-          <Route path="/profile/pet-profile/:petId" element={<PetProfile />} />
           <Route path="/profile/edit-boarding" element={<CreateBoarding />} />
           <Route path="/profile/edit-daycare" element={<CreateDayCare />} />
           <Route path="/profile/edit-sitting" element={<CreateSitting />} />
