@@ -5,13 +5,13 @@ import ReactMap from "../components/Map/ReactMap";
 
 function Search() {
   return (
-    <div className="flex justify-between">
+    <div className="container mx-auto flex justify-between">
       <div className="flex w-full justify-between p-5">
         <FilterOptions />
         <DisplayHosts />
       </div>
 
-      <ReactMap/>
+      <ReactMap />
     </div>
   );
 }

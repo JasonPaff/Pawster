@@ -11,12 +11,16 @@ export default function Dashboard() {
   const userId = localStorage.getItem("id");
 
   const header = " bg-background-darker text-center text-sm p-1";
-  const cardInfo = "pt-4 pb-8 px-6 text-slate-700 flex flex-col gap-1";
+  const cardInfo = "flex flex-col pt-4 pb-8 px-6 text-slate-700 gap-1";
   const infoItem = "border-b hover:border-b-slate-300 py-1";
 
   useEffect(() => {
-    getUserById(userId).then((result) => {setUser(result.data.getUserById.user)})
-    getHost().then((result) => {setHost(result.data.getHost.host);});
+    getUserById(userId).then((result) => {
+      setUser(result.data.getUserById.user);
+    });
+    getHost().then((result) => {
+      setHost(result.data.getHost.host);
+    });
   }, []);
 
   return (
@@ -28,7 +32,7 @@ export default function Dashboard() {
             <NavLink to="/profile/">Account Info</NavLink>
           </li>
           <li className={infoItem}>
-            <NavLink to="/profile/account-info">Update</NavLink>
+            <NavLink to="/profile/account-info">Update Info</NavLink>
           </li>
 
           {user.isHost ?
@@ -58,7 +62,6 @@ export default function Dashboard() {
         <header className={header}>Sitter:</header>
         <ul className={cardInfo}>
           {!user.isHost ? <HostActions /> : <NavLink to="/profile/register-host">Become a Host</NavLink>}
-
         </ul>
       </div>
     </>

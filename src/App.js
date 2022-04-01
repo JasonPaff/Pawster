@@ -46,7 +46,7 @@ function App() {
           <Route path="/profile/messages" element={<Messages />} />
           <Route path="/profile/edit-visit" element={<CreateVisit />} />
           <Route path="/profile/edit-walking" element={<CreateWalking />} />
-        </Route>{" "}
+        </Route>
       </Routes>
     </>
   );

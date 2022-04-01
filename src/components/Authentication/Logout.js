@@ -11,10 +11,10 @@ function Logout(props) {
     localStorage.removeItem("token");
     localStorage.removeItem("email");
     localStorage.removeItem("id");
-    localStorage.removeItem("lastName")
-    localStorage.removeItem("firstName")
+    localStorage.removeItem("lastName");
+    localStorage.removeItem("firstName");
     props.onLogout();
-    
+
     navigate("/");
   });
 
