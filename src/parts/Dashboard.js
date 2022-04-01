@@ -61,7 +61,24 @@ export default function Dashboard() {
       <div className="card p-0">
         <header className={header}>Sitter:</header>
         <ul className={cardInfo}>
-          {user.isHost ? <HostActions /> : <NavLink to="/profile/register-host">Become a Host</NavLink>}
+          <li className={infoItem}>
+            <NavLink to="/profile/edit-boarding">Edit Boarding Info</NavLink>
+          </li>
+          <li className={infoItem}>
+            <NavLink to="/profile/edit-sitting">Edit Home Sitting Info</NavLink>
+          </li>
+          <li className={infoItem}>
+            <NavLink to="/profile/edit-visit">Edit Drop-in Visit Info</NavLink>
+          </li>
+          <li className={infoItem}>
+            <NavLink to="/profile/edit-daycare">Edit Day Care Info</NavLink>
+          </li>
+          <li className={infoItem}>
+            <NavLink to="/profile/edit-walking">Edit Dog Walking Info</NavLink>
+          </li>
+          <li className={infoItem}>
+            <NavLink to={`/profile/host/${userId}`}>View your Host Profile</NavLink>
+          </li>
         </ul>
       </div>
     </>
