@@ -28,16 +28,16 @@ export default function Messages() {
   }, [reloadMessages]);
 
   return (
-    <div className="flex flex-col max-w-4xl px-4 gap-3 sm:grid sm:grid-cols-2 bg-gray-100">
-      <div className="">
-        <div className="text-center">
-          <h2>Your Messages</h2>
+    <>
+      {/* <h2 className="text-center ">Your Messages</h2> */}
+      <div className=" flex flex-row  gap-3 xl:px-8 xl:pt-6 xl:gap-6">
+        <div className="w-1/3 shrink-0 max-h-[calc(100vh_-_260px)] overflow-auto">
+          <MessageList messages={messages} setSelectedMessage={setSelectedMessage} />
         </div>
-        <MessageList messages={messages} setSelectedMessage={setSelectedMessage} />
+        <div className="grow max-h-[calc(100vh_-_260px)] overflow-auto p-4 border rounded border-slate-300 bg-background-light">
+          <SelectedMessage selectedMessage={selectedMessage} />
+        </div>
       </div>
-      <div className="flex flex-col mt-6">
-        <SelectedMessage selectedMessage={selectedMessage} />
-      </div>
-    </div>
+    </>
   );
 }

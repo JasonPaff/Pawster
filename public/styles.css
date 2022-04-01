@@ -16,6 +16,9 @@ footer {
   width: 100%;
   bottom: 0;
 }
+.vhMain {
+  height: calc(100vh - 220px);
+}
 /* input[type="checkbox"] {
   @apply accent-green-600;
 } */
