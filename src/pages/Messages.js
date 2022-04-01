@@ -26,7 +26,8 @@ export default function Messages() {
     loadMessages(selectedMessage, setSelectedMessage, setMessages).catch((err) => console.log(err));
     setReloadMessages(false);
   }, [reloadMessages]);
-
+  console.log("______");
+  console.log(selectedMessage.length);
   return (
     <>
       {/* <h2 className="text-center ">Your Messages</h2> */}
@@ -34,9 +35,13 @@ export default function Messages() {
         <div className="w-1/3 shrink-0 max-h-[calc(100vh_-_260px)] overflow-auto">
           <MessageList messages={messages} setSelectedMessage={setSelectedMessage} />
         </div>
-        <div className="grow max-h-[calc(100vh_-_260px)] overflow-auto p-4 border rounded border-slate-300 bg-background-light">
-          <SelectedMessage selectedMessage={selectedMessage} />
-        </div>
+        {selectedMessage.length !== 0 ? (
+          <div className="grow max-h-[calc(100vh_-_260px)] overflow-auto p-4 border rounded border-slate-300 bg-background-light">
+            <SelectedMessage selectedMessage={selectedMessage} />
+          </div>
+        ) : (
+          ""
+        )}
       </div>
     </>
   );
