@@ -37,7 +37,7 @@ function CreateWalking() {
     })
     setHost({
       ...host,
-      doesDropInVisits: true
+      doesDogWalking: true
     })
   }
 
