@@ -11,6 +11,7 @@ export default async function getUserProfilePhotoById(userId) {
                 photo
                 photoType
                 isProfilePhoto
+                userId
             }
         }
     }`

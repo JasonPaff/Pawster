@@ -4,6 +4,9 @@ import { connect } from 'react-redux'
 import hostsFilter from '../utils/hostsFilter'
 import getAllHosts from '../services/host/getAllHosts'
 import * as actionCreators from '../store/action_creators/actionCreators'
+import HostProfilePic from './HostProfile/HostProfilePic'
+import SearchBaseRate from './Search/SearchBaseRate'
+
 
 // needs to put the addresses of the hosts in a separate array, global state, and passed onto the maps to set pins
 
@@ -76,8 +79,17 @@ function DisplayHosts(props) {
 
   const hosts = filteredHosts.map((host, index) => {
       return <NavLink key={index} to={`/profile/host/${host.id}`}>
-        <li className="p-5 border">
-          {host.firstName} {host.lastName}
+        <li className="flex p-5 border">
+          <div className="w-20">
+            <HostProfilePic hostId={host.id}/>
+          </div>
+          <div className="flex justify-between w-full">
+            <div className="flex-col ml-5">
+              <div className="text-xl font-medium">{index + 1}. {host.firstName}</div>
+              <div className="text-xs mt-2">{host.city} {host.state} {host.zipcode}</div>
+            </div>
+            <SearchBaseRate hostId={host.id} />
+          </div>
         </li>
         </NavLink>
   })

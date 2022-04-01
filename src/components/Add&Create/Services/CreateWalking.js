@@ -28,16 +28,16 @@ function CreateWalking() {
       ...walking,
       [e.target.name]: parseFloat(e.target.value),
     })
+    setHost({
+      ...host,
+      doesDogWalking: true
+    })
   }
 
   const handleUpdateFloatChange = (e) => {
     setUpdateWalk({
       ...updateWalk,
       [e.target.name]: parseFloat(e.target.value),
-    })
-    setHost({
-      ...host,
-      doesDogWalking: true
     })
   }
 
