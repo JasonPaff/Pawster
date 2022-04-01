@@ -1,16 +1,15 @@
 import React, {useEffect, useState} from 'react'
-import { useParams } from 'react-router-dom'
 import getUserProfilePhotoById from '../../services/user_photo/getUserProfilePhotoById'
 import emptyImage from '../../img/icons/user.png'
 
 
-function HostProfilePic() {
+function HostProfilePic(props) {
 
     const [fetchedPhoto, setPhoto] = useState({})
-    const params = useParams()
+
 
     useEffect(() => {
-        getUserProfilePhotoById(params.userId).then((result) => {
+        getUserProfilePhotoById(props.hostId).then((result) => {
             if (result.data.getUserProfilePhotoById.success === true) {
                 setPhoto(result.data.getUserProfilePhotoById.photo)
             } else {
@@ -19,9 +18,10 @@ function HostProfilePic() {
         })
     }, [])
 
+
     let imageSrc;
 
-    if (fetchedPhoto.isProfilePhoto === true) {
+    if (fetchedPhoto.isProfilePhoto === true && fetchedPhoto.userId === props.hostId) {
         imageSrc = `data:${fetchedPhoto.photoType};base64, ${fetchedPhoto.photo}`;
     } else {
         imageSrc = emptyImage

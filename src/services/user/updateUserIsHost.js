@@ -2,7 +2,7 @@
 import {apiRoute} from "../../utils/apiRoute";
 import getGqlString from "../../utils/graphql_utils";
 
-export default async function updateUserEmail(isHost) {
+export default async function updateUserIsHost(isHost) {
     let query = gql`mutation Mutation($isHost: Boolean!) {
         updateUserIsHost(isHost: $isHost) {
             success
