@@ -57,9 +57,7 @@ export default function Dashboard() {
       <div className="card p-0">
         <header className={header}>Sitter:</header>
         <ul className={cardInfo}>
-          {user.isHost ?
-          <HostActions /> 
-          : <NavLink to="/profile/register-host">Become a Host</NavLink>}
+          {!user.isHost ? <HostActions /> : <NavLink to="/profile/register-host">Become a Host</NavLink>}
 
         </ul>
       </div>
