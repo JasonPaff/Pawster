@@ -5,7 +5,8 @@ import hostsFilter from '../utils/hostsFilter'
 import getAllHosts from '../services/host/getAllHosts'
 import * as actionCreators from '../store/action_creators/actionCreators'
 import HostProfilePic from './HostProfile/HostProfilePic'
-import SearchBaseRate from './SearchBaseRate'
+import SearchBaseRate from './Search/SearchBaseRate'
+
 
 // needs to put the addresses of the hosts in a separate array, global state, and passed onto the maps to set pins
 
@@ -84,8 +85,8 @@ function DisplayHosts(props) {
           </div>
           <div className="flex justify-between w-full">
             <div className="flex-col ml-5">
-              <div>{host.firstName} {host.lastName}</div>
-              <p>address</p>
+              <div className="text-xl font-medium">{index + 1}. {host.firstName}</div>
+              <div className="text-xs mt-2">{host.city} {host.state} {host.zipcode}</div>
             </div>
             <SearchBaseRate hostId={host.id} />
           </div>
