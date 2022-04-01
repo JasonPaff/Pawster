@@ -9,6 +9,7 @@ export default async function getUserById(userId) {
             message
             user {
                 email
+                isHost
                 password
                 firstName
                 lastName

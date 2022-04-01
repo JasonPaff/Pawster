@@ -31,6 +31,14 @@ module.exports.createUserSuccess = (user, token) => {
     };
 };
 
+module.exports.userIsHostUpdatedSuccess = (user) => {
+    return {
+        success: true,
+        message: `user isHost updated`,
+        user: user,
+    };
+};
+
 module.exports.passwordUpdatedSuccess = (user) => {
     return {
         success: true,
