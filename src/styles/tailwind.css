@@ -24,9 +24,7 @@
   .link:hover {
     @apply text-accent-red;
   }
-  label {
-    @apply flex flex-col text-xs text-slate-600 text-center;
-  }
+
   .card {
     @apply bg-white border border-slate-200 shadow-sm  rounded-md p-5;
   }
@@ -46,6 +44,6 @@
   [multiple],
   textarea,
   select {
-    @apply rounded border-slate-300 focus:border-slate-300 focus:ring-accent-green w-full;
+    @apply rounded border-slate-300 focus:border-slate-300 bg-background-light focus:ring-accent-green w-full p-1 px-2;
   }
 }

@@ -8,6 +8,7 @@ function Login(props) {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
+  const labelCenter = "flex flex-col text-xs text-slate-600 text-center";
 
   async function handleAccountLogin(e) {
     e.preventDefault();
@@ -31,12 +32,12 @@ function Login(props) {
         <h3 className="text-center p-2 mb-4 bg-background-darker">Existing Account</h3>
         <form onSubmit={handleAccountLogin} className="flex flex-col gap-3  bg-background-lighter px-8 pb-8 ">
           <div>
-            <label htmlFor="">Email:</label>
-            <input type="text" onChange={(e) => setEmail(e.target.value)} required />
+            <label className={labelCenter}>Email:</label>
+            <input className="p-2 bg-white" type="text" onChange={(e) => setEmail(e.target.value)} required />
           </div>
           <div className="flex flex-col text-xs text-slate-600 text-center">
-            <label htmlFor="">Password:</label>
-            <input type="password" onChange={(e) => setPassword(e.target.value)} required />
+            <label className={labelCenter}>Password:</label>
+            <input className="p-2 bg-white" type="password" onChange={(e) => setPassword(e.target.value)} required />
           </div>
           <button type="submit" className=" py-2 mt-4 mb-3 bg-accent-green text-white rounded-md">
             Login
