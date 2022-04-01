@@ -26,20 +26,23 @@ export default function Messages() {
     loadMessages(selectedMessage, setSelectedMessage, setMessages).catch((err) => console.log(err));
     setReloadMessages(false);
   }, [reloadMessages]);
-
+  console.log("______");
+  console.log(selectedMessage.length);
   return (
-    <div className="flex flex-row justify-center">
-      <div className="flex flex-col max-w-4xl px-4 sm:grid sm:grid-cols-2">
-        <div className="ml-2 mr-2">
-          <div className="flex justify-center">
-            <h2>Your Messages</h2>
-          </div>
+    <>
+      {/* <h2 className="text-center ">Your Messages</h2> */}
+      <div className=" flex flex-row  gap-3 xl:px-8 xl:pt-6 xl:gap-6">
+        <div className="w-1/3 shrink-0 max-h-[calc(100vh_-_260px)] overflow-auto">
           <MessageList messages={messages} setSelectedMessage={setSelectedMessage} />
         </div>
-        <div className="flex flex-col mt-6">
-          <SelectedMessage selectedMessage={selectedMessage} />
-        </div>
+        {selectedMessage.length !== 0 ? (
+          <div className="grow max-h-[calc(100vh_-_260px)] overflow-auto p-4 border rounded border-slate-300 bg-background-light">
+            <SelectedMessage selectedMessage={selectedMessage} />
+          </div>
+        ) : (
+          ""
+        )}
       </div>
-    </div>
+    </>
   );
 }
