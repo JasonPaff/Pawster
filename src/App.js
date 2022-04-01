@@ -20,6 +20,7 @@ import CreateWalking from "./components/Add&Create/Services/CreateWalking";
 import Messages from "./pages/Messages";
 import AccountInfo from "./pages/Profiles/AccountInfo";
 import EditPet from "./pages/Pet/EditPet";
+import BookHost from "./pages/BookHost";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           <Route path="/logout" element={<Logout />} />
           <Route path="/profile/host/:userId" element={<HostProfile />} />
           <Route path="/profile/pet-profile/:petId" element={<PetProfile />} />
+          <Route path="/book-host/:hostId" element={<BookHost />} />
         </Route>
         <Route path="/profile" element={<DashboardLayout />}>
           <Route path="/profile" element={<AccountInfo />} />

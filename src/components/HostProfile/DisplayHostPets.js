@@ -12,7 +12,7 @@ function DisplayHostPets(props) {
     });
   }, []);
 
-  console.log(pets)
+  
   const petList = pets.map((pet) => {
     return (
       <NavLink key={pet.id} to={`/profile/pet-profile/${pet.id}`}>
