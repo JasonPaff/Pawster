@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import createSitting from '../../../services/sitting/createSitting'
 import updateSitting from '../../../services/sitting/updateSitting'
 import getSitting from '../../../services/sitting/getSitting'
-
+import getHost from '../../../services/host/getHost'
+import updateHost from '../../../services/host/updateHost'
 
 
 function CreateSitting() {
@@ -12,11 +13,11 @@ function CreateSitting() {
 
   const [sitting, setSitting] = useState({})
   const [updateSit, setUpdateSit] = useState({})
+  const [host, setHost] = useState({})
 
   useEffect(() => {
-    getSitting().then((result) => {
-    setUpdateSit(result.data.getSitting.sitting)
-    })
+    getHost().then((result) => {setHost(result.data.getHost.host)})
+    getSitting().then((result) => {setUpdateSit(result.data.getSitting.sitting)})
   },[])
 
 
@@ -24,6 +25,10 @@ function CreateSitting() {
     setSitting({
       ...sitting,
       [e.target.name]: parseFloat(e.target.value),
+    })
+    setHost({
+      ...host,
+      doesHouseSitting: true
     })
   }
 
@@ -42,6 +47,16 @@ function CreateSitting() {
         navigate('/profile')
     } else {
         alert(response.data.createSitting.message);
+    }
+  }
+
+  async function handleUpdateHost() {
+    const response = await updateHost(host)
+    console.log(response)
+    if (response.data.updateHost.success) {
+        console.log("Host Updated")
+    } else {
+        alert(response.data.updateHost.message);
     }
   }
 
@@ -69,7 +84,7 @@ function CreateSitting() {
           <div>Extended Care Rate<input type="text" placeholder="$0.00" name="extendedCareRate" onChange={handleFloatChange} /></div>
           <div>Holiday Rate<input type="text" placeholder="$0.00" name="holidayRate" onChange={handleFloatChange} /></div>
           <div>Puppy Rate<input type="text" placeholder="$0.00" name="puppyRate" onChange={handleFloatChange} /></div>
-          <button onClick={handleCreateSitting}>Save</button>
+          <button onClick={() => {handleCreateSitting(); handleUpdateHost()}}>Save</button>
         </div>
         :
         <div>

@@ -8,6 +8,7 @@ function PetProfilePhoto(props) {
 
     useEffect(() => {
         getPetPhotos(props.petId).then((result) => {
+            console.log(result)
             if (result.data.getPetPhotos.success === true) {
                 setPhotos(result.data.getPetPhotos.photos)
             } else {
@@ -27,10 +28,10 @@ function PetProfilePhoto(props) {
         }
     })
 
-
+    
     return (
         <div>
-            <img className="w-60"src={petProfilePhoto}/>
+            <img className="w-60 rounded-lg"src={petProfilePhoto}/>
         </div>
     )
 }

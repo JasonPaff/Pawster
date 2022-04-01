@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import createWalking from '../../../services/walking/createWalking'
 import updateWalking from '../../../services/walking/updateWalking'
 import getWalking from '../../../services/walking/getWalking'
+import getHost from '../../../services/host/getHost'
+import updateHost from '../../../services/host/updateHost'
 
 // TODO: 
 
@@ -13,11 +15,11 @@ function CreateWalking() {
 
   const [walking, setWalking] = useState({})
   const [updateWalk, setUpdateWalk] = useState({})
+  const [host, setHost] = useState({})
 
   useEffect(() => {
-    getWalking().then((result) => {
-    setUpdateWalk(result.data.getWalking.walking)
-    })
+    getHost().then((result) => {setHost(result.data.getHost.host)})
+    getWalking().then((result) => {setUpdateWalk(result.data.getWalking.walking)})
   },[])
 
 
@@ -33,6 +35,20 @@ function CreateWalking() {
       ...updateWalk,
       [e.target.name]: parseFloat(e.target.value),
     })
+    setHost({
+      ...host,
+      doesDogWalking: true
+    })
+  }
+
+  async function handleUpdateHost() {
+    const response = await updateHost(host)
+    console.log(response)
+    if (response.data.updateHost.success) {
+        console.log("Host Updated")
+    } else {
+        alert(response.data.updateHost.message);
+    }
   }
 
   async function handleCreateWalking() {
@@ -64,7 +80,7 @@ function CreateWalking() {
           <div>Base Rate<input type="text" placeholder="$0.00" name="baseRate" onChange={handleFloatChange} /></div>
           <div>Holiday Rate<input type="text" placeholder="$0.00" name="holidayRate" onChange={handleFloatChange} /></div>
           <div>Puppy Rate<input type="text" placeholder="$0.00" name="puppyRate" onChange={handleFloatChange} /></div>
-          <button onClick={handleCreateWalking}>Save</button>
+          <button onClick={() => {handleCreateWalking(); handleUpdateHost()}}>Save</button>
         </div>
         :
         <div>

@@ -2,20 +2,27 @@ import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import DisplayPets from "../components/ClientProfile/DisplayPets";
 import getHost from "../services/host/getHost";
+import getUserById from "../services/user/getUserById";
+import HostActions from "./HostActions";
 
 export default function Dashboard() {
   const [host, setHost] = useState({});
+  const [user, setUser] = useState({});
   const userId = localStorage.getItem("id");
 
   const header = " bg-background-darker text-center text-sm p-1";
-  const cardInfo = "pt-4 pb-8 px-6 text-slate-700 flex flex-col gap-1";
+  const cardInfo = "flex flex-col pt-4 pb-8 px-6 text-slate-700 gap-1";
   const infoItem = "border-b hover:border-b-slate-300 py-1";
 
   useEffect(() => {
+    getUserById(userId).then((result) => {
+      setUser(result.data.getUserById.user);
+    });
     getHost().then((result) => {
       setHost(result.data.getHost.host);
     });
   }, []);
+
   return (
     <>
       <div className="card p-0">
@@ -25,11 +32,20 @@ export default function Dashboard() {
             <NavLink to="/profile/">Account Info</NavLink>
           </li>
           <li className={infoItem}>
-            <NavLink to="/profile/account-info">Update</NavLink>
+            <NavLink to="/profile/account-info">Update Info</NavLink>
           </li>
+
           <li className={infoItem}>
             <NavLink to="/profile/register-host">Become a Host</NavLink>
-          </li>
+          </li> 
+
+          {/* {user.isHost ?
+          <li className={infoItem}>
+            <NavLink to="/profile/register-host">Become a Host</NavLink>
+          </li> 
+          : 
+          null} */}
+
           <li className={infoItem}>
             <NavLink to="/profile/messages">Messages</NavLink>
           </li>

@@ -12,6 +12,8 @@ function Register(props) {
   const passwordLabel = useRef(null);
   const emailLabel = useRef(null);
 
+  const labelCenter = "flex flex-col text-xs text-slate-600 text-center";
+
   async function handleCreateAccount(e) {
     e.preventDefault();
 
@@ -67,30 +69,36 @@ function Register(props) {
         <h3 className="text-center p-2 mb-4 bg-background-darker">Register New Account</h3>
         <form onSubmit={handleCreateAccount} className="flex flex-col gap-3  bg-background-lighter px-8 pb-8 ">
           <div>
-            <label htmlFor="">First Name:</label>
-            <input type="text" name="firstName" pattern="^[a-zA-Z]+$" onChange={handleTextChange} required />
+            <label className={labelCenter} htmlFor="">
+              First Name:
+            </label>
+            <input className="p-2 bg-white" type="text" name="firstName" pattern="^[a-zA-Z]+$" onChange={handleTextChange} required />
           </div>
           <div>
-            <label htmlFor="">Last Name:</label>
-            <input type="text" name="lastName" pattern="^[a-zA-Z]+$" onChange={handleTextChange} required />
+            <label className={labelCenter} htmlFor="">
+              Last Name:
+            </label>
+            <input className="p-2 bg-white" type="text" name="lastName" pattern="^[a-zA-Z]+$" onChange={handleTextChange} required />
           </div>
           <div>
-            <label htmlFor="" ref={emailLabel}>
+            <label className={labelCenter} htmlFor="" ref={emailLabel}>
               Email
             </label>
-            <input type="email" name="email" className="" onChange={handleTextChange} required />
+            <input className="p-2 bg-white" type="email" name="email" onChange={handleTextChange} required />
           </div>
 
           <div>
-            <label htmlFor="">Password</label>
-            <input type="password" name="password" onChange={handleTextChange} required />
+            <label className={labelCenter} htmlFor="">
+              Password
+            </label>
+            <input className="p-2 bg-white" type="password" name="password" onChange={handleTextChange} required />
           </div>
 
           <div>
-            <label htmlFor="" ref={passwordLabel}>
+            <label className={labelCenter} htmlFor="" ref={passwordLabel}>
               Confirm Password
             </label>
-            <input type="password" onChange={(e) => setPassword2(e.target.value)} required />
+            <input className="p-2 bg-white" type="password" onChange={(e) => setPassword2(e.target.value)} required />
           </div>
           <button type="submit" className=" py-2 bg-accent-green text-white rounded-md mt-4 mb-3">
             Create Account

@@ -10,13 +10,17 @@ import CardWeightsComponent from "./CardWeightsComponent";
 const mapDispatchToProps = (dispatch) => {
   return {
     onToggleService: (value) => dispatch(actionCreators.toggleService(value)),
+    onToggleSize: (value) => dispatch(actionCreators.toggleSize(value)),
+    onToggleCat: (value) => dispatch(actionCreators.toggleCat(value)),
+    onToggleDog: (value) => dispatch(actionCreators.toggleDog(value)),
   };
 };
 
 function ServiceOptions(props) {
   const [selectedService, setSelectedService] = useState(data.services[0]);
-  const [selectedWeight, setSelectedWeight] = useState([]);
+  const [selectedWeight, setSelectedWeight] = useState(data.weights[0]);
   props.onToggleService({ [selectedService.name]: true });
+  props.onToggleSize({ [selectedWeight.name]: true })
   console.log(selectedService.label);
   return (
     <div className="rounded overflow-hidden bg-background-light border border-slate-300 m-4">
@@ -26,11 +30,11 @@ function ServiceOptions(props) {
         <label htmlFor="dog-services" className="inline text-base text-black">
           Dog
         </label>
-        <input type="checkbox" className=" inline" id="dog-services" />
+        <input type="checkbox" onChange={(e) => props.onToggleCat(e.target.checked)} className=" inline" id="dog-services" />
         <label htmlFor="cat-services" className="inline text-base text-black">
           Cat
         </label>
-        <input type="checkbox" className=" inline" id="cat-services" />
+        <input type="checkbox" onChange={(e) => props.onToggleDog(e.target.checked)} className=" inline" id="cat-services" />
       </div>
       <div>
         <CardServiceComponent selectedService={selectedService} setSelectedService={setSelectedService} />

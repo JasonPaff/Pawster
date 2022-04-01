@@ -91,8 +91,8 @@ module.exports.petModule = createModule({
     resolvers: {
         Query: {
             getPet: async (parent, {petId}, context) => {
-                const authenticated = await authenticate(context);
-                if (!authenticated) return jwtError();
+                // const authenticated = await authenticate(context);
+                // if (!authenticated) return jwtError();
 
                 const pet = await findPet(petId);
                 if (!pet) return petNotFoundError(petId);
@@ -100,8 +100,8 @@ module.exports.petModule = createModule({
                 return petFoundSuccess(pet);
             },
             getPets: async (parent, {}, context) => {
-                const authenticated = await authenticate(context);
-                if (!authenticated) return jwtError();
+                // const authenticated = await authenticate(context);
+                // if (!authenticated) return jwtError();
 
                 const userId = await decodeToken(context);
                 if (!userId) return jwtError();

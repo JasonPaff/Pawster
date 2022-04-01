@@ -16,6 +16,9 @@ footer {
   width: 100%;
   bottom: 0;
 }
+/* input[type="checkbox"] {
+  @apply accent-green-600;
+} */
 
 /* input:focus:required:invalid {
   border: 1px solid red;

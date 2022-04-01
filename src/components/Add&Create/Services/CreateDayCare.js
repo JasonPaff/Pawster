@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import createDaycare from '../../../services/daycare/createDaycare'
 import updateDaycare from '../../../services/daycare/updateDaycare'
 import getDaycare from '../../../services/daycare/getDaycare'
+import getHost from '../../../services/host/getHost'
+import updateHost from '../../../services/host/updateHost'
 
 // TODO: Cannot read properties of undefined "exists" during save
 
@@ -13,11 +15,11 @@ function CreateDayCare() {
 
   const [daycare, setDayCare] = useState({})
   const [updateDayCare, setUpdateDayCare] = useState({})
+  const [host, setHost] = useState({})
 
   useEffect(() => {
-    getDaycare().then((result) => {
-    setUpdateDayCare(result.data.getDaycare.daycare)
-    })
+    getHost().then((result) => {setHost(result.data.getHost.host)})
+    getDaycare().then((result) => {setUpdateDayCare(result.data.getDaycare.daycare)})
   },[])
 
 
@@ -25,6 +27,10 @@ function CreateDayCare() {
     setDayCare({
       ...daycare,
       [e.target.name]: parseFloat(e.target.value),
+    })
+    setHost({
+      ...host,
+      doesDayCare: true
     })
   }
 
@@ -42,6 +48,16 @@ function CreateDayCare() {
         navigate('/profile')
     } else {
         alert(response.data.createDaycare.message);
+    }
+  }
+
+  async function handleUpdateHost() {
+    const response = await updateHost(host)
+    console.log(response)
+    if (response.data.updateHost.success) {
+        console.log("Host Updated")
+    } else {
+        alert(response.data.updateHost.message);
     }
   }
 
@@ -69,7 +85,7 @@ function CreateDayCare() {
           <div>Holiday Rate<input type="text" placeholder="$0.00" name="holidayRate" onChange={handleFloatChange} /></div>
           <div>Pick-up/Drop-off Rate<input type="text" placeholder="$0.00" name="pickUpDropOffRate" onChange={handleFloatChange} /></div>
           <div>Puppy Rate<input type="text" placeholder="$0.00" name="puppyRate" onChange={handleFloatChange} /></div>
-          <button onClick={handleCreateDayCare}>Save</button>
+          <button onClick={() => {handleCreateDayCare(); handleUpdateHost()}}>Save</button>
         </div>
         :
         <div>
