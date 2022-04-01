@@ -86,13 +86,13 @@ export const toggleService = (value) => {
 
 export const toggleCat = (value) => {
     return {
-        type: actionTypes.SET_DOG,
+        type: actionTypes.SET_CAT,
         payload: value
     }
 }
 export const toggleDog = (value) => {
     return {
-        type: actionTypes.SET_CAT,
+        type: actionTypes.SET_DOG,
         payload: value
     }
 }
