@@ -52,8 +52,8 @@ module.exports.petPhotoModule = createModule({
         `], resolvers: {
         Query: {
             getPetPhoto: async (parent, {photoId}, context) => {
-                const authenticated = await authenticate(context);
-                if (!authenticated) return jwtError();
+                // const authenticated = await authenticate(context);
+                // if (!authenticated) return jwtError();
 
                 const petPhoto = await findPetPhoto(photoId);
                 if (!petPhoto) return petPhotoNotFoundError(photoId);
@@ -61,8 +61,8 @@ module.exports.petPhotoModule = createModule({
                 return petPhotoFoundSuccess(photoId, petPhoto);
             },
             getPetPhotos: async (parent, {petId}, context) => {
-                const authenticated = await authenticate(context);
-                if (!authenticated) return jwtError();
+                // const authenticated = await authenticate(context);
+                // if (!authenticated) return jwtError();
 
                 const petPhotos = await findPetPhotos(petId);
                 if (!petPhotos || petPhotos.length === 0) return petPhotosNotFoundError(petId);
