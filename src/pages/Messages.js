@@ -28,17 +28,15 @@ export default function Messages() {
   }, [reloadMessages]);
 
   return (
-    <div className="flex flex-row justify-center">
-      <div className="flex flex-col max-w-4xl px-4 sm:grid sm:grid-cols-2">
-        <div className="ml-2 mr-2">
-          <div className="flex justify-center">
-            <h2>Your Messages</h2>
-          </div>
-          <MessageList messages={messages} setSelectedMessage={setSelectedMessage} />
+    <div className="flex flex-col max-w-4xl px-4 gap-3 sm:grid sm:grid-cols-2 bg-gray-100">
+      <div className="">
+        <div className="text-center">
+          <h2>Your Messages</h2>
         </div>
-        <div className="flex flex-col mt-6">
-          <SelectedMessage selectedMessage={selectedMessage} />
-        </div>
+        <MessageList messages={messages} setSelectedMessage={setSelectedMessage} />
+      </div>
+      <div className="flex flex-col mt-6">
+        <SelectedMessage selectedMessage={selectedMessage} />
       </div>
     </div>
   );

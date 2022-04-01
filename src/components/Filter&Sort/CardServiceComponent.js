@@ -5,7 +5,7 @@ import React from "react";
 
 function CardServiceComponent(props) {
   return (
-    <RadioGroup key={"cardServiceOptions"} value={props.selectedService} onChange={props.setSelectedService} className="flex gap-2 p-6 flex-wrap justify-around  ">
+    <RadioGroup key={"cardServiceOptions"} value={props.selectedService} onChange={props.setSelectedService} className="flex gap-2 px-6 pt-6 pb-4 flex-wrap justify-around  ">
       {data.services.map((opt, i) => {
         return (
           <RadioGroup.Option

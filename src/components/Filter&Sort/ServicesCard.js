@@ -20,7 +20,7 @@ function ServiceOptions(props) {
   const [selectedService, setSelectedService] = useState(data.services[0]);
   const [selectedWeight, setSelectedWeight] = useState(data.weights[0]);
   props.onToggleService({ [selectedService.name]: true });
-  props.onToggleSize({ [selectedWeight.name]: true })
+  props.onToggleSize({ [selectedWeight.name]: true });
   console.log(selectedService.label);
   return (
     <div className="rounded overflow-hidden bg-background-light border border-slate-300 m-4">
@@ -39,9 +39,9 @@ function ServiceOptions(props) {
       <div>
         <CardServiceComponent selectedService={selectedService} setSelectedService={setSelectedService} />
 
-        <div className="mx-6 mb-5">
-          <label className=" text-base mx-2">{selectedService.label} near:</label>
-          <input type="text" placeholder="Address or zip code" className=" text-center" />
+        <div className="mx-6 mb-4">
+          <label className=" text-sm mx-2  block text-center ">{selectedService.label} near:</label>
+          <input type="text" placeholder="Enter address or zip code" className=" text-center bg-white py-2" />
         </div>
         <label className="text-left text-sm px-8">My pet Size:</label>
         <div className="flex flex-row gap-4 px-6 pb-8 justify-items-stretch">
