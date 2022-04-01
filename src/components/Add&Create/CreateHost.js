@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import createHost from '../../services/host/createHost'
+import getUserById from '../../services/user/getUserById'
+import updateUser from '../../services/user/updateUserEmail'
 
 function CreateHost() {
-  
+
+    const userId = localStorage.getItem("id");
+    const navigate = useNavigate()
+
+    const [user, setUser] = useState({})
     const [host, setHost] = useState({
         "canHostMultiplePets": false,
         "canHostUnspayedFemales": false,
@@ -21,14 +27,21 @@ function CreateHost() {
         "typeOfYard": '',
     })
 
-    const navigate = useNavigate()
+    useEffect(() => {
+        getUserById(userId).then((result) => {setUser(result.data.getUserById.user)})
+    },[])
+
+
 
 
     const handleTextChange = (e) => {
         setHost({
         ...host,
         [e.target.name]: e.target.value,
-
+        })
+        setUser({
+            ...user,
+            isHost: true,
         })
     }
 
