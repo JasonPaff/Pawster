@@ -30,7 +30,7 @@ function CreateDayCare() {
     })
     setHost({
       ...host,
-      doesDropInVisits: true
+      doesDayCare: true
     })
   }
 

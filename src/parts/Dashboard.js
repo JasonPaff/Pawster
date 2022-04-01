@@ -35,12 +35,16 @@ export default function Dashboard() {
             <NavLink to="/profile/account-info">Update Info</NavLink>
           </li>
 
-          {user.isHost ?
           <li className={infoItem}>
-            <NavLink to="/profile/register-host">Edit Host Info</NavLink>
+            <NavLink to="/profile/register-host">Become a Host</NavLink>
+          </li> 
+
+          {/* {user.isHost ?
+          <li className={infoItem}>
+            <NavLink to="/profile/register-host">Become a Host</NavLink>
           </li> 
           : 
-          null}
+          null} */}
 
           <li className={infoItem}>
             <NavLink to="/profile/messages">Messages</NavLink>

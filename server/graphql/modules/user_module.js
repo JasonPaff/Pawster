@@ -8,7 +8,9 @@ const {hashPassword, comparePasswordHashes} = require("../../utils/password_util
 const {deleteAllUserPhotos} = require("../../mongodb/operations/user_photo_operations");
 const {updateUser, createUser, deleteUser, findUserByEmail, findUserById, doesUserEmailExist} = require("../../mongodb/operations/user_operations");
 const {invalidUsernamePasswordError, invalidPasswordError, userAlreadyExistsError, userIdNotFoundError, userEmailNotFoundError, usersNotFoundError} = require("../api_responses/user/user_error");
-const {createUserSuccess, passwordUpdatedSuccess, emailUpdatedSuccess, accountDeletedSuccess, userEmailFoundSuccess, userIdFoundSuccess, usersFoundSuccess} = require("../api_responses/user/user_success");
+const {createUserSuccess, passwordUpdatedSuccess, emailUpdatedSuccess, accountDeletedSuccess, userEmailFoundSuccess, userIdFoundSuccess, usersFoundSuccess,
+    userIsHostUpdatedSuccess
+} = require("../api_responses/user/user_success");
 const {findHostUsers} = require("../../mongodb/operations/host_operations");
 
 module.exports.userModule = createModule({
@@ -28,6 +30,7 @@ module.exports.userModule = createModule({
                 createUser(user: UserInput!) : UserLoginResponse
                 updateUserPassword(password: String!, newPassword: String!) : UserResponse
                 updateUserEmail( email: String!, newEmail: String!) : UserResponse
+                updateUserIsHost(isHost: Boolean!) : UserResponse
                 deleteUser : UserResponse
             }
             
@@ -35,6 +38,7 @@ module.exports.userModule = createModule({
                 id: ID
                 email: String
                 password: String
+                isHost: Boolean
                 firstName: String
                 lastName: String
                 dateCreated: Date
@@ -161,6 +165,21 @@ module.exports.userModule = createModule({
                 await updateUser(user);
 
                 return emailUpdatedSuccess(user, email, newEmail);
+            },
+            updateUserIsHost: async (parent, {isHost}, context) => {
+                const authenticated = await authenticate(context);
+                if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
+
+                const user = await findUserById(userId);
+                if (!user) return userIdNotFoundError(userId);
+
+                user.isHost(isHost);
+                await updateUser(user);
+
+                return userIsHostUpdatedSuccess(user);
             },
             deleteUser: async (parent, {}, context) => {
                 const authenticated = await authenticate(context);

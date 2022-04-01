@@ -64,8 +64,7 @@ function Map(props) {
                     if (markers.length === addresses.length) {
                         callback(markers)
                     }
-                }
-                }).catch((err) => console.log(err));
+                }}).catch((err) => console.log(err));
             })(i);
         }
     }

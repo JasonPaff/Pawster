@@ -28,7 +28,7 @@ function CreateBoarding() {
     })
     setHost({
       ...host,
-      doesDropInVisits: true
+      doesBoarding: true
     })
   }
 

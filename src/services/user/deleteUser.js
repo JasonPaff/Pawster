@@ -9,6 +9,7 @@ export default async function deleteUser() {
             message
             user {
                 email
+                isHost
                 password
                 firstName
                 lastName
