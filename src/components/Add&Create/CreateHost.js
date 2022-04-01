@@ -1,48 +1,67 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import createHost from "../../services/host/createHost";
+
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import createHost from '../../services/host/createHost'
+import getUserById from '../../services/user/getUserById'
+import updateUser from '../../services/user/updateUserEmail'
 
 function CreateHost() {
-  const [host, setHost] = useState({
-    canHostMultiplePets: false,
-    canHostUnspayedFemales: false,
-    doesBoarding: false,
-    doesHouseSitting: false,
-    doesDropInVisits: false,
-    doesDayCare: false,
-    doesDogWalking: false,
-    hasChildren: false,
-    hasOtherPets: false,
-    isHomeFullTime: false,
-    isSmoking: false,
-    sizeCanHost: "All",
-    typeOfHome: "House",
-    typeOfYard: "",
-  });
 
-  const navigate = useNavigate();
+    const userId = localStorage.getItem("id");
+    const navigate = useNavigate()
 
-  const handleTextChange = (e) => {
-    setHost({
-      ...host,
-      [e.target.name]: e.target.value,
-    });
-  };
+    const [user, setUser] = useState({})
+    const [host, setHost] = useState({
+        "canHostMultiplePets": false,
+        "canHostUnspayedFemales": false,
+        "doesBoarding": false,
+        "doesHouseSitting": false,
+        "doesDropInVisits": false,
+        "doesDayCare": false,
+        "doesDogWalking": false,
+        "hasChildren": false,
+        "hasOtherPets": false,
+        "isHomeFullTime": false,
+        "isSmoking": false,
+        "sizeCanHost": "All",
+        "typeOfHome": "House",
+        "typeOfYard": '',
+    })
 
-  const handleBooleanChange = (e) => {
-    const { checked } = e.target;
-    setHost({
-      ...host,
-      [e.target.name]: checked,
-    });
-  };
+    useEffect(() => {
+        getUserById(userId).then((result) => {setUser(result.data.getUserById.user)})
+    },[])
 
-  const handleIntegerChange = (e) => {
-    setHost({
-      ...host,
-      [e.target.name]: parseInt(e.target.value),
-    });
-  };
+
+
+
+    const handleTextChange = (e) => {
+        setHost({
+        ...host,
+        [e.target.name]: e.target.value,
+        })
+        setUser({
+            ...user,
+            isHost: true,
+        })
+    }
+
+    const handleBooleanChange = (e) => {
+        const { checked } = e.target
+        setHost({
+            ...host,
+            [e.target.name]: checked,
+        })
+    }
+
+    const handleIntegerChange = (e) => {
+        setHost({
+        ...host,
+        [e.target.name]: parseInt(e.target.value)
+        })
+    }
+
+
 
   async function handleCreateHost() {
     const response = await createHost(host);
