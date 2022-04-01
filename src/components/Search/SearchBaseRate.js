@@ -1,10 +1,10 @@
 import React, { useState, useEffect} from 'react'
 import { connect } from 'react-redux'
-import getBoardingById from '../services/boarding/getBoardingById'
-import getWalkingById from '../services/walking/getWalkingById'
-import getSittingById from '../services/sitting/getSittingById'
-import getVisitById from '../services/visit/getVisitById'
-import getDaycareById from '../services/daycare/getDaycareById'
+import getBoardingById from '../../services/boarding/getBoardingById'
+import getWalkingById from '../../services/walking/getWalkingById'
+import getSittingById from '../../services/sitting/getSittingById'
+import getVisitById from '../../services/visit/getVisitById'
+import getDaycareById from '../../services/daycare/getDaycareById'
 
 const mapStateToProps = (state) => {
     return {
@@ -32,7 +32,6 @@ function SearchBaseRate(props) {
         getDaycareById(props.hostId).then((result) => setDaycare(result.data.getDaycareById.daycare))
     }, [])
     
-    console.log(sitting)
 
     return (
         <div className="flex-col justify-center">
