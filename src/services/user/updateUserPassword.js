@@ -9,6 +9,7 @@ export default async function updateUserPassword(password, newPassword) {
             message
             user {
                 email
+                isHost
                 password
                 firstName
                 lastName

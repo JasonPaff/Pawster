@@ -2,9 +2,9 @@
 import {apiRoute} from "../../utils/apiRoute";
 import getGqlString from "../../utils/graphql_utils";
 
-export default async function getUserByEmail(email) {
-    let query = gql`query Query($email: String!) {
-        getUserByEmail(email: $email) {
+export default async function updateUserEmail(isHost) {
+    let query = gql`mutation Mutation($isHost: Boolean!) {
+        updateUserIsHost(isHost: $isHost) {
             success
             message
             user {
@@ -29,7 +29,7 @@ export default async function getUserByEmail(email) {
         body: JSON.stringify({
             query,
             variables: {
-                email
+                isHost
             }
         })
     };

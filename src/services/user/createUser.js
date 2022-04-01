@@ -10,6 +10,7 @@ export default async function createUser(user) {
             token
             user {
                 email
+                isHost
                 password
                 firstName
                 lastName
