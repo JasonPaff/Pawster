@@ -28,7 +28,7 @@ function CreateSitting() {
     })
     setHost({
       ...host,
-      doesDropInVisits: true
+      doesHouseSitting: true
     })
   }
 
