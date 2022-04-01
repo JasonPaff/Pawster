@@ -6,6 +6,7 @@ import DisplayServices from "../../components/HostProfile/DisplayServices";
 import SendMessage from "../../parts/Messages/SendMessage";
 import HostProfilePic from "../../components/HostProfile/HostProfilePic";
 import DisplayHostPets from "../../components/HostProfile/DisplayHostPets";
+import { parseAndCheckHttpResponse } from "@apollo/client";
 
 // const card = "bg-white border border-slate-200 shadow-sm rounded-md p-5 ";
 
@@ -35,7 +36,7 @@ function HostProfile() {
   return (
     <div className=" container mx-auto grid grid-rows-2 grid-flow-col gap-4 p-10 h-full">
       <div className={`row-span-2`}>
-        <HostProfilePic />
+        <HostProfilePic hostId={params.userId}/>
       </div>
 
       {isNotLoggedInUser && (

@@ -2,15 +2,13 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import createHost from '../../services/host/createHost'
-import getUserById from '../../services/user/getUserById'
-import updateUser from '../../services/user/updateUserEmail'
+import updateUserIsHost from '../../services/user/updateUserIsHost'
 
 function CreateHost() {
 
     const userId = localStorage.getItem("id");
     const navigate = useNavigate()
 
-    const [user, setUser] = useState({})
     const [host, setHost] = useState({
         "canHostMultiplePets": false,
         "canHostUnspayedFemales": false,
@@ -28,9 +26,6 @@ function CreateHost() {
         "typeOfYard": '',
     })
 
-    useEffect(() => {
-        getUserById(userId).then((result) => {setUser(result.data.getUserById.user)})
-    },[])
 
 
 
@@ -39,10 +34,6 @@ function CreateHost() {
         setHost({
         ...host,
         [e.target.name]: e.target.value,
-        })
-        setUser({
-            ...user,
-            isHost: true,
         })
     }
 
@@ -65,8 +56,9 @@ function CreateHost() {
 
   async function handleCreateHost() {
     const response = await createHost(host);
-
+    console.log(response)
     if (response.data.createHost.success) {
+      updateUserIsHost(true)
       console.log("Host Created");
       navigate("/profile");
     } else {
@@ -81,8 +73,8 @@ function CreateHost() {
         <textarea type="text" placeholder="Cancellation Policy" name="cancellationPolicy" onChange={handleTextChange} />
       </div>
       <div>
-        <input type="checkbox" className=" appearance-none checked:slate-300" name="canHostMultiplePets" onChange={handleBooleanChange} />
         <label htmlFor=""> Can you host multiple pets? </label>
+        <input type="checkbox" className=" appearance-none checked:slate-300" name="canHostMultiplePets" onChange={handleBooleanChange} />
       </div>
       <div>
         Can you host unspayed females?
@@ -122,6 +114,26 @@ function CreateHost() {
       <div>
         Are you a smoker? <input type="checkbox" name="isSmoking" onChange={handleBooleanChange} />
       </div>
+      <div>Type can Host</div>
+      <div>
+        Cat <input type="checkbox" name="doesCat" onChange={handleBooleanChange} />
+      </div>
+      <div>
+        Dog <input type="checkbox" name="doesDog" onChange={handleBooleanChange} />
+      </div>
+      <div>Size can Host</div>
+      <div>
+        Small <input type="checkbox" name="canHostSmallPet" onChange={handleBooleanChange} />
+      </div>
+      <div>
+        Medium <input type="checkbox" name="canHostMediumPet" onChange={handleBooleanChange} />
+      </div>
+      <div>
+        Large <input type="checkbox" name="canHostLargePet" onChange={handleBooleanChange} />
+      </div>
+      <div>
+        Giant <input type="checkbox" name="canHostGiantPet" onChange={handleBooleanChange} />
+      </div>
       <div>
         <input type="text" placeholder="How far are you willing to work" name="range" onChange={handleIntegerChange} />
       </div>
@@ -139,6 +151,9 @@ function CreateHost() {
       </div>
       <div>
         <input type="text" placeholder="Description of your yard (if applicable)" name="typeOfYard" onChange={handleTextChange} />
+      </div>
+      <div>
+        <input type="text" placeholder="About Me" name="aboutMe" onChange={handleTextChange} />
       </div>
       <button onClick={handleCreateHost}>Register</button>
     </div>
