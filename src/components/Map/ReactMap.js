@@ -11,13 +11,12 @@ const mapStateToProps = (state) => {
 }
 const token = "pk.eyJ1Ijoic2xlZXB5Ym9va3dvcm0iLCJhIjoiY2wxZmF2cnE4MDBrajNrcGI0cTdmOXkxdCJ9.cVgltjTDgAB4Ger4rGjSBA";
 
-let hostAddresses = [];
 function ReactMap(props) {
     const [loaded, setLoaded] = useState(false);
     const [markers, setMarkers] = useState([]);
+    let hostAddresses = [{lat: 33.7490, lng:-84.5610312}];
 
     async function load() {
-        console.log('ehee')
         const addresses = props.filteredHosts.map((host) => {
             return `${host.street} , ${host.city}`;
         })
@@ -28,8 +27,10 @@ function ReactMap(props) {
             hostAddresses.push({lat: result.lat, lng: result.lng});
         }
         let pins = [];
-        hostAddresses = hostAddresses.map((address) => {
-            return (<Marker key={address.lng} longitude={address.lng} latitude={address.lat} color="blue"/>)
+        hostAddresses.map((address, index) => {
+            if (index !== 0) {
+                pins.push(<Marker key={address.lng} longitude={address.lng} latitude={address.lat} color="blue"/>)
+            }
         });
         await setMarkers(pins);
 
@@ -37,17 +38,16 @@ function ReactMap(props) {
             setLoaded(true);
     }
     useEffect(() => {
-        console.log(props.filteredHosts);
         load().catch((err) => console.log(err));
     }, [props.filteredHosts])
 
     return (
         <>
-            {hostAddresses.length > 0 && <Map
+            {loaded && <Map
                 initialViewState={{
                     longitude: hostAddresses[0].lng,
                     latitude: hostAddresses[0].lat,
-                    zoom: 13
+                    zoom: 7
                 }}
                 style={{width: '100%', height: 800}}
                 mapStyle="mapbox://styles/mapbox/streets-v9"
