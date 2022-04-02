@@ -22,14 +22,7 @@ function ReactMap(props) {
     let hostAddresses = [{lat: 33.9490, lng: -84.5610312}];
 
     async function load() {
-        let hostUserData = [];
-        console.log(props.filteredHosts)
-        for (let c = 0; c < props.filteredHosts.length; c++ ){
-            console.log(props.filteredHosts[c]);
-            let user = await getUserById(props.filteredHosts[c].userId);
-            hostUserData.push(user);
-        }
-        const addresses = props.filteredHosts.map((host) => {
+           const addresses = props.filteredHosts.map((host) => {
             return `${host.street} , ${host.city}`;
         })
         if (!addresses) return;
@@ -87,7 +80,7 @@ function ReactMap(props) {
                     >
                         <div>
                             <div className="mt-5">
-                                <MapProfilePic hostId={popupInfo.userId}/>
+                                <MapProfilePic hostId={popupInfo.hostId}/>
                                 <div>{popupInfo.firstName}</div>
                                 <div>{popupInfo.street}</div>
                                 <div>{popupInfo.city} {popupInfo.state},{popupInfo.zipcode}</div>

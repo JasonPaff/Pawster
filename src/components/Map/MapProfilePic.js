@@ -2,11 +2,9 @@
 import getUserProfilePhotoById from '../../services/user_photo/getUserProfilePhotoById'
 import emptyImage from '../../img/icons/user.png'
 
-
 function HostProfilePic(props) {
 
     const [fetchedPhoto, setPhoto] = useState({})
-
 
     useEffect(() => {
         getUserProfilePhotoById(props.hostId).then((result) => {
@@ -18,7 +16,6 @@ function HostProfilePic(props) {
         })
     }, [])
 
-
     let imageSrc;
 
     if (fetchedPhoto.isProfilePhoto === true && fetchedPhoto.userId === props.hostId) {
@@ -29,10 +26,9 @@ function HostProfilePic(props) {
 
     return (
         <div className="flex justify-center">
-            <img className="w-28 rounded-full"src={imageSrc}/>
+            <img className="w-28 rounded-full"src={imageSrc} alt="profile"/>
         </div>
-    )
-
+    );
 }
 
 export default HostProfilePic
