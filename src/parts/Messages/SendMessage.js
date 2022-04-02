@@ -8,7 +8,6 @@ export default function SendMessage(props) {
     const [message, setMessage] = useState("");
     const subjectRef = useRef();
     const messageRef = useRef();
-
     const handleSendMessage = async (e) => {
         e.preventDefault();
         const user = await getUserById(localStorage.getItem('id'));
@@ -23,7 +22,7 @@ export default function SendMessage(props) {
             toUserId: props.hostId,
             fromUserId: localStorage.getItem('id'),
             message: `new message from ${userName}`,
-            link: "profile/messages"
+            link: "/profile/messages"
         });
         setSubject('');
         setMessage('');

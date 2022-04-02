@@ -3,13 +3,22 @@ import { Fragment } from "react";
 import { BiBell } from "react-icons/bi";
 import classNameJoiner from "../../utils/classNameJoiner";
 import removeNotification from "../../services/notifications/removeNotification";
-import { NavLink } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 export default function NotificationDropdown(props) {
+  const navigate = useNavigate();
 
-  async function clearNotification(id) {
+  async function clearNotification(link, id) {
     await removeNotification(id);
     props.setReloadNotifications(true);
+    console.log(window.location.href);
+    if (window.location.href === "http://localhost:3000/profile/#") {
+        if (link === "profile/messages") link = "/messages";
+    } else if (window.location.href === "http://localhost:3000/profile/messages#") {
+        return;
+    }
+
+    navigate(link);
   }
 
   return (
@@ -42,9 +51,9 @@ export default function NotificationDropdown(props) {
               <div className="flex flex-row whitespace-nowrap " key={index}>
                 {notification.link === "none" && <div>{notification.message}</div>}
                 {notification.link !== "none" && (
-                  <NavLink to={notification.link} onClick={() => clearNotification(notification.id)}>
+                  <Link to={notification.link} onClick={() => clearNotification(notification.link, notification.id)}>
                     <div className={classNameJoiner(index < props.notifications.length - 1 ? "border-b-2" : "")}>{notification.message}</div>
-                  </NavLink>
+                  </Link>
                 )}
               </div>
             ))}
