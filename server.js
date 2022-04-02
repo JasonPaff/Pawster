@@ -26,11 +26,11 @@ app.use(express.static(path.join(__dirname, "build")));
 
 // serve up react
 app.get("/", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "../build", "index.html"));
+  res.sendFile(path.resolve(__dirname, "build", "index.html"));
 });
 
 // apollo graphql server
-const { graphql_schema } = require("./graphql/graphql_schema");
+const { graphql_schema } = require("./server/graphql/graphql_schema");
 const server = new ApolloServer({
   schema: graphql_schema,
   context: async ({ req, connection }) => {
