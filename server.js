@@ -1,3 +1,4 @@
+const {graphql_schema} = require("./server/graphql/graphql_schema");
 const { ApolloServer } = require("apollo-server-express");
 const express = require("express");
 const logger = require("morgan");
@@ -30,7 +31,6 @@ app.get("/", (req, res) => {
 });
 
 // apollo graphql server
-const { graphql_schema } = require("./server/graphql/graphql_schema");
 const server = new ApolloServer({
   schema: graphql_schema,
   context: async ({ req, connection }) => {
