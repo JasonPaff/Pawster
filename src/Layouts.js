@@ -17,7 +17,7 @@ function DashboardLayout(props) {
   return (
     <div className="flex flex-col min-h-screen ">
       <NavBar />
-      <main className="flex container mx-auto pt-4 gap-3 h-full flex-grow w-full">
+      <main className="flex container mx-auto pt-4 pb-6 gap-3 h-full flex-grow w-full">
         <div className="flex flex-col  w-64 gap-3 shrink-0">
           <Dashboard />
         </div>

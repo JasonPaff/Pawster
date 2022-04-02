@@ -23,7 +23,7 @@ export default function SelectedMessage(props) {
     });
   };
 
-  const textBubble = "border border-slate-300 p-3 rounded-t-xl w-11/12";
+  const textBubble = "border border-slate-300 p-3 rounded-t-xl w-11/12 shadow";
   const myTextBubble = "bg-green-50 rounded-bl-xl self-end";
   const toMeTextBubble = "bg-blue-50 rounded-br-xl";
   console.log(props);
@@ -55,7 +55,6 @@ export default function SelectedMessage(props) {
           </button>
         </div>
       )}
-      {/* <div className="flex flex-col ml-4 mt-4 h-2/3 max-w-60 break-words overflow-y-scroll"> */}
       <div className="flex flex-col gap-2">
         {props.selectedMessage.messages &&
           props.selectedMessage.messages.map((message) => (
