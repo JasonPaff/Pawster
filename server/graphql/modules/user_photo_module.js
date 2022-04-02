@@ -27,6 +27,7 @@ module.exports.userPhotoModule = createModule({
             }
 
             type UserPhoto {
+                id: ID
                 userId: ID
                 photo: String
                 photoType: String
