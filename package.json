@@ -2,6 +2,9 @@
   "name": "pawster",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": "16.14.0"
+  },
   "dependencies": {
     "@apollo/client": "^3.5.10",
     "@apollo/react-hooks": "^4.0.0",
