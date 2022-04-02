@@ -6,51 +6,50 @@ import updateUserIsHost from '../../services/user/updateUserIsHost'
 
 function CreateHost() {
 
-    const userId = localStorage.getItem("id");
-    const navigate = useNavigate()
+  const navigate = useNavigate()
 
-    const [host, setHost] = useState({
-        "canHostMultiplePets": false,
-        "canHostUnspayedFemales": false,
-        "doesBoarding": false,
-        "doesHouseSitting": false,
-        "doesDropInVisits": false,
-        "doesDayCare": false,
-        "doesDogWalking": false,
-        "hasChildren": false,
-        "hasOtherPets": false,
-        "isHomeFullTime": false,
-        "isSmoking": false,
-        "sizeCanHost": "All",
-        "typeOfHome": "House",
-        "typeOfYard": '',
-    })
-
+  const [host, setHost] = useState({
+      "canHostMultiplePets": false,
+      "canHostUnspayedFemales": false,
+      "doesBoarding": false,
+      "doesHouseSitting": false,
+      "doesDropInVisits": false,
+      "doesDayCare": false,
+      "doesDogWalking": false,
+      "hasChildren": false,
+      "hasOtherPets": false,
+      "isHomeFullTime": false,
+      "isSmoking": false,
+      "sizeCanHost": "All",
+      "typeOfHome": "House",
+      "typeOfYard": '',
+  })
 
 
 
 
-    const handleTextChange = (e) => {
-        setHost({
+
+  const handleTextChange = (e) => {
+      setHost({
+      ...host,
+      [e.target.name]: e.target.value,
+      })
+  }
+
+  const handleBooleanChange = (e) => {
+      const { checked } = e.target
+      setHost({
         ...host,
-        [e.target.name]: e.target.value,
-        })
-    }
+        [e.target.name]: checked,
+      })
+  }
 
-    const handleBooleanChange = (e) => {
-        const { checked } = e.target
-        setHost({
-            ...host,
-            [e.target.name]: checked,
-        })
-    }
-
-    const handleIntegerChange = (e) => {
-        setHost({
-        ...host,
-        [e.target.name]: parseInt(e.target.value)
-        })
-    }
+  const handleIntegerChange = (e) => {
+      setHost({
+      ...host,
+      [e.target.name]: parseInt(e.target.value)
+      })
+  }
 
 
 
@@ -82,22 +81,6 @@ function CreateHost() {
       </div>
       <div>
         <input type="text" placeholder="Days Available" name="daysAvailable" onChange={handleTextChange} />
-      </div>
-      <div>
-        Boarding <input type="checkbox" name="doesBoarding" onChange={handleBooleanChange} />
-      </div>
-      <div>
-        Home Sitting <input type="checkbox" name="doesHouseSitting" onChange={handleBooleanChange} />
-      </div>
-      <div>
-        Drop-in Visits
-        <input type="checkbox" name="doesDropInVisits" onChange={handleBooleanChange} />
-      </div>
-      <div>
-        Day Care <input type="checkbox" name="doesDayCare" onChange={handleBooleanChange} />
-      </div>
-      <div>
-        Dog Walking <input type="checkbox" name="doesDogWalking" onChange={handleBooleanChange} />
       </div>
       <div>
         <input type="text" placeholder="Experience with animals" name="experience" onChange={handleTextChange} />
@@ -139,9 +122,6 @@ function CreateHost() {
       </div>
       <div>
         <input type="text" placeholder="Enter a schedule" name="schedule" onChange={handleTextChange} />
-      </div>
-      <div>
-        <input type="text" placeholder="Size of animal you can host" name="sizeCanHost" onChange={handleTextChange} />
       </div>
       <div>
         <input type="text" placeholder="What is the max number of pets you can host" name="totalCanHost" onChange={handleIntegerChange} />

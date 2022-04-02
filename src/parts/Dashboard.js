@@ -34,17 +34,17 @@ export default function Dashboard() {
           <li className={infoItem}>
             <NavLink to="/profile/account-info">Update Info</NavLink>
           </li>
-
+{/* 
           <li className={infoItem}>
             <NavLink to="/profile/register-host">Become a Host</NavLink>
-          </li> 
+          </li>  */}
 
-          {/* {user.isHost ?
+          {!user.isHost ?
           <li className={infoItem}>
             <NavLink to="/profile/register-host">Become a Host</NavLink>
           </li> 
           : 
-          null} */}
+          null}
 
           <li className={infoItem}>
             <NavLink to="/profile/messages">Messages</NavLink>
@@ -65,7 +65,12 @@ export default function Dashboard() {
       <div className="card p-0">
         <header className={header}>Sitter:</header>
         <ul className={cardInfo}>
-          <li className={infoItem}>
+        {user.isHost ?
+          <HostActions />
+          : 
+          null}
+          
+          {/* <li className={infoItem}>
             <NavLink to="/profile/edit-boarding">Edit Boarding Info</NavLink>
           </li>
           <li className={infoItem}>
@@ -82,7 +87,7 @@ export default function Dashboard() {
           </li>
           <li className={infoItem}>
             <NavLink to={`/profile/host/${userId}`}>View your Host Profile</NavLink>
-          </li>
+          </li> */}
         </ul>
       </div>
     </>
