@@ -126,7 +126,9 @@ module.exports.userModule = createModule({
                 user.password = await hashPassword(user.password);
 
                 const newUser = await createUser(user);
-                const token = await createToken(user);
+                const token = await createToken(newUser);
+
+                console.log(token);
 
                 return createUserSuccess(newUser, token);
             },
