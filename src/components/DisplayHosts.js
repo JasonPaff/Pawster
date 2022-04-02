@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import hostsFilter from '../utils/hostsFilter'
 import getAllHosts from '../services/host/getAllHosts'
 import * as actionCreators from '../store/action_creators/actionCreators'
-import HostProfilePic from './HostProfile/HostProfilePic'
+import HostListProfilePic from './HostListProfilePic'
 import SearchBaseRate from './Search/SearchBaseRate'
 
 
@@ -80,8 +80,8 @@ function DisplayHosts(props) {
   const hosts = filteredHosts.map((host, index) => {
       return <NavLink key={index} to={`/profile/host/${host.id}`}>
         <li className="flex p-5 border">
-          <div className="w-20">
-            <HostProfilePic hostId={host.id}/>
+          <div className="">
+            <HostListProfilePic hostId={host.id}/>
           </div>
           <div className="flex justify-between w-full">
             <div className="flex-col ml-5">

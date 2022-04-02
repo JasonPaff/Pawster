@@ -37,7 +37,7 @@ export default function Dashboard() {
 
           {user.isHost ?
           <li className={infoItem}>
-            <NavLink to="/profile/register-host">Edit Host Info</NavLink>
+            <NavLink to="/profile/edit-host">Edit Host Info</NavLink>
           </li> 
           : 
           null}
