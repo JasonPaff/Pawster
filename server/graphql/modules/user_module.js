@@ -178,7 +178,7 @@ module.exports.userModule = createModule({
                 const user = await findUserById(userId);
                 if (!user) return userIdNotFoundError(userId);
 
-                user.isHost(isHost);
+                user.isHost = isHost;
                 await updateUser(user);
 
                 return userIsHostUpdatedSuccess(user);
