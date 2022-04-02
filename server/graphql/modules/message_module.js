@@ -152,7 +152,7 @@ module.exports.messageModule = createModule({
                 const user = await findUserById(userId);
                 if (!user) return userIdNotFoundError(userId);
 
-                const newMessageThread = await createMessageThread(messageThread);
+                const newMessageThread = await createMessageThread(userId, messageThread);
 
                 await pubsub.publish("MESSAGE_ADDED", {
                     messageAdded: {

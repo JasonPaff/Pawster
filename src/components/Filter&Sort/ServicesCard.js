@@ -21,7 +21,6 @@ function ServiceOptions(props) {
   const [selectedWeight, setSelectedWeight] = useState(data.weights[0]);
   props.onToggleService({ [selectedService.name]: true });
   props.onToggleSize({ [selectedWeight.name]: true });
-  console.log(selectedService.label);
   return (
     <div className="rounded overflow-hidden bg-background-light border border-slate-300 m-4">
       {/* TODO: filter by Dog and Cat  services   */}
