@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import createHost from '../../services/host/createHost'
 import updateUserIsHost from '../../services/user/updateUserIsHost'
@@ -24,9 +24,6 @@ function CreateHost() {
       "typeOfHome": "House",
       "typeOfYard": '',
   })
-
-
-
 
 
   const handleTextChange = (e) => {
@@ -55,10 +52,11 @@ function CreateHost() {
 
   async function handleCreateHost() {
     const response = await createHost(host);
-    console.log(response)
+    const response2 = await updateUserIsHost(true)
+    console.log(response2)
     if (response.data.createHost.success) {
-      updateUserIsHost(true)
       console.log("Host Created");
+      window.location.reload()
       navigate("/profile");
     } else {
       alert(response.data.createHost.message);

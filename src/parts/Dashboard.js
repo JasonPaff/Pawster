@@ -26,22 +26,18 @@ export default function Dashboard() {
   return (
     <>
       <div className="card p-0">
-        <header className={header}>General:</header>
+        <header className={header}>General</header>
         <ul className={cardInfo}>
           <li className={infoItem}>
             <NavLink to="/profile/">Account Info</NavLink>
           </li>
           <li className={infoItem}>
-            <NavLink to="/profile/account-info">Update Info</NavLink>
+            <NavLink to="/profile/edit-profile">Edit Profile</NavLink>
           </li>
-{/* 
-          <li className={infoItem}>
-            <NavLink to="/profile/register-host">Become a Host</NavLink>
-          </li>  */}
 
-          {!user.isHost ?
+          {user.isHost ?
           <li className={infoItem}>
-            <NavLink to="/profile/register-host">Become a Host</NavLink>
+            <NavLink to="/profile/register-host">Edit Host Info</NavLink>
           </li> 
           : 
           null}
@@ -63,31 +59,15 @@ export default function Dashboard() {
       </div>
 
       <div className="card p-0">
-        <header className={header}>Sitter:</header>
+        <header className={header}>Host Services Menu</header>
         <ul className={cardInfo}>
         {user.isHost ?
           <HostActions />
           : 
-          null}
+          <li className={infoItem}>
+            <NavLink to="/profile/register-host">Become a host</NavLink>
+          </li>}
           
-          {/* <li className={infoItem}>
-            <NavLink to="/profile/edit-boarding">Edit Boarding Info</NavLink>
-          </li>
-          <li className={infoItem}>
-            <NavLink to="/profile/edit-sitting">Edit Home Sitting Info</NavLink>
-          </li>
-          <li className={infoItem}>
-            <NavLink to="/profile/edit-visit">Edit Drop-in Visit Info</NavLink>
-          </li>
-          <li className={infoItem}>
-            <NavLink to="/profile/edit-daycare">Edit Day Care Info</NavLink>
-          </li>
-          <li className={infoItem}>
-            <NavLink to="/profile/edit-walking">Edit Dog Walking Info</NavLink>
-          </li>
-          <li className={infoItem}>
-            <NavLink to={`/profile/host/${userId}`}>View your Host Profile</NavLink>
-          </li> */}
         </ul>
       </div>
     </>
