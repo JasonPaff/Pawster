@@ -86,7 +86,7 @@ function DisplayHosts(props) {
           <div className="flex justify-between w-full">
             <div className="flex-col ml-5">
               <div className="text-xl font-medium">{index + 1}. {host.firstName}</div>
-              <div className="text-xs mt-2">{host.city} {host.state} {host.zipcode}</div>
+              <div className="text-xs mt-2">{host.city}, {host.state} {host.zipcode}</div>
             </div>
             <SearchBaseRate hostId={host.id} />
           </div>
