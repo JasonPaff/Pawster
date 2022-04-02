@@ -32,10 +32,11 @@ module.exports.getMessageThreadsByReceiverId = async (userId) => {
     });
 };
 
-module.exports.createMessageThread = async (thread) => {
+module.exports.createMessageThread = async (userId, thread) => {
+    console.log(thread.message.senderUserId);
     const newMessage = {
         message: thread.message,
-        userId: thread.message.userId,
+        userId: userId,
         sentAt: Date.now(),
     }
     thread.messages = [newMessage];

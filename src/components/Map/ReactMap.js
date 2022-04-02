@@ -27,8 +27,10 @@ function ReactMap(props) {
             hostAddresses.push({lat: result.lat, lng: result.lng});
         }
         let pins = [];
-        hostAddresses.map((address) => {
-            pins.push(<Marker key={address.lng} longitude={address.lng} latitude={address.lat} color="blue"/>)
+        hostAddresses.map((address, index) => {
+            if (index !== 0) {
+                pins.push(<Marker key={address.lng} longitude={address.lng} latitude={address.lat} color="blue"/>)
+            }
         });
         await setMarkers(pins);
 
@@ -37,7 +39,7 @@ function ReactMap(props) {
     }
     useEffect(() => {
         load().catch((err) => console.log(err));
-    }, [])
+    }, [props.filteredHosts])
 
     return (
         <>
@@ -45,7 +47,7 @@ function ReactMap(props) {
                 initialViewState={{
                     longitude: hostAddresses[0].lng,
                     latitude: hostAddresses[0].lat,
-                    zoom: 13
+                    zoom: 7
                 }}
                 style={{width: '100%', height: 800}}
                 mapStyle="mapbox://styles/mapbox/streets-v9"
