@@ -4,7 +4,6 @@ import {getGeocode} from "./Geocode";
 import {useEffect, useState} from "react";
 import 'mapbox-gl/dist/mapbox-gl.css';
 import Pin from "./Pin";
-import getUserById from "../../services/user/getUserById";
 import MapProfilePic from "./MapProfilePic";
 
 const mapStateToProps = (state) => {
@@ -19,7 +18,7 @@ function ReactMap(props) {
     const [markers, setMarkers] = useState([]);
     const [popupInfo, setPopupInfo] = useState(null);
 
-    let hostAddresses = [{lat: 33.9490, lng: -84.5610312}];
+    let hostAddresses = [{lat: 33.74831, lng: -84.39111}];
 
     async function load() {
            const addresses = props.filteredHosts.map((host) => {
@@ -63,7 +62,7 @@ function ReactMap(props) {
                 initialViewState={{
                     longitude: hostAddresses[0].lng,
                     latitude: hostAddresses[0].lat,
-                    zoom: 11
+                    zoom: 10
                 }}
                 style={{width: '100%', height: 800}}
                 mapStyle="mapbox://styles/mapbox/streets-v9"
