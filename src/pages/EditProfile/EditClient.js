@@ -5,6 +5,7 @@ import AddUserPhoto from "../../components/Add&Create/AddUserPhoto";
 import addUserPhoto from "../../services/user_photo/addUserPhoto";
 import ClientProfilePic  from '../../components/ClientProfile/ClientProfilePic'
 import getUserProfilePhotoById from "../../services/user_photo/getUserProfilePhotoById";
+import deleteUserPhoto from '../../services/user_photo/deleteUserPhoto'
 
 const mapStateToProps = (state) => {
   return {
@@ -47,6 +48,7 @@ function EditClient(props) {
       submit(reader.result.replace("data:", "").replace(/^.+,/, ""), getPhoto[0].type);
     };
     reader.readAsDataURL(getPhoto[0]);
+    deleteUserPhoto(photo.id)
     window.location.reload()
 
   }
