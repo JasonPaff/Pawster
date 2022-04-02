@@ -72,7 +72,7 @@ function CreateAddress() {
     <div className="flex flex-col">
       {!addCheck ? (
         <div className="flex flex-col gap-2">
-          <span className="text-accent-green text-center "> Add Address</span>
+          <span className="text-accent-green text-center ">Add Address</span>
           <div className={inputForm}>
             <label htmlFor="" className=" w-24 text-right text">
               Street
@@ -103,7 +103,7 @@ function CreateAddress() {
         </div>
       ) : (
         <div className="flex flex-col gap-2">
-          <span className="text-accent-green text-center ">Update Address :</span>
+          <span className="text-accent-green text-center ">Update Address</span>
           <div className={inputForm}>
             <label htmlFor="" className=" w-24 text-right text">
               Street

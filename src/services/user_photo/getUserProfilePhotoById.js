@@ -13,6 +13,7 @@ export default async function getUserProfilePhotoById(userId) {
                 photoType
                 isProfilePhoto
                 userId
+                id
             }
         }
     }`
