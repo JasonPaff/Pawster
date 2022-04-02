@@ -18,7 +18,6 @@ function EditClient(props) {
     };
     const response = await addUserPhoto(sendPhoto);
 
-    console.log(response);
     if (response.data.addUserPhoto.success) {
     } else {
       alert(response.data.addUserPhoto.message);
@@ -26,8 +25,6 @@ function EditClient(props) {
   }
 
   async function uploadUserPhoto(getPhoto) {
-    console.log(getPhoto);
-    console.log(props.photo);
     const reader = new FileReader();
     reader.onload = () => {
       submit(reader.result.replace("data:", "").replace(/^.+,/, ""), getPhoto[0].type);
@@ -36,8 +33,9 @@ function EditClient(props) {
   }
 
   return (
-    <div className="flex flex-col py-10 px-10">
-      <div className="flex flex-col gap-2 ">
+    <div className="flex flex-col  px-10 justify-center ">
+      <h3 className="text-center pb-4 text-accent-green ">Update Photo :</h3>
+      <div className="flex flex-col gap-2  w-[400px] lg:w-2/3  mx-auto">
         <AddUserPhoto />
         <button className=" self-end w-40 bg-accent-green text-white" onClick={() => uploadUserPhoto(props.photo)}>
           Add Photo

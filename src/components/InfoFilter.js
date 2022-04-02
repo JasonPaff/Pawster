@@ -3,7 +3,7 @@ import React from "react";
 export default function InfoFilter() {
   return (
     <>
-      <div className="container mx-auto flex  justify-center pt-8 pb-20 px-4">
+      <div className="container mx-auto flex  justify-center pt-8  px-4">
         <ul className="flex  flex-row flex-wrap justify-around">
           <li className="flex items-center w-100 sm:w-[48%] border  border-slate-300 rounded-md p-4 bg-white  mb-[2%]">
             <img className="h-20 float-left mr-4" src={require("../img/icons/travel-color.png")} alt="img" />

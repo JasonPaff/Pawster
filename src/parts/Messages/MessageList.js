@@ -13,8 +13,7 @@
             <span className=" font-medium  ">{message.subject} </span>
             <span className="text-gray-500">From: {message.sender}</span>
             <span className="text-gray-500">To: {message.receiver}</span>
-            <span className="text-sm text-right">{message.time.split(", ")[0]}</span>
-            <span className="text-sm text-right">{message.time.split(", ")[1]}</span>
+            <span className="text-sm text-right">{message.time}</span>
           </div>
         ))}
       </div>
