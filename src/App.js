@@ -21,6 +21,7 @@ import Messages from "./pages/Messages";
 import AccountInfo from "./pages/Profiles/AccountInfo";
 import EditPet from "./pages/Pet/EditPet";
 import BookHost from "./pages/BookHost";
+import EditHost from "./pages/EditProfile/EditHost";
 
 function App() {
   return (

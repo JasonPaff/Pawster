@@ -1,13 +1,16 @@
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import createHost from '../../services/host/createHost'
 import updateUserIsHost from '../../services/user/updateUserIsHost'
+
+const userId = localStorage.getItem("id")
 
 function CreateHost() {
 
   const navigate = useNavigate()
 
+  const [user, setUser] = useState({})
   const [host, setHost] = useState({
       "canHostMultiplePets": false,
       "canHostUnspayedFemales": false,
@@ -24,7 +27,11 @@ function CreateHost() {
       "typeOfHome": "House",
       "typeOfYard": '',
   })
+  const [updateHost, setUpdateHost] = useState({})
 
+  useEffect(() => {
+
+  }, [])
 
   const handleTextChange = (e) => {
       setHost({
@@ -32,6 +39,13 @@ function CreateHost() {
       [e.target.name]: e.target.value,
       })
   }
+
+  const handleUpdateTextChange = (e) => {
+    setUpdateHost({
+      ...updateHost,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const handleBooleanChange = (e) => {
       const { checked } = e.target
@@ -41,11 +55,26 @@ function CreateHost() {
       })
   }
 
+  const handleUpdateBooleanChange = (e) => {
+    const { checked } = e.target
+    setUpdateHost({
+      ...updateHost,
+      [e.target.name]: checked,
+    })
+}
+
   const handleIntegerChange = (e) => {
       setHost({
       ...host,
       [e.target.name]: parseInt(e.target.value)
       })
+  }
+
+  const handleUpdateIntegerChange = (e) => {
+    setUpdateHost({
+      ...updateHost,
+      [e.target.name]: parseFloat(e.target.value),
+    })
   }
 
 

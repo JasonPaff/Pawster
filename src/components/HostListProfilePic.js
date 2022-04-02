@@ -1,18 +1,15 @@
 import React, {useEffect, useState} from 'react'
-import getUserProfilePhotoById from '../../services/user_photo/getUserProfilePhotoById'
-import emptyImage from '../../img/icons/user.png'
+import getUserProfilePhotoById from '../services/user_photo/getUserProfilePhotoById'
+import emptyImage from '../img/icons/user.png'
 
 
-
-
-function ClientProfilePic() {
+function HostProfilePic(props) {
 
     const [fetchedPhoto, setPhoto] = useState({})
 
-    const userId = localStorage.getItem("id")
 
     useEffect(() => {
-        getUserProfilePhotoById(userId).then((result) => {
+        getUserProfilePhotoById(props.hostId).then((result) => {
             if (result.data.getUserProfilePhotoById.success === true) {
                 setPhoto(result.data.getUserProfilePhotoById.photo)
             } else {
@@ -21,20 +18,21 @@ function ClientProfilePic() {
         })
     }, [])
 
+
     let imageSrc;
 
-    if (fetchedPhoto.isProfilePhoto === true && fetchedPhoto.userId === userId) {
+    if (fetchedPhoto.isProfilePhoto === true && fetchedPhoto.userId === props.hostId) {
         imageSrc = `data:${fetchedPhoto.photoType};base64, ${fetchedPhoto.photo}`;
     } else {
         imageSrc = emptyImage
     }
 
     return (
-        <div>
-            <img className="w-60 rounded-full " src={imageSrc}/>
+        <div className="flex justify-center">
+            <img className="rounded-full w-24 h-20"src={imageSrc}/>
         </div>
     )
 
 }
 
-export default ClientProfilePic
+export default HostProfilePic
