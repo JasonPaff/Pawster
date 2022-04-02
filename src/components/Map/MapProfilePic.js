@@ -3,12 +3,11 @@ import getUserProfilePhotoById from '../../services/user_photo/getUserProfilePho
 import emptyImage from '../../img/icons/user.png'
 
 function HostProfilePic(props) {
+
     const [fetchedPhoto, setPhoto] = useState({})
 
     useEffect(() => {
-        console.log(props.hostId);
         getUserProfilePhotoById(props.hostId).then((result) => {
-            console.log(result);
             if (result.data.getUserProfilePhotoById.success === true) {
                 setPhoto(result.data.getUserProfilePhotoById.photo)
             } else {

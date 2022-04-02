@@ -10,6 +10,7 @@ function HostProfilePic(props) {
 
     useEffect(() => {
         getUserProfilePhotoById(props.hostId).then((result) => {
+            console.log(result);
             if (result.data.getUserProfilePhotoById.success === true) {
                 setPhoto(result.data.getUserProfilePhotoById.photo)
             } else {
