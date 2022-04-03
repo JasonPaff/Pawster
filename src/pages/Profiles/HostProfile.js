@@ -36,7 +36,7 @@ function HostProfile() {
   return (
     <div className=" container mx-auto grid grid-rows-2 grid-flow-col gap-4 p-10 h-full">
       <div className={`row-span-1 h-20`}>
-        <HostProfilePic hostId={params.userId} />
+        <HostProfilePic hostId={params.userId} imgStyle={" object-cover"} />
         <div className="card row-span-1 flex-row mt-5">
           <div className="text-2xl font-medium mb-2">Services</div>
           <DisplayServices hostId={params.userId} />

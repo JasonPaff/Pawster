@@ -24,6 +24,7 @@ function CreatePet(props) {
   const navigate = useNavigate();
 
   const handleTextChange = (e) => {
+    console.log(e.target.value);
     setPet({
       ...pet,
       [e.target.name]: e.target.value,
@@ -63,7 +64,7 @@ function CreatePet(props) {
 
   // TODO: If have time use Cat/Dog API to autocomplete searches for breeds
   return (
-    <div className="flex-col justify-center lg:px-10">
+    <div className="flex-col justify-center ">
       <div className=" grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2">
         <label className={labelClass} htmlFor="">
           Pet's Name:
@@ -72,6 +73,9 @@ function CreatePet(props) {
         <label className={labelClass} htmlFor="">
           Cat or Dog ?
           <select name="type" onChange={handleTextChange}>
+            <option value="" disabled selected>
+              choose
+            </option>
             <option value="dog">Dog</option>
             <option value="cat">Cat</option>
           </select>

@@ -6,6 +6,8 @@ function ClientProfilePic(props) {
   const [fetchedPhoto, setPhoto] = useState({});
 
   const userId = localStorage.getItem("id");
+  console.log("props");
+  console.log(props);
 
   useEffect(() => {
     getUserProfilePhotoById(userId).then((result) => {
@@ -27,7 +29,7 @@ function ClientProfilePic(props) {
 
   return (
     <>
-      <img className={props.styleImg} src={imageSrc} />
+      <img className={props.styleImg} src={imageSrc} alt="" />
     </>
   );
 }

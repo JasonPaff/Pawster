@@ -1,38 +1,33 @@
-import React, {useEffect, useState} from 'react'
-import getUserProfilePhotoById from '../../services/user_photo/getUserProfilePhotoById'
-import emptyImage from '../../img/icons/user.png'
-
+import React, { useEffect, useState } from "react";
+import getUserProfilePhotoById from "../../services/user_photo/getUserProfilePhotoById";
+import emptyImage from "../../img/icons/user.png";
 
 function HostProfilePic(props) {
+  const [fetchedPhoto, setPhoto] = useState({});
 
-    const [fetchedPhoto, setPhoto] = useState({})
+  useEffect(() => {
+    getUserProfilePhotoById(props.hostId).then((result) => {
+      if (result.data.getUserProfilePhotoById.success === true) {
+        setPhoto(result.data.getUserProfilePhotoById.photo);
+      } else {
+        return null;
+      }
+    });
+  }, []);
 
+  let imageSrc;
 
-    useEffect(() => {
-        getUserProfilePhotoById(props.hostId).then((result) => {
-            if (result.data.getUserProfilePhotoById.success === true) {
-                setPhoto(result.data.getUserProfilePhotoById.photo)
-            } else {
-                return null
-            }
-        })
-    }, [])
+  if (fetchedPhoto.isProfilePhoto === true && fetchedPhoto.userId === props.hostId) {
+    imageSrc = `data:${fetchedPhoto.photoType};base64, ${fetchedPhoto.photo}`;
+  } else {
+    imageSrc = emptyImage;
+  }
 
-
-    let imageSrc;
-
-    if (fetchedPhoto.isProfilePhoto === true && fetchedPhoto.userId === props.hostId) {
-        imageSrc = `data:${fetchedPhoto.photoType};base64, ${fetchedPhoto.photo}`;
-    } else {
-        imageSrc = emptyImage
-    }
-
-    return (
-        <div className="flex justify-center">
-            <img className="rounded-full w-72 h-72"src={imageSrc}/>
-        </div>
-    )
-
+  return (
+    <div className="flex justify-center">
+      <img className={props.imgStyle} src={imageSrc} />
+    </div>
+  );
 }
 
-export default HostProfilePic
+export default HostProfilePic;

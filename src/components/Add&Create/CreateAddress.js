@@ -93,7 +93,7 @@ function CreateAddress() {
           </div>
           <div className={inputForm}>
             <label htmlFor="" className=" w-14 text-right text">
-              Zip Code
+              Zip
             </label>
             <input type="text" name="zipcode" onChange={handleZipcodeChange} />
           </div>

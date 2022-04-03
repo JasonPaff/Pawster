@@ -21,7 +21,7 @@ function PetProfile() {
     <div className="container flex justify-center mx-auto my-4 gap-4">
       <div className="flex-shrink-0 ">
         <div className="card  p-10  inline-block">
-          <PetProfilePhoto className="" petId={params.petId} imgStyle={"w-64 h-64 rounded-lg border border-slate-300"} />
+          <PetProfilePhoto className="" petId={params.petId} imgStyle={"w-64 h-64 rounded-lg border border-slate-300 object-cover"} />
         </div>
       </div>
       <div className="card p-10 max-w-2xl">

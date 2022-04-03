@@ -5,10 +5,9 @@ import getPet from "../../services/pet/getPet";
 import updatePet from "../../services/pet/updatePet";
 import addPetPhoto from "../../services/pet_photo/addPetPhoto";
 import AddPetPhoto from "../../components/Add&Create/AddPetPhoto";
-import getPetProfilePhoto from '../../services/pet_photo/getPetProfilePhoto'
+import getPetProfilePhoto from "../../services/pet_photo/getPetProfilePhoto";
 import PetProfilePhoto from "../../components/ClientProfile/PetProfilePhoto";
-import deletePetPhoto from '../../services/pet_photo/deletePetPhoto'
-
+import deletePetPhoto from "../../services/pet_photo/deletePetPhoto";
 
 const mapStateToProps = (state) => {
   return {
@@ -18,14 +17,18 @@ const mapStateToProps = (state) => {
 
 function EditPet(props) {
   const [pet, setPet] = useState({});
-  const [photo, setPhoto] = useState({})
+  const [photo, setPhoto] = useState({});
 
   const navigate = useNavigate();
   const params = useParams();
 
   useEffect(() => {
-    getPet(params.petId).then((result) => {setPet(result.data.getPet.pet);});
-    getPetProfilePhoto(params.petId).then((result) => {setPhoto(result.data.getPetProfilePhoto.photo)})
+    getPet(params.petId).then((result) => {
+      setPet(result.data.getPet.pet);
+    });
+    getPetProfilePhoto(params.petId).then((result) => {
+      setPhoto(result.data.getPetProfilePhoto.photo);
+    });
   }, []);
 
   const handleTextChange = (e) => {
@@ -92,14 +95,16 @@ function EditPet(props) {
   return (
     <div className="flex-col justify-center">
       <div className="sm:mx-10">
-        <div className=" text-accent-green font-medium text-center my-3">Pet Profile Photo</div>
-        <div className="edit-profile-img">
-        <PetProfilePhoto className="" petId={params.petId} />
+        <h3 className=" text-accent-green font-medium text-center my-3">Pet Profile Photo</h3>
+        <div className="flex justify-center gap-6">
+          <PetProfilePhoto imgStyle={" bg-background-light border h-36 w-36 rounded-lg border border-slate-300 object-cover"} petId={params.petId} />
+          <div>
+            <AddPetPhoto />
+            <button className=" block ml-auto mr-0 text-white bg-accent-green my-2" onClick={() => uploadPetPhoto(props.photo)}>
+              Add Photo
+            </button>
+          </div>
         </div>
-        <AddPetPhoto />
-        <button className=" block ml-auto mr-0 text-white bg-accent-green my-2" onClick={() => uploadPetPhoto(props.photo)}>
-          Add Photo
-        </button>
       </div>
       {/*  */}
       <hr className="my-4" />
@@ -207,7 +212,9 @@ function EditPet(props) {
           Tell us about your pet!
           <textarea defaultValue={pet.description} placeholder="" name="description" onChange={handleTextChange} />
         </label>
-        <button onClick={handleUpdatePet}>Save</button>
+        <button className="block ml-auto mr-0 bg-accent-green text-white w-44 my-4" onClick={handleUpdatePet}>
+          Save
+        </button>
       </div>
     </div>
   );
