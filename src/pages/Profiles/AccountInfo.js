@@ -16,10 +16,10 @@ export default function AccountInfo(props) {
   const userId = localStorage.getItem("id");
 
   return (
-    <div className="flex justify-center px-10 gap-10">
+    <div className="flex flex-col xl:flex-row justify-center px-10 gap-10">
       <div className="flex-shrink-0">
         <h3 className="text-lg font-medium text-center">{userFullName}</h3>
-        <div className="flex items-center flex-col m-4 gap-6 flex-shrink-0 ">
+        <div className="flex xl:items-center flex-row xl:flex-col m-4 gap-6 flex-shrink-0 ">
           <div className="profile-img">
             <ClientProfilePic />
           </div>
