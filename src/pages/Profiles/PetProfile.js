@@ -112,7 +112,10 @@ function PetProfile() {
             <p> {pet.vetDetails}</p>
           </div>
           <h2 className="text-lg font-medium mt-6 ">About me</h2>
-          <p>{pet.description} Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore neque quas dolores aliquid unde. Eos deserunt voluptatem dignissimos veniam esse.</p>
+          <p>
+            {pet.description} Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore neque quas dolores aliquid unde. Eos deserunt voluptatem dignissimos veniam esse. Hard coded text
+            PetProfile.js.
+          </p>
         </div>
       </div>
     </div>

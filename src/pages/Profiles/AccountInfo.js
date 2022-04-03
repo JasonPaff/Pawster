@@ -6,11 +6,18 @@ import getAddress from "../../services/address/getAddress";
 const userFullName = localStorage.getItem("firstName") + " " + localStorage.getItem("lastName");
 
 export default function AccountInfo(props) {
-  const [address, setAddCheck] = useState({});
+  const [address, setAddCheck] = useState({
+    street: "none",
+    city: "none",
+    state: "none",
+    zipcode: "none",
+  });
 
   useEffect(() => {
     getAddress().then((result) => {
-      setAddCheck(result.data.getAddress.address);
+      if (result.data.getAddress.address) {
+        setAddCheck(result.data.getAddress.address);
+      }
     });
   }, []);
   const userId = localStorage.getItem("id");
@@ -20,13 +27,13 @@ export default function AccountInfo(props) {
       <div className="flex-shrink-0">
         <h3 className="text-lg font-medium text-center">{userFullName}</h3>
         <div className="flex xl:items-center flex-row xl:flex-col m-4 gap-6 flex-shrink-0 ">
-          <div className="profile-img">
-            <ClientProfilePic />
+          <div className="p-4 border rounded-lg bg-background-light border-slate-300">
+            <ClientProfilePic styleImg={"h-56 w-56 rounded-lg object-cover"} />
           </div>
           <div className="flex flex-col gap-2">
             <div className="grid-address">
               <span className=" col-span-2 mb-3">Address :</span>
-              <span className="text-right text-gray-500">street:</span> <span>{address.street} very long address</span>
+              <span className="text-right text-gray-500">street:</span> <span>{address.street} </span>
               <span className="text-right text-gray-500">city:</span> <span>{address.city} </span>
               <span className="text-right text-gray-500">state:</span> <span> {address.state}</span>
               <span className="text-right text-gray-500">zip:</span> <span>{address.zipcode}</span>

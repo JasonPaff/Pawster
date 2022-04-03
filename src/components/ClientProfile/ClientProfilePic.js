@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import getUserProfilePhotoById from "../../services/user_photo/getUserProfilePhotoById";
 import emptyImage from "../../img/icons/user.png";
 
-function ClientProfilePic() {
+function ClientProfilePic(props) {
   const [fetchedPhoto, setPhoto] = useState({});
 
   const userId = localStorage.getItem("id");
@@ -27,7 +27,7 @@ function ClientProfilePic() {
 
   return (
     <>
-      <img className="" src={imageSrc} />
+      <img className={props.styleImg} src={imageSrc} />
     </>
   );
 }

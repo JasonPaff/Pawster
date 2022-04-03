@@ -16,8 +16,8 @@ function DisplayHostPets(props) {
   const petList = pets.map((pet) => {
     return (
       <NavLink key={pet.id} to={`/profile/pet-profile/${pet.id}`} className="hover:text-inherit ">
-        <li className="flex gap-3  border border-slate-400  rounded-lg p-2 hover:shadow-md">
-          <div className="flex items-center  justify-center  ">
+        <li className="flex gap-3  border border-slate-300  rounded-lg p-2 hover:shadow-md">
+          <div className="flex items-center  justify-center bg-background-light  ">
             <PetProfilePhoto petId={pet.id} imgStyle={" h-24 w-24 object-cover border border-slate-300 rounded-md"} />
           </div>
           <div className="auto-cols-fr grid grid-cols-2 gap-x-5 grid-rows-3 grid-flow-col">
@@ -27,10 +27,10 @@ function DisplayHostPets(props) {
               {pet.ageYear && pet.ageYear + " yrs"} {pet.ageMonth && pet.ageMonth + "m"}
             </p>
             <p className="">
-              <span className="text-slate-400">breed:</span> {pet.breed}
+              <span className="text-gray-500">breed:</span> {pet.breed}
             </p>
             <p>
-              <span className="text-slate-400">energy:</span> {pet.energyLevel}
+              <span className="text-gray-500">energy:</span> {pet.energyLevel}
             </p>
           </div>
         </li>
