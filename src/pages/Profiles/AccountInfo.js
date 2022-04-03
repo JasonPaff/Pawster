@@ -25,11 +25,11 @@ export default function AccountInfo(props) {
           </div>
           <div className="flex flex-col gap-2">
             <div className="grid-address">
-              <span className=" col-span-2">Address :</span>
-              <span className="text-right">street:</span> <span>{address.street} very long address</span>
-              <span className="text-right">city:</span> <span>{address.city} </span>
-              <span className="text-right">state:</span> <span> {address.state}</span>
-              <span className="text-right">zip:</span> <span>{address.zipcode}</span>
+              <span className=" col-span-2 mb-3">Address :</span>
+              <span className="text-right text-gray-500">street:</span> <span>{address.street} very long address</span>
+              <span className="text-right text-gray-500">city:</span> <span>{address.city} </span>
+              <span className="text-right text-gray-500">state:</span> <span> {address.state}</span>
+              <span className="text-right text-gray-500">zip:</span> <span>{address.zipcode}</span>
             </div>
           </div>
         </div>

@@ -63,9 +63,9 @@ function CreatePet(props) {
 
   // TODO: If have time use Cat/Dog API to autocomplete searches for breeds
   return (
-    <div className="flex-col justify-center">
+    <div className="flex-col justify-center lg:px-10">
       <div className=" grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2">
-        <label className={labelClass} className={labelClass} htmlFor="">
+        <label className={labelClass} htmlFor="">
           Pet's Name:
           <input type="text" placeholder="" name="name" onChange={handleTextChange} />
         </label>
@@ -140,27 +140,30 @@ function CreatePet(props) {
       </div>
       {/*  */}
       <hr className="my-4" />
-      <label className={labelClass} htmlFor="">
-        Medication:
-        <input type="text" placeholder="" name="medication" onChange={handleTextChange} />
-      </label>
-      <label className={labelClass} htmlFor="">
-        Medication Instructions:
-      </label>
-      <input type="text" placeholder="" name="medicationInstructions" onChange={handleTextChange} />
-      <label className={labelClass} htmlFor="">
-        Veterinarian Information:
-      </label>
-      <input type="text" placeholder="" name="vetDetails" onChange={handleTextChange} />
-      <label className={labelClass} htmlFor="">
-        Additional Information:
-      </label>
-      <input type="text" placeholder="" name="additionalInfo" onChange={handleTextChange} />
-      {/*  */}
-      <hr className="mt-8 mb-4" />
-      <label className={labelClass} htmlFor="">
-        Tell us about your pet!
-      </label>
+      <div className="flex flex-col gap-3">
+        <label className={labelClass} htmlFor="">
+          Medication:
+          <input type="text" placeholder="" name="medication" onChange={handleTextChange} />
+        </label>
+        <label className={labelClass} htmlFor="">
+          Medication Instructions:
+          <input type="text" placeholder="" name="medicationInstructions" onChange={handleTextChange} />
+        </label>
+        <label className={labelClass} htmlFor="">
+          Veterinarian Information:
+          <input type="text" placeholder="" name="vetDetails" onChange={handleTextChange} />
+        </label>
+        <label className={labelClass} htmlFor="">
+          Additional Information:
+          <input type="text" placeholder="" name="additionalInfo" onChange={handleTextChange} />
+        </label>
+        {/*  */}
+        <hr className="mt-6 mb-4" />
+        <label className={labelClass} htmlFor="">
+          Tell us about your pet!
+        </label>
+      </div>
+
       <textarea type="text" placeholder="" name="description" onChange={handleTextChange} />
       <button className=" bg-accent-green w-44 text-white my-4 mr-0 ml-auto block" onClick={handleCreatePet}>
         Save
