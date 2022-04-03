@@ -74,7 +74,7 @@ module.exports.petPhotoModule = createModule({
                 const petProfilePhoto = await findPetProfilePhoto(petId);
                 if (!petProfilePhoto) return petProfilePhotoNotFoundError(petId);
 
-                return petProfilePhotoFoundSuccess(petId);
+                return petProfilePhotoFoundSuccess(petProfilePhoto, petId);
             },
         },
         Mutation: {
