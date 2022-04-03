@@ -6,7 +6,8 @@ import DisplayServices from "../../components/HostProfile/DisplayServices";
 import SendMessage from "../../parts/Messages/SendMessage";
 import HostProfilePic from "../../components/HostProfile/HostProfilePic";
 import DisplayHostPets from "../../components/HostProfile/DisplayHostPets";
-import { parseAndCheckHttpResponse } from "@apollo/client";
+import { AiOutlineCheck } from 'react-icons/ai'
+
 
 // const card = "bg-white border border-slate-200 shadow-sm rounded-md p-5 ";
 
@@ -53,18 +54,39 @@ function HostProfile() {
         <DisplayServices hostId={params.userId} />
       </div>
 
-      <div className="card row-start-1 row-end-6 col-span-5">
-        <div>
+      <div className="card row-start-1 row-end-6 col-span-5 p-10">
+        <div className="text-4xl font-medium">
           {user.firstName} {user.lastName}
         </div>
 
-        <div>About me?</div>
+        <div className="mt-10 p-5">
+          <p className="font-medium text-lg">About Me</p>
+          <div className="p-2">{host.aboutMe}</div>
+        </div>
+        <div className="mt-10 underline font-medium">About the Host's Home</div>
+        <div className="flex flex-wrap mt-2 justify-evenly w-4/5">
+          {host.doesCat ? <div className="flex justify-center text-slate-500 mr-5"><AiOutlineCheck size="1.3em" className="mr-1"/>Can Host Cats</div> : null}
+          {host.doesDog ? <div className="flex justify-center text-slate-500 mr-5"><AiOutlineCheck size="1.3em" className="mr-1"/>Can Host Dogs</div> : null}
+          {!host.isSmoking ? <div className="flex justify-center text-slate-500 mr-5"><AiOutlineCheck size="1.3em" className="mr-1"/>Non-Smoking Household</div> : null}
+          {!host.hasChildren ? <div className="flex justify-center text-slate-500 mr-5"><AiOutlineCheck size="1.3em" className="mr-1"/>No Children Present</div> : null}
+          {host.isHomeFullTime ? <div className="flex justify-center text-slate-500 mr-5"><AiOutlineCheck size="1.3em" className="mr-1"/>Home Full Time</div> : null}
+          {host.canHostGiantPet ? <div className="flex justify-center text-slate-500 mr-5"><AiOutlineCheck size="1.3em" className="mr-1"/>Giant Pets</div> : null}
+          {host.canHostLargePet ? <div className="flex justify-center text-slate-500 mr-5"><AiOutlineCheck size="1.3em" className="mr-1"/>Large Pets</div> : null}
+          {host.canHostMediumPet ? <div className="flex justify-center text-slate-500 mr-5"><AiOutlineCheck size="1.3em" className="mr-1"/>Medium Pets</div> : null}
+          {host.canHostSmallPet ? <div className="flex justify-center text-slate-500 mr-5"><AiOutlineCheck size="1.3em" className="mr-1"/>Small Pets</div> : null}
+          {host.canHostMultiplePets ? <div className="flex justify-center text-slate-500 mr-5"><AiOutlineCheck size="1.3em" className="mr-1"/>Multiple Pets</div> : null}
+          {host.canHostUnspayedFemales ? <div className="flex justify-center text-slate-500 mr-5"><AiOutlineCheck size="1.3em" className="mr-1"/>Can Host Unspayed Females</div> : null}
+        </div>
 
-        <NavLink to={`/book-host/${params.userId}`}>Book Appointment</NavLink>
 
-        <div>Host Info</div>
+        <div className="mt-10">
+          <NavLink to={`/book-host/${params.userId}`}><button className="rounded-full w-60">Book Appointment</button></NavLink>
+        </div>
 
-        <DisplayHostPets userId={params.userId} />
+        <div className="mt-10">
+          {user.firstName}'s Pets
+          <DisplayHostPets userId={params.userId} />
+        </div>
       </div>
     </div>
   );

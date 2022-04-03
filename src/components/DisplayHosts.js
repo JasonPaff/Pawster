@@ -95,7 +95,7 @@ function DisplayHosts(props) {
   })
 
   return (
-    <div className="flex-col p-2 border list-none w-full">
+    <div className="flex-col p-2 border list-none w-full overflow-auto">
       {hosts}
     </div>
   );
