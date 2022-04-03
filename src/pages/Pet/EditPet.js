@@ -6,6 +6,9 @@ import updatePet from "../../services/pet/updatePet";
 import addPetPhoto from "../../services/pet_photo/addPetPhoto";
 import AddPetPhoto from "../../components/Add&Create/AddPetPhoto";
 import getPetProfilePhoto from '../../services/pet_photo/getPetProfilePhoto'
+import PetProfilePhoto from "../../components/ClientProfile/PetProfilePhoto";
+import deletePetPhoto from '../../services/pet_photo/deletePetPhoto'
+
 
 const mapStateToProps = (state) => {
   return {
@@ -21,10 +24,8 @@ function EditPet(props) {
   const params = useParams();
 
   useEffect(() => {
-    getPet(params.petId).then((result) => {
-      setPet(result.data.getPet.pet);
-    });
-    getPetProfilePhoto(params.petId).then((result) => {console.log(result)})
+    getPet(params.petId).then((result) => {setPet(result.data.getPet.pet);});
+    getPetProfilePhoto(params.petId).then((result) => {setPhoto(result.data.getPetProfilePhoto.photo)})
   }, []);
 
   const handleTextChange = (e) => {
@@ -82,6 +83,8 @@ function EditPet(props) {
       submit(reader.result.replace("data:", "").replace(/^.+,/, ""), getPhoto[0].type);
     };
     reader.readAsDataURL(getPhoto[0]);
+    deletePetPhoto(photo.id);
+    window.location.reload();
   }
 
   // TODO: If have time use Cat/Dog API to autocomplete searches for breeds
@@ -89,7 +92,10 @@ function EditPet(props) {
   return (
     <div className="flex-col justify-center">
       <div className="sm:mx-10">
-        <div className=" text-accent-green font-medium text-center my-3">Add Pet Photo</div>
+        <div className=" text-accent-green font-medium text-center my-3">Pet Profile Photo</div>
+        <div className="edit-profile-img">
+        <PetProfilePhoto className="" petId={params.petId} />
+        </div>
         <AddPetPhoto />
         <button className=" block ml-auto mr-0 text-white bg-accent-green my-2" onClick={() => uploadPetPhoto(props.photo)}>
           Add Photo
