@@ -115,7 +115,7 @@ function CreateHost() {
         <h3 className="text-center text-accent-green">Edit Host Info</h3>
         <div>
         About Me
-          <input type="text" placeholder="About Me"  name="aboutMe" onChange={handleTextChange} />
+          <textarea placeholder="About Me"  rows="6" name="aboutMe" onChange={handleTextChange}/>
         </div>
         <div>
         Days Available
@@ -200,7 +200,8 @@ function CreateHost() {
         <h3 className="text-center text-accent-green">Edit Host Info</h3>
         <div>
         About Me
-          <input type="text" placeholder="About Me" defaultValue={updateHosts.aboutMe} name="aboutMe" onChange={handleUpdateTextChange} />
+  
+          <textarea placeholder="About Me"  rows="6" defaultValue={updateHosts.aboutMe} name="aboutMe" onChange={handleTextChange}/>
         </div>
         <div>
         Days Available
