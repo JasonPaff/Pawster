@@ -36,7 +36,7 @@ function HostProfile() {
   return (
     <div className=" container mx-auto grid grid-rows-2 grid-flow-col gap-4 p-10 h-full">
       <div className={`row-span-2`}>
-        <HostProfilePic hostId={params.userId}/>
+        <HostProfilePic hostId={params.userId} />
       </div>
 
       {isNotLoggedInUser && (
@@ -63,8 +63,9 @@ function HostProfile() {
         <NavLink to={`/book-host/${params.userId}`}>Book Appointment</NavLink>
 
         <div>Host Info</div>
-
-        <DisplayHostPets userId={params.userId} />
+        <div>
+          <DisplayHostPets userId={params.userId} />
+        </div>
       </div>
     </div>
   );

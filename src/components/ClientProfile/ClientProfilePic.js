@@ -1,40 +1,35 @@
-import React, {useEffect, useState} from 'react'
-import getUserPhotos from '../../services/user_photo/getUserPhotos'
-import emptyImage from '../../img/icons/user.png'
-
-
-
+import React, { useEffect, useState } from "react";
+import getUserProfilePhotoById from "../../services/user_photo/getUserProfilePhotoById";
+import emptyImage from "../../img/icons/user.png";
 
 function ClientProfilePic() {
+  const [fetchedPhoto, setPhoto] = useState({});
 
-    const [fetchedPhotos, setPhotos] = useState([])
+  const userId = localStorage.getItem("id");
 
-    useEffect(() => {
-        getUserPhotos().then((result) => {
-            console.log(result)
-            if (result.data.getUserPhotos.success === true) {
-                setPhotos(result.data.getUserPhotos.photos)
-            } else {
-                return null
-            }
-        })
-    }, [])
+  useEffect(() => {
+    getUserProfilePhotoById(userId).then((result) => {
+      if (result.data.getUserProfilePhotoById.success === true) {
+        setPhoto(result.data.getUserProfilePhotoById.photo);
+      } else {
+        return null;
+      }
+    });
+  }, []);
 
-    const userProfilePhoto = fetchedPhotos.map((pic) => {
-        let imageSrc = `data:${pic.photoType};base64, ${pic.photo}`;
-        if (pic.isProfilePhoto === true) {
-            return imageSrc
-        } else {
-            imageSrc = emptyImage
-        }
-    })
+  let imageSrc;
 
-    return (
-        <div>
-            <img className="w-10"src={userProfilePhoto}/>
-        </div>
-    )
+  if (fetchedPhoto.isProfilePhoto === true && fetchedPhoto.userId === userId) {
+    imageSrc = `data:${fetchedPhoto.photoType};base64, ${fetchedPhoto.photo}`;
+  } else {
+    imageSrc = emptyImage;
+  }
 
+  return (
+    <>
+      <img className="" src={imageSrc} />
+    </>
+  );
 }
 
-export default ClientProfilePic
+export default ClientProfilePic;

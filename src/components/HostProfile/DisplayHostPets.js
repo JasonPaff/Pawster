@@ -11,20 +11,34 @@ function DisplayHostPets(props) {
       setPets(result.data.getPetsById.pets);
     });
   }, []);
-
-  
+  console.log("from pets");
+  console.log(pets);
   const petList = pets.map((pet) => {
     return (
-      <NavLink key={pet.id} to={`/profile/pet-profile/${pet.id}`}>
-        <li className="flex-col border p-5 mr-3">
-          <PetProfilePhoto petId={pet.id} />
-          {pet.name}
+      <NavLink key={pet.id} to={`/profile/pet-profile/${pet.id}`} className="hover:text-inherit ">
+        <li className="flex gap-3  border border-slate-400  rounded-lg p-2 hover:shadow-md">
+          <div className="flex items-center  justify-center profile-pet-img">
+            <PetProfilePhoto petId={pet.id} />
+          </div>
+          <div className="auto-cols-fr grid grid-cols-2 gap-x-5 grid-rows-3 grid-flow-col">
+            <p className="font-medium underline col-span-2"> {pet.name}</p>
+            <p>{pet.type}</p>
+            <p>
+              {pet.ageYear && pet.ageYear + " year"} {pet.ageMonth && pet.ageMonth + "m"}
+            </p>
+            <p className="">
+              <span className="text-slate-400">breed:</span> {pet.breed}
+            </p>
+            <p>
+              <span className="text-slate-400">energy:</span> {pet.energyLevel}
+            </p>
+          </div>
         </li>
       </NavLink>
     );
   });
 
-  return <ul className="">{petList}</ul>;
+  return <ul className="flex flex-col gap-3 mt-4">{petList}</ul>;
 }
 
 export default DisplayHostPets;

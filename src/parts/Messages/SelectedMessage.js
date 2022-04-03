@@ -19,7 +19,7 @@ export default function SelectedMessage(props) {
       toUserId: receiver,
       fromUserId: userId,
       message: `new message from ${props.selectedMessage.sender}`,
-      link: "profile/messages",
+      link: "/profile/messages",
     });
   };
 

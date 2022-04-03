@@ -38,7 +38,7 @@ function App() {
         </Route>
         <Route path="/profile" element={<DashboardLayout />}>
           <Route path="/profile" element={<AccountInfo />} />
-          <Route path="/profile/account-info" element={<EditClient />} />
+          <Route path="/profile/edit-profile" element={<EditClient />} />
           <Route path="/profile/add-pet" element={<AddPet />} />
           <Route path="/profile/pet-profile/edit/:petId" element={<EditPet />} />
           <Route path="/profile/register-host" element={<CreateHost />} />

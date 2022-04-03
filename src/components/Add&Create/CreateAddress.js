@@ -69,10 +69,10 @@ function CreateAddress() {
   // If not, add address fields will display
   const inputForm = "flex  gap-2 items-center";
   return (
-    <div className="flex flex-col  w-[400px] lg:w-2/3  mx-auto">
+    <>
       {!addCheck ? (
         <div className="flex flex-col gap-2">
-          <span className="text-accent-green text-center "> Add Address</span>
+          <span className="text-accent-green text-center ">Add Address</span>
           <div className={inputForm}>
             <label htmlFor="" className=" w-24 text-right text">
               Street
@@ -103,7 +103,7 @@ function CreateAddress() {
         </div>
       ) : (
         <div className="flex flex-col gap-2">
-          <span className="text-accent-green text-center ">Update Address :</span>
+          <span className="text-accent-green text-center ">Update Address</span>
           <div className={inputForm}>
             <label htmlFor="" className=" w-24 text-right text">
               Street
@@ -133,7 +133,7 @@ function CreateAddress() {
           </button>
         </div>
       )}
-    </div>
+    </>
   );
 }
 
