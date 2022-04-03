@@ -34,7 +34,7 @@ function AddPetPhoto(props) {
   }
 
   return (
-    <div className="sm:col-span-6 lg:px-10">
+    <>
       <div
         id="screenshot"
         className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300
@@ -73,7 +73,7 @@ function AddPetPhoto(props) {
           return <PhotoBadge fileName={shot.name} key={shot.name} />;
         })}
       </div>
-    </div>
+    </>
   );
 }
 
