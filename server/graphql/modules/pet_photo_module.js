@@ -26,6 +26,7 @@ module.exports.petPhotoModule = createModule({
             }
 
             type PetPhoto {
+                id: ID!
                 petId: ID!
                 photo: String!
                 photoType: String!
@@ -73,7 +74,7 @@ module.exports.petPhotoModule = createModule({
                 const petProfilePhoto = await findPetProfilePhoto(petId);
                 if (!petProfilePhoto) return petProfilePhotoNotFoundError(petId);
 
-                return petProfilePhotoFoundSuccess(petId);
+                return petProfilePhotoFoundSuccess(petProfilePhoto, petId);
             },
         },
         Mutation: {
