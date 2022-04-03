@@ -14,7 +14,7 @@ module.exports.petPhotosFoundSuccess = (id, photos) => {
     };
 };
 
-module.exports.petProfilePhotoFoundSuccess = (id, photo) => {
+module.exports.petProfilePhotoFoundSuccess = (photo, id) => {
     return {
         success: true,
         message: `profile photo for id ${id} found`,

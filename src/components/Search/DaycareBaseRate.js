@@ -2,9 +2,7 @@
 import React, { useState, useEffect} from 'react'
 import getDaycareById from '../../services/daycare/getDaycareById'
 
-
 function DaycareBaseRate(props) {
-
     const [daycare, setDaycare] = useState({})
 
     useEffect(() => {
