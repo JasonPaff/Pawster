@@ -1,52 +1,118 @@
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import getPet from '../../services/pet/getPet'
-import PetProfilePhoto from '../../components/ClientProfile/PetProfilePhoto'
-import { AiOutlineCheck } from 'react-icons/ai'
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import getPet from "../../services/pet/getPet";
+import PetProfilePhoto from "../../components/ClientProfile/PetProfilePhoto";
+import { AiOutlineCheck } from "react-icons/ai";
 
 function PetProfile() {
-  const params = useParams()
+  const params = useParams();
 
-  const [pet, setPet] = useState({})
+  const [pet, setPet] = useState({});
 
   useEffect(() => {
-    getPet(params.petId).then((result) => {setPet(result.data.getPet.pet)})
-  }, [])
+    getPet(params.petId).then((result) => {
+      setPet(result.data.getPet.pet);
+    });
+  }, []);
 
-  console.log(pet.id)
-
+  console.log(pet);
 
   return (
-    <div className="flex justify-center p-20">
-      <div className="flex-col">
-        <PetProfilePhoto className="rounded-lg" petId={params.petId}/>
-
+    <div className="container flex justify-center mx-auto my-4 gap-4">
+      <div className="flex-shrink-0 ">
+        <div className="card  p-10  inline-block">
+          <PetProfilePhoto className="" petId={params.petId} imgStyle={"w-64 h-64 rounded-lg border border-slate-300"} />
+        </div>
       </div>
-      <div className="flex-col p-12 ml-14 w-2/5">
-        <h1 className="text-3xl font-medium">{pet.name}</h1>
-        <div className="p-1">
-          <p>{pet.type}</p>
-          <p className="font-xs">{pet.weight} lbs, {pet.ageYear} yrs {pet.ageMonth} mo</p>
-          <h2 className="text-lg font-medium mt-14">About me</h2>
-          <p>{pet.description}</p>
-          <div className="flex flex-wrap mt-14 justify-evenly">
-            {pet.canBeLeftAlone ? <div className="flex justify-center text-slate-500"><AiOutlineCheck size="1.3em" className="mr-1"/>Can Be Left Alone</div> : null}
-            {pet.isFixed ? <div className="flex justify-center text-slate-500"><AiOutlineCheck size="1.3em" className="mr-1"/>Fixed</div> : null}
-            {pet.isHouseBroken ? <div className="flex justify-center text-slate-500"><AiOutlineCheck size="1.3em" className="mr-1"/>House-broken</div> : null}
-            {pet.isFriendlyToChildren ? <div className="flex justify-center text-slate-500"><AiOutlineCheck size="1.3em" className="mr-1"/>Friendly to Children</div> : null}
-            {pet.isFriendlyToOtherDogs ? <div className="flex justify-center text-slate-500"><AiOutlineCheck size="1.3em" className="mr-1"/>Friendly to Dogs</div> : null}
-            {pet.isFriendlyToOtherCats ? <div className="flex justify-center text-slate-500"><AiOutlineCheck size="1.3em" className="mr-1"/>Friendly to Cats</div> : null}
-            {pet.isMicroChipped ? <div className="flex justify-center text-slate-500"><AiOutlineCheck size="1.3em" className="mr-1"/>Microchipped</div> : null}
+      <div className="card p-10 max-w-2xl">
+        <h1 className="text-2xl font-medium">{pet.name}</h1>
+        <hr className="my-4" />
+        <div className="p-1 ">
+          <div className="grid grid-cols-2">
+            <p>{pet.type}</p>
+            <p>
+              <span className="text-right text-sm text-gray-500">Breed: </span>
+              {pet.breed}
+            </p>
+            <p>
+              {pet.ageYear && pet.ageYear + " yrs"} {pet.ageMonth && pet.ageMonth + "m"}
+            </p>
+            <p>
+              <span className="text-right text-sm text-gray-500"> Energy:</span> {pet.energyLevel}
+            </p>
+            <p>{pet.weight} lbs,</p>
           </div>
 
-          <p className="mt-12">Energy Level: {pet.energyLevel}</p>
+          <hr className="my-4" />
 
-          <p className="mt-12">Medication Type: {pet.medication}</p>
+          <div className="grid grid-cols-2">
+            {pet.canBeLeftAlone ? (
+              <div className="flex text-slate-500">
+                <AiOutlineCheck size="1.3em" className="mr-1" />
+                Can Be Left Alone
+              </div>
+            ) : null}
+            {pet.isFixed ? (
+              <div className="flex text-slate-500">
+                <AiOutlineCheck size="1.3em" className="mr-1" />
+                Fixed
+              </div>
+            ) : null}
+            {pet.isHouseBroken ? (
+              <div className="flex text-slate-500">
+                <AiOutlineCheck size="1.3em" className="mr-1" />
+                House-broken
+              </div>
+            ) : null}
+            {pet.isFriendlyToChildren ? (
+              <div className="flex text-slate-500">
+                <AiOutlineCheck size="1.3em" className="mr-1" />
+                Friendly to Children
+              </div>
+            ) : null}
+            {pet.isFriendlyToOtherDogs ? (
+              <div className="flex text-slate-500">
+                <AiOutlineCheck size="1.3em" className="mr-1" />
+                Friendly to Dogs
+              </div>
+            ) : null}
+            {pet.isFriendlyToOtherCats ? (
+              <div className="flex text-slate-500">
+                <AiOutlineCheck size="1.3em" className="mr-1" />
+                Friendly to Cats
+              </div>
+            ) : null}
+            {pet.isMicroChipped ? (
+              <div className="flex text-slate-500">
+                <AiOutlineCheck size="1.3em" className="mr-1" />
+                Microchipped
+              </div>
+            ) : null}
+          </div>
 
-          <p className="mt-12">Medication Instructions: {pet.medicationInstructions}</p>
-
-          <p className="mt-12">Veterinarian Information: {pet.vetDetails}</p>
-
+          <hr className="my-4" />
+          <div className="m-2 border-b">
+            <lapel className="text-sm text-slate-500">Feeding Schedule:</lapel>
+            <p> {pet.feedingSchedule}</p>
+          </div>
+          <div className="m-2 border-b">
+            <lapel className="text-sm text-slate-500">Potty Schedule:</lapel>
+            <p> {pet.pottySchedule}</p>
+          </div>
+          <div className="m-2 border-b">
+            <lapel className="text-sm text-slate-500">Medication Type: </lapel>
+            <p> {pet.medication}</p>
+          </div>
+          <div className="m-2 border-b">
+            <lapel className="text-sm text-slate-500">Medication Instructions: </lapel>
+            <p> {pet.medicationInstructions}</p>
+          </div>
+          <div className="m-2 border-b">
+            <lapel className="text-sm text-slate-500">Veterinarian Information: </lapel>
+            <p> {pet.vetDetails}</p>
+          </div>
+          <h2 className="text-lg font-medium mt-6 ">About me</h2>
+          <p>{pet.description} Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore neque quas dolores aliquid unde. Eos deserunt voluptatem dignissimos veniam esse.</p>
         </div>
       </div>
     </div>

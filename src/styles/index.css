@@ -28,14 +28,6 @@ body {
   object-fit: cover;
 }
 
-.profile-pet-img img {
-  height: 6rem;
-  width: 6rem;
-  object-fit: cover;
-  border: 1px solid lightgrey;
-  border-radius: 6px;
-}
-
 .grid-address {
   display: grid;
   grid-template-columns: auto auto;

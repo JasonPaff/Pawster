@@ -17,14 +17,14 @@ function DisplayHostPets(props) {
     return (
       <NavLink key={pet.id} to={`/profile/pet-profile/${pet.id}`} className="hover:text-inherit ">
         <li className="flex gap-3  border border-slate-400  rounded-lg p-2 hover:shadow-md">
-          <div className="flex items-center  justify-center profile-pet-img">
-            <PetProfilePhoto petId={pet.id} />
+          <div className="flex items-center  justify-center  ">
+            <PetProfilePhoto petId={pet.id} imgStyle={" h-24 w-24 object-cover border border-slate-300 rounded-md"} />
           </div>
           <div className="auto-cols-fr grid grid-cols-2 gap-x-5 grid-rows-3 grid-flow-col">
             <p className="font-medium underline col-span-2"> {pet.name}</p>
             <p>{pet.type}</p>
             <p>
-              {pet.ageYear && pet.ageYear + " year"} {pet.ageMonth && pet.ageMonth + "m"}
+              {pet.ageYear && pet.ageYear + " yrs"} {pet.ageMonth && pet.ageMonth + "m"}
             </p>
             <p className="">
               <span className="text-slate-400">breed:</span> {pet.breed}

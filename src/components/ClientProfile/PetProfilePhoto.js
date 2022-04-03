@@ -29,7 +29,7 @@ function PetProfilePhoto(props) {
 
   return (
     <>
-      <img className="" src={petProfilePhoto} alt=" " />
+      <img src={petProfilePhoto} className={props.imgStyle} alt=" " />
     </>
   );
 }
