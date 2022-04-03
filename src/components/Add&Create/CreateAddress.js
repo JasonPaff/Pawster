@@ -69,30 +69,30 @@ function CreateAddress() {
   // If not, add address fields will display
   const inputForm = "flex  gap-2 items-center";
   return (
-    <div className="flex flex-col">
+    <>
       {!addCheck ? (
         <div className="flex flex-col gap-2">
           <span className="text-accent-green text-center ">Add Address</span>
           <div className={inputForm}>
-            <label htmlFor="" className=" w-24 text-right text">
+            <label htmlFor="" className=" w-14 text-right text">
               Street
             </label>
             <input type="text" name="street" onChange={handleTextChange} />
           </div>
           <div className={inputForm}>
-            <label htmlFor="" className=" w-24 text-right text">
+            <label htmlFor="" className=" w-14 text-right text">
               City
             </label>
             <input type="text" name="city" onChange={handleTextChange} />
           </div>
           <div className={inputForm}>
-            <label htmlFor="" className=" w-24 text-right text">
+            <label htmlFor="" className=" w-14 text-right text">
               State
             </label>
             <input type="text" name="state" onChange={handleTextChange} />
           </div>
           <div className={inputForm}>
-            <label htmlFor="" className=" w-24 text-right text">
+            <label htmlFor="" className=" w-14 text-right text">
               Zip Code
             </label>
             <input type="text" name="zipcode" onChange={handleZipcodeChange} />
@@ -105,25 +105,25 @@ function CreateAddress() {
         <div className="flex flex-col gap-2">
           <span className="text-accent-green text-center ">Update Address</span>
           <div className={inputForm}>
-            <label htmlFor="" className=" w-24 text-right text">
+            <label htmlFor="" className=" w-14 text-right text">
               Street
             </label>
             <input type="text" defaultValue={addCheck.street} name="street" onChange={handleUpdateTextChange} />
           </div>
           <div className={inputForm}>
-            <label htmlFor="" className=" w-24 text-right text">
+            <label htmlFor="" className=" w-14 text-right text">
               City
             </label>
             <input type="text" defaultValue={addCheck.city} name="city" onChange={handleUpdateTextChange} />
           </div>
           <div className={inputForm}>
-            <label htmlFor="" className=" w-24 text-right text">
+            <label htmlFor="" className=" w-14 text-right text">
               State
             </label>
             <input type="text" defaultValue={addCheck.state} name="state" onChange={handleUpdateTextChange} />
           </div>
           <div className={inputForm}>
-            <label htmlFor="" className=" w-24 text-right text">
+            <label htmlFor="" className=" w-14 text-right text">
               Zip
             </label>
             <input type="text" defaultValue={addCheck.zipcode} name="zipcode" onChange={handleUpdateZipcodeChange} />
@@ -133,7 +133,7 @@ function CreateAddress() {
           </button>
         </div>
       )}
-    </div>
+    </>
   );
 }
 

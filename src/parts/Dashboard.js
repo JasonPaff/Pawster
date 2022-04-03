@@ -35,12 +35,11 @@ export default function Dashboard() {
             <NavLink to="/profile/edit-profile">Edit Profile</NavLink>
           </li>
 
-          {user.isHost ?
-          <li className={infoItem}>
-            <NavLink to="/profile/register-host">Edit Host Info</NavLink>
-          </li> 
-          : 
-          null}
+          {user.isHost ? (
+            <li className={infoItem}>
+              <NavLink to="/profile/edit-host">Edit Host Info</NavLink>
+            </li>
+          ) : null}
 
           <li className={infoItem}>
             <NavLink to="/profile/messages">Messages</NavLink>
@@ -61,13 +60,13 @@ export default function Dashboard() {
       <div className="card p-0">
         <header className={header}>Host Services Menu</header>
         <ul className={cardInfo}>
-        {user.isHost ?
-          <HostActions />
-          : 
-          <li className={infoItem}>
-            <NavLink to="/profile/register-host">Become a host</NavLink>
-          </li>}
-          
+          {user.isHost ? (
+            <HostActions />
+          ) : (
+            <li className={infoItem}>
+              <NavLink to="/profile/edit-host">Become a host</NavLink>
+            </li>
+          )}
         </ul>
       </div>
     </>

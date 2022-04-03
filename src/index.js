@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import App from "./App";
 import "./styles/tailwind.output.css";
+import "./styles/index.css";
 
 import authenticationReducer from "./store/reducers/authentication";
 import hostsReducer from "./store/reducers/hosts";

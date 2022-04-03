@@ -36,7 +36,7 @@ export default function Messages() {
           <MessageList messages={messages} setSelectedMessage={setSelectedMessage} />
         </div>
         {selectedMessage.length !== 0 ? (
-          <div className="grow max-h-[calc(100vh_-_260px)] overflow-auto p-4 border rounded border-slate-300 bg-background-light">
+          <div className="grow max-h-[calc(100vh_-_260px)] overflow-auto p-4 border rounded border-slate-300 bg-gray-50">
             <SelectedMessage selectedMessage={selectedMessage} />
           </div>
         ) : (

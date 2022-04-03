@@ -13,7 +13,7 @@ function CardWeightsComponent(props) {
               value={opt}
               name={opt.name}
               className={({ active, checked }) =>
-                `flex rounded bg-white justify-center items-center cursor-pointer focus:outline-none border 
+                `flex rounded bg-white justify-center items-center cursor-pointer focus:outline-none border hover:border-red-400 hover:shadow
                 ${active ? "ring-2 ring-offset-1 ring-offset-accent-red ring-white ring-opacity-60 " : ""}
                 ${checked ? "border-accent-red " : "border-slate-300 "}
                 `

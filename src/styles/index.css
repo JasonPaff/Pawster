@@ -1,0 +1,35 @@
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+.edit-profile-img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.edit-profile-img img {
+  border-radius: 8px;
+  height: 9rem;
+  width: 9rem;
+  object-fit: cover;
+}
+.profile-img {
+  border-radius: 8px;
+  padding: 16px;
+  border: 1px solid rgb(188, 188, 188);
+  background-color: rgba(246, 246, 246, 1);
+}
+.profile-img img {
+  border-radius: 8px;
+  height: 14rem;
+  width: 14rem;
+  object-fit: cover;
+}
+
+.grid-address {
+  display: grid;
+  grid-template-columns: auto auto;
+  column-gap: 10px;
+}

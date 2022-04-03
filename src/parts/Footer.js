@@ -3,7 +3,7 @@ import { BsGithub } from "react-icons/bs";
 
 export default function Footer() {
   return (
-    <footer className="flex justify-center items-center py-3 bg-background-darker">
+    <>
       <div className="flex flex-col text-xs justify-center text-center gap-1">
         <div className="flex flex-row gap-2 ">
           <a href="#" className="">
@@ -23,6 +23,6 @@ export default function Footer() {
         </a>
         <p className="footer-year">2022</p>
       </div>
-    </footer>
+    </>
   );
 }

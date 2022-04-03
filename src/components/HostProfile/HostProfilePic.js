@@ -29,7 +29,7 @@ function HostProfilePic(props) {
 
     return (
         <div className="flex justify-center">
-            <img className="w-60 rounded-full"src={imageSrc}/>
+            <img className="rounded-full w-72 h-72"src={imageSrc}/>
         </div>
     )
 

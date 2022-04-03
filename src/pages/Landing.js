@@ -3,11 +3,11 @@ import InfoFilter from "../components/InfoFilter";
 
 export default function Landing() {
   return (
-    <div className="flex-col justify-center h-full">
-      <div id="banner" className="flex justify-center items-center">
+    <>
+      <div className="bg-[url('/src/img/banners/pexels-5255523.jpg')]  flex justify-center items-center min-h-[46vh] bg-cover bg-center bg-no-repeat ">
         <ServicesCard />
       </div>
       <InfoFilter />
-    </div>
+    </>
   );
 }
