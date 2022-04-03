@@ -5,6 +5,7 @@ import getPet from "../../services/pet/getPet";
 import updatePet from "../../services/pet/updatePet";
 import addPetPhoto from "../../services/pet_photo/addPetPhoto";
 import AddPetPhoto from "../../components/Add&Create/AddPetPhoto";
+import getPetProfilePhoto from '../../services/pet_photo/getPetProfilePhoto'
 
 const mapStateToProps = (state) => {
   return {
@@ -14,6 +15,7 @@ const mapStateToProps = (state) => {
 
 function EditPet(props) {
   const [pet, setPet] = useState({});
+  const [photo, setPhoto] = useState({})
 
   const navigate = useNavigate();
   const params = useParams();
@@ -22,6 +24,7 @@ function EditPet(props) {
     getPet(params.petId).then((result) => {
       setPet(result.data.getPet.pet);
     });
+    getPetProfilePhoto(params.petId).then((result) => {console.log(result)})
   }, []);
 
   const handleTextChange = (e) => {
