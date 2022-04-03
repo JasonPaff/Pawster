@@ -26,6 +26,7 @@ module.exports.petPhotoModule = createModule({
             }
 
             type PetPhoto {
+                id: ID!
                 petId: ID!
                 photo: String!
                 photoType: String!
