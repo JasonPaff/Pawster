@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
-import getUserProfilePhotoById from '../../services/user_photo/getUserProfilePhotoById'
-import emptyImage from '../../img/icons/user.png'
+import getUserProfilePhotoById from '../services/user_photo/getUserProfilePhotoById'
+import emptyImage from '../img/icons/user.png'
 
 
 function HostProfilePic(props) {
@@ -29,7 +29,7 @@ function HostProfilePic(props) {
 
     return (
         <div className="flex justify-center">
-            <img className="rounded-full w-72 h-72"src={imageSrc}/>
+            <img className="rounded-full w-24 h-20"src={imageSrc}/>
         </div>
     )
 

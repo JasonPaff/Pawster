@@ -1,4 +1,5 @@
-﻿import Map, {Marker, Popup} from "react-map-gl";
+﻿// eslint-disable-next-line import/no-webpack-loader-syntax
+import Map, {Marker, Popup} from "!react-map-gl";
 import {connect} from "react-redux";
 import {getGeocode} from "./Geocode";
 import {useEffect, useState} from "react";

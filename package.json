@@ -1,7 +1,10 @@
 {
-  "name": "pets",
-  "version": "0.1.0",
+  "name": "pawster",
+  "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": "16.14.0"
+  },
   "dependencies": {
     "@apollo/client": "^3.5.10",
     "@apollo/react-hooks": "^4.0.0",
@@ -11,6 +14,7 @@
     "@mapbox/mapbox-gl-geocoder": "^5.0.0",
     "@reach/combobox": "^0.16.5",
     "@react-google-maps/api": "^2.7.0",
+    "@tailwindcss/forms": "^0.5.0",
     "apollo-cache-inmemory": "^1.6.6",
     "apollo-client": "^2.6.10",
     "apollo-link": "^1.2.14",
@@ -71,17 +75,13 @@
   },
   "browserslist": {
     "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
+      "defaults",
+      "not ie 11"
     ],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@tailwindcss/forms": "^0.5.0"
   }
 }
