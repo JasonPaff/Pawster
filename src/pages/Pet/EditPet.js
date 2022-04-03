@@ -51,7 +51,7 @@ function EditPet(props) {
   };
 
   async function handleUpdatePet() {
-    const response = await updatePet(pet);
+    const response = await updatePet(params.petId, pet);
 
     if (response.data.updatePet.success) {
       navigate("/profile");
