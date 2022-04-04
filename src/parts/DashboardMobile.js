@@ -10,7 +10,7 @@ import "../styles/burgerMenu.css";
 export default function Dashboard() {
   const [host, setHost] = useState({});
   const [user, setUser] = useState({});
-  const [close, setClose] = useState(false);
+  const [menuOpenState, setMenuOpenState] = useState(false);
 
   const userId = localStorage.getItem("id");
 
@@ -19,7 +19,10 @@ export default function Dashboard() {
   const infoItem = "";
 
   function closeMenu() {
-    setClose(false);
+    setMenuOpenState(false);
+  }
+  function handleStateChange(state) {
+    setMenuOpenState(state);
   }
 
   useEffect(() => {
@@ -33,10 +36,10 @@ export default function Dashboard() {
 
   return (
     <div className="relative bg-background-darker">
-      <Menu right isOpen={false} customBurgerIcon={<p className=" py-1 px-5">Menu</p>}>
+      <Menu right isOpen={menuOpenState} customBurgerIcon={<p className=" py-1 px-5">Menu</p>}>
         <div className="">
           <ul className={cardInfo}>
-            <li className={infoItem}>
+            <li className={infoItem} onClick={closeMenu}>
               <NavLink to="/profile/">Account Info</NavLink>
             </li>
             <li className={infoItem}>
