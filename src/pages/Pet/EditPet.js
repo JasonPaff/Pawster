@@ -91,7 +91,6 @@ function EditPet(props) {
     };
     reader.readAsDataURL(getPhoto[0]);
     await deletePetPhoto(photo.id);
-    window.location.reload();
   }
 
   // TODO: If have time use Cat/Dog API to autocomplete searches for breeds
