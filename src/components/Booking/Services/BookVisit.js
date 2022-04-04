@@ -17,8 +17,8 @@ function BookVisit(props) {
   useEffect(() => {
     getHostById(props.hostId).then((result) => setHost(result.data.getHostById.host));
     getVisitById(props.hostId).then((result) => {
-      if(result.data.getVisitById.visit !== null) {
-        setVisit(result.data.getVisitById.visit)
+      if (result.data.getVisitById.visit !== null) {
+        setVisit(result.data.getVisitById.visit);
       }
     });
     getUserById(userId).then((result) => setUser(result.data.getUserById.user));
@@ -63,7 +63,7 @@ function BookVisit(props) {
               <div>
                 <div className="text-center text-2xl font-medium my-4">Drop-in Visits Base Rate: ${visit.baseRate}</div>
                 <div className="text-center font-medium  underline my-4">Add ons: </div>
-                <div className="grid grid-cols-2">
+                <div className="lg:grid grid-cols-2">
                   {data.map(({ name, amount }) => {
                     return (
                       <div>

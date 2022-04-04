@@ -17,9 +17,8 @@ function BookSitting(props) {
   useEffect(() => {
     getHostById(props.hostId).then((result) => setHost(result.data.getHostById.host));
     getSittingById(props.hostId).then((result) => {
-      if(result.data.getSittingById.sitting !== null) {
-        setSitting(result.data.getSittingById.sitting)
-
+      if (result.data.getSittingById.sitting !== null) {
+        setSitting(result.data.getSittingById.sitting);
       }
     });
     getUserById(userId).then((result) => setUser(result.data.getUserById.user));
@@ -64,7 +63,7 @@ function BookSitting(props) {
               <div>
                 <div className="text-center text-2xl font-medium my-4">Home Sitting Base Rate: ${sitting.baseRate}</div>
                 <div className="text-center font-medium  underline my-4">Add ons: </div>
-                <div className="grid grid-cols-2 ">
+                <div className="lg:grid grid-cols-2 ">
                   {data.map(({ name, amount }) => {
                     return (
                       <div>

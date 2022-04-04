@@ -25,7 +25,7 @@ function EditClient(props) {
     });
   }, []);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   async function submit(dataString, type) {
     const sendPhoto = {
       photo: dataString,
@@ -51,10 +51,10 @@ function EditClient(props) {
   }
 
   return (
-    <div className="flex flex-col  px-10 justify-center ">
+    <div className="flex flex-col px-3  lg:px-10 justify-center ">
       <h3 className="text-center pb-4 text-accent-green ">Update Profile Photo</h3>
-      <div className="flex flex-col gap-2 w-3/5 min-w-[520px] mx-auto">
-        <div className="flex gap-4 justify-around items-center">
+      <div className="flex flex-col gap-2 w-3/5 min-w-[380px] mx-auto">
+        <div className="flex flex-col lg:flex-row gap-4 justify-around items-center">
           <ClientProfilePic styleImg={"w-36 h-36 object-cover border border-slate-300 rounded-lg"} />
 
           <div className="w-full">
@@ -66,7 +66,7 @@ function EditClient(props) {
         </button>
       </div>
       <hr className="my-10 border-slate-300" />
-      <div className="flex flex-col w-3/5 min-w-[520px] mx-auto ">
+      <div className="flex flex-col lg:w-3/5  w-full mx-auto ">
         <CreateAddress />
       </div>
     </div>

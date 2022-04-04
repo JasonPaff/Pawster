@@ -27,7 +27,7 @@ function DashboardLayout(props) {
           <div className="hidden md:flex flex-col  w-64 gap-3 shrink-0">
             <Dashboard />
           </div>
-          <div className="md:hidden">
+          <div className="md:hidden relative">
             <DashboardMobile />
           </div>
           <div className="card flex-auto">

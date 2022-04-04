@@ -18,13 +18,13 @@ function PetProfile() {
   console.log(pet);
 
   return (
-    <div className="container flex justify-center mx-auto my-4 gap-4">
-      <div className="flex-shrink-0 ">
-        <div className="card  p-10  inline-block">
+    <div className="container flex flex-col lg:flex-row justify-center items-center mx-auto my-4 gap-4">
+      <div className="flex-shrink-0 mx-auto lg:mx-0">
+        <div className="card  p-10  inline-block ">
           <PetProfilePhoto className="" petId={params.petId} imgStyle={"w-64 h-64 rounded-lg border border-slate-300 object-cover"} />
         </div>
       </div>
-      <div className="card p-10 max-w-2xl">
+      <div className="card p-4 lg:p-10 max-w-2xl justify-center">
         <h1 className="text-2xl font-medium">{pet.name}</h1>
         <hr className="my-4" />
         <div className="p-1 ">
@@ -114,8 +114,7 @@ function PetProfile() {
           <h2 className="text-lg font-medium mt-6 ">About me</h2>
           <p>
             {pet.description}
-            {pet.description === " " && (
-            <p>user has not added an about me for this pet yet</p>)}
+            {pet.description === " " && <p>user has not added an about me for this pet yet</p>}
           </p>
         </div>
       </div>

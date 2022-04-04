@@ -18,9 +18,8 @@ function BookBoarding(props) {
   useEffect(() => {
     getHostById(props.hostId).then((result) => setHost(result.data.getHostById.host));
     getBoardingById(props.hostId).then((result) => {
-      if(result.data.getBoardingById.boarding !== null) {
+      if (result.data.getBoardingById.boarding !== null) {
         setBoarding(result.data.getBoardingById.boarding);
-
       }
     });
     getUserById(userId).then((result) => setUser(result.data.getUserById.user));
@@ -65,7 +64,7 @@ function BookBoarding(props) {
               <div>
                 <div className="text-center text-2xl font-medium my-4">Boarding Base Rate: ${boarding.baseRate}</div>
                 <div className=" text-center font-medium  underline my-4">Add ons: </div>
-                <div className="grid grid-cols-2">
+                <div className="lg:grid grid-cols-2">
                   {data.map(({ name, amount }) => {
                     return (
                       <div>

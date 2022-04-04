@@ -4,16 +4,23 @@ import DisplayPets from "../components/ClientProfile/DisplayPets";
 import getHost from "../services/host/getHost";
 import getUserById from "../services/user/getUserById";
 import HostActions from "./HostActions";
-import { Menu } from "@headlessui/react";
+import { slide as Menu } from "react-burger-menu";
+import "../styles/burgerMenu.css";
 
 export default function Dashboard() {
   const [host, setHost] = useState({});
   const [user, setUser] = useState({});
+  const [close, setClose] = useState(false);
+
   const userId = localStorage.getItem("id");
 
-  const header = " bg-background-darker text-center text-sm p-1";
-  const cardInfo = "flex flex-col pt-4 pb-8 px-6 text-slate-700 gap-1";
-  const infoItem = "border-b hover:border-b-slate-300 py-1";
+  const header = "";
+  const cardInfo = "";
+  const infoItem = "";
+
+  function closeMenu() {
+    setClose(false);
+  }
 
   useEffect(() => {
     getUserById(userId).then((result) => {
@@ -25,52 +32,51 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <>
-      <div className="w-full bg-background-darker py-1 px-4 border border-slate-300 text-right"> Menu </div>
-      {/* <div className="card p-0">
-        <header className={header}>General</header>
-        <ul className={cardInfo}>
-          <li className={infoItem}>
-            <NavLink to="/profile/">Account Info</NavLink>
-          </li>
-          <li className={infoItem}>
-            <NavLink to="/profile/edit-profile">Edit Profile</NavLink>
-          </li>
-
-          {user.isHost ? (
+    <div className="relative bg-background-darker">
+      <Menu right isOpen={false} customBurgerIcon={<p className=" py-1 px-5">Menu</p>}>
+        <div className="">
+          <ul className={cardInfo}>
             <li className={infoItem}>
-              <NavLink to="/profile/edit-host">Edit Host Info</NavLink>
+              <NavLink to="/profile/">Account Info</NavLink>
             </li>
-          ) : null}
-
-          <li className={infoItem}>
-            <NavLink to="/profile/messages">Messages</NavLink>
-          </li>
-        </ul>
-      </div>
-
-      <div className="card p-0">
-        <header className={header}> Pets</header>
-        <ul className={cardInfo}>
-          <DisplayPets />
-          <NavLink to="/profile/add-pet">
-            <button className=" text-center mt-4 p-0 border-slate-200 w-full text-slate-500">Add a Pet </button>
-          </NavLink>
-        </ul>
-      </div>
-
-      <div className="card p-0">
-        <header className={header}>Host Services Menu</header>
-        <ul className={cardInfo}>
-          {user.isHost ? (
-            <HostActions />
-          ) : (
             <li className={infoItem}>
-              <NavLink to="/profile/edit-host">Become a host</NavLink>
+              <NavLink to="/profile/edit-profile">Edit Profile</NavLink>
             </li>
-          )}
-        </ul>
-      </div> */}
-    </>
+
+            {user.isHost ? (
+              <li className={infoItem}>
+                <NavLink to="/profile/edit-host">Edit Host Info</NavLink>
+              </li>
+            ) : null}
+
+            <li className={infoItem}>
+              <NavLink to="/profile/messages">Messages</NavLink>
+            </li>
+          </ul>
+        </div>
+
+        <div className="">
+          <ul className={cardInfo}>
+            <DisplayPets />
+            <NavLink to="/profile/add-pet">
+              <button className=" text-center mt-4 p-0 border-slate-200 w-full text-slate-500">Add a Pet </button>
+            </NavLink>
+          </ul>
+        </div>
+
+        <div className="">
+          <ul className={cardInfo}>
+            {user.isHost ? (
+              <HostActions />
+            ) : (
+              <li className={infoItem}>
+                <NavLink to="/profile/edit-host">Become a host</NavLink>
+              </li>
+            )}
+          </ul>
+        </div>
+      </Menu>
+      {/*  */}
+    </div>
   );
 }

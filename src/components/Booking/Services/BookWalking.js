@@ -18,8 +18,8 @@ function BookWalking(props) {
   useEffect(() => {
     getHostById(props.hostId).then((result) => setHost(result.data.getHostById.host));
     getWalkingById(props.hostId).then((result) => {
-      if(result.data.getWalkingById.walking !== null) {
-        setWalking(result.data.getWalkingById.walking)
+      if (result.data.getWalkingById.walking !== null) {
+        setWalking(result.data.getWalkingById.walking);
       }
     });
     getUserById(userId).then((result) => setUser(result.data.getUserById.user));
@@ -56,7 +56,7 @@ function BookWalking(props) {
               <div>
                 <div className="text-center text-2xl font-medium my-4">Dog Walking Base Rate: ${walking.baseRate}</div>
                 <div className="text-center font-medium  underline my-4">Add ons: </div>
-                <div className="grid grid-cols-2">
+                <div className="lg:grid grid-cols-2">
                   {data.map(({ name, amount }) => {
                     return (
                       <div>

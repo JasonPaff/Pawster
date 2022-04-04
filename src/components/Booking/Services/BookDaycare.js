@@ -17,9 +17,8 @@ function BookDaycare(props) {
   useEffect(() => {
     getHostById(props.hostId).then((result) => setHost(result.data.getHostById.host));
     getDaycareById(props.hostId).then((result) => {
-      if(result.data.getDaycareById.daycare !== null) {
-
-        setDaycare(result.data.getDaycareById.daycare)
+      if (result.data.getDaycareById.daycare !== null) {
+        setDaycare(result.data.getDaycareById.daycare);
       }
     });
     getUserById(userId).then((result) => setUser(result.data.getUserById.user));
@@ -64,7 +63,7 @@ function BookDaycare(props) {
               <div>
                 <div className="text-center text-2xl font-medium my-4">Day Care Base Rate: ${daycare.baseRate}</div>
                 <div className="text-center font-medium  underline my-4">Add ons: </div>
-                <div className="grid grid-cols-2">
+                <div className="lg:grid grid-cols-2">
                   {data.map(({ name, amount }) => {
                     return (
                       <div>
