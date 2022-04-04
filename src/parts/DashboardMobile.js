@@ -33,7 +33,7 @@ export default function Dashboard() {
 
   return (
     <div className="relative bg-background-darker">
-      <Menu right isOpen={false} customBurgerIcon={<p className=" py-1 px-5">Menu</p>}>
+      <Menu right isOpen={close} customBurgerIcon={<p className=" py-1 px-5">Menu</p>}>
         <div className="">
           <ul className={cardInfo}>
             <li className={infoItem}>
