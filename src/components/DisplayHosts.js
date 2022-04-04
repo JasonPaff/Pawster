@@ -114,7 +114,7 @@ function DisplayHosts(props) {
 
   const hosts = filteredHosts.map((host, index) => {
     return (
-      <NavLink key={index} to={`/profile/host/${host.id}`} onClick={() => window.location.open(`/profile/host/${host.id}`)}>
+      <NavLink key={index} to={`/profile/host/${host.id}`}>
         <li className="flex flex-col  lg:flex-row p-4 bg-gray-50 hover:bg-white border border-slate-200 rounded-md hover:shadow-md hover:border-slate-300 hover:text-green-900">
           <div className="flex-shrink-0">
             <HostListProfilePic imgStyle={"w-24 h-24 object-cover rounded-md mx-auto"} hostId={host.id} />
