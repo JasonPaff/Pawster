@@ -112,85 +112,112 @@ function CreateHost() {
       {!user.isHost ? (
         <div className="flex flex-col px-10 py-4 gap-3">
           <h3 className="text-center text-accent-green">Edit Host Info</h3>
+
           <div>
-            About Me
-            <textarea placeholder="About Me" rows="6" name="aboutMe" onChange={handleTextChange} />
+            <label className="text-xs text-gray-500" htmlFor="">
+              Days Available
+            </label>
+            <input type="text" placeholder="" name="daysAvailable" onChange={handleTextChange} />
           </div>
           <div>
-            Days Available
-            <input type="text" placeholder="Days Available" name="daysAvailable" onChange={handleTextChange} />
+            <label className="text-xs text-gray-500" htmlFor="">
+              Experience with animals
+            </label>
+            <input type="text" placeholder="" name="experience" onChange={handleTextChange} />
           </div>
-          <div>
-            Experience with animals
-            <input type="text" placeholder="Experience with animals" name="experience" onChange={handleTextChange} />
-          </div>
-          <div>
-            <label htmlFor=""> Can you host multiple pets? </label>
-            <input type="checkbox" className=" appearance-none checked:slate-300" name="canHostMultiplePets" onChange={handleBooleanChange} />
-          </div>
-          <div>
-            Can you host unspayed females?
-            <input type="checkbox" name="canHostUnspayedFemales" onChange={handleBooleanChange} />
-          </div>
-          <div>
-            Do you have children? <input type="checkbox" name="hasChildren" onChange={handleBooleanChange} />
-          </div>
-          <div>
-            Do you have other pets? <input type="checkbox" name="hasOtherPets" onChange={handleBooleanChange} />
-          </div>
-          <div>
-            Are you home full-time? <input type="checkbox" name="isHomeFullTime" onChange={handleBooleanChange} />
-          </div>
-          <div>
-            Are you a smoker? <input type="checkbox" name="isSmoking" onChange={handleBooleanChange} />
-          </div>
-          <div>
-            <p className="font-medium underline">Type can Host</p>
+
+          <div className="lg:grid grid-cols-2 mt-4">
             <div>
-              Cat <input type="checkbox" name="doesCat" onChange={handleBooleanChange} />
+              <input type="checkbox" className=" appearance-none checked:slate-300" name="canHostMultiplePets" onChange={handleBooleanChange} />
+              <label htmlFor=""> Can you host multiple pets?</label>
             </div>
             <div>
-              Dog <input type="checkbox" name="doesDog" onChange={handleBooleanChange} />
-            </div>
-          </div>
-          <div>
-            <p className="font-medium underline">Size pet that you are able to host :</p>
-            <div>
-              Small <input type="checkbox" name="canHostSmallPet" onChange={handleBooleanChange} />
+              <input type="checkbox" name="canHostUnspayedFemales" onChange={handleBooleanChange} />
+              <label htmlFor=""> Can you host unspayed females?</label>
             </div>
             <div>
-              Medium <input type="checkbox" name="canHostMediumPet" onChange={handleBooleanChange} />
+              <input type="checkbox" name="hasChildren" onChange={handleBooleanChange} />
+              <label htmlFor=""> Do you have children?</label>
             </div>
             <div>
-              Large <input type="checkbox" name="canHostLargePet" onChange={handleBooleanChange} />
+              <input type="checkbox" name="hasOtherPets" onChange={handleBooleanChange} />
+              <label htmlFor=""> Do you have other pets?</label>
             </div>
             <div>
-              Giant <input type="checkbox" name="canHostGiantPet" onChange={handleBooleanChange} />
+              <input type="checkbox" name="isHomeFullTime" onChange={handleBooleanChange} />
+              <label htmlFor=""> Are you home full-time?</label>
+            </div>
+            <div>
+              <input type="checkbox" name="isSmoking" onChange={handleBooleanChange} />
+              <label htmlFor=""> Are you a smoker?</label>
+            </div>
+          </div>
+          <hr className="my-4" />
+
+          <div className=" flex gap-1 items-center">
+            <span className="text-sm underline lg:text-center">Type can Host: </span>
+            <input type="checkbox" name="doesCat" onChange={handleBooleanChange} />
+            <label htmlFor=""> Cat</label>
+            <input type="checkbox" name="doesDog" onChange={handleBooleanChange} />
+            <label htmlFor=""> Dog</label>
+          </div>
+          <div className="flex gap-1 items-center">
+            <p className="text-sm underline lg:text-center ">Size able to host: </p>
+
+            <div className="flex gap-1 items-center">
+              <div>
+                <input type="checkbox" name="canHostSmallPet" onChange={handleBooleanChange} />
+                <label htmlFor=""> Small </label>
+              </div>
+              <div>
+                <input type="checkbox" name="canHostMediumPet" onChange={handleBooleanChange} />
+                <label htmlFor=""> Medium </label>
+              </div>
+              <div>
+                <input type="checkbox" name="canHostLargePet" onChange={handleBooleanChange} />
+                <label htmlFor=""> Large </label>
+              </div>
+              <div>
+                <input type="checkbox" name="canHostGiantPet" onChange={handleBooleanChange} />
+                <label htmlFor=""> Giant </label>
+              </div>
             </div>
           </div>
           <div>
-            How far are you willing to work
-            <input type="text" placeholder="How far are you willing to work" name="range" onChange={handleIntegerChange} />
+            <label className="text-xs text-gray-500" htmlFor="">
+              How far are you willing to work
+            </label>
+            <input type="text" placeholder="" name="range" onChange={handleIntegerChange} />
           </div>
           <div>
-            Enter a schedule
-            <input type="text" placeholder="Enter a schedule" name="schedule" onChange={handleTextChange} />
+            <label className="text-xs text-gray-500" htmlFor="">
+              Enter a schedule
+            </label>
+            <input type="text" placeholder="" name="schedule" onChange={handleTextChange} />
           </div>
           <div>
-            What is the max number of pets you can host
-            <input type="text" placeholder="What is the max number of pets you can host" name="totalCanHost" onChange={handleIntegerChange} />
+            <label className="text-xs text-gray-500" htmlFor="">
+              What is the max number of pets you can host
+            </label>
+            <input type="text" placeholder="" name="totalCanHost" onChange={handleIntegerChange} />
           </div>
           <div>
-            Type of Home (House, Apartment, etc)
-            <input type="text" placeholder="Type of Home (House, Apartment, etc)" name="typeOfHome" onChange={handleTextChange} />
+            <label className="text-xs text-gray-500" htmlFor="">
+              Type of Home (House, Apartment, etc)
+            </label>
+            <input type="text" placeholder="" name="typeOfHome" onChange={handleTextChange} />
           </div>
           <div>
-            Description of your yard (if applicable)
-            <input type="text" placeholder="Description of your yard (if applicable)" name="typeOfYard" onChange={handleTextChange} />
+            <label className="text-xs text-gray-500" htmlFor="">
+              Description of your yard (if applicable)
+            </label>
+            <input type="text" placeholder="" name="typeOfYard" onChange={handleTextChange} />
           </div>
           <div>
-            Cancellation Policy
-            <textarea type="text" placeholder="Cancellation Policy" name="cancellationPolicy" onChange={handleTextChange} />
+            <label className="text-xs text-gray-500" htmlFor="">
+              Cancellation Policy
+            </label>
+            <textarea type="text" placeholder="" name="cancellationPolicy" onChange={handleTextChange} />
           </div>
           <button onClick={handleCreateHost}>Register</button>
         </div>
@@ -202,12 +229,18 @@ function CreateHost() {
             <textarea placeholder="About Me" rows="6" defaultValue={updateHosts.aboutMe} name="aboutMe" onChange={handleTextChange} />
           </div>
           <div>
-            Days Available
-            <input type="text" placeholder="Days Available" defaultValue={updateHosts.daysAvailable} name="daysAvailable" onChange={handleUpdateTextChange} />
+            <label className="text-xs text-gray-500" htmlFor="">
+              {" "}
+              Days Available
+            </label>
+            <input type="text" placeholder="" defaultValue={updateHosts.daysAvailable} name="daysAvailable" onChange={handleUpdateTextChange} />
           </div>
           <div>
-            Experience with animals
-            <input type="text" placeholder="Experience with animals" defaultValue={updateHosts.experience} name="experience" onChange={handleUpdateTextChange} />
+            <label className="text-xs text-gray-500" htmlFor="">
+              {" "}
+              Experience with animals
+            </label>
+            <input type="text" placeholder="" defaultValue={updateHosts.experience} name="experience" onChange={handleUpdateTextChange} />
           </div>
           <div>
             <label htmlFor=""> Can you host multiple pets? </label>
@@ -254,28 +287,50 @@ function CreateHost() {
             </div>
           </div>
           <div>
-            How far are you willing to work
-            <input type="text" placeholder="How far are you willing to work" defaultValue={updateHosts.range} name="range" onChange={handleUpdateIntegerChange} />
+            <label className="text-xs text-gray-500" htmlFor="">
+              {" "}
+              How far are you willing to work
+            </label>
+            <input type="text" placeholder="" defaultValue={updateHosts.range} name="range" onChange={handleUpdateIntegerChange} />
           </div>
           <div>
-            Enter a schedule
-            <input type="text" placeholder="Enter a schedule" defaultValue={updateHosts.schedule} name="schedule" onChange={handleUpdateTextChange} />
+            <label className="text-xs text-gray-500" htmlFor="">
+              {" "}
+              Enter a schedule
+            </label>
+            <input type="text" placeholder="" defaultValue={updateHosts.schedule} name="schedule" onChange={handleUpdateTextChange} />
           </div>
           <div>
-            What is the max number of pets you can host
-            <input type="text" placeholder="What is the max number of pets you can host" defaultValue={updateHosts.totalCanHost} name="totalCanHost" onChange={handleUpdateIntegerChange} />
+            <label className="text-xs text-gray-500" htmlFor="">
+              {" "}
+              What is the max number of pets you can host
+            </label>
+            <input type="text" placeholder="" defaultValue={updateHosts.totalCanHost} name="totalCanHost" onChange={handleUpdateIntegerChange} />
           </div>
           <div>
-            Type of Home (House, Apartment, etc)
-            <input type="text" placeholder="Type of Home (House, Apartment, etc)" defaultValue={updateHosts.typeOfHome} name="typeOfHome" onChange={handleUpdateTextChange} />
+            <label className="text-xs text-gray-500" htmlFor="">
+              {" "}
+              Type of Home (House, Apartment, etc)
+            </label>
+            <input type="text" placeholder="" defaultValue={updateHosts.typeOfHome} name="typeOfHome" onChange={handleUpdateTextChange} />
           </div>
           <div>
-            Description of your yard (if applicable)
-            <input type="text" placeholder="Description of your yard (if applicable)" defaultValue={updateHosts.typeOfYard} name="typeOfYard" onChange={handleUpdateTextChange} />
+            <label className="text-xs text-gray-500" htmlFor="">
+              {" "}
+              Description of your yard (if applicable)
+            </label>
+            <input type="text" placeholder="" defaultValue={updateHosts.typeOfYard} name="typeOfYard" onChange={handleUpdateTextChange} />
           </div>
           <div>
-            Cancellation Policy
-            <textarea type="text" placeholder="Cancellation Policy" defaultValue={updateHosts.cancellationPolicy} name="cancellationPolicy" onChange={handleUpdateTextChange} />
+            <label className="text-xs text-gray-500" htmlFor="">
+              {" "}
+              Cancellation Policy
+            </label>
+            <textarea type="text" placeholder="" defaultValue={updateHosts.cancellationPolicy} name="cancellationPolicy" onChange={handleUpdateTextChange} />
+          </div>
+          <div>
+            About Me
+            <textarea placeholder="About Me" rows="6" name="aboutMe" onChange={handleTextChange} />
           </div>
           <button onClick={handleUpdateHost}>Update</button>
         </div>
