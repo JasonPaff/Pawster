@@ -42,24 +42,35 @@ const mapDispatchToProps = (dispatch) => {
 
 function DisplayHosts(props) {
   const [filteredHosts, setFilteredHosts] = useState(props.hosts)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    let mounted = true
     if (props.hosts.length === 0) {
       getAllHosts().then((result) => {
         const users = result.data.getHostUsers.users
         const hosts = result.data.getAllHosts.hosts
         const addresses = result.data.getHostAddresses.addresses
         const userHosts = users.map(user => {
-          const host = hosts.find(h => h.userId === user.id)
-          const address = addresses.find(a => a.userId === user.id)
-          return {
-            ...user,
-            ...host,
-            ...address
+          if (mounted) {
+            setLoading(false)
+            const host = hosts.find(h => h.userId === user.id)
+            const address = addresses.find(a => a.userId === user.id)
+            return {
+              ...user,
+              ...host,
+              ...address
+
+
+            }
           }
         })
         props.onGetHost(userHosts)
+
       })
+      return function cleanup() {
+        mounted = false
+      }
     }
     let hosts = [...props.hosts]
     hosts = hostsFilter(
