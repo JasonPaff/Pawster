@@ -1,13 +1,14 @@
 # Pawster - Crowd Sourced Pet Kenneling
 
 * **Purpose of the app:** 
-    The Problem: 
+
+    **The Problem:** 
     You want to go on a trip or vacation, but don't want to kennel your pet, have someone (who could be untrustworthy)
     that watches them, or don't want to leave them alone for an extended period of time.
     You could leave them at your place all day while you tourist around town or you can only do tourist stuff that allows a pet.
     One solution is to bring your pet with you but then you have to deal with finding a pet friendly hotel.
  
-    How Pawster solves it: 
+    **How Pawster solves it**
     Instead of stuffing your pet into a local kennel where he will be caged and get no attention, Pawster allows you to rent a 
     person who is a pet lover, and who will give your animal plenty of attention. You could select a host at one at your destinations
     so you can go visit your pet whenever you want. Alternatively you could find a host at home so the pet isn't stuck in a kennel
