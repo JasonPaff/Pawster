@@ -127,8 +127,8 @@ function DisplayHosts(props) {
               <div className="text-sm ">
                 {host.city}, {host.state} {host.zipcode}
               </div>
-              <div className="text-sm"> experience: {host.experience} </div>
-              <div className="text-sm"> can Host: {host.totalCanHost} </div>
+              <div className="text-sm"> Experience: {host.experience} </div>
+              <div className="text-sm"> Can Host: {host.totalCanHost} </div>
             </div>
             <SearchBaseRate hostId={host.id} />
           </div>
