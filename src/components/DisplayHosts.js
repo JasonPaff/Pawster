@@ -115,12 +115,12 @@ function DisplayHosts(props) {
   const hosts = filteredHosts.map((host, index) => {
     return (
       <NavLink key={index} to={`/profile/host/${host.id}`} onClick={() => window.location.open(`/profile/host/${host.id}`)}>
-        <li className="flex p-4 bg-gray-50 hover:bg-white border border-slate-200 rounded-md hover:shadow-md hover:border-slate-300 hover:text-green-900">
+        <li className="flex flex-col  lg:flex-row p-4 bg-gray-50 hover:bg-white border border-slate-200 rounded-md hover:shadow-md hover:border-slate-300 hover:text-green-900">
           <div className="flex-shrink-0">
-            <HostListProfilePic imgStyle={"w-24 h-24 object-cover rounded-md "} hostId={host.id} />
+            <HostListProfilePic imgStyle={"w-24 h-24 object-cover rounded-md mx-auto"} hostId={host.id} />
           </div>
-          <div className="flex justify-between w-full">
-            <div className="flex flex-col ml-5 ">
+          <div className="flex flex-row  justify-between w-full">
+            <div className="flex flex-col sm:ml-5 ">
               <div className="text-xl font-medium">
                 {index + 1}. {host.firstName}
               </div>

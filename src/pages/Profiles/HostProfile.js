@@ -161,10 +161,7 @@ function HostProfile() {
 
         <div className="pt-10 px-5">
           <p className="font-medium text-lg">Cancellation Policy:</p>
-          <div className="p-2">
-            {host.cancellationPolicy} Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cumque quibusdam molestias suscipit corrupti illum quam aspernatur harum incidunt facere earum, enim,
-            esse ad! Possimus eius perferendis necessitatibus sit maiores? Perferendis, error necessitatibus Hardcoded in HostProfile.js.
-          </div>
+          <div className="p-2">{host.cancellationPolicy} .</div>
         </div>
       </div>
     </div>

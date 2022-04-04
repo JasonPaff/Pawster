@@ -25,7 +25,9 @@ function ServiceOptions(props) {
     <div className="rounded overflow-hidden bg-background-light border border-slate-300 m-4">
       {/* TODO: filter by Dog and Cat  services   */}
       <div className="flex flex-row py-2 px-6 gap-2 items-center bg-background-darker">
-        <p>I'm Looking For Services For My:</p>
+        <p>
+          <span className="hidden sm:inline"> I'm Looking For </span> Services For My:
+        </p>
         <label htmlFor="dog-services" className="inline text-base text-black">
           Dog
         </label>
@@ -43,7 +45,7 @@ function ServiceOptions(props) {
           <input type="text" placeholder="Enter address or zip code" className=" text-center bg-white py-2" />
         </div>
         <label className="text-left text-sm px-8">Pet Size</label>
-        <div className="flex flex-row gap-4 px-6 pb-8 justify-items-stretch">
+        <div className="flex flex-col md:flex-row  gap-4 px-6 pb-8 justify-items-stretch">
           <CardWeightsComponent selectedWeight={selectedWeight} setSelectedWeight={setSelectedWeight} />
           <button className=" bg-accent-green text-white flex-1 text-lg">
             <NavLink to="/search" className="hover:text-white">

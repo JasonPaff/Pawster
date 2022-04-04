@@ -26,7 +26,7 @@ export default function Dashboard() {
 
   return (
     <>
-      <div> Menu</div>
+      <div className="w-full bg-background-darker py-1 px-4 border border-slate-300 text-right"> Menu </div>
       {/* <div className="card p-0">
         <header className={header}>General</header>
         <ul className={cardInfo}>

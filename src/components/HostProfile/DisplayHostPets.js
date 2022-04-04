@@ -24,13 +24,13 @@ function DisplayHostPets(props) {
             <div className="auto-cols-fr flex flex-col lg:grid lg:grid-cols-2 lg:gap-x-5 lg:grid-rows-3 lg:grid-flow-col">
               <p className="font-medium underline col-span-2"> {pet.name}</p>
               <p>{pet.type}</p>
-              <p>
+              <p className="text-sm">
                 {pet.ageYear && pet.ageYear + " yrs"} {pet.ageMonth && pet.ageMonth + "m"}
               </p>
-              <p className="">
+              <p className="text-sm">
                 <span className="text-gray-500">Breed:</span> {pet.breed}
               </p>
-              <p>
+              <p className="text-sm">
                 <span className="text-gray-500">Energy Level:</span> {pet.energyLevel}
               </p>
             </div>

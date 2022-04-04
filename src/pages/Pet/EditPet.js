@@ -30,7 +30,6 @@ function EditPet(props) {
     getPetProfilePhoto(params.petId).then((result) => {
       setPhoto(result.data.getPetProfilePhoto.photo);
     });
-  
   }, [params.petId]);
 
   const handleTextChange = (e) => {
@@ -127,8 +126,11 @@ function EditPet(props) {
           <label className={labelClass} htmlFor="">
             Cat or Dog:
             <select type="text" defaultValue={selected} name="type" placeholder="" onChange={(e) => setPet({ ...pet, type: e.target.value })}>
-              <option value="Dog">Dog</option>
-              <option value="Cat">Cat</option>
+              <option value="" disabled selected>
+                select
+              </option>
+              <option value="cat">Cat</option>
+              <option value="dog">Dog</option>
             </select>
           </label>
 

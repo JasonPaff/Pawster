@@ -1,3 +1,5 @@
+const defaultTheme = require("tailwindcss/defaultTheme");
+
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}", "src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx", "public/**/*.html"],
   mode: "jit",
@@ -21,6 +23,10 @@ module.exports = {
     fontFamily: {
       body: ["Poppins"],
       logo: ["Rochester"],
+    },
+    screens: {
+      xs: "475px",
+      ...defaultTheme.screens,
     },
   },
   variants: {},
