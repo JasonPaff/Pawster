@@ -28,10 +28,14 @@ function ReactMap(props) {
         if (!addresses) return;
 
         for (let c = 0; c < addresses.length; c++) {
+            console.log(addresses[c]);
             const result = await getGeocode(addresses[c]).catch((err) => console.log(err));
+            console.log(result);
             hostAddresses.push({lat: result.lat, lng: result.lng});
         }
         let pins = [];
+
+        console.log(hostAddresses);
         hostAddresses.map((address, index) => {
             if (index !== 0) {
                 address.street = props.filteredHosts[index - 1].street;
@@ -48,7 +52,6 @@ function ReactMap(props) {
             }
         });
         await setMarkers(pins);
-
         if (hostAddresses.length > 0)
             setLoaded(true);
     }
@@ -88,7 +91,8 @@ function ReactMap(props) {
                         </div>
                     </Popup>
                 )}
-            </Map>}
+            </Map>
+                }
         </>
     );
 }

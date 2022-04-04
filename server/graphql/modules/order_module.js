@@ -6,6 +6,7 @@ const {findUserById} = require("../../mongodb/operations/user_operations");
 const {findHost} = require("../../mongodb/operations/host_operations");
 const {hostNotFoundError} = require("../api_responses/host/host_error");
 const {hostFoundSuccess} = require("../api_responses/host/host_success");
+const {findUserOrders} = require("../../mongodb/operations/order_operations");
 
 module.exports.orderModule = createModule({
     id: 'order_module',
@@ -54,7 +55,7 @@ module.exports.orderModule = createModule({
     resolvers: {
         Query: {
             getUserOrders: async (parent, {userId}, context) => {
-
+                const orders = await findUserOrders(userId);
             },
         },
         Mutation: {
