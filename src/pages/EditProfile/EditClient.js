@@ -47,7 +47,6 @@ function EditClient(props) {
     };
     reader.readAsDataURL(getPhoto[0]);
     deleteUserPhoto(photo.id);
-    window.location.reload();
   }
 
   return (
