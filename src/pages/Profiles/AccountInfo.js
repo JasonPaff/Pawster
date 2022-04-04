@@ -25,17 +25,17 @@ export default function AccountInfo(props) {
           </div>
           <div className="flex flex-col gap-2">
             <div className="grid-address">
-              <span className=" col-span-2 mb-3">Address :</span>
-              <span className="text-right text-gray-500">street:</span> <span>{address.street} very long address</span>
-              <span className="text-right text-gray-500">city:</span> <span>{address.city} </span>
-              <span className="text-right text-gray-500">state:</span> <span> {address.state}</span>
-              <span className="text-right text-gray-500">zip:</span> <span>{address.zipcode}</span>
+              <span className=" col-span-2 mb-3 text-lg font-medium">Address</span>
+              <span className="text-right text-gray-500">Street:</span> <span>{address.street}</span>
+              <span className="text-right text-gray-500">City:</span> <span>{address.city} </span>
+              <span className="text-right text-gray-500">State:</span> <span> {address.state}</span>
+              <span className="text-right text-gray-500">Zipcode:</span> <span>{address.zipcode}</span>
             </div>
           </div>
         </div>
       </div>
       <div>
-        <h3 className="text-lg font-medium text-center">Pets I have:</h3>
+        <h3 className="text-lg font-medium text-center">My Pets</h3>
         <DisplayHostPets userId={userId} />
       </div>
     </div>

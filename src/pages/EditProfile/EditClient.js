@@ -52,7 +52,7 @@ function EditClient(props) {
 
   return (
     <div className="flex flex-col  px-10 justify-center ">
-      <h3 className="text-center pb-4 text-accent-green ">Update Photo :</h3>
+      <h3 className="text-center pb-4 text-accent-green ">Update Profile Photo</h3>
       <div className="flex flex-col gap-2 w-3/5 min-w-[520px] mx-auto">
         <div className="flex gap-4 justify-around">
           <div className="edit-profile-img">
@@ -62,8 +62,8 @@ function EditClient(props) {
             <AddUserPhoto />
           </div>
         </div>
-        <button className="self-end w-40 bg-accent-green text-white" onClick={() => uploadUserPhoto(props.photo)}>
-          Add Photo
+        <button className="self-end w-44 bg-accent-green text-white" onClick={() => uploadUserPhoto(props.photo)}>
+          Set Profile Photo
         </button>
       </div>
       <hr className="my-10 border-slate-300" />
