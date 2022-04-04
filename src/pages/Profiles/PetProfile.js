@@ -35,12 +35,12 @@ function PetProfile() {
               {pet.breed}
             </p>
             <p>
-              {pet.ageYear && pet.ageYear + " yrs"} {pet.ageMonth && pet.ageMonth + "m"}
+              {pet.ageYear && pet.ageYear + " yrs"}, {pet.ageMonth && pet.ageMonth + " mon"}
             </p>
             <p>
-              <span className="text-right text-sm text-gray-500"> Energy:</span> {pet.energyLevel}
+              <span className="text-right text-sm text-gray-500"> Energy Level:</span> {pet.energyLevel}
             </p>
-            <p>{pet.weight} lbs,</p>
+            <p>{pet.weight} lbs</p>
           </div>
 
           <hr className="my-4" />
