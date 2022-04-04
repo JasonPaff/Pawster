@@ -56,7 +56,7 @@ function CreateVisit() {
     const response = await createVisit(visit);
     console.log(response)
     if (response.data.createVisit.success) {
-        navigate('/profile')
+      window.location.reload()
     } else {
         alert(response.data.createVisit.message);
     }

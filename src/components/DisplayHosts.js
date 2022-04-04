@@ -28,6 +28,8 @@ const mapStateToProps = (state) => {
       canHostMediumPet: state.filtersRed.canHostMediumPet,
       canHostLargePet: state.filtersRed.canHostLargePet,
       canHostGiantPet: state.filtersRed.canHostGiantPet,
+      doesCat: state.filtersRed.doesCat,
+      doesDog: state.filtersRed.doesDog
     }
 }
 
@@ -40,24 +42,35 @@ const mapDispatchToProps = (dispatch) => {
 
 function DisplayHosts(props) {
   const [filteredHosts, setFilteredHosts] = useState(props.hosts)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    let mounted = true
     if (props.hosts.length === 0) {
       getAllHosts().then((result) => {
         const users = result.data.getHostUsers.users
         const hosts = result.data.getAllHosts.hosts
         const addresses = result.data.getHostAddresses.addresses
         const userHosts = users.map(user => {
-          const host = hosts.find(h => h.userId === user.id)
-          const address = addresses.find(a => a.userId === user.id)
-          return {
-            ...user,
-            ...host,
-            ...address
+          if (mounted) {
+            setLoading(false)
+            const host = hosts.find(h => h.userId === user.id)
+            const address = addresses.find(a => a.userId === user.id)
+            return {
+              ...user,
+              ...host,
+              ...address
+
+
+            }
           }
         })
         props.onGetHost(userHosts)
+
       })
+      return function cleanup() {
+        mounted = false
+      }
     }
     let hosts = [...props.hosts]
     hosts = hostsFilter(
@@ -65,7 +78,7 @@ function DisplayHosts(props) {
       props.doesDayCare, props.doesDogWalking, props.canHostMultiplePets,
       props.canHostUnspayedFemales, props.hasChildren, props.hasOtherPets,
       props.isHomeFullTime, props.isSmoking, props.canHostSmallPet, props.canHostMediumPet,
-      props.canHostLargePet, props.canHostGiantPet
+      props.canHostLargePet, props.canHostGiantPet, props.doesCat, props.doesDog
     )
     setFilteredHosts(hosts)
     props.onGetFilteredHosts(hosts)
@@ -74,7 +87,7 @@ function DisplayHosts(props) {
     props.doesDayCare, props.doesDogWalking, props.canHostMultiplePets,
     props.canHostUnspayedFemales, props.hasChildren, props.hasOtherPets,
     props.isHomeFullTime, props.isSmoking, props.canHostSmallPet, props.canHostMediumPet,
-    props.canHostLargePet, props.canHostGiantPet
+    props.canHostLargePet, props.canHostGiantPet, props.doesCat, props.doesDog
   ])
 
   const hosts = filteredHosts.map((host, index) => {

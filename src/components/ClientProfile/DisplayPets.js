@@ -23,8 +23,8 @@ function DisplayPets() {
           <NavLink to={`/profile/pet-profile/${pet.id}`}>{pet.name}</NavLink>
         </span>
         <span className=" text-right text-xs">
-          <NavLink className="text-gray-400" to={`/profile/pet-profile/edit/${pet.id}`}>
-            Edit
+          <NavLink className="text-gray-400" to={`/profile/pet-profile/edit/${pet.id}`} onClick={() => window.location.open(`/profile/pet-profile/edit/${pet.id}`)}>
+          Edit
           </NavLink>
         </span>
       </li>

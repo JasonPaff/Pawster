@@ -29,11 +29,11 @@ function ServiceOptions(props) {
         <label htmlFor="dog-services" className="inline text-base text-black">
           Dog
         </label>
-        <input type="checkbox" onChange={(e) => props.onToggleCat(e.target.checked)} className=" inline" id="dog-services" />
+        <input type="checkbox" onChange={(e) => props.onToggleDog(e.target.checked)} className=" inline" id="dog-services" />
         <label htmlFor="cat-services" className="inline text-base text-black">
           Cat
         </label>
-        <input type="checkbox" onChange={(e) => props.onToggleDog(e.target.checked)} className=" inline" id="cat-services" />
+        <input type="checkbox" onChange={(e) => props.onToggleCat(e.target.checked)} className=" inline" id="cat-services" />
       </div>
       <div>
         <CardServiceComponent selectedService={selectedService} setSelectedService={setSelectedService} />

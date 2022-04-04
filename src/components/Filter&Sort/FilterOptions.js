@@ -44,19 +44,21 @@ function FilterOptions(props) {
       <div className="flex-col justify-center p-10 border">
         <ServiceDropdown/>
         <div>
-            <h1>Filters</h1>
+            <div className="underline font-medium mt-5 text-gray-700">Type</div>
+            <div><input type="checkbox" defaultChecked={props.doesCat} name="doesCat" onChange={(e) => props.onToggleCat(e.target.checked)}/> Can Host Cats</div>
+            <div><input type="checkbox" defaultChecked={props.doesDog} name="doesDog" onChange={(e) => props.onToggleDog(e.target.checked)}/> Can Host Dogs</div>
+            <div className="underline font-medium mt-2 text-gray-700">Pet Size</div>
+            <div><input type="checkbox" defaultChecked={props.canHostSmallPet} name="canHostSmallPet" onChange={(e) => props.onToggleSmall(e.target.checked)}/> Small Pets</div>
+            <div><input type="checkbox" defaultChecked={props.canHostMediumPet} name="canHostMediumPet" onChange={(e) => props.onToggleMedium(e.target.checked)}/> Medium Pets</div>
+            <div><input type="checkbox" defaultChecked={props.canHostLargePet} name="canHostLargePet" onChange={(e) => props.onToggleLarge(e.target.checked)}/> Large Pets</div>
+            <div><input type="checkbox" defaultChecked={props.canHostGiantPet} name="canHostGiantPet" onChange={(e) => props.onToggleGiant(e.target.checked)}/> Giant Pets</div>
+            <div className="underline font-medium mt-2 text-gray-700">Host's Home</div>
             <div><input type="checkbox" defaultChecked={props.canHostMultiplePets} name="canHostMultiplePets" onChange={(e) => props.onToggleMultiPets(e.target.checked)} /> Can Host Multiple Pets</div>
             <div><input type="checkbox" defaultChecked={props.canHostUnspayedFemales} name="canHostUnspayedFemales" onChange={(e) => props.onToggleUnspayed(e.target.checked)}/> Can Host Unspayed Females</div>
             <div><input type="checkbox" defaultChecked={props.hasChildren} name="hasChildren" onChange={(e) => props.onToggleChildren(e.target.checked)}/> Has Children</div>
             <div><input type="checkbox" defaultChecked={props.hasOtherPets} name="hasOtherPets" onChange={(e) => props.onToggleOtherPets(e.target.checked)}/> Has Other Pets</div>
             <div><input type="checkbox" defaultChecked={props.isHomeFullTime} name="isHomeFullTime" onChange={(e) => props.onToggleHomeFull(e.target.checked)}/> Is Home Full-Time</div>
             <div><input type="checkbox" defaultChecked={props.isSmoking} name="isSmoking" onChange={(e) => props.onToggleSmoking(e.target.checked)}/> Is A Smoker</div>
-            <div><input type="checkbox" defaultChecked={props.canHostSmallPet} name="canHostSmallPet" onChange={(e) => props.onToggleSmall(e.target.checked)}/> Small Pets</div>
-            <div><input type="checkbox" defaultChecked={props.canHostMediumPet} name="canHostMediumPet" onChange={(e) => props.onToggleMedium(e.target.checked)}/> Medium Pets</div>
-            <div><input type="checkbox" defaultChecked={props.canHostLargePet} name="canHostLargePet" onChange={(e) => props.onToggleLarge(e.target.checked)}/> Large Pets</div>
-            <div><input type="checkbox" defaultChecked={props.canHostGiantPet} name="canHostGiantPet" onChange={(e) => props.onToggleGiant(e.target.checked)}/> Giant Pets</div>
-            <div><input type="checkbox" defaultChecked={props.doesCat} name="doesCat" onChange={(e) => props.onToggleCat(e.target.checked)}/> Cats</div>
-            <div><input type="checkbox" defaultChecked={props.doesDog} name="doesDog" onChange={(e) => props.onToggleDog(e.target.checked)}/> Dogs</div>
         </div>
 
       </div>

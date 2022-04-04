@@ -16,8 +16,9 @@ const mapStateToProps = (state) => {
 };
 
 function EditPet(props) {
-  const [pet, setPet] = useState({});
   const [photo, setPhoto] = useState({});
+  const [selected, setSelected] = useState("Dog");
+  const [pet, setPet] = useState({});
 
   const navigate = useNavigate();
   const params = useParams();
@@ -29,7 +30,7 @@ function EditPet(props) {
     getPetProfilePhoto(params.petId).then((result) => {
       setPhoto(result.data.getPetProfilePhoto.photo);
     });
-  }, []);
+  }, [params.petId]);
 
   const handleTextChange = (e) => {
     setPet({
@@ -50,6 +51,12 @@ function EditPet(props) {
     setPet({
       ...pet,
       [e.target.name]: parseInt(e.target.value),
+    });
+  };
+
+  const handleDropDown = (e) => {
+    setPet({
+      ...pet,
     });
   };
 
@@ -118,9 +125,9 @@ function EditPet(props) {
           </label>
           <label className={labelClass} htmlFor="">
             Cat or Dog:
-            <select type="text" defaultValue={pet.type} name="type" placeholder="" onChange={handleTextChange}>
-              <option value="dog">Dog</option>
-              <option value="cat">Cat</option>
+            <select type="text" defaultValue={selected} name="type" placeholder="" onChange={(e) => setPet({ ...pet, type: e.target.value })}>
+              <option value="Dog">Dog</option>
+              <option value="Cat">Cat</option>
             </select>
           </label>
 
