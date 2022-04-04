@@ -12,7 +12,6 @@ const httpServer = http.createServer(app);
 require("dotenv").config();
 const stripe = require('stripe')(process.env.STRIPE_SECRET_TEST)
 
-
 // mongo db connection
 mongoose.connect(process.env.MONGO_DB).catch(console.error);
 const database_connection = mongoose.connection;
