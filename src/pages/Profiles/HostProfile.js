@@ -128,11 +128,11 @@ function HostProfile() {
           <div>
             <ul className="flex flex-col gap-1 min-w-fit">
               <li className="flex gap-2 items-center w-fit">
-                <label className="text-sm text-gray-500">My place: </label>
+                <label className="text-sm text-gray-500">Type of Home: </label>
                 <span className="">{host.typeOfHome}</span>
               </li>
               <li className="flex gap-2 items-center w-fit">
-                <label className="text-sm text-gray-500">My of Yard: </label>
+                <label className="text-sm text-gray-500">Yard: </label>
                 <span className="">{host.typeOfYard}</span>
               </li>
               <li className="flex gap-2 items-center w-fit">
@@ -149,7 +149,7 @@ function HostProfile() {
 
         {isNotLoggedInUser && (
           <div className="card">
-            <span>send a message:</span>
+            <span>Send a Message:</span>
             <SendMessage hostId={params.userId} />
           </div>
         )}

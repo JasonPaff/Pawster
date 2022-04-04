@@ -16,7 +16,11 @@ function BookVisit(props) {
 
   useEffect(() => {
     getHostById(props.hostId).then((result) => setHost(result.data.getHostById.host));
-    getVisitById(props.hostId).then((result) => setVisit(result.data.getVisitById.visit));
+    getVisitById(props.hostId).then((result) => {
+      if(result.data.getVisitById.visit !== null) {
+        setVisit(result.data.getVisitById.visit)
+      }
+    });
     getUserById(userId).then((result) => setUser(result.data.getUserById.user));
   }, []);
 

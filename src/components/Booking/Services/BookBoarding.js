@@ -17,7 +17,10 @@ function BookBoarding(props) {
   useEffect(() => {
     getHostById(props.hostId).then((result) => setHost(result.data.getHostById.host));
     getBoardingById(props.hostId).then((result) => {
-      setBoarding(result.data.getBoardingById.boarding);
+      if(result.data.getBoardingById.boarding !== null) {
+        setBoarding(result.data.getBoardingById.boarding);
+
+      }
     });
     getUserById(userId).then((result) => setUser(result.data.getUserById.user));
   }, []);
