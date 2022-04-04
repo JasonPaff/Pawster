@@ -1,4 +1,3 @@
-const {graphql_schema} = require("./server/graphql/graphql_schema");
 const { ApolloServer } = require("apollo-server-express");
 const express = require("express");
 const logger = require("morgan");
@@ -8,6 +7,7 @@ const path = require("path");
 const http = require("http");
 const app = express();
 const bodyParser = require("body-parser")
+const {graphql_schema} = require("./server/graphql/graphql_schema");
 const httpServer = http.createServer(app);
 require("dotenv").config();
 const stripe = require('stripe')(process.env.STRIPE_SECRET_TEST)
