@@ -16,7 +16,12 @@ function BookSitting(props) {
 
   useEffect(() => {
     getHostById(props.hostId).then((result) => setHost(result.data.getHostById.host));
-    getSittingById(props.hostId).then((result) => setSitting(result.data.getSittingById.sitting));
+    getSittingById(props.hostId).then((result) => {
+      if(result.data.getSittingById.sitting !== null) {
+        setSitting(result.data.getSittingById.sitting)
+
+      }
+    });
     getUserById(userId).then((result) => setUser(result.data.getUserById.user));
   }, []);
 

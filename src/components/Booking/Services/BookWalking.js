@@ -1,3 +1,4 @@
+import { resultKeyNameFromField } from "apollo-utilities";
 import React, { useEffect, useState, useMemo } from "react";
 import getHostById from "../../../services/host/getHostById";
 import getUserById from "../../../services/user/getUserById";
@@ -16,7 +17,11 @@ function BookWalking(props) {
 
   useEffect(() => {
     getHostById(props.hostId).then((result) => setHost(result.data.getHostById.host));
-    getWalkingById(props.hostId).then((result) => setWalking(result.data.getWalkingById.walking));
+    getWalkingById(props.hostId).then((result) => {
+      if(result.data.getWalkingById.walking !== null) {
+        setWalking(result.data.getWalkingById.walking)
+      }
+    });
     getUserById(userId).then((result) => setUser(result.data.getUserById.user));
   }, []);
 
