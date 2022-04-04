@@ -14,12 +14,13 @@ const {sittingModule} = require("./modules/sitting_module");
 const {visitModule} = require("./modules/visiting_module");
 const {walkingModule} = require("./modules/walking_module");
 const {notificationModule} = require("./modules/notification_module");
+const {orderModule} = require("./modules/order_module");
 
 module.exports.graphql_schema = createApplication({
     modules: [
         addressModule, boardingModule, dateModule, daycareModule,
         hostModule, messageModule, petModule, petPhotoModule, reviewModule,
         sittingModule, userModule, userPhotoModule, visitModule, walkingModule,
-        notificationModule
+        notificationModule, orderModule
     ]
 }).createSchemaForApollo();

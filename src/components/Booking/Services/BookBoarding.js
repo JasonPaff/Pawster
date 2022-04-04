@@ -3,6 +3,7 @@ import getHostById from "../../../services/host/getHostById";
 import getUserById from "../../../services/user/getUserById";
 import getBoardingById from "../../../services/boarding/getBoardingById";
 import StripeContainer from "../../Stripe/StripeContainer";
+import createOrder from "../../../services/order/createOrder";
 
 function BookBoarding(props) {
   const [user, setUser] = useState({});
