@@ -1,4 +1,3 @@
-const {graphql_schema} = require("./graphql/graphql_schema");
 const { ApolloServer } = require("apollo-server-express");
 const express = require("express");
 const logger = require("morgan");
@@ -8,6 +7,7 @@ const path = require("path");
 const http = require("http");
 const app = express();
 const bodyParser = require("body-parser")
+const {graphql_schema} = require("./server/graphql/graphql_schema");
 const httpServer = http.createServer(app);
 require("dotenv").config();
 const stripe = require('stripe')(process.env.STRIPE_SECRET_TEST)
@@ -82,5 +82,5 @@ startUp().catch(console.error);
 
 // start apollo http server (query, mutation)
 httpServer.listen({ port: process.env.PORT }, () => {
-  console.log(`Apollo Server on http://localhost:${process.env.PORT}/graphql`);
+  //console.log(`Apollo Server on http://localhost:${process.env.PORT}/graphql`);
 });

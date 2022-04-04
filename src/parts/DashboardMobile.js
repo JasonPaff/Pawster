@@ -34,10 +34,10 @@ export default function Dashboard() {
 
   return (
     <div className="relative bg-background-darker">
-      <Menu right isOpen={menuOpenState} customBurgerIcon={<p className=" py-1 px-5">Menu</p>}>
+      <Menu right isOpen={menuOpenState} onClick={() => setMenuOpenState(false)} customBurgerIcon={<p className=" py-1 px-5">Menu</p>}>
         <div className="">
-          <ul className={cardInfo}>
-            <li className={infoItem} onClick={closeMenu}>
+          <ul className={cardInfo} >
+            <li className={infoItem} onClick={() => setMenuOpenState(false)}>
               <NavLink to="/profile/">Account Info</NavLink>
             </li>
             <li className={infoItem}>
