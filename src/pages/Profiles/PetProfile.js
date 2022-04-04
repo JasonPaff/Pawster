@@ -18,17 +18,17 @@ function PetProfile() {
   console.log(pet);
 
   return (
-    <div className="container flex flex-col lg:flex-row justify-center items-center mx-auto my-4 gap-4">
+    <div className="container flex flex-col lg:flex-row justify-center  mx-auto my-4 gap-4">
       <div className="flex-shrink-0 mx-auto lg:mx-0">
         <div className="card  p-10  inline-block ">
           <PetProfilePhoto className="" petId={params.petId} imgStyle={"w-64 h-64 rounded-lg border border-slate-300 object-cover"} />
         </div>
       </div>
-      <div className="card p-4 lg:p-10 max-w-2xl justify-center">
+      <div className="card p-4 lg:p-10 max-w-2xl justify-center mx-auto lg:mx-0">
         <h1 className="text-2xl font-medium">{pet.name}</h1>
         <hr className="my-4" />
         <div className="p-1 ">
-          <div className="grid grid-cols-2">
+          <div className="grid grid-cols-2 gap-x-3">
             <p>{pet.type}</p>
             <p>
               <span className="text-right text-sm text-gray-500">Breed: </span>
@@ -45,7 +45,7 @@ function PetProfile() {
 
           <hr className="my-4" />
 
-          <div className="grid grid-cols-2">
+          <div className="grid grid-cols-2 gap-x-3">
             {pet.canBeLeftAlone ? (
               <div className="flex text-slate-500">
                 <AiOutlineCheck size="1.3em" className="mr-1" />

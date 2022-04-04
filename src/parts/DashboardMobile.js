@@ -20,9 +20,7 @@ export default function Dashboard() {
 
   function closeMenu() {
     setMenuOpenState(false);
-  }
-  function handleStateChange(state) {
-    setMenuOpenState(state);
+    console.log(menuOpenState);
   }
 
   useEffect(() => {
