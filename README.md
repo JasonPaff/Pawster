@@ -4,7 +4,7 @@
 
     **The Problem:** 
     - You want to go on a trip or vacation, but don't want to kennel your pet, have someone (who could be untrustworthy)
-    that watch them, or don't want to leave them alone for an extended period of time.
+    watch them, or don't want to leave them alone for an extended period of time.
     You could leave them at your place all day while you tourist around town or you can only do tourist stuff that allows a pet.
     One solution is to bring your pet with you but then you have to deal with finding a pet friendly hotel.
  
