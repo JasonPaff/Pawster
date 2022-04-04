@@ -29,6 +29,7 @@ export default async function getPet(petId) {
                 type
                 vetDetails
                 weight
+                
             }
         }
     }`

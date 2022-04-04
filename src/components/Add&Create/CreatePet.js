@@ -1,14 +1,7 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import createPet from "../../services/pet/createPet";
-import addPetPhoto from "../../services/pet_photo/addPetPhoto";
 
-const mapStateToProps = (state) => {
-  return {
-    photo: state.petRed.photo,
-  };
-};
 
 function CreatePet(props) {
   const [pet, setPet] = useState({
@@ -46,13 +39,10 @@ function CreatePet(props) {
   };
 
   async function handleCreatePet() {
-    console.log(props.photo);
     const response = await createPet(pet);
-    const photoResponse = await addPetPhoto(props.photo);
 
-    console.log(photoResponse);
 
-    if (response.data.createPet.success && photoResponse.data.addPetPhoto.success) {
+    if (response.data.createPet.success) {
       navigate("/profile");
     } else {
       alert(response.data.createPet.message);
@@ -172,4 +162,4 @@ function CreatePet(props) {
   );
 }
 
-export default connect(mapStateToProps)(CreatePet);
+export default CreatePet;
