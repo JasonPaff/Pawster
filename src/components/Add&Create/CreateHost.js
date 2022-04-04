@@ -161,6 +161,7 @@ function CreateHost() {
             <input type="checkbox" name="doesDog" onChange={handleBooleanChange} />
             <label htmlFor=""> Dog</label>
           </div>
+
           <div className="flex gap-1 items-center">
             <p className="text-sm underline lg:text-center ">Size able to host: </p>
 
@@ -219,7 +220,13 @@ function CreateHost() {
             </label>
             <textarea type="text" placeholder="" name="cancellationPolicy" onChange={handleTextChange} />
           </div>
-          <button onClick={handleCreateHost}>Register</button>
+          <label htmlFor="" className="text-xs text-gray-500">
+            About Me
+          </label>
+          <textarea placeholder="About Me" rows="6" name="aboutMe" onChange={handleTextChange} />
+          <button className="bg-accent-green text-white w-44 block ml-auto mr-0" onClick={handleCreateHost}>
+            Register
+          </button>
         </div>
       ) : (
         <div className="flex flex-col px-10 py-4 gap-3">
@@ -242,48 +249,59 @@ function CreateHost() {
             </label>
             <input type="text" placeholder="" defaultValue={updateHosts.experience} name="experience" onChange={handleUpdateTextChange} />
           </div>
-          <div>
-            <label htmlFor=""> Can you host multiple pets? </label>
-            <input type="checkbox" className=" appearance-none checked:slate-300" defaultChecked={updateHosts.canHostMultiplePets} name="canHostMultiplePets" onChange={handleUpdateBooleanChange} />
-          </div>
-          <div>
-            Can you host unspayed females?
-            <input type="checkbox" defaultChecked={updateHosts.canHostUnspayedFemales} name="canHostUnspayedFemales" onChange={handleUpdateBooleanChange} />
-          </div>
-          <div>
-            Do you have children? <input type="checkbox" defaultChecked={updateHosts.hasChildren} name="hasChildren" onChange={handleUpdateBooleanChange} />
-          </div>
-          <div>
-            Do you have other pets? <input type="checkbox" defaultChecked={updateHosts.hasOtherPets} name="hasOtherPets" onChange={handleUpdateBooleanChange} />
-          </div>
-          <div>
-            Are you home full-time? <input type="checkbox" defaultChecked={updateHosts.isHomeFullTime} name="isHomeFullTime" onChange={handleUpdateBooleanChange} />
-          </div>
-          <div>
-            Are you a smoker? <input type="checkbox" defaultChecked={updateHosts.isSmoking} name="isSmoking" onChange={handleUpdateBooleanChange} />
-          </div>
-          <div>
-            <p className="font-medium underline">Type can Host</p>
+          <div className="lg:grid grid-cols-2 mt-4">
             <div>
-              Cat <input type="checkbox" defaultChecked={updateHosts.doesCat} name="doesCat" onChange={handleUpdateBooleanChange} />
+              <input type="checkbox" className=" appearance-none checked:slate-300" defaultChecked={updateHosts.canHostMultiplePets} name="canHostMultiplePets" onChange={handleUpdateBooleanChange} />
+              <label htmlFor=""> Can you host multiple pets? </label>
             </div>
             <div>
-              Dog <input type="checkbox" defaultChecked={updateHosts.doesDog} name="doesDog" onChange={handleUpdateBooleanChange} />
+              <input type="checkbox" defaultChecked={updateHosts.canHostUnspayedFemales} name="canHostUnspayedFemales" onChange={handleUpdateBooleanChange} />
+              <label htmlFor=""> Can you host unspayed females?</label>
+            </div>
+            <div>
+              <input type="checkbox" defaultChecked={updateHosts.hasChildren} name="hasChildren" onChange={handleUpdateBooleanChange} />
+              <label htmlFor=""> Do you have children?</label>
+            </div>
+            <div>
+              <input type="checkbox" defaultChecked={updateHosts.hasOtherPets} name="hasOtherPets" onChange={handleUpdateBooleanChange} />
+              <label htmlFor=""> Do you have other pets?</label>
+            </div>
+            <div>
+              <input type="checkbox" defaultChecked={updateHosts.isHomeFullTime} name="isHomeFullTime" onChange={handleUpdateBooleanChange} />
+              <label htmlFor=""> Are you home full-time?</label>
+            </div>
+            <div>
+              <input type="checkbox" defaultChecked={updateHosts.isSmoking} name="isSmoking" onChange={handleUpdateBooleanChange} />
+              <label htmlFor=""> Are you a smoker?</label>
             </div>
           </div>
-          <div>
-            <p className="font-medium underline">Size pet that you are able to host :</p>
+
+          <hr className="my-4" />
+          <div className=" flex gap-1 items-center">
+            <p className="text-sm  underline">Type can Host: </p>
             <div>
-              Small <input type="checkbox" defaultChecked={updateHosts.canHostSmallPet} name="canHostSmallPet" onChange={handleUpdateBooleanChange} />
+              <input type="checkbox" defaultChecked={updateHosts.doesCat} name="doesCat" onChange={handleUpdateBooleanChange} />
+              <label htmlFor=""> Cat</label>
             </div>
             <div>
-              Medium <input type="checkbox" defaultChecked={updateHosts.canHostMediumPet} name="canHostMediumPet" onChange={handleUpdateBooleanChange} />
+              <input type="checkbox" defaultChecked={updateHosts.doesDog} name="doesDog" onChange={handleUpdateBooleanChange} />
+              <label htmlFor=""> Dog</label>
+            </div>
+          </div>
+
+          <div className=" flex gap-1 items-center">
+            <p className="text-sm  underline">Size able to host :</p>
+            <div>
+              <label htmlFor=""> Small </label> <input type="checkbox" defaultChecked={updateHosts.canHostSmallPet} name="canHostSmallPet" onChange={handleUpdateBooleanChange} />
             </div>
             <div>
-              Large <input type="checkbox" defaultChecked={updateHosts.canHostLargePet} name="canHostLargePet" onChange={handleUpdateBooleanChange} />
+              <label htmlFor=""> Medium </label> <input type="checkbox" defaultChecked={updateHosts.canHostMediumPet} name="canHostMediumPet" onChange={handleUpdateBooleanChange} />
             </div>
             <div>
-              Giant <input type="checkbox" defaultChecked={updateHosts.canHostGiantPet} name="canHostGiantPet" onChange={handleUpdateBooleanChange} />
+              <label htmlFor=""> Large </label> <input type="checkbox" defaultChecked={updateHosts.canHostLargePet} name="canHostLargePet" onChange={handleUpdateBooleanChange} />
+            </div>
+            <div>
+              <label htmlFor=""> Giant </label> <input type="checkbox" defaultChecked={updateHosts.canHostGiantPet} name="canHostGiantPet" onChange={handleUpdateBooleanChange} />
             </div>
           </div>
           <div>
@@ -328,11 +346,10 @@ function CreateHost() {
             </label>
             <textarea type="text" placeholder="" defaultValue={updateHosts.cancellationPolicy} name="cancellationPolicy" onChange={handleUpdateTextChange} />
           </div>
-          <div>
-            About Me
-            <textarea placeholder="About Me" rows="6" name="aboutMe" onChange={handleTextChange} />
-          </div>
-          <button onClick={handleUpdateHost}>Update</button>
+          <div></div>
+          <button className="bg-accent-green text-white w-44 block ml-auto mr-0" onClick={handleUpdateHost}>
+            Update
+          </button>
         </div>
       )}
     </div>
