@@ -16,7 +16,12 @@ function BookDaycare(props) {
 
   useEffect(() => {
     getHostById(props.hostId).then((result) => setHost(result.data.getHostById.host));
-    getDaycareById(props.hostId).then((result) => setDaycare(result.data.getDaycareById.daycare));
+    getDaycareById(props.hostId).then((result) => {
+      if(result.data.getDaycareById.daycare !== null) {
+
+        setDaycare(result.data.getDaycareById.daycare)
+      }
+    });
     getUserById(userId).then((result) => setUser(result.data.getUserById.user));
   }, []);
 
