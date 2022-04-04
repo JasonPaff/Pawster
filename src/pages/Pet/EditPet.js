@@ -30,6 +30,7 @@ function EditPet(props) {
     getPetProfilePhoto(params.petId).then((result) => {
       setPhoto(result.data.getPetProfilePhoto.photo);
     });
+  
   }, [params.petId]);
 
   const handleTextChange = (e) => {
