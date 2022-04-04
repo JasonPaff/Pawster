@@ -21,7 +21,7 @@ function PetProfile() {
     <div className="container flex justify-center mx-auto my-4 gap-4">
       <div className="flex-shrink-0 ">
         <div className="card  p-10  inline-block">
-          <PetProfilePhoto className="" petId={params.petId} imgStyle={"w-64 h-64 rounded-lg border border-slate-300"} />
+          <PetProfilePhoto className="" petId={params.petId} imgStyle={"w-64 h-64 rounded-lg border border-slate-300 object-cover"} />
         </div>
       </div>
       <div className="card p-10 max-w-2xl">
@@ -112,7 +112,10 @@ function PetProfile() {
             <p> {pet.vetDetails}</p>
           </div>
           <h2 className="text-lg font-medium mt-6 ">About me</h2>
-          <p>{pet.description} Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore neque quas dolores aliquid unde. Eos deserunt voluptatem dignissimos veniam esse.</p>
+          <p>
+            {pet.description} Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore neque quas dolores aliquid unde. Eos deserunt voluptatem dignissimos veniam esse. Hard coded text
+            PetProfile.js.
+          </p>
         </div>
       </div>
     </div>

@@ -2,7 +2,7 @@
 export default function hostsFilter(
     hosts, doesBoarding, doesHouseSitting, doesDropInVisits, doesDayCare, doesDogWalking,
     canHostMultiplePets, canHostUnspayedFemales, hasChildren, hasOtherPets, isHomeFullTime,
-    isSmoking, canHostSmallPet, canHostMediumPet, canHostLargePet, canHostGiantPet
+    isSmoking, canHostSmallPet, canHostMediumPet, canHostLargePet, canHostGiantPet, doesCat, doesDog
     ) {
         
     if (doesBoarding !== false) {
@@ -92,6 +92,18 @@ export default function hostsFilter(
     if (canHostGiantPet !== false) {
         hosts = hosts.filter((host) => {
             return host.canHostGiantPet === true
+        })
+    }
+
+    if (doesCat !== false) {
+        hosts = hosts.filter((host) => {
+            return host.doesCat === true
+        })
+    }
+
+    if (doesDog !== false) {
+        hosts = hosts.filter((host) => {
+            return host.doesDog === true
         })
     }
 

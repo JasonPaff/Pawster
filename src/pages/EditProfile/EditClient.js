@@ -6,6 +6,7 @@ import addUserPhoto from "../../services/user_photo/addUserPhoto";
 import ClientProfilePic from "../../components/ClientProfile/ClientProfilePic";
 import getUserProfilePhotoById from "../../services/user_photo/getUserProfilePhotoById";
 import deleteUserPhoto from "../../services/user_photo/deleteUserPhoto";
+import { useNavigate } from "react-router-dom";
 
 const mapStateToProps = (state) => {
   return {
@@ -24,8 +25,7 @@ function EditClient(props) {
     });
   }, []);
 
-  console.log(photo);
-
+  const navigate = useNavigate()
   async function submit(dataString, type) {
     const sendPhoto = {
       photo: dataString,
@@ -52,18 +52,17 @@ function EditClient(props) {
 
   return (
     <div className="flex flex-col  px-10 justify-center ">
-      <h3 className="text-center pb-4 text-accent-green ">Update Photo :</h3>
+      <h3 className="text-center pb-4 text-accent-green ">Update Profile Photo</h3>
       <div className="flex flex-col gap-2 w-3/5 min-w-[520px] mx-auto">
-        <div className="flex gap-4 justify-around">
-          <div className="edit-profile-img">
-            <ClientProfilePic />
-          </div>
+        <div className="flex gap-4 justify-around items-center">
+          <ClientProfilePic styleImg={"w-36 h-36 object-cover border border-slate-300 rounded-lg"} />
+
           <div className="w-full">
             <AddUserPhoto />
           </div>
         </div>
-        <button className="self-end w-40 bg-accent-green text-white" onClick={() => uploadUserPhoto(props.photo)}>
-          Add Photo
+        <button className="self-end w-44 bg-accent-green text-white" onClick={() => uploadUserPhoto(props.photo)}>
+          Set Profile Photo
         </button>
       </div>
       <hr className="my-10 border-slate-300" />

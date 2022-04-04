@@ -44,7 +44,7 @@ function CreateSitting() {
 
     console.log(response)
     if (response.data.createSitting.success) {
-        navigate('/profile')
+      window.location.reload()
     } else {
         alert(response.data.createSitting.message);
     }

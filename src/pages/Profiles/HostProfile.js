@@ -34,131 +34,137 @@ function HostProfile() {
   }
 
   return (
-    <div className=" container mx-auto grid grid-rows-2 grid-flow-col gap-4 p-10 h-full">
-      <div className={`row-span-1 h-20`}>
-        <HostProfilePic hostId={params.userId} />
-        <div className="card row-span-1 flex-row mt-5">
-          <div className="text-2xl font-medium mb-2">Services</div>
-          <DisplayServices hostId={params.userId} />
+    <div className="flex flex-col  md:flex-row container mx-auto  gap-4 py-4 px-2 lg:px-10 h-full xl:px-20 ">
+      <div className="flex flex-wrap md:flex-col md:w-64 md:shrink-0 gap-2 ">
+        <div className="card flex items-center min-h-[256px]">
+          <HostProfilePic hostId={params.userId} imgStyle={"object-cover border border-slate-300 rounded-lg mx-auto"} />
         </div>
+
+        <div className="card w-full">
+          <div>
+            <div className="  text-center text-lg font-medium underline mb-3">Services:</div>
+            <DisplayServices hostId={params.userId} />
+          </div>
+          <NavLink to={`/book-host/${params.userId}`}>
+            <button className=" w-full mt-6 mb-6 bg-accent-green text-white ">Book a Service</button>
+          </NavLink>
+        </div>
+      </div>
+
+      <div className="card p-6  xl:px-10 w-full">
+        <div className=" text-2xl font-medium">
+          {user.firstName} {user.lastName}
+        </div>
+
+        <div className=" xl:flex xl:gap-8 p-6 my-5 border rounded-lg ">
+          <div className=" flex-shrink-0 xl:w-[28%]  ">
+            {host.doesCat ? (
+              <div className="flex  mr-5">
+                <AiOutlineCheck size="1.3em" className="mr-1 text-slate-500" />
+                <span> Can Host Cats</span>
+              </div>
+            ) : null}
+            {host.doesDog ? (
+              <div className="flex mr-5">
+                <AiOutlineCheck size="1.3em" className="mr-1  text-slate-500" />
+                <span> Can Host Dogs</span>
+              </div>
+            ) : null}
+            {!host.isSmoking ? (
+              <div className="flex mr-5">
+                <AiOutlineCheck size="1.3em" className="mr-1  text-slate-500" />
+                <span> Non-Smoking Household</span>
+              </div>
+            ) : null}
+            {!host.hasChildren ? (
+              <div className="flex mr-5">
+                <AiOutlineCheck size="1.3em" className="mr-1  text-slate-500" />
+                <span> No Children Present</span>
+              </div>
+            ) : null}
+            {host.isHomeFullTime ? (
+              <div className="flex mr-5">
+                <AiOutlineCheck size="1.3em" className="mr-1  text-slate-500" />
+                <span> Home Full Time</span>
+              </div>
+            ) : null}
+            {host.canHostGiantPet ? (
+              <div className="flex mr-5">
+                <AiOutlineCheck size="1.3em" className="mr-1  text-slate-500" />
+                <span> Giant Pets</span>
+              </div>
+            ) : null}
+            {host.canHostLargePet ? (
+              <div className="flex mr-5">
+                <AiOutlineCheck size="1.3em" className="mr-1  text-slate-500" />
+                <span> Large Pets</span>
+              </div>
+            ) : null}
+            {host.canHostMediumPet ? (
+              <div className="flex mr-5">
+                <AiOutlineCheck size="1.3em" className="mr-1  text-slate-500" />
+                <span> Medium Pets</span>
+              </div>
+            ) : null}
+            {host.canHostSmallPet ? (
+              <div className="flex mr-5">
+                <AiOutlineCheck size="1.3em" className="mr-1  text-slate-500" />
+                <span> Small Pets</span>
+              </div>
+            ) : null}
+            {host.canHostMultiplePets ? (
+              <div className="flex mr-5">
+                <AiOutlineCheck size="1.3em" className="mr-1  text-slate-500" />
+                <span> Multiple Pets</span>
+              </div>
+            ) : null}
+            {host.canHostUnspayedFemales ? (
+              <div className="flex mr-5">
+                <AiOutlineCheck size="1.3em" className="mr-1 text-slate-500" />
+                <span> Can Host Unspayed Females</span>
+              </div>
+            ) : null}
+          </div>
+          <div>
+            <ul className="flex flex-col gap-1 min-w-fit">
+              <li className="flex gap-2 items-center w-fit">
+                <label className="text-sm text-gray-500">Type of Home: </label>
+                <span className="">{host.typeOfHome}</span>
+              </li>
+              <li className="flex gap-2 items-center w-fit">
+                <label className="text-sm text-gray-500">Yard: </label>
+                <span className="">{host.typeOfYard}</span>
+              </li>
+              <li className="flex gap-2 items-center w-fit">
+                <label className="text-sm text-gray-500">Days Available:</label>
+                <span className="p">{host.daysAvailable}</span>
+              </li>
+            </ul>
+            <div className="my-5">
+              <p className="text-sm text-gray-500">About Me:</p>
+              <p className="">{host.aboutMe}</p>
+            </div>
+          </div>
+        </div>
+
         {isNotLoggedInUser && (
-          <div className="card row-span-1 mt-2">
-            <span>
-              Contact {user.firstName} {user.lastName}
-            </span>
+          <div className="card">
+            <span>Send a Message:</span>
             <SendMessage hostId={params.userId} />
           </div>
         )}
-      </div>
 
-      <div className="card row-start-1 row-end-6 col-span-5 p-10">
-        <div className="text-4xl font-medium">
-          {user.firstName} {user.lastName}
-        </div>
         <div className="mt-10">
-          <NavLink to={`/book-host/${params.userId}`}>
-            <button className="rounded-full w-44">Book a Service</button>
-          </NavLink>
-        </div>
-
-        <div className="mt-10 p-5">
-          <p className="font-medium text-2xl">About Me</p>
-          <div className="p-2">{host.aboutMe}</div>
-        </div>
-
-        <div className="mt-10 underline font-medium">About the Host's Home</div>
-        <div className="flex flex-wrap mt-2 justify-evenly w-4/5">
-          {host.doesCat ? (
-            <div className="flex justify-center text-slate-500 mr-5">
-              <AiOutlineCheck size="1.3em" className="mr-1" />
-              Can Host Cats
-            </div>
-          ) : null}
-          {host.doesDog ? (
-            <div className="flex justify-center text-slate-500 mr-5">
-              <AiOutlineCheck size="1.3em" className="mr-1" />
-              Can Host Dogs
-            </div>
-          ) : null}
-          {!host.isSmoking ? (
-            <div className="flex justify-center text-slate-500 mr-5">
-              <AiOutlineCheck size="1.3em" className="mr-1" />
-              Non-Smoking Household
-            </div>
-          ) : null}
-          {!host.hasChildren ? (
-            <div className="flex justify-center text-slate-500 mr-5">
-              <AiOutlineCheck size="1.3em" className="mr-1" />
-              No Children Present
-            </div>
-          ) : null}
-          {host.isHomeFullTime ? (
-            <div className="flex justify-center text-slate-500 mr-5">
-              <AiOutlineCheck size="1.3em" className="mr-1" />
-              Home Full Time
-            </div>
-          ) : null}
-          {host.canHostGiantPet ? (
-            <div className="flex justify-center text-slate-500 mr-5">
-              <AiOutlineCheck size="1.3em" className="mr-1" />
-              Giant Pets
-            </div>
-          ) : null}
-          {host.canHostLargePet ? (
-            <div className="flex justify-center text-slate-500 mr-5">
-              <AiOutlineCheck size="1.3em" className="mr-1" />
-              Large Pets
-            </div>
-          ) : null}
-          {host.canHostMediumPet ? (
-            <div className="flex justify-center text-slate-500 mr-5">
-              <AiOutlineCheck size="1.3em" className="mr-1" />
-              Medium Pets
-            </div>
-          ) : null}
-          {host.canHostSmallPet ? (
-            <div className="flex justify-center text-slate-500 mr-5">
-              <AiOutlineCheck size="1.3em" className="mr-1" />
-              Small Pets
-            </div>
-          ) : null}
-          {host.canHostMultiplePets ? (
-            <div className="flex justify-center text-slate-500 mr-5">
-              <AiOutlineCheck size="1.3em" className="mr-1" />
-              Multiple Pets
-            </div>
-          ) : null}
-          {host.canHostUnspayedFemales ? (
-            <div className="flex justify-center text-slate-500 mr-5">
-              <AiOutlineCheck size="1.3em" className="mr-1" />
-              Can Host Unspayed Females
-            </div>
-          ) : null}
-        </div>
-
-        <div className="p-5 mt-10">
-          <p className="font-medium text-lg">Type of Home</p>
-          <div className="p-2">{host.typeOfHome}</div>
-        </div>
-
-        <div className="p-5">
-          <p className="font-medium text-lg">Type of Yard</p>
-          <div className="p-2">{host.typeOfYard}</div>
-        </div>
-
-        <div className="p-5">
-          <p className="font-medium text-lg">Days Available</p>
-          <div className="p-2">{host.daysAvailable}</div>
-        </div>
-
-        <div className="p-5">
-          <p className="font-medium text-lg">Cancellation Policy</p>
-          <div className="p-2">{host.cancellationPolicy}</div>
-        </div>
-
-        <div className="mt-1">
-          {user.firstName}'s Pets
+          {user.firstName}'s Pets:
           <DisplayHostPets userId={params.userId} />
+        </div>
+
+        <div className="pt-10 px-5">
+          <p className="font-medium text-lg">Cancellation Policy:</p>
+          <div className="p-2">
+            {host.cancellationPolicy} Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cumque quibusdam molestias suscipit corrupti illum quam aspernatur harum incidunt facere earum, enim,
+            esse ad! Possimus eius perferendis necessitatibus sit maiores? Perferendis, error necessitatibus Hardcoded in HostProfile.js.
+          </div>
         </div>
       </div>
     </div>

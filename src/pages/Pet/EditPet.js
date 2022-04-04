@@ -5,6 +5,9 @@ import getPet from "../../services/pet/getPet";
 import updatePet from "../../services/pet/updatePet";
 import addPetPhoto from "../../services/pet_photo/addPetPhoto";
 import AddPetPhoto from "../../components/Add&Create/AddPetPhoto";
+import getPetProfilePhoto from "../../services/pet_photo/getPetProfilePhoto";
+import PetProfilePhoto from "../../components/ClientProfile/PetProfilePhoto";
+import deletePetPhoto from "../../services/pet_photo/deletePetPhoto";
 
 const mapStateToProps = (state) => {
   return {
@@ -13,6 +16,8 @@ const mapStateToProps = (state) => {
 };
 
 function EditPet(props) {
+  const [photo, setPhoto] = useState({});
+  const [selected, setSelected] = useState("Dog");
   const [pet, setPet] = useState({});
 
   const navigate = useNavigate();
@@ -22,7 +27,11 @@ function EditPet(props) {
     getPet(params.petId).then((result) => {
       setPet(result.data.getPet.pet);
     });
-  }, []);
+    getPetProfilePhoto(params.petId).then((result) => {
+      setPhoto(result.data.getPetProfilePhoto.photo);
+    });
+  
+  }, [params.petId]);
 
   const handleTextChange = (e) => {
     setPet({
@@ -46,8 +55,14 @@ function EditPet(props) {
     });
   };
 
+  const handleDropDown = (e) => {
+    setPet({
+      ...pet,
+    });
+  };
+
   async function handleUpdatePet() {
-    const response = await updatePet(pet);
+    const response = await updatePet(params.petId, pet);
 
     if (response.data.updatePet.success) {
       navigate("/profile");
@@ -79,6 +94,8 @@ function EditPet(props) {
       submit(reader.result.replace("data:", "").replace(/^.+,/, ""), getPhoto[0].type);
     };
     reader.readAsDataURL(getPhoto[0]);
+    deletePetPhoto(photo.id);
+    window.location.reload();
   }
 
   // TODO: If have time use Cat/Dog API to autocomplete searches for breeds
@@ -86,11 +103,16 @@ function EditPet(props) {
   return (
     <div className="flex-col justify-center">
       <div className="sm:mx-10">
-        <div className=" text-accent-green font-medium text-center my-3">Add Pet Photo</div>
-        <AddPetPhoto />
-        <button className=" block ml-auto mr-0 text-white bg-accent-green my-2" onClick={() => uploadPetPhoto(props.photo)}>
-          Add Photo
-        </button>
+        <h3 className=" text-accent-green font-medium text-center my-3">Pet Profile Photo</h3>
+        <div className="flex justify-center gap-6">
+          <PetProfilePhoto imgStyle={" bg-background-light border h-36 w-36 rounded-lg border border-slate-300 object-cover"} petId={params.petId} />
+          <div>
+            <AddPetPhoto />
+            <button className=" block ml-auto mr-0 text-white bg-accent-green my-2" onClick={() => uploadPetPhoto(props.photo)}>
+              Add Photo
+            </button>
+          </div>
+        </div>
       </div>
       {/*  */}
       <hr className="my-4" />
@@ -104,9 +126,9 @@ function EditPet(props) {
           </label>
           <label className={labelClass} htmlFor="">
             Cat or Dog:
-            <select type="text" defaultValue={pet.type} name="type" placeholder="" onChange={handleTextChange}>
-              <option value="dog">Dog</option>
-              <option value="cat">Cat</option>
+            <select type="text" defaultValue={selected} name="type" placeholder="" onChange={(e) => setPet({ ...pet, type: e.target.value })}>
+              <option value="Dog">Dog</option>
+              <option value="Cat">Cat</option>
             </select>
           </label>
 
@@ -198,7 +220,9 @@ function EditPet(props) {
           Tell us about your pet!
           <textarea defaultValue={pet.description} placeholder="" name="description" onChange={handleTextChange} />
         </label>
-        <button onClick={handleUpdatePet}>Save</button>
+        <button className="block ml-auto mr-0 bg-accent-green text-white w-44 my-4" onClick={handleUpdatePet}>
+          Save
+        </button>
       </div>
     </div>
   );

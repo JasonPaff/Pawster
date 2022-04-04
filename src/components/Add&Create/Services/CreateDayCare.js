@@ -45,7 +45,7 @@ function CreateDayCare() {
     const response = await createDaycare(daycare);
     console.log(response)
     if (response.data.createDaycare.success) {
-        navigate('/profile')
+      window.location.reload()
     } else {
         alert(response.data.createDaycare.message);
     }

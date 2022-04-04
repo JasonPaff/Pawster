@@ -1,14 +1,7 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import createPet from "../../services/pet/createPet";
-import addPetPhoto from "../../services/pet_photo/addPetPhoto";
 
-const mapStateToProps = (state) => {
-  return {
-    photo: state.petRed.photo,
-  };
-};
 
 function CreatePet(props) {
   const [pet, setPet] = useState({
@@ -24,6 +17,7 @@ function CreatePet(props) {
   const navigate = useNavigate();
 
   const handleTextChange = (e) => {
+    console.log(e.target.value);
     setPet({
       ...pet,
       [e.target.name]: e.target.value,
@@ -46,13 +40,10 @@ function CreatePet(props) {
   };
 
   async function handleCreatePet() {
-    console.log(props.photo);
     const response = await createPet(pet);
-    const photoResponse = await addPetPhoto(props.photo);
 
-    console.log(photoResponse);
 
-    if (response.data.createPet.success && photoResponse.data.addPetPhoto.success) {
+    if (response.data.createPet.success) {
       navigate("/profile");
     } else {
       alert(response.data.createPet.message);
@@ -63,7 +54,7 @@ function CreatePet(props) {
 
   // TODO: If have time use Cat/Dog API to autocomplete searches for breeds
   return (
-    <div className="flex-col justify-center lg:px-10">
+    <div className="flex-col justify-center ">
       <div className=" grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2">
         <label className={labelClass} htmlFor="">
           Pet's Name:
@@ -72,6 +63,9 @@ function CreatePet(props) {
         <label className={labelClass} htmlFor="">
           Cat or Dog ?
           <select name="type" onChange={handleTextChange}>
+            <option value="" disabled selected>
+              choose
+            </option>
             <option value="dog">Dog</option>
             <option value="cat">Cat</option>
           </select>
@@ -172,4 +166,4 @@ function CreatePet(props) {
   );
 }
 
-export default connect(mapStateToProps)(CreatePet);
+export default CreatePet;
