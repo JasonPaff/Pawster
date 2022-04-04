@@ -28,10 +28,10 @@ function DisplayHostPets(props) {
                 {pet.ageYear && pet.ageYear + " yrs"} {pet.ageMonth && pet.ageMonth + "m"}
               </p>
               <p className="">
-                <span className="text-gray-500">breed:</span> {pet.breed}
+                <span className="text-gray-500">Breed:</span> {pet.breed}
               </p>
               <p>
-                <span className="text-gray-500">energy:</span> {pet.energyLevel}
+                <span className="text-gray-500">Energy Level:</span> {pet.energyLevel}
               </p>
             </div>
           </div>
