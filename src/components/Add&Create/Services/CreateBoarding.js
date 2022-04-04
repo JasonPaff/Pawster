@@ -54,6 +54,7 @@ function CreateBoarding() {
     console.log(response)
     if (response.data.updateHost.success) {
         console.log("Host Updated")
+        window.location.reload()
     } else {
         alert(response.data.updateHost.message);
     }

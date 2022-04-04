@@ -57,7 +57,7 @@ function ServiceDropdown(props) {
       <Listbox as="div" value={selectedService} onChange={handleChange}>
         {({ open }) => (
           <>
-            <Listbox.Label className="text-sm font-medium text-gray-700">
+            <Listbox.Label className="text-md font-medium text-gray-700">
               Services
             </Listbox.Label>
             <div className="relative">

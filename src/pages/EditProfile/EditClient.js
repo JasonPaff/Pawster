@@ -6,6 +6,7 @@ import addUserPhoto from "../../services/user_photo/addUserPhoto";
 import ClientProfilePic from "../../components/ClientProfile/ClientProfilePic";
 import getUserProfilePhotoById from "../../services/user_photo/getUserProfilePhotoById";
 import deleteUserPhoto from "../../services/user_photo/deleteUserPhoto";
+import { useNavigate } from "react-router-dom";
 
 const mapStateToProps = (state) => {
   return {
@@ -24,8 +25,7 @@ function EditClient(props) {
     });
   }, []);
 
-  console.log(photo);
-
+  const navigate = useNavigate()
   async function submit(dataString, type) {
     const sendPhoto = {
       photo: dataString,

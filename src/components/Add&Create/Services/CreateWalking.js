@@ -54,7 +54,7 @@ function CreateWalking() {
   async function handleCreateWalking() {
     const response = await createWalking(walking);
     if (response.data.createWalking.success) {
-        navigate('/profile')
+      window.location.reload()
     } else {
         alert(response.data.createWalking.message);
     }

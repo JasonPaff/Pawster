@@ -10,7 +10,9 @@ export default function AccountInfo(props) {
 
   useEffect(() => {
     getAddress().then((result) => {
-      setAddCheck(result.data.getAddress.address);
+      if(result.data.getAddress.address) {
+        setAddCheck(result.data.getAddress.address);
+      }
     });
   }, []);
   const userId = localStorage.getItem("id");
