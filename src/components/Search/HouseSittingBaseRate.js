@@ -6,8 +6,19 @@ function HouseSittingBaseRate(props) {
 
     const [sitting, setSitting] = useState({})
 
+    const [loading, setLoading] = useState(true)
+
     useEffect(() => {
-        getSittingById(props.hostId).then((result) => setSitting(result.data.getSittingById.sitting))
+        let mounted = true
+        getSittingById(props.hostId).then((result) => {
+            if (mounted) {
+                setLoading(false)
+                setSitting(result.data.getSittingById.sitting)
+            }
+        })
+        return function cleanup() {
+            mounted = false
+          }
     }, [])
 
     return (
