@@ -53,7 +53,7 @@ function EditClient(props) {
   return (
     <div className="flex flex-col px-3  lg:px-10 justify-center ">
       <h3 className="text-center pb-4 text-accent-green ">Update Profile Photo</h3>
-      <div className="flex flex-col gap-2 w-3/5 min-w-[380px] mx-auto">
+      <div className="flex flex-col gap-2 w-3/5 min-w-[320px] mx-auto">
         <div className="flex flex-col lg:flex-row gap-4 justify-around items-center">
           <ClientProfilePic styleImg={"w-36 h-36 object-cover border border-slate-300 rounded-lg"} />
 
