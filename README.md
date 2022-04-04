@@ -63,8 +63,8 @@
 
 
 
-## Featured programs: 
-HTML, CSS, Javascript, React, React-Redux, Node.js, Express, MySQL, MongoDB, GraphQL, MapBox, Stripe
+## Featured Technologies: 
+HTML, CSS, TailwindCSS, Javascript, React, React-Redux, Node.js, Express, Apollo, MongoDB, GraphQL, MapBox, Stripe
 ## External API:
 Google Maps API
 ## This site was built by
