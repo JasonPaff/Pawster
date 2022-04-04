@@ -113,8 +113,9 @@ function PetProfile() {
           </div>
           <h2 className="text-lg font-medium mt-6 ">About me</h2>
           <p>
-            {pet.description} Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore neque quas dolores aliquid unde. Eos deserunt voluptatem dignissimos veniam esse. Hard coded text
-            PetProfile.js.
+            {pet.description}
+            {pet.description === " " && (
+            <p>user has not added an about me for this pet yet</p>)}
           </p>
         </div>
       </div>
