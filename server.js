@@ -1,4 +1,4 @@
-const {graphql_schema} = require("./graphql/graphql_schema");
+const {graphql_schema} = require("./server/graphql/graphql_schema");
 const { ApolloServer } = require("apollo-server-express");
 const express = require("express");
 const logger = require("morgan");
@@ -82,5 +82,5 @@ startUp().catch(console.error);
 
 // start apollo http server (query, mutation)
 httpServer.listen({ port: process.env.PORT }, () => {
-  console.log(`Apollo Server on http://localhost:${process.env.PORT}/graphql`);
+  //console.log(`Apollo Server on http://localhost:${process.env.PORT}/graphql`);
 });
