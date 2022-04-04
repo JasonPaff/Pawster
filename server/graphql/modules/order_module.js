@@ -1,12 +1,11 @@
 ﻿const {createModule, gql} = require('graphql-modules');
+const {findUserOrders, findHostOrders, createOrder} = require("../../mongodb/operations/order_operations");
+const {ordersNotFoundError} = require("../api_responses/order/orders_error");
+const {ordersFoundSuccess, orderCreatedSuccess} = require("../api_responses/order/orders_success");
 const {authenticate, decodeToken} = require("../../utils/auth_utils");
 const {jwtError} = require("../api_responses/auth/auth_error");
-const {userIdNotFoundError} = require("../api_responses/user/user_error");
 const {findUserById} = require("../../mongodb/operations/user_operations");
-const {findHost} = require("../../mongodb/operations/host_operations");
-const {hostNotFoundError} = require("../api_responses/host/host_error");
-const {hostFoundSuccess} = require("../api_responses/host/host_success");
-const {findUserOrders} = require("../../mongodb/operations/order_operations");
+const {userIdNotFoundError} = require("../api_responses/user/user_error");
 
 module.exports.orderModule = createModule({
     id: 'order_module',
@@ -14,24 +13,24 @@ module.exports.orderModule = createModule({
     typeDefs: [
         gql`
             extend type Query {
-                findUserOrders(userId: ID!) : OrdersResponse
-                findHostOrders(userId: ID!) : OrdersResponse                
+                findUserOrders : OrdersResponse
+                findHostOrders : OrdersResponse                
             }
 
             extend type Mutation {
-                createOrder(userId: ID!, order: OrderInput) : OrderResponse
+                createOrder(order: OrderInput) : OrderResponse
             }
             
             type Order {
                 userId: ID
                 hostId: ID
+                id: ID
                 service: String
                 total: Float
-                data: Date
+                date: Date
             }
             
             input OrderInput {
-                id: ID
                 userId: ID
                 hostId: ID
                 service: String
@@ -42,7 +41,7 @@ module.exports.orderModule = createModule({
             type OrderResponse {
                 success: Boolean
                 message: String
-                orders: Order
+                order: Order
             }
             
             type OrdersResponse {
@@ -54,12 +53,45 @@ module.exports.orderModule = createModule({
     ],
     resolvers: {
         Query: {
-            getUserOrders: async (parent, {userId}, context) => {
+            findUserOrders: async (parent, {}, context) => {
+                const authenticated = await authenticate(context);
+                if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
+
                 const orders = await findUserOrders(userId);
+                if (!orders) return ordersNotFoundError(userId);
+
+                return ordersFoundSuccess(orders)
+            },
+            findHostOrders: async (parent, {}, context) => {
+                const authenticated = await authenticate(context);
+                if (!authenticated) return jwtError();
+
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
+
+                const orders = await findHostOrders(userId);
+                if (!orders) return ordersNotFoundError(userId);
+
+                return ordersFoundSuccess(orders)
             },
         },
         Mutation: {
+            createOrder: async (parent, {order}, context) => {
+                const authenticated = await authenticate(context);
+                if (!authenticated) return jwtError();
 
+                const userId = await decodeToken(context);
+                if (!userId) return jwtError();
+
+                const user = await findUserById(userId);
+                if (!user) return userIdNotFoundError(userId);
+
+                const newOrder = await createOrder(userId, order);
+                return orderCreatedSuccess(userId, newOrder);
+            }
         }
     }
 });
