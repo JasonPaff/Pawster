@@ -23,11 +23,7 @@ function HostProfilePic(props) {
     imageSrc = emptyImage;
   }
 
-  return (
-    <div className="flex justify-center">
-      <img className={props.imgStyle} src={imageSrc} />
-    </div>
-  );
+  return <img className={props.imgStyle} src={imageSrc} alt="" />;
 }
 
 export default HostProfilePic;

@@ -11,30 +11,32 @@ function DisplayHostPets(props) {
       setPets(result.data.getPetsById.pets);
     });
   }, []);
-  console.log("from pets");
-  console.log(pets);
+
   const petList = pets.map((pet) => {
     return (
-      <NavLink key={pet.id} to={`/profile/pet-profile/${pet.id}`} className="hover:text-inherit ">
-        <li className="flex gap-3  border border-slate-300  rounded-lg p-2 hover:shadow-md">
-          <div className="flex items-center  justify-center bg-background-light  ">
-            <PetProfilePhoto petId={pet.id} imgStyle={" h-24 w-24 object-cover border border-slate-300 rounded-md"} />
+      <>
+        {!pet.id && <p> Currently has no pets</p>}
+        <NavLink key={pet.id} to={`/profile/pet-profile/${pet.id}`} className="hover:text-inherit ">
+          <div className="flex gap-3  border border-slate-300  rounded-lg p-2 hover:shadow-md">
+            <div className="flex items-center  justify-center bg-background-light  ">
+              <PetProfilePhoto petId={pet.id} imgStyle={" h-24 w-24 object-cover border border-slate-300 rounded-md"} />
+            </div>
+            <div className="auto-cols-fr flex flex-col lg:grid lg:grid-cols-2 lg:gap-x-5 lg:grid-rows-3 lg:grid-flow-col">
+              <p className="font-medium underline col-span-2"> {pet.name}</p>
+              <p>{pet.type}</p>
+              <p>
+                {pet.ageYear && pet.ageYear + " yrs"} {pet.ageMonth && pet.ageMonth + "m"}
+              </p>
+              <p className="">
+                <span className="text-gray-500">breed:</span> {pet.breed}
+              </p>
+              <p>
+                <span className="text-gray-500">energy:</span> {pet.energyLevel}
+              </p>
+            </div>
           </div>
-          <div className="auto-cols-fr grid grid-cols-2 gap-x-5 grid-rows-3 grid-flow-col">
-            <p className="font-medium underline col-span-2"> {pet.name}</p>
-            <p>{pet.type}</p>
-            <p>
-              {pet.ageYear && pet.ageYear + " yrs"} {pet.ageMonth && pet.ageMonth + "m"}
-            </p>
-            <p className="">
-              <span className="text-gray-500">breed:</span> {pet.breed}
-            </p>
-            <p>
-              <span className="text-gray-500">energy:</span> {pet.energyLevel}
-            </p>
-          </div>
-        </li>
-      </NavLink>
+        </NavLink>
+      </>
     );
   });
 

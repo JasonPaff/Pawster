@@ -29,7 +29,8 @@ function EditPet(props) {
     getPetProfilePhoto(params.petId).then((result) => {
       setPhoto(result.data.getPetProfilePhoto.photo);
     });
-  }, []);
+    // window.location.reload();
+  }, [params.petId]);
 
   const handleTextChange = (e) => {
     setPet({

@@ -6,7 +6,7 @@ function AddPetPage() {
   return (
     <div className="flex-col justify-center lg:px-10">
       <h1 className="text-center text-accent-green">Add Pet</h1>
-      <AddPetPhoto />
+      {/* <AddPetPhoto /> */}
       <CreatePet />
     </div>
   );
