@@ -43,7 +43,7 @@ function BookHost(props) {
   props.onToggleService({ [selectedService.name]: true });
 
   return (
-    <div className="w-[1000px] mx-auto flex mt-4 justify-center p-14 card">
+    <div className="container lg:w-[1000px] mx-auto flex mt-4 justify-center p-2 lg:p-14 card">
       <div className="flex-col justify-center ">
         <h1 className="text-center text-xl font-medium ">Book Host</h1>
         <div>

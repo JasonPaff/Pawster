@@ -78,7 +78,6 @@ function EditPet(props) {
     };
     const response = await addPetPhoto(sendPhoto);
 
-    console.log(response);
     if (response.data.addPetPhoto.success) {
     } else {
       alert(response.data.addPetPhoto.message);
@@ -86,14 +85,12 @@ function EditPet(props) {
   }
 
   async function uploadPetPhoto(getPhoto) {
-    console.log(getPhoto);
-
     const reader = new FileReader();
     reader.onload = () => {
       submit(reader.result.replace("data:", "").replace(/^.+,/, ""), getPhoto[0].type);
     };
     reader.readAsDataURL(getPhoto[0]);
-    deletePetPhoto(photo.id);
+    await deletePetPhoto(photo.id);
     window.location.reload();
   }
 

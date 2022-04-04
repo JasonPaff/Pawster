@@ -92,17 +92,16 @@ module.exports.addressModule = createModule({
             createAddress: async (parent, {address}, context) => {
                 const authenticated = await authenticate(context);
                 if (!authenticated) return jwtError();
-                console.log("hello 1")
+
                 const userId = await decodeToken(context);
                 if (!userId) return jwtError();
-                console.log("hello 2")
-                console.log(userId)
+
                 const user = await findUserById(userId);
                 if (!user) return userIdNotFoundError(userId);
-                console.log("hello 3")
+
                 const hasAddress = await doesAddressExist(userId);
                 if (hasAddress) return existingAddressError(userId);
-                console.log("hello 4")
+
                 const newAddress = await createAddress(userId, address)
 
                 return addressCreatedSuccess(userId, newAddress);
